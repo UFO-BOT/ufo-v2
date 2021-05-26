@@ -1,0 +1,23 @@
+{
+  "name": "ufo-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "watch": "tsc -w"
+  },
+  "_moduleAliases": {
+    "@": "dist/src"
+  },
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^10.0.0",
+    "module-alias": "^2.2.2",
+    "mongodb": "^3.6.8"
+  },
+  "devDependencies": {
+    "@types/node": "^15.6.0"
+  },
+  "author": "Smoky",
+  "license": "ISC"
+}
