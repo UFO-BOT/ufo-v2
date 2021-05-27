@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient
 
-export default class Database extends MongoClient {
+export default class MongoDB extends MongoClient {
     private readonly url: string
 
     constructor(url: string = process.env.DB_URL) {
@@ -18,9 +18,12 @@ export default class Database extends MongoClient {
         })
     }
 
-    public find(collection: string, filter: object, many: boolean = false, db: string = process.env.DB_NAME): Promise<any> {
-        return many ? this.db(db).collection(collection).find(filter).toArray() :
-            this.db(db).collection(collection).findOne(filter)
+    public getOne<T>(collection: string, filter: object, db: string = process.env.DB_NAME): Promise<T> {
+        return this.db(db).collection(collection).findOne(filter)
+    }
+
+    public getMany<T>(collection: string, filter: object, many: boolean = false, db: string = process.env.DB_NAME): Promise<Array<T>> {
+        return this.db(db).collection(collection).find(filter).toArray();
     }
 
     public insert(collection: string, data: object | Array<object>, many: boolean = false, db: string = process.env.DB_NAME): Promise<any> {
@@ -28,14 +31,18 @@ export default class Database extends MongoClient {
             this.db(db).collection(collection).insertOne(data)
     }
 
+    public save(collection: string, data: any, db: string = process.env.DB_NAME): Promise<any> {
+        return this.db(db).collection(collection).updateOne({_id: data._id}, {$set: data})
+    }
+
     public update(collection: string, filter: object, data: object, many: boolean = false, db: string = process.env.DB_NAME): Promise<any> {
         return many ? this.db(db).collection(collection).updateMany(filter, {$set: data}) :
-            this.db.collection(collection).updateOne(filter, {$set: data})
+            this.db(db).collection(collection).updateOne(filter, {$set: data})
     }
 
     public delete(collection: string, filter: object, many: boolean = false, db: string = process.env.DB_NAME): Promise<any> {
         return many ? this.db(db).collection(collection).deleteMany(filter) :
-            this.db.collection(collection).deleteOne(filter)
+            this.db(db).collection(collection).deleteOne(filter)
     }
 
     public count(collection: string, filter: object = {}, db: string = process.env.DB_NAME): Promise<number> {

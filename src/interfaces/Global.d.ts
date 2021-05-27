@@ -2,14 +2,14 @@ import Discord from "discord.js";
 
 import Client from '@/structures/Client'
 import Manager from "@/structures/Manager";
-import Database from "@/structures/Database";
+import MongoDB from "@/structures/MongoDB";
 
 declare global {
     namespace NodeJS {
         interface Global {
             bot: Client
             manager: Manager
-            mongo: Database
+            mongo: MongoDB
             Discord: Discord
         }
 
