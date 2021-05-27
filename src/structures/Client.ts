@@ -3,6 +3,7 @@ import Discord from 'discord.js'
 import AbstractCommand from "@/abstractions/AbstractCommand";
 
 import ClientLoader from "@/util/ClientLoader";
+import MongoDB from "@/structures/MongoDB";
 
 export default class Client extends Discord.Client {
     public token: string
@@ -34,6 +35,11 @@ export default class Client extends Discord.Client {
 
     async start(): Promise<any> {
         this.load()
+
+        const mongo = new MongoDB()
+        await mongo.start()
+        console.log(`[CLIENT] [MONGO] MongoDB connected!`)
+
         await this.login(this.token)
     }
 }
