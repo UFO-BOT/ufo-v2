@@ -1,6 +1,4 @@
-import Discord from "discord.js";
-
 export default interface IGulag {
-    userid: Discord.Snowflake
+    userid: string
     reason: string
 }

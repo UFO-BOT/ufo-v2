@@ -1,7 +1,5 @@
-import Discord from "discord.js";
-
 export default interface IItem {
-    guildid: Discord.Snowflake
+    guildid: string
     name: string
     description: string | null
     addrole: string | null

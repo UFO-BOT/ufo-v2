@@ -1,8 +1,6 @@
-import Discord from "discord.js";
-
 export default interface IBalance {
-    guildid: Discord.Snowflake
-    userid: Discord.Snowflake
+    guildid: string
+    userid: string
     balance: number
     xp: number
     lastwork: number

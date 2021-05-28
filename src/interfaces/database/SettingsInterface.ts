@@ -1,10 +1,9 @@
+import IGuildLanguage from "@/interfaces/GuildLanguage";
+
 export default interface ISettings {
     guildid: string
     prefix: string
-    language: {
-        commands: 'ru' | 'en'
-        interface: 'ru' | 'en'
-    }
+    language: IGuildLanguage
     salary: {
         low: number
         high: number

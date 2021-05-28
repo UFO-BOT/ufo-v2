@@ -1,7 +1,5 @@
-import Discord from "discord.js";
-
 export default interface IBill {
-    userid: Discord.Snowflake
+    userid: string
     billId: string
     payUrl: string
     type: 'standard' | 'premium'

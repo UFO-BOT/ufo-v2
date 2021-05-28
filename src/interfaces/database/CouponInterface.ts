@@ -1,11 +1,9 @@
-import Discord from "discord.js";
-
 export default interface ICoupon {
-    guildid: Discord.Snowflake
+    guildid: string
     name: string
     amount: number
     usages: number
-    usedBy: Array<Discord.Snowflake>
+    usedBy: Array<string>
     created: number
     duration: number
 }

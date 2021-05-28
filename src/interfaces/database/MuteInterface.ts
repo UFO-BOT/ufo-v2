@@ -1,9 +1,7 @@
-import Discord from "discord.js";
-
 export default interface IMute {
-    guildid: Discord.Snowflake
-    userid: Discord.Snowflake
-    muterole: Discord.Snowflake
+    guildid: string
+    userid: string
+    muterole: string
     casenum: number
     infinity: boolean
     started: number
