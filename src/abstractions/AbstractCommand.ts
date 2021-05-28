@@ -2,6 +2,7 @@ import Discord from "discord.js";
 
 import ICommand from "@/interfaces/CommandInterface";
 import ICommandInfo from "@/interfaces/CommandInfo";
+import ICommandMessage from "@/interfaces/CommandMessage";
 
 export default abstract class AbstractCommand implements ICommand {
     public abstract ru: ICommandInfo
@@ -11,5 +12,5 @@ export default abstract class AbstractCommand implements ICommand {
     public memberPermissions?: Discord.PermissionResolvable
     public botPermissions?: Discord.PermissionResolvable
 
-    public abstract execute(message: Discord.Message): Promise<any>
+    public abstract execute(cmd: ICommandMessage): Promise<any>
 }

@@ -2,6 +2,7 @@ import Discord from "discord.js";
 
 import AbstractCommand from "@/abstractions/AbstractCommand";
 import ICommand from "@/interfaces/CommandInterface";
+import ICommandMessage from "@/interfaces/CommandMessage";
 
 export default class HelpCommand extends AbstractCommand implements ICommand {
     public static isCommand = true
@@ -21,7 +22,15 @@ export default class HelpCommand extends AbstractCommand implements ICommand {
         usage: 'help [command | category]'
     }
 
-    public async execute(message: Discord.Message): Promise<void> {
-        await message.reply('поздравляю с созданием первой команды ;)')
+    public async execute(cmd: ICommandMessage): Promise<void> {
+        let embed = new Discord.MessageEmbed()
+            .setColor('RANDOM')
+            .setDescription(`
+                Префикс: ${cmd.prefix}
+                Аргументы: ${cmd.args}
+                Язык: команд: ${cmd.language.commands} интерфейса: ${cmd.language.interface}
+                Символ денег: ${cmd.moneysymb}
+            `)
+        cmd.message.channel.send(embed)
     }
 }

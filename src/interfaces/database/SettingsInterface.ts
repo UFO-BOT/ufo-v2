@@ -4,6 +4,7 @@ export default interface ISettings {
     guildid: string
     prefix: string
     language: IGuildLanguage
+    moneysymb: string
     salary: {
         low: number
         high: number
