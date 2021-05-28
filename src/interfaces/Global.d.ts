@@ -18,6 +18,7 @@ declare global {
             TOTAL_SHARDS: number
             DB_URL: string
             DB_NAME: string
+            WEBSITE: string
         }
     }
 }

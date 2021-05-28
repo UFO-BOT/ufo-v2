@@ -1,5 +1,4 @@
 import Discord from "discord.js";
-import moment from "moment";
 
 import AbstractCommand from "@/abstractions/AbstractCommand";
 import ICommand from "@/interfaces/CommandInterface";
@@ -39,26 +38,22 @@ export default class StatsCommand extends AbstractCommand implements ICommand {
 
         let embed = new Discord.MessageEmbed()
             .setColor('#3882f8')
-            .setAuthor(`${reply.embed.stats} ${global.bot.user!.username}`, global.bot.user.avatarURL({dynamic: true})!, 'https://ufobot.ru/stats')
+            .setAuthor(`${reply.embed.stats} ${global.bot.user!.username}`, global.bot.user.avatarURL({dynamic: true})!,
+                process.env.WEBSITE + '/stats')
             .addField(reply.embed.stats, `
-<:presence:718892140876398663> ${reply.embed.servers}: ${stats.guilds.reduce((a, b) => a + b, 0)}
-<:members:716373602655797248> ${reply.embed.users}: ${stats.users.reduce((a, b) => a + b, 0)}
-<:textchannel:716371584474021928> ${reply.embed.channels}: ${stats.channels.reduce((a, b) => a + b, 0)}
-<:emotes:716368817332289627> ${reply.embed.emojis}: ${stats.emojis.reduce((a, b) => a + b, 0)}
-<:announcements:762690743047290940> ${reply.embed.shards}: ${stats.guilds.length}
-`)
+                ${global.bot.cache.emojis.presence} ${reply.embed.servers}: ${stats.guilds.reduce((a, b) => a + b, 0)}
+                ${global.bot.cache.emojis.members} ${reply.embed.users}: ${stats.users.reduce((a, b) => a + b, 0)}
+                ${global.bot.cache.emojis.textchannel} ${reply.embed.channels}: ${stats.channels.reduce((a, b) => a + b, 0)}
+                ${global.bot.cache.emojis.emotes} ${reply.embed.emojis}: ${stats.emojis.reduce((a, b) => a + b, 0)}
+                ${global.bot.cache.emojis.announcements} ${reply.embed.shards}: ${stats.guilds.length}`)
             .addField(reply.embed.platform, `
-:computer: ${reply.embed.os}: ${require('os').type()}
-:heartbeat: ${reply.embed.ping}: ${Math.round(stats.ping.reduce((a, b) => a + b, 0) / stats.ping.length)} ms
-:control_knobs: ${reply.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0)} MB
-<:uptime:718984650956996678> ${reply.embed.uptime}: ${global.bot.uptime}
-:outbox_tray: ${reply.embed.readyAt}: ${
-                // @ts-ignore
-                moment(global.bot.readyTimestamp).tz('UTC').format('D.MM.YYYY, `kk:mm:ss` ') + '(GMT+0000)'
-            }`)
+                💻 ${reply.embed.os}: ${require('os').type()}
+                💓 ${reply.embed.ping}: ${Math.round(stats.ping.reduce((a, b) => a + b, 0) / stats.ping.length)} ms
+                🎛️ ${reply.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0)} MB
+                ${global.bot.cache.emojis.slowmode} ${reply.embed.uptime}: ${global.bot.uptime}`)
             .addField(reply.embed.versions, `
-${global.bot.cache.emojis.nodejs} Node JS: ${'`' + process.version + '`'}
-${global.bot.cache.emojis.discordjs} discord.js: ${'`' + Discord.version + '`'}`)
+                ${global.bot.cache.emojis.nodejs} Node JS: ${'`' + process.version + '`'}
+                ${global.bot.cache.emojis.discordjs} discord.js: ${'`' + Discord.version + '`'}`)
         return cmd.message.channel.send(embed);
     }
 }

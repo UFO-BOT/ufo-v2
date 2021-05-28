@@ -1173,7 +1173,6 @@
         "ping": "Пинг",
         "memory": "Использование памяти",
         "uptime": "Аптайм",
-        "readyAt": "Запущен",
         "versions": "Версии"
       }
     },
@@ -1190,7 +1189,6 @@
         "ping": "Ping",
         "memory": "Memory usage",
         "uptime": "Uptime",
-        "readyAt": "Ready at",
         "versions": "Versions"
       }
     }
