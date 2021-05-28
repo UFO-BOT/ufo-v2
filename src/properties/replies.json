@@ -1,0 +1,1336 @@
+{
+  "add-money": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден",
+        "invalidAmount": "Количество должно быть целым числом, не меньшим 1"
+      },
+      "embed": {
+        "author": "Добавить деньги",
+        "description": "Добавлено +{{number}}{{monsymb}} к балансу {{member}}"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found",
+        "invalidAmount": "Amount must be an integer not less than 1"
+      },
+      "embed": {
+        "author": "Add money",
+        "description": "Added +{{number}}{{monsymb}} to {{member}}'s balance"
+      }
+    }
+  },
+  "avatar": {
+    "ru": {
+      "embed": {
+        "description": "Аватар **{{user}}**"
+      }
+    },
+    "en": {
+      "embed": {
+        "description": "Avatar **{{user}}**"
+      }
+    }
+  },
+  "balance": {
+    "ru": {
+      "embed": {
+        "description": "**Место в топе:** {{place}}",
+        "field1": "Баланс",
+        "field2": "Опыт"
+      }
+    },
+    "en": {
+      "embed": {
+        "description": "**Leaderboard rank:** {{place}}",
+        "field1": "Balance",
+        "field2": "Experience"
+      }
+    }
+  },
+  "ban": {
+    "ru": {
+      "errors": {
+        "userNotFound": "Пользователь не найден"
+      }
+    },
+    "en": {
+      "errors": {
+        "userNotFound": "User not found"
+      }
+    }
+  },
+  "boost": {
+    "ru": {
+      "errors": {
+        "notActivated": "Вы не активировали UFO Boost на сервере",
+        "alreadyActivated": "На этом сервере уже активирован UFO Boost",
+        "noBoosts": "У вас нет UFO бустов {{ufoboost}}\n[Поддержите нас](https://ufobot.ru/donate) чтобы получить их!"
+      },
+      "deactivate": {
+        "embed": {
+          "description": "Деактивирован UFO Boost на сервере"
+        }
+      },
+      "list": {
+        "embed": {
+          "author": "Список активированных вами UFO бустов"
+        }
+      },
+      "amount": {
+        "embed": {
+          "author": "Количество бустов",
+          "field1": "Количество",
+          "field2": "Использовано"
+        }
+      },
+      "activate": {
+        "embed": {
+          "description": "На этом сервере был успешно активирован UFO Boost! {{ufoboost}}\nНастройте бонусные функции [на сайте](https://ufobot.ru/server/{{guildid}}/boost)"
+        }
+      }
+    },
+    "en": {
+      "errors": {
+        "notActivated": "You haven't activated UFO Boost on the server",
+        "alreadyActivated": "UFO Boost is already activated on this server",
+        "noBoosts": "You don't have UFO Boosts {{ufoboost}}\n[Support us](https://ufobot.ru/donate) to get them!"
+      },
+      "deactivate": {
+        "embed": {
+          "description": "Deactivated UFO Boost on the server"
+        }
+      },
+      "list": {
+        "embed": {
+          "author": "List of UFO Boosts you activated"
+        }
+      },
+      "amount": {
+        "embed": {
+          "author": "Boosts amount",
+          "field1": "Amount",
+          "field2": "Used"
+        }
+      },
+      "activate": {
+        "embed": {
+          "description": "Successfully activated UFO Boost on this server! {{ufoboost}}\nConfigure bonus features [on the website](https://ufobot.ru/server/{{guildid}}/boost)"
+        }
+      }
+    }
+  },
+  "buy-item": {
+    "ru": {
+      "errors": {
+        "itemNotFound": "Товар с таким названием не найден",
+        "noAddRolePermission": "У меня недостаточно прав чтобы дать вам роль {{addrole}}",
+        "noRemoveRolePermission": "У меня недостаточно прав чтобы снять с вас роль {{removerole}}"
+      },
+      "embed": {
+        "description": "Вы успешно купили товар `{{item}}`"
+      }
+    },
+    "en": {
+      "errors": {
+        "itemNotFound": "Item with this name not found",
+        "noAddRolePermission": "I have no permission to add you role {{addrole}}",
+        "noRemoveRolePermission": "I have no permission to remove role {{removerole}} from you"
+      },
+      "embed": {
+        "description": "You've successfully bought item `{{item}}`"
+      }
+    }
+  },
+  "cancel-giveaway": {
+    "ru": {
+      "errors": {
+        "giveawayNotFount": "Розыгрыш не найден"
+      },
+      "embed": {
+        "author": "Отменить розыгрыш",
+        "description": "Розыгрыш `{{number}}` был отменен"
+      },
+      "giveawayEmbed": {
+        "author": "Розыгрыш #{{number}}",
+        "description": "Розыгрыш отменен",
+        "prize": "Приз",
+        "createdBy": "Запустил",
+        "cancelledBy": "Отменил",
+        "cancelled": "Отменен"
+      }
+    },
+    "en": {
+      "errors": {
+        "giveawayNotFound": "Giveaway not found"
+      },
+      "embed": {
+        "author": "Cancel giveaway",
+        "description": "Giveaway `{{number}}` has been cancelled"
+      },
+      "giveawayEmbed": {
+        "author": "Giveaway #{{number}}",
+        "description": "Giveaway cancelled",
+        "prize": "Prize",
+        "createdBy": "Created by",
+        "cancelledBy": "Cancelled by",
+        "cancelled": "Cancelled"
+      }
+    }
+  },
+  "case": {
+    "ru": {
+      "errors": {
+        "caseNotFound": "Случай не найден"
+      },
+      "embed": {
+        "warn": "Пред",
+        "mute": "Мут",
+        "kick": "Кик",
+        "softban": "Софтбан",
+        "ban": "Бан",
+        "tempban": "Бан",
+        "unmute": "Размут",
+        "unban": "Разбан",
+        "user": "Пользователь",
+        "moderator": "Модератор",
+        "reason": "Причина",
+        "duration": "Длительность",
+        "case": "Случай #{{number}}"
+      }
+    },
+    "en": {
+      "errors": {
+        "caseNotFound": "Case not found"
+      },
+      "embed": {
+        "warn": "Warn",
+        "mute": "Mute",
+        "kick": "Kick",
+        "softban": "Softban",
+        "ban": "Ban",
+        "tempban": "Ban",
+        "unmute": "Unmute",
+        "unban": "Unban",
+        "user": "User",
+        "moderator": "Moderator",
+        "reason": "Reason",
+        "duration": "Duration",
+        "case": "Case #{{number}}"
+      }
+    }
+  },
+  "clear": {
+    "ru": {
+      "errors": {
+        "invalidAmount": "Количество должно быть целым числом, не меньшим 1 и не большим 1000",
+        "filtersMessagesLimit": "Лимит на очистку сообщений с фильтрами - 100",
+        "filtersLimit": "Вы можете использовать до 5 фильтров за одну очистку"
+      },
+      "embed": {
+        "deleting": "{{loading}} Удаление сообщений...",
+        "deleted": "{{check}} Удалено `{{amount}}` сообщений!"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidAmount": "Amount must be an integer not less than 1 and not more than 1000",
+        "filtersMessagesLimit": "Maximum amount of messages to clear with filters - 100",
+        "filtersLimit": "You can use not more than 5 filters at once"
+      },
+      "embed": {
+        "deleting": "{{loading}} Deleting messages...",
+        "deleted": "{{check}} Deleted`{{amount}}` messages!"
+      }
+    }
+  },
+  "coupon": {
+    "ru": {
+      "errors": {
+        "couponNotFound": "Купон не найден",
+        "alreadyUsed": "Вы уже использовали этот купон"
+      },
+      "embed": {
+        "author": "Купон",
+        "description": "Вы получаете +{{amount}}{{monsymb}}",
+        "field1": "Осталось использований",
+        "field2": "Оставшееся время"
+      }
+    },
+    "en": {
+      "errors": {
+        "couponNotFound": "Coupon not found",
+        "alreadyUsed": "You've already used this coupon"
+      },
+      "embed": {
+        "author": "Coupon",
+        "description": "You got +{{amount}}{{monsymb}}",
+        "field1": "Usages left",
+        "field2": "Time left"
+      }
+    }
+  },
+  "crash-casino": {
+    "ru": {
+      "errors": {
+        "invalidBet": "Ставка должна быть целым числом, не меньшим {{minbet}}"
+      },
+      "embed": {
+        "author": "Краш казино",
+        "description": "Нажмите ⏹ чтобы остановиться",
+        "result": "Результат",
+        "bet": "Ставка",
+        "multiplier": "Множитель",
+        "gain": "Выигрыш",
+        "crashedAt": "Крашнуто на",
+        "currentBalance": "Текущий баланс"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidBet": "Bet must be an integer not less than {{minbet}}"
+      },
+      "embed": {
+        "author": "Crash casino",
+        "description": "Press ⏹ to stop",
+        "result": "Result",
+        "bet": "Bet",
+        "multiplier": "Multiplier",
+        "gain": "Gain",
+        "crashedAt": "Crashed at",
+        "currentBalance": "Current balance"
+      }
+    }
+  },
+  "create-coupon": {
+    "ru": {
+      "errors": {
+        "invalidAmonut": "Сумма должна быть целым числом, не меньшим нуля",
+        "invalidUsages": "Количество использований должно быть целым числом, не меньшим 1",
+        "invalidDuration": "Время действия указано неверно",
+        "tooLongDuration": "Время действия купона не должна быть больше 10 лет",
+        "alreadyExists": "Купон с таким названием уже существует",
+        "limit": "Достигнут лимит купонов - {{limit}}"
+      },
+      "embed": {
+        "author": "Купон",
+        "description": "Название: `{{name}}`",
+        "field1": "Сумма",
+        "field2": "Количество использований",
+        "footer": "Заканчивается"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidAmonut": "Amount must be an integer not less than 0",
+        "invalidUsages": "Count of usages must be an integer not less than 0",
+        "invalidDuration": "Invalid duration",
+        "tooLongDuration": "Coupon duration may not be longer than 10 years",
+        "alreadyExists": "Coupon with this name already exists",
+        "limit": "Limit of coupons is reached - {{limit}}"
+      },
+      "embed": {
+        "author": "Coupon",
+        "description": "Name: `{{name}}`",
+        "field1": "Amount",
+        "field2": "Count of usages",
+        "footer": "Ends at"
+      }
+    }
+  },
+  "create-emote": {
+    "ru": {
+      "errors": {
+        "noImage": "Укажите URL или прикрепите изображение для создания эмодзи",
+        "invalidNameLength": "Название эмодзи должно быть больше 2 и меньше 32 символов",
+        "emojisLimit": "Достигнут лимит эмодзи",
+        "invalidImage": "Недействительное изображение",
+        "imageTooLarge": "Изображение слишком большое",
+        "unknownError": "Неизвестная ошибка"
+      }
+    },
+    "en": {
+      "errors": {
+        "noImage": "Specify URL or attach image to create an emote",
+        "invalidNameLength": "Emote name must be more than 2 and less than 32 characters",
+        "emojisLimit": "Emoji limit reached",
+        "invalidImage": "Invalid image",
+        "imageTooLarge": "Image is too large",
+        "unknownError": "Unknown error"
+      }
+    }
+  },
+  "daily-bonus": {
+    "ru": {
+      "errors": {
+        "noDailyBonus": "На этом сервере нет ежедневного бонуса"
+      },
+      "embed": {
+        "author": "Ежедневный бонус",
+        "description": "Вы получаете +{{amount}}{{monsymb}}"
+      }
+    },
+    "en": {
+      "errors": {
+        "noDailyBonus": "This server doesn't have daily bonus"
+      },
+      "embed": {
+        "author": "Daily bonus",
+        "description": "You got +{{amount}}{{monsymb}}"
+      }
+    }
+  },
+  "delete-case": {
+    "ru": {
+      "errors": {
+        "caseNotFound": "Случай не найден"
+      },
+      "embed": {
+        "author": "Удалить случай",
+        "description": "Случай `{{number}}` был удален"
+      }
+    },
+    "en": {
+      "errors": {
+        "caseNotFound": "Case not found"
+      },
+      "embed": {
+        "author": "Delete case",
+        "description": "Case `{{number}}` has been deleted"
+      }
+    }
+  },
+  "delete-coupon": {
+    "ru": {
+      "errors": {
+        "couponNotFound": "Купон не найден"
+      },
+      "embed": {
+        "author": "Удалить купон",
+        "description": "Купон `{{name}}` был удален"
+      }
+    },
+    "en": {
+      "errors": {
+        "couponNotFound": "Coupon not found"
+      },
+      "embed": {
+        "author": "Delete coupon",
+        "description": "Coupon `{{name}}` has been deleted"
+      }
+    }
+  },
+  "duel": {
+    "ru": {
+      "errors": {
+        "invalidBet": "Ставка должна быть целым числом, не меньшим {{minbet}}",
+        "waitTimeOver": "Время ожидания вышло"
+      },
+      "embed": {
+        "author": "Дуэль",
+        "bet": "Ставка",
+        "move": "Ход",
+        "clickToJoin": "Нажмите {{emote}} чтобы присоединиться",
+        "clickToShoot": "Нажмите {{emote}} чтобы выстрелить",
+        "youHaveOnly": "у вас есть только",
+        "hit": "попал!",
+        "missed": "промахнулся",
+        "draw": "**Ничья**",
+        "winner": "Победил",
+        "commission": "Комиссия"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidBet": "Bet must be an integer not less than {{minbet}}",
+        "waitTimeOver": "Wait time is over"
+      },
+      "embed": {
+        "author": "Duel",
+        "bet": "Bet",
+        "move": "Move",
+        "clickToJoin": "Click {{emote}} to join",
+        "clickToShoot": "Click {{emote}} to shoot",
+        "youHaveOnly": "you have only",
+        "hit": "hit!",
+        "missed": "missed",
+        "draw": "**Draw**",
+        "winner": "Winner",
+        "commission": "Commission"
+      }
+    }
+  },
+  "edits": {
+    "ru": {
+      "errors": {
+        "messageNotFound": "Укажите ID сообщения из этого канала чтобы посмотреть его изменения"
+      },
+      "noEdits": "У этого сообщения нет изменений",
+      "file": {
+        "edit": "Изменение"
+      }
+    },
+    "en": {
+      "errors": {
+        "messageNotFound": "Enter message ID from this channel to view its edits"
+      },
+      "noEdits": "This message has no edits",
+      "file": {
+        "edit": "Edit"
+      }
+    }
+  },
+  "giveaway": {
+    "ru": {
+      "errors": {
+        "invalidAmount": "Количество должно быть целым числом, не меньшим нуля",
+        "invalidDuration": "Время указано неверно",
+        "tooLongDuration": "Длительность розыгрыша не должна быть больше 10 лет",
+        "limit": "Достигнут лимит розыгрышей - {{limit}}"
+      },
+      "embed": {
+        "author": "Розыгрыш",
+        "description": "Нажмите {{emote}} чтобы участвовать",
+        "prize": "Приз",
+        "created": "Запустил",
+        "ends": "Заканчивается"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidAmount": "Amount must be an integer not less than 0",
+        "invalidDuration": "Invalid duration",
+        "tooLongDuration": "Giveaway duration may not be longer than 10 years",
+        "limit": "Limit of giveaways is reached - {{limit}}"
+      },
+      "embed": {
+        "author": "Giveaway",
+        "description": "React with {{emote}} to join",
+        "prize": "Prize",
+        "created": "Created",
+        "ends": "Ends at"
+      }
+    }
+  },
+  "give-money": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден",
+        "giveToYourself": "Вы не можете дать деньги самому себе",
+        "invalidAmount": "Количество должно быть целым числом, не меньшим 1"
+      },
+      "embed": {
+        "author": "Дать деньги",
+        "commission": "Комиссия"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found",
+        "giveToYourself": "You cannot give money to yourself",
+        "invalidAmount": "Amount must be an integer not less than 1"
+      },
+      "embed": {
+        "author": "Give money",
+        "commission": "Commission"
+      }
+    }
+  },
+  "help": {
+    "ru": {
+      "errors": {
+        "commandNotFound": "Команда или категория не найдена"
+      },
+      "categories": {
+        "general": "Основное",
+        "economy": "Экономика",
+        "games": "Игры",
+        "utilities": "Утилиты",
+        "moderation": "Модерация",
+        "greetings": "Приветствия",
+        "disabled": "Отключенные команды"
+      },
+      "embed": {
+        "title": "Команды",
+        "description": "Чтобы получить подробную информацию об отдельной команде или категории, введите: {{helpCommand}} `[команда/категория]`\nНастройки бота на сайте: https://ufobot.ru",
+        "footer": "Разработчик",
+        "usage": "Использование",
+        "aliases": "Псевдонимы (алиасы)",
+        "permissions": "Права"
+      }
+    },
+    "en": {
+      "errors": {
+        "commandNotFound": "Command or category not found"
+      },
+      "categories": {
+        "general": "General",
+        "economy": "Economy",
+        "games": "Games",
+        "utilities": "Utilities",
+        "moderation": "Moderation",
+        "greetings": "Greetings",
+        "disabled": "Disabled commands"
+      },
+      "embed": {
+        "title": "Commands",
+        "description": "To get detailed information about specific command or category, enter: {{helpCommand}} `[command/category]`\nBot settings are on the website: https://ufobot.ru",
+        "footer": "Developer",
+        "usage": "Usage",
+        "aliases": "Aliases",
+        "permissions": "Permissions"
+      }
+    }
+  },
+  "info": {
+    "ru": {
+      "embed": {
+        "description": "Привет! Я - UFO - дискорд бот с множеством крутых функций!\nМой префикс на этом сервере - `{{prefix}}`\nЧтобы увидеть список всех моих команд, введите `{{helpCommand}}`\nИзменить мой язык вы можете на сайте",
+        "links": "Ссылки",
+        "website": "Веб сайт",
+        "documentation": "Документация",
+        "invite": "Пригласить меня",
+        "supportserver": "Сервер поддержки",
+        "donate": "Донат",
+        "vote": "Голосуйте за бота",
+        "about": "О боте",
+        "language": "Язык",
+        "library": "Библиотека",
+        "database": "База данных",
+        "hosting": "Хостинг",
+        "footer": "Разработчик"
+      }
+    },
+    "en": {
+      "embed": {
+        "description": "Hey! I'm UFO - Discord Bot with many cool features!\nMy prefix on this server is `{{prefix}}`\nTo see a list of all my commands, enter `{{helpCommand}}`\nYou can change my language on the website",
+        "links": "Links",
+        "website": "Website",
+        "documentation": "Documentation",
+        "invite": "Invite",
+        "supportserver": "Support server",
+        "donate": "Donate",
+        "vote": "Vote for bot",
+        "about": "About",
+        "language": "Language",
+        "library": "Library",
+        "database": "Database",
+        "hosting": "Hosting",
+        "footer": "Developer"
+      }
+    }
+  },
+  "invite": {
+    "ru": {
+      "embed": {
+        "description": "[Нажми сюда]({{invite}}) чтобы добавить меня на свой сервер!"
+      }
+    },
+    "en": {
+      "embed": {
+        "description": "[Click here]({{invite}}) to add me to your server!"
+      }
+    }
+  },
+  "item-info": {
+    "ru": {
+      "errors": {
+        "itemNotFound": "Товар с таким названием не найден"
+      },
+      "embed": {
+        "author": "Информация о товаре",
+        "price": "Цена",
+        "xp": "Дается опыт",
+        "addrole": "Дается роль",
+        "removerole": "Снимается роль"
+      }
+    },
+    "en": {
+      "errors": {
+        "itemNotFound": "Item with this name not found"
+      },
+      "embed": {
+        "author": "Item info",
+        "price": "Price",
+        "xp": "Experience given",
+        "addrole": "Role add",
+        "removerole": "Role remove"
+      }
+    }
+  },
+  "jackpot": {
+    "ru": {
+      "errors": {
+        "invalidBet": "Ставка должна быть целым числом, не меньшим {{minbet}}",
+        "invalidNumbersAmount": "введите `7` чисел",
+        "invalidNumbers": "числа должны быть целыми и быть в диапазоне от 1 до 50",
+        "numbersRepeat": "числа не должны повторяться"
+      },
+      "embed": {
+        "author": "Джекпот",
+        "description": "Загадано 7 чисел от 1 до 50. Попытайтесь угадать их\nЧем больше вы угадаете, тем больше денег выиграете!:money_with_wings:\n**ВНИМАНИЕ!** Отправьте числа одним сообщением через пробел\nПример: 1 2 3 4 5 6 7",
+        "result": "Результат",
+        "made": "Загадано",
+        "entered": "Вы назвали",
+        "guessed": "Угадано",
+        "bet": "Ставка",
+        "multiplier": "Множитель",
+        "gain": "Выигрыш",
+        "currentBalance": "Текущий баланс"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidBet": "Bet must be an integer not less than {{minbet}}",
+        "invalidNumbersAmount": "enter `7` numbers",
+        "invalidNumbers": "the numbers must be integers from 1 to 50",
+        "numbersRepeat": "numbers may not be repeated"
+      },
+      "embed": {
+        "author": "Jackpot",
+        "description": "I made 7 numbers from 1 to 50. Try to guess them\nThe more you guess, the more money you win!:money_with_wings:\n**ATTENTION!** Send numbers in one message using space\nFor example: 1 2 3 4 5 6 7",
+        "result": "Result",
+        "made": "I made",
+        "entered": "You entered",
+        "guessed": "Guessed",
+        "bet": "Bet",
+        "multiplier": "Multiplier",
+        "gain": "Gain",
+        "currentBalance": "Current balance"
+      }
+    }
+  },
+  "kick": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found"
+      }
+    }
+  },
+  "keyboard-layout": {
+    "ru": {
+      "embed": {
+        "author": "Смена раскладки"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Keyboard layout change"
+      }
+    }
+  },
+  "leaders": {
+    "ru": {
+      "embed": {
+        "author": "Лидеры сервера",
+        "balance": "Баланс",
+        "xp": "Опыт",
+        "footer": "Страница"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Server leaders",
+        "balance": "Balance",
+        "xp": "Experience",
+        "footer": "Page"
+      }
+    }
+  },
+  "minefield": {
+    "ru": {
+      "errors": {
+        "invalidBet": "Ставка должна быть целым числом, не меньшим {{minbet}}"
+      },
+      "embed": {
+        "author": "Минное поле",
+        "description": "Выберите 1 из 3 клеток\nОдна из них умножит ставку на 1,5\nДругая - на 1 (ничего не произойдет)\nА 3 - это мина, которая взорвет ваш выигрыш :boom:\nВы можете забрать деньги в любой момент!",
+        "result": "Результат",
+        "control": {
+          "name": "Управление",
+          "value": "1⃣ 2⃣ 3⃣ - для выбора клетки. ⏹ - забрать деньги."
+        },
+        "bet": "Ставка",
+        "multiplier": "Множитель",
+        "gain": "Выигрыш",
+        "field": "Поле",
+        "currentBalance": "Текущий баланс"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidBet": "Bet must be an integer not less than {{minbet}}"
+      },
+      "embed": {
+        "author": "Minefield",
+        "description": "Choose 1 of 3 cells\nOne of them multiplies your bet by 1,5\nAnother - by 1 (nothing happens)\nBut 3 is a mine that bursts all your gain :boom:\nYou can stop and take money at any time!",
+        "result": "Result",
+        "control": {
+          "name": "Control",
+          "value": "1⃣ 2⃣ 3⃣ - select cell. ⏹ - take money."
+        },
+        "bet": "Bet",
+        "multiplier": "Multiplier",
+        "gain": "Gain",
+        "field": "Field",
+        "currentBalance": "Current balance"
+      }
+    }
+  },
+  "moneybags": {
+    "ru": {
+      "embed": {
+        "author": "Игра с мешками",
+        "description": "Выберите один из трех мешков",
+        "result": "Результат",
+        "currentBalance": "Текущий баланс"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Moneybags",
+        "description": "Choose one of three moneybags",
+        "result": "Result",
+        "currentBalance": "Current balance"
+      }
+    }
+  },
+  "money-symbol": {
+    "ru": {
+      "errors": {
+        "invalidLength": "Символ денег не может быть длиннее 100 символов"
+      },
+      "embed": {
+        "author": "Символ денег",
+        "description": "Символ денег на этом сервере был изменен на {{symbol}}"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidLength": "Money symbol cannot be longer than 100 characters"
+      },
+      "embed": {
+        "author": "Money symbol",
+        "description": "Money symbol on this server has been changed to {{symbol}}"
+      }
+    }
+  },
+  "mute": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден",
+        "tooLongDuration": "Длительность мута не должна быть больше 10 лет"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found",
+        "tooLongDuration": "Mute duration may not be longer than 10 years"
+      }
+    }
+  },
+  "ping": {
+    "ru": {
+      "embed": {
+        "title": "Пинг",
+        "pinging": "Вычисление пинга",
+        "bot": "Пинг бота",
+        "database": "База данных",
+        "edit": "Изменение сообщения",
+        "discord": "Дискорд"
+      }
+    },
+    "en": {
+      "embed": {
+        "title": "Ping",
+        "pinging": "Pinging",
+        "bot": "Bot ping",
+        "database": "Database",
+        "edit": "Message edit",
+        "discord": "Discord"
+      }
+    }
+  },
+  "random": {
+    "ru": {
+      "errors": {
+        "invalidEnds": "Нижняя и верхняя граница должны быть целыми числами"
+      },
+      "embed": {
+        "author": "Случайное число",
+        "result": "Результат"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidEnds": "Lower and upper end must be an integer"
+      },
+      "embed": {
+        "author": "Random number",
+        "result": "Result"
+      }
+    }
+  },
+  "remove-money": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден",
+        "invalidAmount": "Количество должно быть целым числом, не меньшим 1"
+      },
+      "embed": {
+        "author": "Забрать деньги",
+        "description": "Удалено -{{number}}{{monsymb}} из баланса {{member}}"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found",
+        "invalidAmount": "Amount must be an integer not less than 1"
+      },
+      "embed": {
+        "author": "Remove money",
+        "description": "Removed -{{number}}{{monsymb}} from {{member}}'s balance"
+      }
+    }
+  },
+  "reset-xp": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден"
+      },
+      "embed": {
+        "author": "Сбросить опыт",
+        "description": "Сброшен опыт участника {{member}}"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found"
+      },
+      "embed": {
+        "author": "Reset experience",
+        "description": "Reset {{member}}'s experience"
+      }
+    }
+  },
+  "role-info": {
+    "ru": {
+      "errors": {
+        "roleNotFound": "Упомяните или укажите ID роли"
+      },
+      "embed": {
+        "title": "Роль инфо",
+        "name": "Название",
+        "color": "Цвет",
+        "position": "Позиция",
+        "members": "Участники",
+        "mentionable": "Упоминаемая",
+        "hoist": "Показывается\nотдельно",
+        "creationDate": "Дата создания",
+        "yes": "Да",
+        "no": "Нет"
+      }
+    },
+    "en": {
+      "errors": {
+        "roleNotFound": "Mention or enter role ID"
+      },
+      "embed": {
+        "title": "Role info",
+        "name": "Name",
+        "color": "Color",
+        "position": "Position",
+        "members": "Members",
+        "mentionable": "Mentionable",
+        "hoist": "Hoist",
+        "creationDate": "Creation date",
+        "yes": "Yes",
+        "no": "No"
+      }
+    }
+  },
+  "rock-scissors-paper": {
+    "ru": {
+      "errors": {
+        "invalidBet": "Ставка должна быть целым числом, не меньшим {{minbet}}"
+      },
+      "embed": {
+        "author": "Камень ножницы бумага",
+        "description": "Выберите камень (:punch:), ножницы (:v:) или бумагу (:raised_hand:)",
+        "result": "Результат",
+        "currentBalance": "Текущий баланс",
+        "yourChoice": "Ваш выбор",
+        "myChoice": "Мой выбор",
+        "returnMoney": "Возврат денег"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidBet": "Bet must be an integer not less than {{minbet}}"
+      },
+      "embed": {
+        "author": "Rock scissors paper",
+        "description": "Choose rock (:punch:), scissors (:v:) or paper (:raised_hand:)",
+        "result": "Result",
+        "currentBalance": "Current balance",
+        "yourChoice": "Your choice",
+        "myChoice": "My choice",
+        "returnMoney": "Return money"
+      }
+    }
+  },
+  "say": {
+    "ru": {},
+    "en": {}
+  },
+  "server": {
+    "ru": {
+      "levels": {
+        "NONE": "<:offline:716372963217244161>Нет",
+        "LOW": "<:online:716372060590309437>Низкий",
+        "MEDIUM": "<:idle:716372368024666144>Средний",
+        "HIGH": "<:idnd:736492845078413373>Высокий",
+        "VERY_HIGH": "<:dnd:716372512425902161>Очень высокий"
+      },
+      "regions": {
+        "us-west": ":flag_us: Запад США",
+        "amsterdam": ":flag_nl: Амстердам",
+        "singapore": ":flag_sg: Сингапур",
+        "japan": ":flag_jp: Япония",
+        "us-east": ":flag_us: Восток США",
+        "south-korea": ":flag_kr: Южная Корея",
+        "london": ":flag_gb: Лондон",
+        "eu-central": ":flag_eu: Центральная Европа",
+        "eu-west": ":flag_eu: Западная европа",
+        "hongkong": ":flag_hk: Гонконг",
+        "russia": ":flag_ru: Россия",
+        "brazil": ":flag_br: Бразилия",
+        "us-central": "flag_us: Центр США",
+        "us-south": ":flag_us: Юг США",
+        "europe": ":flag_eu: Европа",
+        "frankfurt": ":flag_de: Франкфурт",
+        "sydney": ":flag_au: Сидней",
+        "india": ":flag_in: Индия",
+        "southafrica": ":flag_za: ЮАР",
+        "dubai": ":flag_ae: Дубай"
+      },
+      "embed": {
+        "region": "Регион",
+        "verification": "Уровень проверки",
+        "owner": "Владелец",
+        "invites": "Приглашений",
+        "bans": "Банов",
+        "shard": "Шард",
+        "missingPermissions": "Недостаточно прав",
+        "boosts": "Бустов",
+        "splash": "Фон приглашения",
+        "creationDate": "Дата создания",
+        "channels": "Каналы",
+        "text": "Текстовые",
+        "voice": "Голосовые",
+        "announcements": "Объявления",
+        "categories": "Категории",
+        "stats": "Статистика",
+        "memberCount": "Участников",
+        "channelCount": "Каналов",
+        "roleCount": "Ролей",
+        "emojiCount": "Эмодзи",
+        "ufoboost": "На этом сервере активирован UFO Boost"
+      }
+    },
+    "en": {
+      "levels": {
+        "NONE": "<:offline:716372963217244161>None",
+        "LOW": "<:online:716372060590309437>Low",
+        "MEDIUM": "<:idle:716372368024666144>Medium",
+        "HIGH": "<:idnd:736492845078413373>High",
+        "VERY_HIGH": "<:dnd:716372512425902161>Very high"
+      },
+      "regions": {
+        "us-west": ":flag_us: US West",
+        "amsterdam": ":flag_nl: Amsterdam",
+        "singapore": ":flag_sg: Singapore",
+        "japan": ":flag_jp: Japan",
+        "us-east": ":flag_us: US East",
+        "south-korea": ":flag_kr: South Korea",
+        "london": ":flag_gb: London",
+        "eu-central": ":flag_eu: EU Central",
+        "eu-west": ":flag_eu: EU West",
+        "hongkong": ":flag_hk: Hong Kong",
+        "russia": ":flag_ru: Russia",
+        "brazil": ":flag_br: Brazil",
+        "us-central": "flag_us: US Central",
+        "us-south": ":flag_us: US South",
+        "europe": ":flag_eu: Europe",
+        "frankfurt": ":flag_de: Frankfurt",
+        "sydney": ":flag_au: Sydney",
+        "india": ":flag_in: India",
+        "southafrica": ":flag_za: South Africa",
+        "dubai": ":flag_ae: Dubai"
+      },
+      "embed": {
+        "region": "Region",
+        "verification": "Verification level",
+        "owner": "Owner",
+        "invites": "Invites",
+        "bans": "Bans",
+        "shard": "Shard",
+        "missingPermissions": "Missing permissions",
+        "boosts": "Boosts",
+        "splash": "Splash",
+        "creationDate": "Created",
+        "channels": "Channels",
+        "text": "Text",
+        "voice": "Voice",
+        "announcements": "Announcements",
+        "categories": "Categories",
+        "stats": "Stats",
+        "memberCount": "Members",
+        "channelCount": "Channels",
+        "roleCount": "Roles",
+        "emojiCount": "Emojis",
+        "ufoboost": "UFO Boost is activated on this server"
+      }
+    }
+  },
+  "set-balance": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден",
+        "invalidAmount": "Количество должно быть целым числом"
+      },
+      "embed": {
+        "author": "Установить баланс",
+        "description": "Баланс {{member}} установлен: {{number}}{{monsymb}}"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found",
+        "invalidAmount": "Amount must be an integer"
+      },
+      "embed": {
+        "author": "Set balance",
+        "description": "Set {{member}}'s balance: {{number}}{{monsymb}}"
+      }
+    }
+  },
+  "shop": {
+    "ru": {
+      "embed": {
+        "author": "Магазин",
+        "empty": "Магазин пока пуст",
+        "noDescription": "*Описание отсутствует*"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Shop",
+        "empty": "Shop is empty",
+        "noDescription": "*No description*"
+      }
+    }
+  },
+  "slowmode": {
+    "ru": {
+      "errors": {
+        "invalidDuration": "Время указано неверно",
+        "tooLongDuration": "Время не должно быть больше 6 часов"
+      },
+      "embed": {
+        "author": "Слоумод",
+        "description": "<:slowmode:718984650956996678> Установлен слоумод в этом канале - `{{slowmode}}`"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidDuration": "Invalid time",
+        "tooLongDuration": "Time may not be more than 6 hours"
+      },
+      "embed": {
+        "author": "Slowmode",
+        "description": "<:slowmode:718984650956996678> Set slowmode in this channel - `{{slowmode}}`"
+      }
+    }
+  },
+  "stats": {
+    "ru": {
+      "embed": {
+        "stats": "Статистика",
+        "servers": "Серверов",
+        "users": "Пользователей",
+        "channels": "Каналов",
+        "emojis": "Эмодзи",
+        "shards": "Шардов",
+        "platform": "Платформа",
+        "os": "ОС",
+        "ping": "Пинг",
+        "memory": "Использование памяти",
+        "uptime": "Аптайм",
+        "readyAt": "Запущен",
+        "versions": "Версии"
+      }
+    },
+    "en": {
+      "embed": {
+        "stats": "Stats",
+        "servers": "Servers",
+        "users": "Users",
+        "channels": "Channels",
+        "emojis": "Emojis",
+        "shards": "Shards",
+        "platform": "Platform",
+        "os": "OS",
+        "ping": "Ping",
+        "memory": "Memory usage",
+        "uptime": "Uptime",
+        "readyAt": "Ready at",
+        "versions": "Versions"
+      }
+    }
+  },
+  "tempban": {
+    "ru": {
+      "errors": {
+        "userNotFound": "Пользователь не найден",
+        "invalidDuration": "Длительность указана неверно",
+        "tooLongDuration": "Длительность мута не должна быть больше 10 лет"
+      }
+    },
+    "en": {
+      "errors": {
+        "userNotFound": "User not found",
+        "invalidDuration": "Invalid ban duration",
+        "tooLongDuration": "Ban duration may not be longer than 10 years"
+      }
+    }
+  },
+  "unban": {
+    "ru": {
+      "errors": {
+        "userNotFound": "Пользователь не найден"
+      }
+    },
+    "en": {
+      "errors": {
+        "userNotFound": "User not found"
+      }
+    }
+  },
+  "unmute": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found"
+      }
+    }
+  },
+  "user": {
+    "ru": {
+      "statuses": {
+        "online": "В сети",
+        "idle": "Не активен",
+        "dnd": "Не беспокоить",
+        "offline": "Не в сети"
+      },
+      "embed": {
+        "user": "Пользователь",
+        "status": "Статус",
+        "badges": "Значки",
+        "joinedServer": "Присоединился к серверу",
+        "joinedDiscord": "Зарегистрировался в дискорде",
+        "highestRole": "Наивысшая роль"
+      }
+    },
+    "en": {
+      "statuses": {
+        "online": "Online",
+        "idle": "Idle",
+        "dnd": "Do Not Disturb",
+        "offline": "Offline"
+      },
+      "embed": {
+        "user": "User",
+        "status": "Status",
+        "badges": "Badges",
+        "joinedServer": "Joined Server",
+        "joinedDiscord": "Joined Discord",
+        "highestRole": "Highest role"
+      }
+    }
+  },
+  "warn": {
+    "ru": {
+      "errors": {
+        "memberNotFound": "Участник не найден"
+      }
+    },
+    "en": {
+      "errors": {
+        "memberNotFound": "Member not found"
+      }
+    }
+  },
+  "warns": {
+    "ru": {
+      "embed": {
+        "author": "Предупреждения",
+        "noWarns": "У этого пользователя нет предупреждений",
+        "case": "Случай",
+        "footer": "Страница"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Warns",
+        "noWarns": "This user has no warnings",
+        "case": "Case",
+        "footer": "Page"
+      }
+    }
+  },
+  "weekly-bonus": {
+    "ru": {
+      "errors": {
+        "noWeeklyBonus": "На этом сервере нет еженедельного бонуса"
+      },
+      "embed": {
+        "author": "Еженедельный бонус",
+        "description": "Вы получаете +{{amount}}{{monsymb}}"
+      }
+    },
+    "en": {
+      "errors": {
+        "noWeeklyBonus": "This server doesn't have weekly bonus"
+      },
+      "embed": {
+        "author": "Weekly bonus",
+        "description": "You got +{{amount}}{{monsymb}}"
+      }
+    }
+  },
+  "work": {
+    "ru": {
+      "embed": {
+        "author": "Работа",
+        "description": "**Вы заработали:** +{{salary}}{{monsymb}}\n**Текущий баланс:** {{balance}}{{monsymb}}"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Work",
+        "description": "**You've earned:** +{{salary}}{{monsymb}}\n**Current balance:** {{balance}}{{monsymb}}"
+      }
+    }
+  }
+}

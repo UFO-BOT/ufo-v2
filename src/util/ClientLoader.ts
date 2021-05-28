@@ -18,7 +18,7 @@ export default class ClientLoader {
                     if(cmd?.isCommand) {
                         let command = new cmd()
                         result.push(command)
-                        global.bot.cache.commands.set(command.name, command)
+                        global.bot.cache.commands.set(command.en.name, command)
                     }
                 }
             })
