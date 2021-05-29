@@ -16,9 +16,9 @@ export default class MessageEvent extends AbstractEvent implements IEvent {
         if(message.channel.type === 'dm') return;
         if(!message.channel.permissionsFor(message.client.user!.id)?.has('SEND_MESSAGES')) return;
         if(!message.content) return;
-        let prefix = global.bot.cache.prefixes.get(message.guild!.id)!;
-        let language = global.bot.cache.languages.get(message.guild!.id)!;
-        let moneysymb = global.bot.cache.moneysymbs.get(message.guild!.id)!;
+        let prefix = global.bot.cache.prefixes.get(message.guild.id);
+        let language = global.bot.cache.languages.get(message.guild.id);
+        let moneysymb = global.bot.cache.moneysymbs.get(message.guild.id);
         if(!prefix || !language || !moneysymb) {
             let settings = await global.mongo.getOne<ISettings>('settings', {guildid: message.guild?.id})
             prefix = settings?.prefix ?? '!'
@@ -27,9 +27,9 @@ export default class MessageEvent extends AbstractEvent implements IEvent {
                 interface: settings?.language?.interface ?? 'en'
             }
             moneysymb = settings?.moneysymb ?? '<:money:705401895019348018>'
-            global.bot.cache.prefixes.set(message.guild!.id, prefix)
-            global.bot.cache.languages.set(message.guild!.id, language)
-            global.bot.cache.moneysymbs.set(message.guild!.id, moneysymb)
+            global.bot.cache.prefixes.set(message.guild.id, prefix)
+            global.bot.cache.languages.set(message.guild.id, language)
+            global.bot.cache.moneysymbs.set(message.guild.id, moneysymb)
         }
         let messageArray = message.content.split(' ')
         while (messageArray.includes('')) {

@@ -4,6 +4,8 @@ import AbstractCommand from "@/abstractions/AbstractCommand";
 import ICommand from "@/interfaces/CommandInterface";
 import ICommandMessage from "@/interfaces/CommandMessage";
 
+import TimeParser from "@/util/TimeParser";
+
 import replies from '@/properties/replies.json'
 
 export default class StatsCommand extends AbstractCommand implements ICommand {
@@ -41,19 +43,19 @@ export default class StatsCommand extends AbstractCommand implements ICommand {
             .setAuthor(`${reply.embed.stats} ${global.bot.user!.username}`, global.bot.user.avatarURL({dynamic: true})!,
                 process.env.WEBSITE + '/stats')
             .addField(reply.embed.stats, `
-                ${global.bot.cache.emojis.presence} ${reply.embed.servers}: ${stats.guilds.reduce((a, b) => a + b, 0)}
-                ${global.bot.cache.emojis.members} ${reply.embed.users}: ${stats.users.reduce((a, b) => a + b, 0)}
-                ${global.bot.cache.emojis.textchannel} ${reply.embed.channels}: ${stats.channels.reduce((a, b) => a + b, 0)}
-                ${global.bot.cache.emojis.emotes} ${reply.embed.emojis}: ${stats.emojis.reduce((a, b) => a + b, 0)}
-                ${global.bot.cache.emojis.announcements} ${reply.embed.shards}: ${stats.guilds.length}`)
+${global.bot.cache.emojis.presence} ${reply.embed.servers}: ${stats.guilds.reduce((a, b) => a + b, 0)}
+${global.bot.cache.emojis.members} ${reply.embed.users}: ${stats.users.reduce((a, b) => a + b, 0)}
+${global.bot.cache.emojis.textchannel} ${reply.embed.channels}: ${stats.channels.reduce((a, b) => a + b, 0)}
+${global.bot.cache.emojis.emotes} ${reply.embed.emojis}: ${stats.emojis.reduce((a, b) => a + b, 0)}
+${global.bot.cache.emojis.announcements} ${reply.embed.shards}: ${stats.guilds.length}`)
             .addField(reply.embed.platform, `
-                💻 ${reply.embed.os}: ${require('os').type()}
-                💓 ${reply.embed.ping}: ${Math.round(stats.ping.reduce((a, b) => a + b, 0) / stats.ping.length)} ms
-                🎛️ ${reply.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0)} MB
-                ${global.bot.cache.emojis.slowmode} ${reply.embed.uptime}: ${global.bot.uptime}`)
+💻 ${reply.embed.os}: ${require('os').type()}
+💓 ${reply.embed.ping}: ${Math.round(stats.ping.reduce((a, b) => a + b, 0) / stats.ping.length)} ms
+🎛️ ${reply.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0)} MB
+${global.bot.cache.emojis.slowmode} ${reply.embed.uptime}: ${TimeParser.stringify(global.bot.uptime, cmd.language.interface)}`)
             .addField(reply.embed.versions, `
-                ${global.bot.cache.emojis.nodejs} Node JS: ${'`' + process.version + '`'}
-                ${global.bot.cache.emojis.discordjs} discord.js: ${'`' + Discord.version + '`'}`)
+${global.bot.cache.emojis.nodejs} Node JS: ${'`' + process.version + '`'}
+${global.bot.cache.emojis.discordjs} discord.js: ${'`' + Discord.version + '`'}`)
         return cmd.message.channel.send(embed);
     }
 }

@@ -3,6 +3,7 @@ import Discord from 'discord.js'
 import MongoDB from "@/structures/MongoDB";
 import AbstractCommand from "@/abstractions/AbstractCommand";
 import IGuildLanguage from "@/interfaces/GuildLanguage";
+import IClientCache from "@/interfaces/ClientCacheInterface";
 import ClientLoader from "@/util/ClientLoader";
 
 import emojis from '@/properties/emojis.json'
@@ -11,16 +12,13 @@ export default class Client extends Discord.Client {
     public token: string
     public supportGuildID: string = '712012571666022411'
 
-    public cache = {
+    public cache:IClientCache = {
         commands: new Discord.Collection<string, AbstractCommand>(),
         emojis: emojis,
         prefixes: new Discord.Collection<string, string>(),
         languages: new Discord.Collection<string, IGuildLanguage>(),
         moneysymbs: new Discord.Collection<string, string>()
     }
-
-    public shard!: Discord.ShardClientUtil
-    public user!: Discord.ClientUser
 
     public constructor(token: string, options?: Discord.ClientOptions) {
         super(options);
