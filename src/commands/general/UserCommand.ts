@@ -6,7 +6,7 @@ import ICommand from "@/interfaces/CommandInterface";
 import ICommandMessage from "@/interfaces/CommandMessage";
 
 import replies from '@/properties/replies.json'
-import Resolver from "@/util/Resolver";
+import Resolver from "@/utils/Resolver";
 
 export default class UserCommand extends AbstractCommand implements ICommand {
     public static isCommand = true

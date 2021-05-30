@@ -4,7 +4,7 @@ import MongoDB from "@/structures/MongoDB";
 import AbstractCommand from "@/abstractions/AbstractCommand";
 import IGuildLanguage from "@/interfaces/GuildLanguage";
 import IClientCache from "@/interfaces/ClientCacheInterface";
-import ClientLoader from "@/util/ClientLoader";
+import ClientLoader from "@/utils/ClientLoader";
 
 import emojis from '@/properties/emojis.json'
 

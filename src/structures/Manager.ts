@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 
 import MongoDB from "@/structures/MongoDB";
-import ManagerLoader from "@/util/ManagerLoader";
+import ManagerLoader from "@/utils/ManagerLoader";
 
 
 export default class Manager extends Discord.ShardingManager {

@@ -4,7 +4,7 @@ import AbstractCommand from "@/abstractions/AbstractCommand";
 import ICommand from "@/interfaces/CommandInterface";
 import ICommandMessage from "@/interfaces/CommandMessage";
 
-import TimeParser from "@/util/TimeParser";
+import TimeParser from "@/utils/TimeParser";
 
 import replies from '@/properties/replies.json'
 
