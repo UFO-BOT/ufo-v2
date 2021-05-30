@@ -1,0 +1,44 @@
+{
+  "noMemberPermissions": {
+    "ru": {
+      "embed": {
+        "author": "Недостаточно прав",
+        "description": "Вам нужно иметь следующие права чтобы использовать эту команду: {{perms}}"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Missing permissions",
+        "description": "You need to have these permissions to use this command: {{perms}}"
+      }
+    }
+  },
+  "certainRoles": {
+    "ru": {
+      "embed": {
+        "author": "Недостаточно прав",
+        "description": "Эта команда доступна для участников с определенными ролями"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Missing permissions",
+        "description": "This command is available only for members with certain roles"
+      }
+    }
+  },
+  "certainChannels": {
+    "ru": {
+      "embed": {
+        "author": "Ошибка",
+        "description": "Эту команду можно использовать только в определенных каналах"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Error",
+        "description": "This command is available only in certain channels"
+      }
+    }
+  }
+}

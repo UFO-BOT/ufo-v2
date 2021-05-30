@@ -4,6 +4,7 @@ import MongoDB from "@/structures/MongoDB";
 import AbstractCommand from "@/abstractions/AbstractCommand";
 import IGuildLanguage from "@/interfaces/GuildLanguage";
 import IClientCache from "@/interfaces/ClientCacheInterface";
+import ICommandSettings from "@/interfaces/CommandSettings";
 import ClientLoader from "@/utils/ClientLoader";
 
 import emojis from '@/properties/emojis.json'
@@ -17,6 +18,7 @@ export default class Client extends Discord.Client {
         emojis: emojis,
         prefixes: new Discord.Collection<string, string>(),
         languages: new Discord.Collection<string, IGuildLanguage>(),
+        commandsSettings: new Discord.Collection<string, Record<string, ICommandSettings>>(),
         moneysymbs: new Discord.Collection<string, string>()
     }
 

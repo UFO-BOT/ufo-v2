@@ -1,4 +1,5 @@
 import IGuildLanguage from "@/interfaces/GuildLanguage";
+import ICommandSettings from "@/interfaces/CommandSettings";
 
 export default interface ISettings {
     guildid: string
@@ -20,4 +21,5 @@ export default interface ISettings {
     muterole: number
     boost: boolean
     boostBy: string
+    commands: Record<string, ICommandSettings>
 }
