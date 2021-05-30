@@ -9,8 +9,6 @@ import TimeParser from "@/utils/TimeParser";
 import replies from '@/properties/replies.json'
 
 export default class StatsCommand extends AbstractCommand implements ICommand {
-    public static isCommand = true
-
     public ru = {
         name: 'стат',
         aliases: ['статистика', 'стата', 'бот-стат'],

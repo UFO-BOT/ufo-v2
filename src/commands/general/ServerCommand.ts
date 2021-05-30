@@ -9,8 +9,6 @@ import replies from '@/properties/replies.json'
 import ISettings from "@/interfaces/database/SettingsInterface";
 
 export default class ServerCommand extends AbstractCommand implements ICommand {
-    public static isCommand = true
-
     public ru = {
         name: 'сервер',
         aliases: ['сервер-инфо', 'серверинфо'],

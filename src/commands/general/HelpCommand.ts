@@ -7,8 +7,6 @@ import ICommandMessage from "@/interfaces/CommandMessage";
 import replies from '@/properties/replies.json'
 
 export default class HelpCommand extends AbstractCommand implements ICommand {
-    public static isCommand = true
-
     public ru = {
         name: 'хелп',
         aliases: ['помощь', 'команды', 'х'],

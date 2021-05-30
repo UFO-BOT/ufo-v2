@@ -9,8 +9,6 @@ import replies from '@/properties/replies.json'
 import Resolver from "@/utils/Resolver";
 
 export default class UserCommand extends AbstractCommand implements ICommand {
-    public static isCommand = true
-
     public ru = {
         name: 'юзер',
         aliases: ['юзер-инфо', 'пользователь'],
@@ -41,6 +39,7 @@ export default class UserCommand extends AbstractCommand implements ICommand {
             EARLY_SUPPORTER: '<:earlysupporter:716404352033751050>',
             VERIFIED_DEVELOPER: '<:verified_bot_developer:716407597292453939>'
         }
+
         const botBadgesEmojis: Record<string, string> = {
             '712025786399588395': 'developer',
             '712027576817942669': 'moderator',
@@ -50,6 +49,7 @@ export default class UserCommand extends AbstractCommand implements ICommand {
             '774318848279052299': 'donator',
             '739068301749256212': 'bughunter'
         }
+
         let user = await Resolver.user(cmd.message, cmd.args[0])
         if(!user) user = cmd.message.author;
         let botbadges: string = '';
