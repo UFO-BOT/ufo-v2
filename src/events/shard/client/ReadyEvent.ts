@@ -1,9 +1,7 @@
 import IEvent from "@/interfaces/EventInterface";
-import AbstractEvent from "@/abstractions/AbstractEvent";
+import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 
-export default class ReadyEvent extends AbstractEvent implements IEvent {
-    public static isEvent = true
-
+export default class ReadyEvent extends AbstractClientEvent implements IEvent {
     public name = 'ready'
 
     public async execute(): Promise<any> {

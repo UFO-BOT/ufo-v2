@@ -3,8 +3,6 @@ import Discord from "discord.js";
 import errors from '@/properties/errors.json'
 
 export default class CommandError {
-    public static isUtil = true
-
     public static noMemberPermissions(message: Discord.Message, permissions: Discord.PermissionResolvable, lang: 'ru' | 'en' = 'en'): void {
         let prop = errors.noMemberPermissions[lang]
         let embed = new Discord.MessageEmbed()

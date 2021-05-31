@@ -1,13 +1,11 @@
 import Discord from "discord.js";
 
 import IEvent from "@/interfaces/EventInterface";
-import AbstractEvent from "@/abstractions/AbstractEvent"
+import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 
 import CommandsHandler from "@/services/CommandsHandler";
 
-export default class MessageEvent extends AbstractEvent implements IEvent {
-    public static isEvent = true
-
+export default class MessageEvent extends AbstractClientEvent implements IEvent {
     public name = 'message'
 
     public async execute(message: Discord.Message): Promise<any> {

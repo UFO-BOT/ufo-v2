@@ -5,7 +5,7 @@ import ICommandInfo from "@/interfaces/CommandInfo";
 import ICommandMessage from "@/interfaces/CommandMessage";
 
 export default abstract class AbstractCommand implements ICommand {
-    protected static readonly isCommand = true
+    public static readonly scope = 'command'
 
     public abstract ru: ICommandInfo
     public abstract en: ICommandInfo

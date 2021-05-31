@@ -1,8 +1,6 @@
 import Discord from "discord.js";
 
 export default class Resolver {
-    public static isUtil = true
-
     public static member(message: Discord.Message, arg: string): Promise<Discord.GuildMember> | undefined {
         return new Promise(async resolve => {
             if(!arg) return resolve(undefined)

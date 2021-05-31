@@ -10,8 +10,6 @@ interface allOutput {
 }
 
 export default class TimeParser {
-    public static isUtil = true
-
     public static parse(arg: string, language: 'ru' | 'en' = 'ru'): parseOutput {
         let lang = language === 'ru' ? 1 : 0
         const matchers: Record<string, Array<RegExp>> = {
