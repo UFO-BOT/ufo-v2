@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 
-import AbstractCommand from "@/abstractions/AbstractCommand";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import ICommand from "@/interfaces/CommandInterface";
 import ICommandMessage from "@/interfaces/CommandMessage";
 
@@ -22,7 +22,7 @@ export default class HelpCommand extends AbstractCommand implements ICommand {
         usage: 'help [command | category]'
     }
 
-    public async execute(cmd: ICommandMessage): Promise<any> {
+    public async execute(cmd: ICommandMessage) {
         const reply = replies.help[cmd.language.interface];
 
         let embed = new Discord.MessageEmbed()

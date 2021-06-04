@@ -11,6 +11,10 @@ export default class ClientLoader {
                     let command = new cmd()
                     global.bot.cache.commands.set(command.en.name, command)
                 }
+                else if(cmd?.scope === 'devCommand') {
+                    let command = new cmd()
+                    global.bot.cache.devCommands.set(command.name, command)
+                }
             }
         })
     }

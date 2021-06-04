@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 import moment from "moment";
 
-import AbstractCommand from "@/abstractions/AbstractCommand";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import ICommand from "@/interfaces/CommandInterface";
 import ICommandMessage from "@/interfaces/CommandMessage";
 
@@ -24,7 +24,7 @@ export default class ServerCommand extends AbstractCommand implements ICommand {
         usage: 'server'
     }
 
-    public async execute(cmd: ICommandMessage): Promise<any> {
+    public async execute(cmd: ICommandMessage) {
         const reply:any = replies.server[cmd.language.interface];
 
         let emojis = global.bot.cache.emojis;

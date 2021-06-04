@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 
-import AbstractCommand from "@/abstractions/AbstractCommand";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import ICommand from "@/interfaces/CommandInterface";
 import ICommandMessage from "@/interfaces/CommandMessage";
 
@@ -24,7 +24,7 @@ export default class StatsCommand extends AbstractCommand implements ICommand {
         usage: 'stats'
     }
 
-    public async execute(cmd: ICommandMessage): Promise<any> {
+    public async execute(cmd: ICommandMessage) {
         const reply = replies.stats[cmd.language.interface];
 
         let stats = {

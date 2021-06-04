@@ -6,5 +6,6 @@ export default class ReadyEvent extends AbstractClientEvent implements IEvent {
 
     public async execute(): Promise<any> {
         console.log(`[BOT] Bot ${global.bot.user?.tag} is online`)
+        await global.bot.activity()
     }
 }

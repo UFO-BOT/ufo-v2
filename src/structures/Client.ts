@@ -1,7 +1,8 @@
 import Discord from 'discord.js'
 
 import MongoDB from "@/structures/MongoDB";
-import AbstractCommand from "@/abstractions/AbstractCommand";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
 import IGuildLanguage from "@/interfaces/GuildLanguage";
 import IClientCache from "@/interfaces/ClientCacheInterface";
 import ICommandSettings from "@/interfaces/CommandSettings";
@@ -15,6 +16,7 @@ export default class Client extends Discord.Client {
 
     public cache:IClientCache = {
         commands: new Discord.Collection<string, AbstractCommand>(),
+        devCommands: new Discord.Collection<string, AbstractDevCommand>(),
         emojis: emojis,
         prefixes: new Discord.Collection<string, string>(),
         languages: new Discord.Collection<string, IGuildLanguage>(),
@@ -35,6 +37,10 @@ export default class Client extends Discord.Client {
             if (result) resolve(result)
             else resolve(undefined)
         })
+    }
+
+    activity(): Promise<Discord.Presence> {
+        return this.user.setActivity({name: `!help | ${process.env.WEBSITE}`, type: 'WATCHING'})
     }
 
     load(): void {

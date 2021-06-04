@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 import moment from "moment/moment";
 
-import AbstractCommand from "@/abstractions/AbstractCommand";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import ICommand from "@/interfaces/CommandInterface";
 import ICommandMessage from "@/interfaces/CommandMessage";
 
@@ -24,7 +24,7 @@ export default class UserCommand extends AbstractCommand implements ICommand {
         usage: 'user [user]'
     }
 
-    public async execute(cmd: ICommandMessage): Promise<any> {
+    public async execute(cmd: ICommandMessage) {
         const reply:any = replies.user[cmd.language.interface];
 
         const badgesEmojis: Record<string, string> = {

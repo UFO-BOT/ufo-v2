@@ -3,15 +3,18 @@ import Discord from "discord.js";
 import ISettings from "@/interfaces/database/SettingsInterface";
 import ICommandSettings from "@/interfaces/CommandSettings";
 import CommandError from "@/utils/CommandError";
+import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
+import ICommandFlag from "@/interfaces/CommandFlagInterface";
 
 export default class CommandsHandler {
     public message: Discord.Message
+    public args: Array<string>
 
     constructor(message: Discord.Message) {
         this.message = message;
     }
 
-    async handle(): Promise<any> {
+    public async handle() {
         if (this.message.channel.type !== 'text' && this.message.channel.type !== 'news') return;
 
         let prefix = global.bot.cache.prefixes.get(this.message.guild.id);
@@ -40,25 +43,20 @@ export default class CommandsHandler {
         }
         let cmd = messageArray[0].toLowerCase()
         if (!cmd.startsWith(prefix)) return;
-        let args = messageArray.slice(1)
+        this.args = messageArray.slice(1);
 
         let command = global.bot.cache.commands.find(c => c[language?.commands ?? 'en'].name === cmd.slice(prefix.length))
-        if (!command) command = global.bot.cache.commands.find(c => c[language?.interface ?? 'ru'].aliases.includes(cmd.slice(prefix.length)))
+            ?? global.bot.cache.commands.find(c => c[language?.commands ?? 'en'].aliases.includes(cmd.slice(prefix.length)))
+        let devCommand = global.bot.cache.devCommands.get(cmd.slice(prefix.length))
+            ?? global.bot.cache.devCommands.find(c => c.aliases.includes(cmd.slice(prefix.length)))
+        if(devCommand) return this.handleDev(devCommand)
         if (!command) return
-
-        function matchRoles(memberRoles: Discord.Collection<string, Discord.Role>, roles: Array<string>): boolean {
-            let has = false;
-            roles.forEach(role => {
-                if (memberRoles.has(role)) has = true;
-            })
-            return has;
-        }
 
         let commandSettings = commandsSettings[command.en.name] ?? {} as ICommandSettings
         if (commandSettings.enabled === false) return;
 
         if (commandSettings.allowedRoles?.length) {
-            if (!matchRoles(this.message.member.roles.cache, commandSettings.allowedRoles))
+            if (!this.matchRoles(this.message.member.roles.cache, commandSettings.allowedRoles))
                 return CommandError.certainRoles(this.message, language.interface)
         } else {
             if (command.memberPermissions) {
@@ -67,7 +65,7 @@ export default class CommandsHandler {
             }
         }
         if (commandSettings.forbiddenRoles?.length) {
-            if (matchRoles(this.message.member.roles.cache, commandSettings.forbiddenRoles))
+            if (this.matchRoles(this.message.member.roles.cache, commandSettings.forbiddenRoles))
                 return CommandError.certainRoles(this.message, language.interface)
         }
         if (commandSettings.allowedChannels?.length) {
@@ -80,12 +78,47 @@ export default class CommandsHandler {
         }
 
         if (commandSettings.deleteUsage && this.message.deletable) await this.message.delete()
+        
         return command.execute({
             message: this.message,
-            args: args,
+            args: this.args,
             prefix: prefix,
             language: language,
             moneysymb: moneysymb
         })
+    }
+
+    private async handleDev(command: AbstractDevCommand) {
+        let supportServerRoles: Array<Discord.Role> = await global.bot.oneShardEval(`this.guilds.cache.get(this.supportGuildID)
+            ?.members?.fetch('${this.message.author.id}').then(m => m?.roles?.cache).catch(() => undefined)`)
+        if(!supportServerRoles.find(r => r.id === '712025786399588395')) return;
+        let flags = this.parseFlags(command.flags)
+        command.execute({
+            message: this.message,
+            args: this.args,
+            flags: flags
+        })
+    }
+
+    private matchRoles(memberRoles: Discord.Collection<string, Discord.Role>, roles: Array<string>): boolean {
+        let has = false;
+        roles.forEach(role => {
+            if (memberRoles.has(role)) has = true;
+        })
+        return has;
+    }
+
+    private parseFlags(flags?: Array<ICommandFlag>): Record<string, boolean> {
+        if(!flags) return {};
+        let usedFlags: Record<string, boolean> = {};
+        flags.forEach(flag => {
+            flag.usages.forEach(usage => {
+                if(this.args.includes(usage)) {
+                    this.args.splice(this.args.indexOf(usage), 1)
+                    usedFlags[flag.name] = true;
+                }
+            })
+        })
+        return usedFlags;
     }
 }

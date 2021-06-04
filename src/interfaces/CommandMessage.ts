@@ -5,7 +5,8 @@ import IGuildLanguage from "@/interfaces/GuildLanguage";
 export default interface ICommandMessage {
     message: Discord.Message
     args: Array<string>
-    prefix: string
-    language: IGuildLanguage
-    moneysymb: string
+    flags?: Record<string, boolean>
+    prefix?: string
+    language?: IGuildLanguage
+    moneysymb?: string
 }
