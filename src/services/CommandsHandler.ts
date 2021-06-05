@@ -61,7 +61,7 @@ export default class CommandsHandler {
         } else {
             if (command.memberPermissions) {
                 if (!this.message.channel.permissionsFor(this.message.member).has(command.memberPermissions))
-                    return CommandError.noMemberPermissions(this.message, this.message.member.permissions, language.interface)
+                    return CommandError.noMemberPermissions(this.message, command.memberPermissions, language.interface)
             }
         }
         if (commandSettings.forbiddenRoles?.length) {

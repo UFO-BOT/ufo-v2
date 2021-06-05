@@ -1,7 +1,9 @@
+import Discord from "discord.js";
+import { inspect } from "util";
+
 import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
 import IDevCommand from "@/interfaces/DevCommandInterface";
 import ICommandMessage from "@/interfaces/CommandMessage";
-import Discord from "discord.js";
 
 export default class EvalCommand extends AbstractDevCommand implements IDevCommand {
     public name = 'eval'
@@ -28,6 +30,7 @@ export default class EvalCommand extends AbstractDevCommand implements IDevComma
         try {
             let time = Date.now()
             let result = cmd.flags.noAwait ? eval(content) : await eval(content)
+            if(typeof result !== 'string') result = inspect(result)
             embed.setColor('#3882f8')
                 .setTitle('Completed')
                 .setDescription(`**Done in:** ${Date.now() - time}ms\n` + `Type: ${typeof result}\n` + "```js\n" + result + "```")

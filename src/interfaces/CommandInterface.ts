@@ -8,6 +8,6 @@ export default interface ICommand {
     en: CommandInfo
     boostRequired?: boolean
     requiredArgs?: number
-    memberPermissions?: Discord.PermissionResolvable
-    botPermissions?: Discord.PermissionResolvable
+    memberPermissions?: Array<Discord.PermissionString>
+    botPermissions?: Array<Discord.PermissionString>
 }

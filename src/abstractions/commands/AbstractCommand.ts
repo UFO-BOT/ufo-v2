@@ -11,8 +11,8 @@ export default abstract class AbstractCommand implements ICommand {
     public abstract en: ICommandInfo
     public boostRequired?: boolean
     public requiredArgs?: number
-    public memberPermissions?: Discord.PermissionResolvable
-    public botPermissions?: Discord.PermissionResolvable
+    public memberPermissions?: Array<Discord.PermissionString>
+    public botPermissions?: Array<Discord.PermissionString>
 
     public abstract execute(cmd: ICommandMessage): Promise<any>
 }
