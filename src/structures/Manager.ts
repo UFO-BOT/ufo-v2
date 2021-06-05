@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 
 import MongoDB from "@/structures/MongoDB";
-import ManagerLoader from "@/utils/ManagerLoader";
+import ManagerLoader from "@/utils/loaders/ManagerLoader";
 
 
 export default class Manager extends Discord.ShardingManager {
@@ -28,11 +28,11 @@ export default class Manager extends Discord.ShardingManager {
     }
 
     async start(): Promise<any> {
-        this.load()
-
         const mongo = new MongoDB()
         await mongo.start()
         console.log(`[MANAGER] [MONGO] MongoDB connected!`)
+
+        this.load()
 
         await this.spawn(this.totalShards)
     }

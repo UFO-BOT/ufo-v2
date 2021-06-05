@@ -6,7 +6,7 @@ import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
 import IGuildLanguage from "@/interfaces/GuildLanguage";
 import IClientCache from "@/interfaces/ClientCacheInterface";
 import ICommandSettings from "@/interfaces/CommandSettings";
-import ClientLoader from "@/utils/ClientLoader";
+import ClientLoader from "@/utils/loaders/ClientLoader";
 
 import emojis from '@/properties/emojis.json'
 
@@ -44,16 +44,18 @@ export default class Client extends Discord.Client {
     }
 
     load(): void {
+        console.log(`[SHARD #${global.bot.shard.ids[0]}] [LOADERS] Loading modules...`)
         ClientLoader.loadEvents()
         ClientLoader.loadCommands()
+        console.log(`[SHARD #${global.bot.shard.ids[0]}] [LOADERS] Loaded modules`)
     }
 
     async start(): Promise<any> {
-        this.load()
-
         const mongo = new MongoDB()
         await mongo.start()
-        console.log(`[CLIENT] [MONGO] MongoDB connected!`)
+        console.log(`[SHARD #${global.bot.shard.ids[0]}] [MONGO] MongoDB connected`)
+
+        this.load()
 
         await this.login(this.token)
     }

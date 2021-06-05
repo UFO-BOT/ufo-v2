@@ -6,6 +6,7 @@ export default class ClientLoader {
         fs.readdirSync(path).forEach(file => {
             if(fs.lstatSync(path + '/' + file).isDirectory()) this.loadCommands(path + '/' + file)
             else {
+                delete require.cache[require.resolve(path + '/' + file)]
                 let cmd = require(path + '/' + file)?.default
                 if(cmd?.scope === 'command') {
                     let command = new cmd()
@@ -23,6 +24,7 @@ export default class ClientLoader {
         fs.readdirSync(path).forEach(file => {
             if(fs.lstatSync(path + '/' + file).isDirectory()) this.loadEvents(path + '/' + file)
             else {
+                delete require.cache[require.resolve(path + '/' + file)]
                 let ev = require(path + '/' + file)?.default
                 if(ev?.scope === 'clientEvent') {
                     let event = new ev()

@@ -30,10 +30,11 @@ export default class EvalCommand extends AbstractDevCommand implements IDevComma
         try {
             let time = Date.now()
             let result = cmd.flags.noAwait ? eval(content) : await eval(content)
+            let type = typeof result;
             if(typeof result !== 'string') result = inspect(result)
             embed.setColor('#3882f8')
                 .setTitle('Completed')
-                .setDescription(`**Done in:** ${Date.now() - time}ms\n` + `Type: ${typeof result}\n` + "```js\n" + result + "```")
+                .setDescription(`**Done in:** ${Date.now() - time}ms\n` + `**Type:** ${type}\n` + "```js\n" + result + "```")
             if(!cmd.flags.noReply) return cmd.message.channel.send(embed)
         }
         catch (error) {

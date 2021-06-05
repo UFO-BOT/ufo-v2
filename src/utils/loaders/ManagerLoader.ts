@@ -5,6 +5,7 @@ export default class ManagerLoader {
         fs.readdirSync(path).forEach(file => {
             if(fs.lstatSync(path + '/' + file).isDirectory()) this.loadEvents(path + '/' + file)
             else {
+                delete require.cache[require.resolve(path + '/' + file)]
                 let ev = require(path + '/' + file)?.default
                 if(ev?.scope === 'managerEvent') {
                     let event = new ev()
