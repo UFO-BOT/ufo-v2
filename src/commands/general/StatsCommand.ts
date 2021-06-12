@@ -18,7 +18,7 @@ export default class StatsCommand extends AbstractCommand implements ICommand {
     }
     public en = {
         name: 'stats',
-        aliases: ['commands', 'h'],
+        aliases: ['statistics', 'bot-stats'],
         category: 'General',
         description: 'Shows bot statistics',
         usage: 'stats'

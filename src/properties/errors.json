@@ -1,4 +1,32 @@
 {
+  "boostRequired": {
+    "ru": {
+      "embed": {
+        "description": "Для использования этой функции нужно активировать UFO Boost на этом сервере <:ufo_boost:750724590891696198>\n[Поддержите нас](https://ufobot.ru/donate) чтобы получить UFO бусты"
+      }
+    },
+    "en": {
+      "embed": {
+        "description": "UFO Boost is required for this feature <:ufo_boost:750724590891696198>\n[Support us](https://ufobot.ru/donate) to get UFO Boosts"
+      }
+    }
+  },
+  "invalidUsage": {
+    "ru": {
+      "embed": {
+        "author": "Ошибка",
+        "description": "Неверное использование команды",
+        "field": "Использование"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Error",
+        "description": "Invalid command usage",
+        "field": "Usage"
+      }
+    }
+  },
   "noMemberPermissions": {
     "ru": {
       "embed": {
@@ -38,6 +66,18 @@
       "embed": {
         "author": "Error",
         "description": "This command is available only in certain channels"
+      }
+    }
+  },
+  "otherError": {
+    "ru": {
+      "embed": {
+        "author": "Ошибка"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Error"
       }
     }
   }

@@ -19,6 +19,8 @@ declare global {
             DB_URL: string
             DB_NAME: string
             WEBSITE: string
+            BOT_INVITE: string
+            SUPPORT_SERVER: string
         }
     }
 }

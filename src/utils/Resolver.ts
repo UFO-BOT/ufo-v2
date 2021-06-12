@@ -65,8 +65,7 @@ export default class Resolver {
             if(!arg) return resolve(undefined);
             arg = arg.toLowerCase();
             let bans = await message.guild.fetchBans();
-            let ban;
-            ban = bans?.find(b =>
+            let ban = bans?.find(b =>
                 b.user?.id?.toLowerCase() === arg
                 || b.user?.username?.toLowerCase()?.includes(arg)
                 || b.user?.discriminator?.toLowerCase()?.includes(arg)
@@ -74,6 +73,18 @@ export default class Resolver {
                 || b.user?.toString()?.toLowerCase() === arg.replace('!', '')
             )
             resolve(ban);
+        })
+    }
+
+    public static role(message: Discord.Message, arg: string): Promise<Discord.Role> | undefined {
+        return new Promise(async (resolve) => {
+            if(!arg) return resolve(undefined);
+            arg = arg.toLowerCase();
+            let role = message.guild.roles.cache.find(r =>
+                r.id?.toLowerCase() === arg
+                || r.name?.toLowerCase()?.includes(arg)
+                || r.toString()?.toLowerCase() === arg);
+            resolve(role);
         })
     }
 }

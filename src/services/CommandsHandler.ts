@@ -5,6 +5,7 @@ import ICommandSettings from "@/interfaces/CommandSettings";
 import CommandError from "@/utils/CommandError";
 import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
 import ICommandFlag from "@/interfaces/CommandFlagInterface";
+import {settings} from "cluster";
 
 export default class CommandsHandler {
     public message: Discord.Message
@@ -55,6 +56,11 @@ export default class CommandsHandler {
         let commandSettings = commandsSettings[command.en.name] ?? {} as ICommandSettings
         if (commandSettings.enabled === false) return;
 
+        if(command.boostRequired) {
+            let settings = await global.mongo.getOne<ISettings>('settings', {guildid: this.message.guild.id})
+            if(!settings.boost) return CommandError.boostRequired(this.message, language.interface)
+        }
+
         if (commandSettings.allowedRoles?.length) {
             if (!this.matchRoles(this.message.member.roles.cache, commandSettings.allowedRoles))
                 return CommandError.certainRoles(this.message, language.interface)
@@ -76,6 +82,9 @@ export default class CommandsHandler {
             if (commandSettings.forbiddenChannels.includes(this.message.channel.id))
                 return CommandError.certainChannels(this.message, language.interface)
         }
+
+        if (this.args.length < command.requiredArgs)
+            return CommandError.invalidUsage(this.message, command, language)
 
         if (commandSettings.deleteUsage && this.message.deletable) await this.message.delete()
         
