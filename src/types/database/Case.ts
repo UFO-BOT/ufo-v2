@@ -1,6 +1,6 @@
-import ModAction from "@/interfaces/ModAction";
+import ModAction from "@/types/ModAction";
 
-export default interface ICase {
+export default interface Case {
     guildid: string
     number: number
     userid: string

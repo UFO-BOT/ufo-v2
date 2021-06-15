@@ -1,4 +1,4 @@
-export default interface ICommandSettings {
+export default interface CommandSettings {
     name: string
     enabled: boolean
     deleteUsage: boolean

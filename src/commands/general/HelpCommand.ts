@@ -1,12 +1,12 @@
 import Discord from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import ICommand from "@/interfaces/CommandInterface";
-import ICommandMessage from "@/interfaces/CommandMessage";
+import CommandConfig from "@/types/CommandConfig";
+import CommandMessage from "@/types/CommandMessage";
 
 import replies from '@/properties/replies.json'
 
-export default class HelpCommand extends AbstractCommand implements ICommand {
+export default class HelpCommand extends AbstractCommand implements CommandConfig {
     public ru = {
         name: 'хелп',
         aliases: ['помощь', 'команды', 'х'],
@@ -22,7 +22,7 @@ export default class HelpCommand extends AbstractCommand implements ICommand {
         usage: 'help [command | category]'
     }
 
-    public async execute(cmd: ICommandMessage) {
+    public async execute(cmd: CommandMessage) {
         const reply = replies.help[cmd.language.interface];
 
         let embed = new Discord.MessageEmbed()

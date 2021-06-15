@@ -2,13 +2,13 @@ import Discord from "discord.js";
 import moment from "moment/moment";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import ICommand from "@/interfaces/CommandInterface";
-import ICommandMessage from "@/interfaces/CommandMessage";
+import CommandConfig from "@/types/CommandConfig";
+import CommandMessage from "@/types/CommandMessage";
 
 import replies from '@/properties/replies.json'
 import Resolver from "@/utils/Resolver";
 
-export default class UserCommand extends AbstractCommand implements ICommand {
+export default class UserCommand extends AbstractCommand implements CommandConfig {
     public ru = {
         name: 'юзер',
         aliases: ['юзер-инфо', 'пользователь'],
@@ -24,7 +24,7 @@ export default class UserCommand extends AbstractCommand implements ICommand {
         usage: 'user [user]'
     }
 
-    public async execute(cmd: ICommandMessage) {
+    public async execute(cmd: CommandMessage) {
         const reply:any = replies.user[cmd.language.interface];
 
         const badgesEmojis: Record<string, string> = {

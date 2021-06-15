@@ -2,15 +2,15 @@ import Discord from "discord.js";
 import moment from "moment";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import ICommand from "@/interfaces/CommandInterface";
-import ICommandMessage from "@/interfaces/CommandMessage";
+import CommandConfig from "@/types/CommandConfig";
+import CommandMessage from "@/types/CommandMessage";
 
 import Resolver from "@/utils/Resolver";
 import CommandError from "@/utils/CommandError";
 
 import replies from '@/properties/replies.json'
 
-export default class StatsCommand extends AbstractCommand implements ICommand {
+export default class StatsCommand extends AbstractCommand implements CommandConfig {
     public ru = {
         name: 'роль-инфо',
         aliases: ['рольинфо', 'роль-информация'],
@@ -27,7 +27,7 @@ export default class StatsCommand extends AbstractCommand implements ICommand {
     }
     public requiredArgs = 1
 
-    public async execute(cmd: ICommandMessage) {
+    public async execute(cmd: CommandMessage) {
         const reply = replies["role-info"][cmd.language.interface];
 
         let role = await Resolver.role(cmd.message, cmd.args[0]);

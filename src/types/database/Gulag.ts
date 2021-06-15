@@ -1,4 +1,4 @@
-export default interface IGulag {
+export default interface Gulag {
     userid: string
     reason: string
 }

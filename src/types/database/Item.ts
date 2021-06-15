@@ -1,4 +1,4 @@
-export default interface IItem {
+export default interface Item {
     guildid: string
     name: string
     description: string | null

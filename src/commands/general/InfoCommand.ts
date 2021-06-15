@@ -1,12 +1,12 @@
 import Discord from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import ICommand from "@/interfaces/CommandInterface";
-import ICommandMessage from "@/interfaces/CommandMessage";
+import CommandConfig from "@/types/CommandConfig";
+import CommandMessage from "@/types/CommandMessage";
 
 import replies from '@/properties/replies.json'
 
-export default class StatsCommand extends AbstractCommand implements ICommand {
+export default class StatsCommand extends AbstractCommand implements CommandConfig {
     public ru = {
         name: 'инфо',
         aliases: ['информация'],
@@ -22,7 +22,7 @@ export default class StatsCommand extends AbstractCommand implements ICommand {
         usage: 'stats'
     }
 
-    public async execute(cmd: ICommandMessage) {
+    public async execute(cmd: CommandMessage) {
         const reply = replies.info[cmd.language.interface];
 
         let helpCommand: Record<'ru' | 'en', string> = {

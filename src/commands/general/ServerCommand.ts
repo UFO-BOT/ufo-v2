@@ -2,13 +2,13 @@ import Discord from "discord.js";
 import moment from "moment";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import ICommand from "@/interfaces/CommandInterface";
-import ICommandMessage from "@/interfaces/CommandMessage";
+import CommandConfig from "@/types/CommandConfig";
+import CommandMessage from "@/types/CommandMessage";
 
 import replies from '@/properties/replies.json'
-import ISettings from "@/interfaces/database/SettingsInterface";
+import Settings from "@/types/database/Settings";
 
-export default class ServerCommand extends AbstractCommand implements ICommand {
+export default class ServerCommand extends AbstractCommand implements CommandConfig {
     public ru = {
         name: 'сервер',
         aliases: ['сервер-инфо', 'серверинфо'],
@@ -24,13 +24,13 @@ export default class ServerCommand extends AbstractCommand implements ICommand {
         usage: 'server'
     }
 
-    public async execute(cmd: ICommandMessage) {
+    public async execute(cmd: CommandMessage) {
         const reply:any = replies.server[cmd.language.interface];
 
         let emojis = global.bot.cache.emojis;
         let bans = await cmd.message.guild.fetchBans().catch(() => undefined)
         let invites = await cmd.message.guild.fetchInvites().catch(() => undefined)
-        let setting = await global.mongo.getOne<ISettings>('settings', {guildid: cmd.message.guild.id});
+        let setting = await global.mongo.getOne<Settings>('settings', {guildid: cmd.message.guild.id});
         let boosts = cmd.message.guild.premiumSubscriptionCount ?
             `\n**<a:boost:751699949799866459> ${reply.embed.boosts}:** ${cmd.message.guild.premiumSubscriptionCount}` : ''
         let splash = cmd.message.guild.splashURL() && cmd.message.guild.bannerURL() ?

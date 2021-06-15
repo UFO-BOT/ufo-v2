@@ -1,14 +1,14 @@
 import Discord from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import ICommand from "@/interfaces/CommandInterface";
-import ICommandMessage from "@/interfaces/CommandMessage";
+import CommandConfig from "@/types/CommandConfig";
+import CommandMessage from "@/types/CommandMessage";
 
 import TimeParser from "@/utils/TimeParser";
 
 import replies from '@/properties/replies.json'
 
-export default class StatsCommand extends AbstractCommand implements ICommand {
+export default class StatsCommand extends AbstractCommand implements CommandConfig {
     public ru = {
         name: 'стат',
         aliases: ['статистика', 'стата', 'бот-стат'],
@@ -24,7 +24,7 @@ export default class StatsCommand extends AbstractCommand implements ICommand {
         usage: 'stats'
     }
 
-    public async execute(cmd: ICommandMessage) {
+    public async execute(cmd: CommandMessage) {
         const reply = replies.stats[cmd.language.interface];
 
         let stats = {

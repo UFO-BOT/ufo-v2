@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 
-import IEvent from "@/interfaces/EventInterface";
+import IEvent from "@/types/EventConfig";
 import AbstractManagerEvent from "@/abstractions/events/AbstractManagerEvent";
 
 export default class ShardCreateEvent extends AbstractManagerEvent implements IEvent {

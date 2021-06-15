@@ -1,4 +1,4 @@
-export default interface ICommandInfo {
+export default interface CommandInfo {
     name: string,
     aliases: Array<string>,
     category: string

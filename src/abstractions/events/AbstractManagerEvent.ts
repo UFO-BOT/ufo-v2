@@ -1,6 +1,6 @@
 import AbstractEvent from "@/abstractions/events/AbstractEvent";
-import IEvent from "@/interfaces/EventInterface";
+import EventConfig from "@/types/EventConfig";
 
-export default abstract class AbstractManagerEvent extends AbstractEvent implements IEvent {
+export default abstract class AbstractManagerEvent extends AbstractEvent implements EventConfig {
     public static readonly scope = 'managerEvent'
 }

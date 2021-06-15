@@ -1,12 +1,12 @@
 import Discord from "discord.js";
 
-import IGuildLanguage from "@/interfaces/GuildLanguage";
+import GuildLanguage from "@/types/GuildLanguage";
 
-export default interface ICommandMessage {
+export default interface CommandMessage {
     message: Discord.Message
     args: Array<string>
     flags?: Record<string, boolean>
     prefix?: string
-    language?: IGuildLanguage
+    language?: GuildLanguage
     moneysymb?: string
 }

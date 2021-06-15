@@ -1,4 +1,4 @@
-export default interface ICoupon {
+export default interface Coupon {
     guildid: string
     name: string
     amount: number

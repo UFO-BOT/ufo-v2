@@ -1,10 +1,10 @@
 import Discord from "discord.js";
 
-import ISettings from "@/interfaces/database/SettingsInterface";
-import ICommandSettings from "@/interfaces/CommandSettings";
+import Settings from "@/types/database/Settings";
+import CommandSettings from "@/types/CommandSettings";
 import CommandError from "@/utils/CommandError";
 import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
-import ICommandFlag from "@/interfaces/CommandFlagInterface";
+import ICommandFlag from "@/types/CommandFlag";
 import {settings} from "cluster";
 
 export default class CommandsHandler {
@@ -24,7 +24,7 @@ export default class CommandsHandler {
         let commandsSettings = global.bot.cache.commandsSettings.get(this.message.guild.id);
 
         if (!prefix || !language || !moneysymb || !commandsSettings) {
-            let settings = await global.mongo.getOne<ISettings>('settings', {guildid: this.message.guild?.id})
+            let settings = await global.mongo.getOne<Settings>('settings', {guildid: this.message.guild?.id})
             prefix = settings?.prefix ?? '!'
             language = {
                 commands: settings?.language?.commands ?? 'en',
@@ -53,11 +53,11 @@ export default class CommandsHandler {
         if(devCommand) return this.handleDev(devCommand)
         if (!command) return
 
-        let commandSettings = commandsSettings[command.en.name] ?? {} as ICommandSettings
+        let commandSettings = commandsSettings[command.en.name] ?? {} as CommandSettings
         if (commandSettings.enabled === false) return;
 
         if(command.boostRequired) {
-            let settings = await global.mongo.getOne<ISettings>('settings', {guildid: this.message.guild.id})
+            let settings = await global.mongo.getOne<Settings>('settings', {guildid: this.message.guild.id})
             if(!settings.boost) return CommandError.boostRequired(this.message, language.interface)
         }
 

@@ -2,10 +2,10 @@ import Discord from "discord.js";
 import { inspect } from "util";
 
 import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
-import IDevCommand from "@/interfaces/DevCommandInterface";
-import ICommandMessage from "@/interfaces/CommandMessage";
+import DevCommand from "@/types/DevCommandConfig";
+import CommandMessage from "@/types/CommandMessage";
 
-export default class EvalCommand extends AbstractDevCommand implements IDevCommand {
+export default class EvalCommand extends AbstractDevCommand implements DevCommand {
     public name = 'eval'
     public aliases = ['e', 'evaluate']
     public flags = [
@@ -23,7 +23,7 @@ export default class EvalCommand extends AbstractDevCommand implements IDevComma
         }
     ]
 
-    public async execute(cmd: ICommandMessage) {
+    public async execute(cmd: CommandMessage) {
         let embed = new Discord.MessageEmbed()
         let content = cmd.args.join(" ")
         if(cmd.flags.delMsg && cmd.message.deletable) await cmd.message.delete()

@@ -1,4 +1,4 @@
-export default interface IBalance {
+export default interface Balance {
     guildid: string
     userid: string
     balance: number

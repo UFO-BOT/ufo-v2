@@ -1,4 +1,4 @@
-export default interface IToken {
+export default interface Token {
     userid: string
     accessToken: string
     refreshToken: string

@@ -1,4 +1,4 @@
-export default interface IGiveaway {
+export default interface Giveaway {
     guildid: string
     channel: string
     message: string

@@ -1,15 +1,15 @@
-import IDevCommand from "@/interfaces/DevCommandInterface";
-import ICommandMessage from "@/interfaces/CommandMessage";
-import ICommandFlag from "@/interfaces/CommandFlagInterface";
+import DevCommandConfig from "@/types/DevCommandConfig";
+import CommandMessage from "@/types/CommandMessage";
+import CommandFlag from "@/types/CommandFlag";
 
 
-export default abstract class AbstractDevCommand implements IDevCommand {
+export default abstract class AbstractDevCommand implements DevCommandConfig {
     public static readonly scope = 'devCommand'
 
     public abstract name: string
     public abstract aliases: Array<string>
-    public flags?: Array<ICommandFlag>
+    public flags?: Array<CommandFlag>
     public allowedRoles?: Array<string>
 
-    public abstract execute(cmd: ICommandMessage): Promise<any>
+    public abstract execute(cmd: CommandMessage): Promise<any>
 }

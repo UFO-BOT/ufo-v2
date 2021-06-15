@@ -1,10 +1,10 @@
-import IGuildLanguage from "@/interfaces/GuildLanguage";
-import ICommandSettings from "@/interfaces/CommandSettings";
+import GuildLanguage from "@/types/GuildLanguage";
+import ICommandSettings from "@/types/CommandSettings";
 
-export default interface ISettings {
+export default interface Settings {
     guildid: string
     prefix: string
-    language: IGuildLanguage
+    language: GuildLanguage
     moneysymb: string
     salary: {
         low: number
