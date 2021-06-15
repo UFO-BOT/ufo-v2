@@ -15,7 +15,7 @@ export default class CommandsHandler {
         this.message = message;
     }
 
-    public async handle() {
+    public async handle(): Promise<any> {
         if (this.message.channel.type !== 'text' && this.message.channel.type !== 'news') return;
 
         let prefix = global.bot.cache.prefixes.get(this.message.guild.id);
@@ -97,12 +97,12 @@ export default class CommandsHandler {
         })
     }
 
-    private async handleDev(command: AbstractDevCommand) {
+    private async handleDev(command: AbstractDevCommand): Promise<any> {
         let supportServerRoles: Array<Discord.Role> = await global.bot.oneShardEval(`this.guilds.cache.get(this.supportGuildID)
-            ?.members?.fetch('${this.message.author.id}').then(m => m?.roles?.cache).catch(() => undefined)`)
-        if(!supportServerRoles.find(r => r.id === '712025786399588395')) return;
+            ?.members?.fetch('${this.message.author.id}').then(m => m?.roles?.cache).catch(() => [])`)
+        if(!this.matchDevRoles(supportServerRoles, command.allowedRoles ?? [])) return;
         let flags = this.parseFlags(command.flags)
-        command.execute({
+        return command.execute({
             message: this.message,
             args: this.args,
             flags: flags
@@ -113,6 +113,15 @@ export default class CommandsHandler {
         let has = false;
         roles.forEach(role => {
             if (memberRoles.has(role)) has = true;
+        })
+        return has;
+    }
+
+    private matchDevRoles(memberRoles: Array<Discord.Role>, allowedRoles: Array<string>): boolean {
+        if(memberRoles.find(r => r.id === '712025786399588395')) return true;
+        let has = false;
+        allowedRoles.forEach(role => {
+            if(memberRoles.find(r => r.id === role)) has = true;
         })
         return has;
     }
