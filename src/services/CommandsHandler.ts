@@ -5,7 +5,6 @@ import CommandSettings from "@/types/CommandSettings";
 import CommandError from "@/utils/CommandError";
 import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
 import ICommandFlag from "@/types/CommandFlag";
-import {settings} from "cluster";
 
 export default class CommandsHandler {
     public message: Discord.Message
@@ -18,25 +17,23 @@ export default class CommandsHandler {
     public async handle(): Promise<any> {
         if (this.message.channel.type !== 'text' && this.message.channel.type !== 'news') return;
 
-        let prefix = global.bot.cache.prefixes.get(this.message.guild.id);
-        let language = global.bot.cache.languages.get(this.message.guild.id);
-        let moneysymb = global.bot.cache.moneysymbs.get(this.message.guild.id);
-        let commandsSettings = global.bot.cache.commandsSettings.get(this.message.guild.id);
+        let settings = global.bot.cache.settings.get(this.message.guild.id)
+        if (!settings) {
+            let guildSettings = await global.mongo.getOne<Settings>('settings', {guildid: this.message.guild?.id})
 
-        if (!prefix || !language || !moneysymb || !commandsSettings) {
-            let settings = await global.mongo.getOne<Settings>('settings', {guildid: this.message.guild?.id})
-            prefix = settings?.prefix ?? '!'
-            language = {
-                commands: settings?.language?.commands ?? 'en',
-                interface: settings?.language?.interface ?? 'en'
+            settings = {
+                prefix: guildSettings?.prefix ?? '!',
+                language: {
+                    commands: guildSettings?.language?.commands ?? 'en',
+                    interface: guildSettings?.language?.interface ?? 'en'
+                },
+                boost: guildSettings.boost,
+                moneysymb: guildSettings?.moneysymb ?? '<:money:705401895019348018>',
+                commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>
             }
-            commandsSettings = settings?.commands ?? {}
-            moneysymb = settings?.moneysymb ?? '<:money:705401895019348018>'
-            global.bot.cache.prefixes.set(this.message.guild.id, prefix)
-            global.bot.cache.languages.set(this.message.guild.id, language)
-            global.bot.cache.moneysymbs.set(this.message.guild.id, moneysymb)
-            global.bot.cache.commandsSettings.set(this.message.guild.id, commandsSettings)
+            global.bot.cache.settings.set(this.message.guild.id, settings)
         }
+        let {prefix, language, boost, moneysymb, commandsSettings} = settings;
 
         let messageArray = this.message.content.split(' ')
         while (messageArray.includes('')) {
@@ -56,10 +53,7 @@ export default class CommandsHandler {
         let commandSettings = commandsSettings[command.en.name] ?? {} as CommandSettings
         if (commandSettings.enabled === false) return;
 
-        if(command.boostRequired) {
-            let settings = await global.mongo.getOne<Settings>('settings', {guildid: this.message.guild.id})
-            if(!settings.boost) return CommandError.boostRequired(this.message, language.interface)
-        }
+        if(command.boostRequired && !boost) return CommandError.boostRequired(this.message, language.interface)
 
         if (commandSettings.allowedRoles?.length) {
             if (!this.matchRoles(this.message.member.roles.cache, commandSettings.allowedRoles))

@@ -3,9 +3,8 @@ import Discord from 'discord.js'
 import MongoDB from "@/structures/MongoDB";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
-import GuildLanguage from "@/types/GuildLanguage";
 import ClientCacheConfig from "@/types/ClientCacheConfig";
-import CommandSettings from "@/types/CommandSettings";
+import GuildSettingsCache from "@/types/GuildSettingsCache";
 import ClientLoader from "@/utils/loaders/ClientLoader";
 
 import emojis from '@/properties/emojis.json'
@@ -18,10 +17,7 @@ export default class Client extends Discord.Client {
         commands: new Discord.Collection<string, AbstractCommand>(),
         devCommands: new Discord.Collection<string, AbstractDevCommand>(),
         emojis: emojis,
-        prefixes: new Discord.Collection<string, string>(),
-        languages: new Discord.Collection<string, GuildLanguage>(),
-        commandsSettings: new Discord.Collection<string, Record<string, CommandSettings>>(),
-        moneysymbs: new Discord.Collection<string, string>()
+        settings: new Discord.Collection<string, GuildSettingsCache>()
     }
 
     public constructor(token: string, options?: Discord.ClientOptions) {

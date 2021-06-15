@@ -9,7 +9,6 @@ export default class MessageEvent extends AbstractClientEvent implements EventCo
     public name = 'message'
 
     public async execute(message: Discord.Message): Promise<any> {
-        // All this will be replaced to the special handler
         if(!message.author) return;
         if(message.author.bot) return;
         if(message.channel.type === 'dm') return;
