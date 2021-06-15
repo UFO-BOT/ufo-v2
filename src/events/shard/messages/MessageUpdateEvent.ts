@@ -1,12 +1,16 @@
 import Discord from "discord.js";
 
-import IEvent from "@/interfaces/EventInterface";
+import EventConfig from "@/types/EventConfig";
 import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 
-export default class MessageUpdateEvent extends AbstractClientEvent implements IEvent {
+export default class MessageUpdateEvent extends AbstractClientEvent implements EventConfig {
     public name = 'messageUpdate'
 
-    public async execute(oldmsg: Discord.Message, newmsg: Discord.Message): Promise<any> {
-
+    public async execute(oldMessage: Discord.Message, newMessage: Discord.Message): Promise<any> {
+        if (!oldMessage.content || !newMessage.content) return;
+        if (!oldMessage.author) return;
+        if (oldMessage.content === newMessage.content) return;
+        if (oldMessage.channel.type === "dm") return;
+        global.bot.emit('message', newMessage)
     }
 }
