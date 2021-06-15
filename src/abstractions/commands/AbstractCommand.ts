@@ -1,18 +1,18 @@
 import Discord from "discord.js";
 
-import ICommand from "@/types/CommandConfig";
-import ICommandInfo from "@/types/CommandInfo";
-import ICommandMessage from "@/types/CommandMessage";
+import Command from "@/types/CommandConfig";
+import CommandInfo from "@/types/CommandInfo";
+import CommandMessage from "@/types/CommandMessage";
 
-export default abstract class AbstractCommand implements ICommand {
+export default abstract class AbstractCommand implements Command {
     public static readonly scope = 'command'
 
-    public abstract ru: ICommandInfo
-    public abstract en: ICommandInfo
+    public abstract ru: CommandInfo
+    public abstract en: CommandInfo
     public boostRequired?: boolean
     public requiredArgs?: number
     public memberPermissions?: Array<Discord.PermissionString>
     public botPermissions?: Array<Discord.PermissionString>
 
-    public abstract execute(cmd: ICommandMessage): Promise<any>
+    public abstract execute(cmd: CommandMessage): Promise<any>
 }
