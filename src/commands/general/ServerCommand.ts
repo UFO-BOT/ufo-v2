@@ -6,7 +6,6 @@ import CommandConfig from "@/types/CommandConfig";
 import CommandMessage from "@/types/CommandMessage";
 
 import replies from '@/properties/replies.json'
-import Settings from "@/types/database/Settings";
 
 export default class ServerCommand extends AbstractCommand implements CommandConfig {
     public ru = {
@@ -30,7 +29,7 @@ export default class ServerCommand extends AbstractCommand implements CommandCon
         let emojis = global.bot.cache.emojis;
         let bans = await cmd.message.guild.fetchBans().catch(() => undefined)
         let invites = await cmd.message.guild.fetchInvites().catch(() => undefined)
-        let setting = await global.mongo.getOne<Settings>('settings', {guildid: cmd.message.guild.id});
+        let { boost } = global.bot.cache.settings.get(cmd.message.guild.id)
         let boosts = cmd.message.guild.premiumSubscriptionCount ?
             `\n**<a:boost:751699949799866459> ${reply.embed.boosts}:** ${cmd.message.guild.premiumSubscriptionCount}` : ''
         let splash = cmd.message.guild.splashURL() && cmd.message.guild.bannerURL() ?
@@ -59,7 +58,7 @@ ${emojis.emotes} ${reply.embed.emojiCount}: ${cmd.message.guild.emojis.cache.siz
             .setThumbnail(cmd.message.guild.iconURL({dynamic: true}))
             .setImage(cmd.message.guild.bannerURL({format: 'gif'}) ?? cmd.message.guild.splashURL({size: 2048, format: 'gif'}))
             .setFooter(`ID: ${cmd.message.guild.id}`);
-        if(setting?.boost) embed.description += `\n${global.bot.cache.emojis.ufoboost} ${reply.embed.ufoboost}`
+        if(boost) embed.description += `\n${global.bot.cache.emojis.ufoboost} ${reply.embed.ufoboost}`
         return cmd.message.channel.send(embed);
     }
 }

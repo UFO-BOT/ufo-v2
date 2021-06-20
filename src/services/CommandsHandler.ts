@@ -19,7 +19,7 @@ export default class CommandsHandler {
 
         let settings = global.bot.cache.settings.get(this.message.guild.id)
         if (!settings) {
-            let guildSettings = await global.mongo.getOne<Settings>('settings', {guildid: this.message.guild?.id})
+            let guildSettings = await global.mongo.findOne<Settings>('settings', {guildid: this.message.guild?.id})
 
             settings = {
                 prefix: guildSettings?.prefix ?? '!',
