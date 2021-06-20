@@ -32,9 +32,11 @@ export default class EvalCommand extends AbstractDevCommand implements DevComman
             let result = cmd.flags.noAwait ? eval(content) : await eval(content)
             let type = typeof result;
             if(typeof result !== 'string') result = inspect(result)
+            result = result.replace(new RegExp(process.env.TOKEN, 'gmi'), 'Токен сливать нельзя')
             embed.setColor('#3882f8')
                 .setTitle('Completed')
-                .setDescription(`**Done in:** ${Date.now() - time}ms\n` + `**Type:** ${type}\n` + "```js\n" + result + "```")
+                .setDescription(`**Done in:** ${Date.now() - time}ms\n` + `**Type:** ${type}\n` +
+                    (result.length < 2000 ? "```js\n" + result + "```" : "Result is too long to display"))
             if(!cmd.flags.noReply) return cmd.message.channel.send(embed)
         }
         catch (error) {
