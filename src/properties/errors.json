@@ -69,6 +69,20 @@
       }
     }
   },
+  "userCooldown": {
+    "ru": {
+      "embed": {
+        "author": "Кулдаун",
+        "description": "Вы сможете использовать эту команду через `{{time}}`"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Cooldown",
+        "description": "You can use this command in `{{time}}`"
+      }
+    }
+  },
   "otherError": {
     "ru": {
       "embed": {

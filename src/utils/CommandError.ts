@@ -4,6 +4,7 @@ import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import Language from "@/types/Language";
 import GuildLanguage from "@/types/GuildLanguage";
 import permissionsParser from "@/utils/permissionsParser";
+import TimeParser from "@/utils/TimeParser";
 
 import errors from '@/properties/errors.json'
 
@@ -50,6 +51,15 @@ export default class CommandError {
             .setColor('#ff173a')
             .setAuthor(prop.embed.author, message.author.avatarURL({dynamic: true}))
             .setDescription(prop.embed.description)
+        message.channel.send(embed)
+    }
+
+    public static userCooldown(message: Discord.Message, cooldown: number, lang: Language = 'en'): void {
+        let prop = errors.userCooldown[lang]
+        let embed = new Discord.MessageEmbed()
+            .setColor('#3882f8')
+            .setAuthor(prop.embed.author, message.author.avatarURL({dynamic: true}))
+            .setDescription(prop.embed.description.replace('{{time}}', TimeParser.stringify(cooldown, lang, true)))
         message.channel.send(embed)
     }
 

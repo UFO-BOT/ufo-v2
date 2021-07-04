@@ -48,7 +48,7 @@ export default class StatsCommand extends AbstractCommand implements CommandConf
             .setColor('#3882f8')
             .setDescription(reply.embed.description.replace('{{place}}', place))
             .setAuthor(member.user.tag, member.user.avatarURL({dynamic: true}),
-                `https://ufobot.ru/leaderboard/${cmd.message.guild.id}/${member.user.id}`)
+                `${process.env.WEBSITE}/${cmd.message.guild.id}/${member.user.id}`)
             .addField(reply.embed.field1, memberBalance.balance + cmd.moneysymb, true)
             .addField(reply.embed.field2, memberBalance.xp + global.bot.cache.emojis.xp, true)
         return cmd.message.channel.send(embed);
