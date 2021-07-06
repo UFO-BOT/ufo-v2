@@ -1,10 +1,12 @@
 import GuildLanguage from "@/types/GuildLanguage";
+import GuildColor from "@/types/GuildColor";
 import CommandSettings from "@/types/CommandSettings";
 
 export default interface Settings {
     guildid: string
     prefix: string
     language: GuildLanguage
+    color: GuildColor
     moneysymb: string
     salary: {
         low: number

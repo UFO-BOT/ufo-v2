@@ -32,9 +32,9 @@ export default class StatsCommand extends AbstractCommand implements CommandConf
 
         let role = await Resolver.role(cmd.message, cmd.args[0]);
         if(!role) {
-            return CommandError.other(cmd.message, reply.errors.roleNotFound, cmd.language.interface);
+            return CommandError.other(cmd, reply.errors.roleNotFound);
         }
-        let color = '#3882f8';
+        let color = cmd.color.system;
         if(role.hexColor != '#000000') color = role.hexColor;
         let embed = new Discord.MessageEmbed()
             .setColor(color)

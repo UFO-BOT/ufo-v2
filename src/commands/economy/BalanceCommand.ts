@@ -34,7 +34,7 @@ export default class StatsCommand extends AbstractCommand implements CommandConf
             {guildid: cmd.message.guild.id, userid: member.user.id})
         if(!memberBalance) {
             let embed = new Discord.MessageEmbed()
-                .setColor('#3882f8')
+                .setColor(cmd.color.system)
                 .setAuthor(member.user.tag, member.user.avatarURL({dynamic: true}))
                 .addField(reply.embed.field1, "0" + cmd.moneysymb, true)
                 .addField(reply.embed.field2, "0" + global.bot.cache.emojis.xp, true)
@@ -45,7 +45,7 @@ export default class StatsCommand extends AbstractCommand implements CommandConf
         let topMember = top.find(m => m.userid === memberBalance.userid);
         let place = String(top.indexOf(topMember) + 1);
         let embed = new Discord.MessageEmbed()
-            .setColor('#3882f8')
+            .setColor(cmd.color.system)
             .setDescription(reply.embed.description.replace('{{place}}', place))
             .setAuthor(member.user.tag, member.user.avatarURL({dynamic: true}),
                 `${process.env.WEBSITE}/${cmd.message.guild.id}/${member.user.id}`)

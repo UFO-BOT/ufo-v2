@@ -26,7 +26,7 @@ export default class HelpCommand extends AbstractCommand implements CommandConfi
         const reply = replies.help[cmd.language.interface];
 
         let embed = new Discord.MessageEmbed()
-            .setColor('#3882f8')
+            .setColor(cmd.color.system)
             .setDescription(`Может оставить такой цвет основным?`)
         cmd.message.channel.send(embed)
     }

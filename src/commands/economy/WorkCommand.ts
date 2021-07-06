@@ -43,7 +43,7 @@ export default class StatsCommand extends AbstractCommand implements CommandConf
 
         let isCooldown = Date.now() - memberBalance.lastwork
         if(isCooldown < workcooldown)
-            return CommandError.userCooldown(cmd.message, workcooldown - isCooldown, cmd.language.interface)
+            return CommandError.userCooldown(cmd, workcooldown - isCooldown)
 
         memberBalance.lastwork = Date.now()
 
@@ -52,7 +52,7 @@ export default class StatsCommand extends AbstractCommand implements CommandConf
         await global.mongo.save('balances', memberBalance)
 
         let embed = new Discord.MessageEmbed()
-            .setColor('#00ff66')
+            .setColor(cmd.color.success)
             .setAuthor(reply.embed.author, cmd.message.author.avatarURL({dynamic: true}))
             .setDescription(reply.embed.description
                 .replace('{{salary}}', String(money))

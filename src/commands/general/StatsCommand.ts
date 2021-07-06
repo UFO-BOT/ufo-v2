@@ -37,7 +37,7 @@ export default class StatsCommand extends AbstractCommand implements CommandConf
         }
 
         let embed = new Discord.MessageEmbed()
-            .setColor('#3882f8')
+            .setColor(cmd.color.system)
             .setAuthor(`${reply.embed.stats} ${global.bot.user!.username}`, global.bot.user.avatarURL({dynamic: true})!,
                 process.env.WEBSITE + '/stats')
             .addField(reply.embed.stats, `

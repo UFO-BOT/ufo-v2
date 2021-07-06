@@ -35,7 +35,7 @@ export default class ServerCommand extends AbstractCommand implements CommandCon
         let splash = cmd.message.guild.splashURL() && cmd.message.guild.bannerURL() ?
             `\n[**:frame_photo: ${reply.embed.splash}**](${cmd.message.guild.splashURL({format: 'gif'})})` : ''
         let embed = new Discord.MessageEmbed()
-            .setColor('#3882f8')
+            .setColor(cmd.color.system)
             .setTitle(cmd.message.guild.name)
             .setDescription(`
 **${emojis.verification} ${reply.embed.verification}:** ${reply.levels[cmd.message.guild.verificationLevel]}

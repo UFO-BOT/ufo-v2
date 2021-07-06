@@ -35,7 +35,7 @@ export default class StatsCommand extends AbstractCommand implements CommandConf
         }
         let dev = await global.bot.users.fetch('591321756799598592');
         let embed = new Discord.MessageEmbed()
-            .setColor('#7900ff')
+            .setColor(cmd.color.system)
             .setTitle(global.bot.user.username)
             .setDescription(reply.embed.description
                 .replace('{{prefix}}', cmd.prefix)

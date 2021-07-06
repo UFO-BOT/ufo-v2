@@ -27,13 +27,18 @@ export default class CommandsHandler {
                     commands: guildSettings?.language?.commands ?? 'en',
                     interface: guildSettings?.language?.interface ?? 'en'
                 },
+                color: {
+                    system: guildSettings?.color?.system ?? '#00a6ff',
+                    success: guildSettings?.color?.success ?? '#00ff66',
+                    error: guildSettings?.color?.error ?? '#ff0026'
+                },
                 boost: guildSettings.boost,
                 moneysymb: guildSettings?.moneysymb ?? '<:money:705401895019348018>',
                 commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>
             }
             global.bot.cache.settings.set(this.message.guild.id, settings)
         }
-        let {prefix, language, boost, moneysymb, commandsSettings} = settings;
+        let {prefix, language, color, boost, moneysymb, commandsSettings} = settings;
 
         let messageArray = this.message.content.split(' ')
         while (messageArray.includes('')) {
@@ -53,42 +58,45 @@ export default class CommandsHandler {
         let commandSettings = commandsSettings[command.en.name] ?? {} as CommandSettings
         if (commandSettings.enabled === false) return;
 
-        if(command.boostRequired && !boost) return CommandError.boostRequired(this.message, language.interface)
+        let commandMessage = {
+            message: this.message,
+            args: this.args,
+            prefix,
+            language,
+            color,
+            moneysymb
+        }
+
+        if(command.boostRequired && !boost) return CommandError.boostRequired(commandMessage)
 
         if (commandSettings.allowedRoles?.length) {
             if (!this.matchRoles(this.message.member.roles.cache, commandSettings.allowedRoles))
-                return CommandError.certainRoles(this.message, language.interface)
+                return CommandError.certainRoles(commandMessage)
         } else {
             if (command.memberPermissions) {
                 if (!this.message.channel.permissionsFor(this.message.member).has(command.memberPermissions))
-                    return CommandError.noMemberPermissions(this.message, command.memberPermissions, language.interface)
+                    return CommandError.noMemberPermissions(commandMessage, command.memberPermissions)
             }
         }
         if (commandSettings.forbiddenRoles?.length) {
             if (this.matchRoles(this.message.member.roles.cache, commandSettings.forbiddenRoles))
-                return CommandError.certainRoles(this.message, language.interface)
+                return CommandError.certainRoles(commandMessage)
         }
         if (commandSettings.allowedChannels?.length) {
             if (!commandSettings.allowedChannels.includes(this.message.channel.id))
-                return CommandError.certainChannels(this.message, language.interface)
+                return CommandError.certainChannels(commandMessage)
         }
         if (commandSettings.forbiddenChannels?.length) {
             if (commandSettings.forbiddenChannels.includes(this.message.channel.id))
-                return CommandError.certainChannels(this.message, language.interface)
+                return CommandError.certainChannels(commandMessage)
         }
 
         if (this.args.length < command.requiredArgs)
-            return CommandError.invalidUsage(this.message, command, language)
+            return CommandError.invalidUsage(commandMessage, command)
 
         if (commandSettings.deleteUsage && this.message.deletable) await this.message.delete()
         
-        return command.execute({
-            message: this.message,
-            args: this.args,
-            prefix: prefix,
-            language: language,
-            moneysymb: moneysymb
-        })
+        return command.execute(commandMessage)
     }
 
     private async handleDev(command: AbstractDevCommand): Promise<any> {

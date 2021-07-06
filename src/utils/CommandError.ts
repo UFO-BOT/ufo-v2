@@ -1,74 +1,75 @@
 import Discord from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import Language from "@/types/Language";
-import GuildLanguage from "@/types/GuildLanguage";
+import CommandMessage from "@/types/CommandMessage";
 import permissionsParser from "@/utils/permissionsParser";
 import TimeParser from "@/utils/TimeParser";
 
 import errors from '@/properties/errors.json'
 
 export default class CommandError {
-    public static boostRequired(message: Discord.Message, lang: Language = 'en'): void {
-        let prop = errors.boostRequired[lang]
+    public static boostRequired(cmd: CommandMessage): void {
+        let prop = errors.boostRequired[cmd.language.interface]
         let embed = new Discord.MessageEmbed()
-            .setColor('#3882f8')
+            .setColor(cmd.color.system)
             .setDescription(prop.embed.description)
-        message.channel.send(embed)
+        cmd.message.channel.send(embed)
     }
 
-    public static invalidUsage(message: Discord.Message, command: AbstractCommand, language: GuildLanguage): void {
-        let prop = errors.invalidUsage[language.interface]
+    public static invalidUsage(cmd: CommandMessage, command: AbstractCommand): void {
+        let prop = errors.invalidUsage[cmd.language.interface]
         let embed = new Discord.MessageEmbed()
-            .setColor('#ff173a')
-            .setAuthor(prop.embed.author, message.author.avatarURL({dynamic: true}))
+            .setColor(cmd.color.error)
+            .setAuthor(prop.embed.author, cmd.message.author.avatarURL({dynamic: true}))
             .setDescription(prop.embed.description)
-            .addField(prop.embed.field, '`' + command[language.commands].usage + '`')
-        message.channel.send(embed)
+            .addField(prop.embed.field, '`' + command[cmd.language.commands].usage + '`')
+        cmd.message.channel.send(embed)
     }
 
-    public static noMemberPermissions(message: Discord.Message, permissions: Array<Discord.PermissionString>, lang: Language = 'en'): void {
-        let prop = errors.noMemberPermissions[lang]
+    public static noMemberPermissions(cmd: CommandMessage, permissions: Array<Discord.PermissionString>): void {
+        let prop = errors.noMemberPermissions[cmd.language.interface]
         let embed = new Discord.MessageEmbed()
-            .setColor('#ff173a')
-            .setAuthor(prop.embed.author, message.author.avatarURL({dynamic: true}))
-            .setDescription(prop.embed.description.replace('{{perms}}', '`' + permissionsParser(permissions, lang).join("`, `")) + '`')
-        message.channel.send(embed)
+            .setColor(cmd.color.error)
+            .setAuthor(prop.embed.author, cmd.message.author.avatarURL({dynamic: true}))
+            .setDescription(prop.embed.description.replace('{{perms}}', '`' +
+                permissionsParser(permissions, cmd.language.interface).join("`, `")) + '`')
+        cmd.message.channel.send(embed)
     }
 
-    public static certainRoles(message: Discord.Message, lang: Language = 'en'): void {
-        let prop = errors.certainRoles[lang]
+    public static certainRoles(cmd: CommandMessage): void {
+        let prop = errors.certainRoles[cmd.language.interface]
         let embed = new Discord.MessageEmbed()
-            .setColor('#ff173a')
-            .setAuthor(prop.embed.author, message.author.avatarURL({dynamic: true}))
+            .setColor(cmd.color.error)
+            .setAuthor(prop.embed.author, cmd.message.author.avatarURL({dynamic: true}))
             .setDescription(prop.embed.description)
-        message.channel.send(embed)
+        cmd.message.channel.send(embed)
     }
 
-    public static certainChannels(message: Discord.Message, lang: Language = 'en'): void {
-        let prop = errors.certainChannels[lang]
+    public static certainChannels(cmd: CommandMessage): void {
+        let prop = errors.certainChannels[cmd.language.interface]
         let embed = new Discord.MessageEmbed()
-            .setColor('#ff173a')
-            .setAuthor(prop.embed.author, message.author.avatarURL({dynamic: true}))
+            .setColor(cmd.color.error)
+            .setAuthor(prop.embed.author, cmd.message.author.avatarURL({dynamic: true}))
             .setDescription(prop.embed.description)
-        message.channel.send(embed)
+        cmd.message.channel.send(embed)
     }
 
-    public static userCooldown(message: Discord.Message, cooldown: number, lang: Language = 'en'): void {
-        let prop = errors.userCooldown[lang]
+    public static userCooldown(cmd: CommandMessage, cooldown: number): void {
+        let prop = errors.userCooldown[cmd.language.interface]
         let embed = new Discord.MessageEmbed()
-            .setColor('#3882f8')
-            .setAuthor(prop.embed.author, message.author.avatarURL({dynamic: true}))
-            .setDescription(prop.embed.description.replace('{{time}}', TimeParser.stringify(cooldown, lang, true)))
-        message.channel.send(embed)
+            .setColor(cmd.color.system)
+            .setAuthor(prop.embed.author, cmd.message.author.avatarURL({dynamic: true}))
+            .setDescription(prop.embed.description.replace('{{time}}',
+                TimeParser.stringify(cooldown, cmd.language.interface, true)))
+        cmd.message.channel.send(embed)
     }
 
-    public static other(message: Discord.Message, text: string, lang: Language = 'en'): void {
-        let prop = errors.otherError[lang]
+    public static other(cmd: CommandMessage, text: string): void {
+        let prop = errors.otherError[cmd.language.interface]
         let embed = new Discord.MessageEmbed()
-            .setColor('#ff173a')
-            .setAuthor(prop.embed.author, message.author.avatarURL({dynamic: true}))
+            .setColor(cmd.color.error)
+            .setAuthor(prop.embed.author, cmd.message.author.avatarURL({dynamic: true}))
             .setDescription(text)
-        message.channel.send(embed)
+        cmd.message.channel.send(embed)
     }
 }

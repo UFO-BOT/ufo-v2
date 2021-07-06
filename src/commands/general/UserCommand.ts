@@ -60,7 +60,7 @@ export default class UserCommand extends AbstractCommand implements CommandConfi
             if(global.bot.cache.emojis[botBadgesEmojis[role.id]])
                 botbadges += global.bot.cache.emojis[botBadgesEmojis[role.id]] + ' '
         })
-        let color = '#3882f8';
+        let color = cmd.color.system;
         if(memb && memb?.displayHexColor !== '#000000') color = memb?.displayHexColor;
         let badges: Array<string> = [];
         let flags = await user.fetchFlags();
