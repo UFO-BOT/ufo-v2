@@ -4,7 +4,8 @@ import Settings from "@/types/database/Settings";
 import CommandSettings from "@/types/CommandSettings";
 import CommandError from "@/utils/CommandError";
 import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
-import ICommandFlag from "@/types/CommandFlag";
+
+import flagsParser from "@/utils/flagsParser";
 
 export default class CommandsHandler {
     public message: Discord.Message
@@ -103,7 +104,7 @@ export default class CommandsHandler {
         let supportServerRoles: Array<Discord.Role> = await global.bot.oneShardEval(`this.guilds.cache.get(this.supportGuildID)
             ?.members?.fetch('${this.message.author.id}').then(m => m?.roles?.cache).catch(() => [])`)
         if(!this.matchDevRoles(supportServerRoles, command.allowedRoles ?? [])) return;
-        let flags = this.parseFlags(command.flags)
+        let flags = flagsParser(command.flags, this.args)
         return command.execute({
             message: this.message,
             args: this.args,
@@ -126,19 +127,5 @@ export default class CommandsHandler {
             if(memberRoles.find(r => r.id === role)) has = true;
         })
         return has;
-    }
-
-    private parseFlags(flags?: Array<ICommandFlag>): Record<string, boolean> {
-        if(!flags) return {};
-        let usedFlags: Record<string, boolean> = {};
-        flags.forEach(flag => {
-            flag.usages.forEach(usage => {
-                if(this.args.includes(usage)) {
-                    this.args.splice(this.args.indexOf(usage), 1)
-                    usedFlags[flag.name] = true;
-                }
-            })
-        })
-        return usedFlags;
     }
 }

@@ -6,7 +6,7 @@ import GuildColor from "@/types/GuildColor";
 export default interface CommandMessage {
     message: Discord.Message
     args: Array<string>
-    flags?: Record<string, boolean>
+    flags?: Record<string, boolean | string>
     prefix?: string
     language?: GuildLanguage
     color?: GuildColor
