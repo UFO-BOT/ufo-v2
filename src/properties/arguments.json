@@ -1,0 +1,282 @@
+{
+  "add-money": {
+    "ru": {},
+    "en": {}
+  },
+  "avatar": {
+    "ru": {},
+    "en": {}
+  },
+  "balance": {
+    "ru": {},
+    "en": {}
+  },
+  "ban": {
+    "ru": {},
+    "en": {}
+  },
+  "boost": {
+    "ru": {
+      "remove": "снять",
+      "list": "список",
+      "amount": "количество"
+    },
+    "en": {
+      "remove": "remove",
+      "list": "list",
+      "amount": "amount"
+    }
+  },
+  "buy-item": {
+    "ru": {},
+    "en": {}
+  },
+  "cancel-giveaway": {
+    "ru": {},
+    "en": {}
+  },
+  "case": {
+    "ru": {},
+    "en": {}
+  },
+  "clear": {
+    "ru": {
+      "users": "-пользователи",
+      "bots": "-боты",
+      "embeds": "-эмбеды",
+      "attachments": "-файлы",
+      "mentions": "-упоминания",
+      "pins": "-закрепы",
+      "invites": "-приглашения"
+    },
+    "en": {
+      "users": "-users",
+      "bots": "-bots",
+      "embeds": "-embeds",
+      "attachments": "-attachments",
+      "mentions": "-mentions",
+      "pins": "-pins",
+      "invites": "-invites"
+    }
+  },
+  "coupon": {
+    "ru": {},
+    "en": {}
+  },
+  "crash-casino": {
+    "ru": {},
+    "en": {}
+  },
+  "create-coupon": {
+    "ru": {},
+    "en": {}
+  },
+  "create-emote": {
+    "ru": {},
+    "en": {}
+  },
+  "daily-bonus": {
+    "ru": {},
+    "en": {}
+  },
+  "delete-case": {
+    "ru": {},
+    "en": {}
+  },
+  "delete-coupon": {
+    "ru": {},
+    "en": {}
+  },
+  "disable": {
+    "ru": {},
+    "en": {}
+  },
+  "donate": {
+    "ru": {},
+    "en": {}
+  },
+  "duel": {
+    "ru": {},
+    "en": {}
+  },
+  "edits": {
+    "ru": {},
+    "en": {}
+  },
+  "enable": {
+    "ru": {},
+    "en": {}
+  },
+  "giveaway": {
+    "ru": {},
+    "en": {}
+  },
+  "give-money": {
+    "ru": {},
+    "en": {}
+  },
+  "help": {
+    "ru": {},
+    "en": {}
+  },
+  "info": {
+    "ru": {},
+    "en": {}
+  },
+  "invite": {
+    "ru": {},
+    "en": {}
+  },
+  "item-info": {
+    "ru": {},
+    "en": {}
+  },
+  "jackpot": {
+    "ru": {},
+    "en": {}
+  },
+  "kick": {
+    "ru": {},
+    "en": {}
+  },
+  "keyboard-layout": {
+    "ru": {
+      "rus": "рус",
+      "eng": "англ"
+    },
+    "en": {
+      "rus": "rus",
+      "eng": "eng"
+    }
+  },
+  "leaders": {
+    "ru": {
+      "balance": "баланс",
+      "xp": "опыт"
+    },
+    "en": {
+      "balance": "balance",
+      "xp": "xp"
+    }
+  },
+  "minefield": {
+    "ru": {},
+    "en": {}
+  },
+  "moneybags": {
+    "ru": {},
+    "en": {}
+  },
+  "money-symbol": {
+    "ru": {},
+    "en": {}
+  },
+  "mute": {
+    "ru": {},
+    "en": {}
+  },
+  "ping": {
+    "ru": {},
+    "en": {}
+  },
+  "prefix": {
+    "ru": {},
+    "en": {}
+  },
+  "random": {
+    "ru": {},
+    "en": {}
+  },
+  "remove-money": {
+    "ru": {},
+    "en": {}
+  },
+  "reset-xp": {
+    "ru": {},
+    "en": {}
+  },
+  "resize": {
+    "ru": {},
+    "en": {}
+  },
+  "role-info": {
+    "ru": {},
+    "en": {}
+  },
+  "rock-scissors-paper": {
+    "ru": {},
+    "en": {}
+  },
+  "say": {
+    "ru": {
+      "delete": "-удалить"
+    },
+    "en": {
+      "delete": "-delete"
+    }
+  },
+  "server": {
+    "ru": {},
+    "en": {}
+  },
+  "set-balance": {
+    "ru": {},
+    "en": {}
+  },
+  "shop": {
+    "ru": {},
+    "en": {}
+  },
+  "slowmode": {
+    "ru": {},
+    "en": {}
+  },
+  "softban": {
+    "ru": {},
+    "en": {}
+  },
+  "stats": {
+    "ru": {},
+    "en": {}
+  },
+  "support": {
+    "ru": {},
+    "en": {}
+  },
+  "tempban": {
+    "ru": {},
+    "en": {}
+  },
+  "language": {
+    "ru": {},
+    "en": {}
+  },
+  "unban": {
+    "ru": {},
+    "en": {}
+  },
+  "unmute": {
+    "ru": {},
+    "en": {}
+  },
+  "user": {
+    "ru": {},
+    "en": {}
+  },
+  "warn": {
+    "ru": {},
+    "en": {}
+  },
+  "warns": {
+    "ru": {},
+    "en": {}
+  },
+  "weekly-bonus": {
+    "ru": {},
+    "en": {}
+  },
+  "work": {
+    "ru": {},
+    "en": {}
+  }
+}
