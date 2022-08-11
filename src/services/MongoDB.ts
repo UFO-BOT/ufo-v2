@@ -1,5 +1,6 @@
 import {DataSource} from "typeorm";
 import Settings from "@/types/database/Settings";
+import Boost from "../../deleted/Boost";
 
 export default class MongoDB {
     public url: string
@@ -8,7 +9,7 @@ export default class MongoDB {
         this.url = url;
     }
 
-    public connect() {
+    public async connect() {
         global.mongo = new DataSource({
             type: "mongodb",
             database: process.env.DB_NAME,
@@ -17,7 +18,10 @@ export default class MongoDB {
             useUnifiedTopology: true,
             synchronize: true,
             logging: true,
-            entities: [Settings]
+            entities: [
+                Settings
+            ]
         });
+        await global.mongo.initialize()
     }
 }

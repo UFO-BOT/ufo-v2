@@ -29,10 +29,9 @@ export default class Manager extends Discord.ShardingManager {
 
     async start(): Promise<any> {
         const mongo = new MongoDB(process.env.DB_URL)
-        mongo.connect()
-        global.mongo.manager.findOneBy(Settings, {
-            guildid: "712012571666022411"
-        }).then(console.log)
+        await mongo.connect()
+        let sett = await global.mongo.mongoManager.getMongoRepository(Settings).findOneBy({})
+        console.log(sett)
         console.log(`[MANAGER] [MONGO] MongoDB connected!`)
 
         this.load()

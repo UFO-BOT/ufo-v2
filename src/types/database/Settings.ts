@@ -1,9 +1,9 @@
-import { Entity, Column } from "typeorm"
+import {Entity, Column, ObjectIdColumn, ObjectID, BaseEntity, PrimaryGeneratedColumn, PrimaryColumn} from "typeorm"
 import GuildLanguage from "../GuildLanguage";
 import CommandSettings from "../CommandSettings";
 
-@Entity()
-export default class Settings {
+@Entity('settings')
+class Settings extends BaseEntity {
     @Column()
     guildid: string
 
@@ -52,3 +52,5 @@ export default class Settings {
     @Column()
     commands: Record<string, CommandSettings>
 }
+
+export default Settings;
