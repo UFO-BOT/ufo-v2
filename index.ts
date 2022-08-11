@@ -1,4 +1,5 @@
 import 'module-alias/register'
+import 'reflect-metadata'
 
 import dotenv from 'dotenv'
 dotenv.config()

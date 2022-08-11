@@ -1,13 +1,8 @@
-import Discord from "discord.js";
+import {ChatInputApplicationCommandData} from "discord.js";
+import CommandCategory from "@/types/CommandCategory";
 
-import CommandInfo from "@/types/CommandInfo";
-
-
-export default interface CommandConfig {
-    ru: CommandInfo
-    en: CommandInfo
-    boostRequired?: boolean
-    requiredArgs?: number
-    memberPermissions?: Array<Discord.PermissionString>
-    botPermissions?: Array<Discord.PermissionString>
+export default interface CommandConfig extends ChatInputApplicationCommandData {
+    name: string
+    description: string
+    aliases: Array<string>
 }

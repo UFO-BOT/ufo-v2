@@ -1,51 +1,80 @@
-import Discord from "discord.js";
+import Discord, {ApplicationCommandOptionType, EmbedBuilder, Role} from "discord.js";
 import moment from "moment";
 
-import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import CommandConfig from "@/types/CommandConfig";
-import CommandMessage from "@/types/CommandMessage";
+import AbstractCommand from "../../abstractions/commands/AbstractCommand";
+import Command from "../../types/Command";
 
-import Resolver from "@/utils/Resolver";
-import CommandError from "@/utils/CommandError";
+import Resolver from "../../../deleted/Resolver";
 
-import replies from '@/properties/replies.json'
+import replies from '../../properties/responses.json'
+import CommandOption from "@/types/CommandOption";
+import CommandCategory from "@/types/CommandCategory";
+import CommandExecutionContext from "@/types/CommandExecutionContext";
+import CommandExecutionResult from "@/types/CommandExecutionResult";
 
-export default class StatsCommand extends AbstractCommand implements CommandConfig {
-    public ru = {
-        name: 'роль-инфо',
-        aliases: ['рольинфо', 'роль-информация'],
-        category: 'Основное',
-        description: 'Показывает информацию об указанной роли',
-        usage: 'роль-инфо <роль>'
-    }
-    public en = {
-        name: 'role-info',
-        aliases: ['roleinfo', 'role-information'],
-        category: 'General',
-        description: 'Shows information about specified role',
-        usage: 'role-info <role>'
-    }
-    public requiredArgs = 1
-
-    public async execute(cmd: CommandMessage) {
-        const reply = replies["role-info"][cmd.language.interface];
-
-        let role = await Resolver.role(cmd.message, cmd.args[0]);
-        if(!role) {
-            return CommandError.other(cmd, reply.errors.roleNotFound);
+export default class StatsCommand extends AbstractCommand implements Command {
+    public config = {
+        ru: {
+            name: "роль-инфо",
+            description: 'Показывает информацию об указанной роли',
+            aliases: ['рольинфо', 'роль-информация']
+        },
+        en: {
+            name: "role-info",
+            description: 'Shows information about specified role',
+            aliases: ['roleinfo', 'role-information']
         }
-        let color = cmd.color.system;
+    }
+    public options: Array<CommandOption> = [
+        {
+            type: ApplicationCommandOptionType.Role,
+            name: "role",
+            config: {
+                ru: {
+                    name: "роль",
+                    description: "Роль для просмотра информации"
+                },
+                en: {
+                    name: "role",
+                    description: "Role to view information"
+                }
+            },
+            required: true
+        }
+    ]
+    public category = CommandCategory.General;
+
+    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
+        let role = ctx.args.role.role as Role;
+        let color = process.env.SYSTEM_COLOR;
         if(role.hexColor != '#000000') color = role.hexColor;
-        let embed = new Discord.MessageEmbed()
+        let embed = new EmbedBuilder()
             .setColor(color)
-            .setTitle(reply.embed.title)
-            .addField(reply.embed.name, role.name, true)
-            .addField(reply.embed.color, role.hexColor, true)
-            .addField(reply.embed.position, role.position + '/' +  cmd.message.guild.roles.cache.size, true)
-            .addField(reply.embed.members, role.members.size, true)
-            .addField(reply.embed.mentionable, role.mentionable ? reply.embed.yes : reply.embed.no, true)
-            .addField(reply.embed.hoist, role.hoist ? reply.embed.yes : reply.embed.yes, true)
-            .addField(reply.embed.creationDate, moment(role.createdTimestamp).utc().format('D.MM.YYYY, `kk:mm:ss`') + '(GMT+0000)')
-        return cmd.message.channel.send(embed);
+            .setTitle(ctx.response.data.embed.title)
+            .addFields([
+                {name: ctx.response.data.embed.name, value: role.name, inline: true},
+                {name: ctx.response.data.embed.color, value: role.hexColor, inline: true},
+                {
+                    name: ctx.response.data.embed.position,
+                    value: (ctx.guild.roles.cache.size - role.position).toString() + '/' +  ctx.guild.roles.cache.size,
+                    inline: true
+                },
+                {name: ctx.response.data.embed.members, value: role.members.size.toString(), inline: true},
+                {
+                    name: ctx.response.data.embed.mentionable,
+                    value: role.mentionable ? ctx.response.data.embed.yes : ctx.response.data.embed.no,
+                    inline: true
+                },
+                {
+                    name: ctx.response.data.embed.hoist,
+                    value: role.hoist ? ctx.response.data.embed.yes : ctx.response.data.embed.no,
+                    inline: true
+                },
+                {
+                    name: ctx.response.data.embed.creationDate,
+                    value: moment(role.createdTimestamp).utc().format('D.MM.YYYY, `kk:mm:ss`') + '(GMT+0000)'
+                }
+            ])
+        return {reply: {embeds: [embed]}};
     }
 }

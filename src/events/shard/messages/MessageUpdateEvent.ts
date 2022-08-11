@@ -10,7 +10,7 @@ export default class MessageUpdateEvent extends AbstractClientEvent implements E
         if (!oldMessage.content || !newMessage.content) return;
         if (!oldMessage.author) return;
         if (oldMessage.content === newMessage.content) return;
-        if (oldMessage.channel.type === "dm") return;
-        global.bot.emit('message', newMessage)
+        if (oldMessage.channel.type === Discord.ChannelType.DM) return;
+        global.client.emit('message', newMessage)
     }
 }

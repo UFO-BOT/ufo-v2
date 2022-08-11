@@ -5,10 +5,21 @@ dotenv.config()
 
 import Client from "@/structures/Client";
 
-const bot = new Client(process.env.TOKEN, {
-    partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'],
-    messageCacheLifetime: 10800,
-    messageSweepInterval: 300
+const client = new Client(process.env.TOKEN, {
+    intents: ['Guilds',
+        'GuildMembers',
+        'GuildBans',
+        'GuildEmojisAndStickers',
+        'GuildIntegrations',
+        'GuildWebhooks',
+        'GuildInvites',
+        'GuildVoiceStates',
+        'GuildPresences',
+        'GuildMessages',
+        'GuildMessageReactions',
+        'GuildMessageTyping',
+        'GuildScheduledEvents',
+        'GuildPresences']
 })
 
-bot.start()
+client.start()

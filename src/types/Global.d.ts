@@ -1,15 +1,15 @@
 import Discord from "discord.js";
+import {DataSource} from "typeorm";
 
 import Client from '@/structures/Client'
 import Manager from "@/structures/Manager";
-import MongoDB from "@/structures/MongoDB";
 
 declare global {
     namespace NodeJS {
         interface Global {
-            bot: Client
+            client: Client
             manager: Manager
-            mongo: MongoDB
+            mongo: DataSource
             Discord: Discord
         }
 
@@ -21,6 +21,7 @@ declare global {
             WEBSITE: string
             BOT_INVITE: string
             SUPPORT_SERVER: string
+            SYSTEM_COLOR: `#${string}`
         }
     }
 }

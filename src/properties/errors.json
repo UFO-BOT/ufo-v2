@@ -83,7 +83,7 @@
       }
     }
   },
-  "otherError": {
+  "other": {
     "ru": {
       "embed": {
         "author": "Ошибка"

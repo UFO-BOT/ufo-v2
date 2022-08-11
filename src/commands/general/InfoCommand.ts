@@ -1,64 +1,66 @@
-import Discord from "discord.js";
+import {EmbedBuilder} from "discord.js";
 
-import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import CommandConfig from "@/types/CommandConfig";
-import CommandMessage from "@/types/CommandMessage";
+import AbstractCommand from "../../abstractions/commands/AbstractCommand";
+import Command from "../../types/Command";
 
-import replies from '@/properties/replies.json'
+import replies from '../../properties/responses.json'
+import CommandOption from "@/types/CommandOption";
+import CommandCategory from "@/types/CommandCategory";
+import CommandExecutionContext from "@/types/CommandExecutionContext";
+import CommandExecutionResult from "@/types/CommandExecutionResult";
+import Language from "@/types/Language";
 
-export default class StatsCommand extends AbstractCommand implements CommandConfig {
-    public ru = {
-        name: 'инфо',
-        aliases: ['информация'],
-        category: 'Основное',
-        description: 'Показывает краткую информацию о боте и ссылки на разные ресурсы',
-        usage: 'стат'
+export default class InfoCommand extends AbstractCommand implements Command {
+    public config = {
+        ru: {
+            name: "инфо",
+            description: 'Показывает краткую информацию о боте и ссылки на разные ресурсы',
+            aliases: ['информация']
+        },
+        en: {
+            name: "info",
+            description: 'Shows short information about the bot and links to some resources',
+            aliases: ['information']
+        }
     }
-    public en = {
-        name: 'info',
-        aliases: ['information'],
-        category: 'General',
-        description: 'Shows short information about the bot and links to some resources',
-        usage: 'stats'
-    }
+    public options: Array<CommandOption> = []
+    public category = CommandCategory.General;
 
-    public async execute(cmd: CommandMessage) {
-        const reply = replies.info[cmd.language.interface];
-
-        let helpCommand: Record<'ru' | 'en', string> = {
+    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
+        let helpCommand: Record<Language, string> = {
             ru: 'хелп',
             en: 'help'
         }
-        let languageCommand: Record<'ru' | 'en', string> = {
+        let languageCommand: Record<Language, string> = {
             ru: 'язык',
             en: 'language'
         }
-        let dev = await global.bot.users.fetch('591321756799598592');
-        let embed = new Discord.MessageEmbed()
-            .setColor(cmd.color.system)
-            .setTitle(global.bot.user.username)
-            .setDescription(reply.embed.description
-                .replace('{{prefix}}', cmd.prefix)
-                .replace('{{helpCommand}}', cmd.prefix + helpCommand[cmd.language.commands])
-                .replace('{{languageCommand}}', cmd.prefix + languageCommand[cmd.language.commands])
-            )
-            .addField(reply.embed.links, `
-[${reply.embed.website}](https://ufobot.ru)
-[${reply.embed.documentation}](https://docs.ufobot.ru)
-[${reply.embed.invite}](${process.env.BOT_INVITE})
-[${reply.embed.supportserver}](${process.env.SUPPORT_SERVER})
-[${reply.embed.donate}](https://ufobot.ru/donate)
-**${reply.embed.vote}:**
-[top.gg](https://top.gg/bot/705372408281825350)
-[bots.server-discord.com](https://bots.server-discord.com/705372408281825350)
-[top-bots.xyz](https://top-bots.xyz/bot/705372408281825350)
-[boticord.top](https://boticord.top/bot/705372408281825350)`, true)
-            .addField(reply.embed.about, `
-${reply.embed.language}: [JavaScript (Node JS)](https://nodejs.org)
-${reply.embed.library}: [discord.js](https://discord.js.org)
-${reply.embed.database}: [MongoDB](https://www.mongodb.com)
-${reply.embed.hosting}: [GalaxyGate](https://galaxygate.net)`, true)
-            .setFooter(`${reply.embed.footer} ${dev.username} © ${new Date().getFullYear()}`, dev.avatarURL({dynamic: true}))
-        return cmd.message.channel.send(embed);
+        ctx.response.parse({
+            prefix: ctx.settings.prefix,
+            helpCommand: helpCommand[ctx.settings.language.commands],
+            language: languageCommand[ctx.settings.language.commands]
+        })
+        let dev = await global.client.users.fetch('591321756799598592');
+        let embed = new EmbedBuilder()
+            .setColor(process.env.SYSTEM_COLOR)
+            .setTitle(global.client.user.username)
+            .setDescription(ctx.response.data.embed.description)
+            .addFields([{name: ctx.response.data.embed.links,
+                 value: `[${ctx.response.data.embed.website}](https://ufobot.ru)\n` +
+                `[${ctx.response.data.embed.documentation}](https://docs.ufobot.ru)\n` +
+                `[${ctx.response.data.embed.invite}](${process.env.BOT_INVITE})\n` +
+                `[${ctx.response.data.embed.supportserver}](${process.env.SUPPORT_SERVER})\n` +
+                `[${ctx.response.data.embed.donate}](https://ufobot.ru/donate)\n` +
+                `**${ctx.response.data.embed.vote}:**\n` +
+                `[top.gg](https://top.gg/bot/705372408281825350)\n` +
+                `[top-bots.xyz](https://top-bots.xyz/bot/705372408281825350)\n` +
+                `[boticord.top](https://boticord.top/bot/705372408281825350)\n`, inline: true},
+                {name: ctx.response.data.embed.about,
+                value: `${ctx.response.data.embed.language}: [JavaScript (Node JS)](https://nodejs.org)\n` +
+                `${ctx.response.data.embed.library}: [discord.js](https://discord.js.org)\n` +
+                `${ctx.response.data.embed.mongodb}: [MongoDB](https://www.mongodb.com)\n` +
+                `${ctx.response.data.embed.hosting}: [GalaxyGate](https://galaxygate.net)\n`, inline: true}])
+            .setFooter({text: `${ctx.response.data.embed.footer} ${dev.username} © ${new Date().getFullYear()}`, iconURL: dev.avatarURL()})
+        return {reply: {embeds: [embed]}}
     }
 }

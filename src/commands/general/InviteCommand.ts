@@ -1,33 +1,33 @@
-import Discord from "discord.js";
+import {ApplicationCommandOptionType, EmbedBuilder, GuildMember} from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import CommandConfig from "@/types/CommandConfig";
-import CommandMessage from "@/types/CommandMessage";
+import Command from "@/types/Command";
+import CommandOption from "@/types/CommandOption";
+import CommandCategory from "@/types/CommandCategory";
+import CommandExecutionContext from "@/types/CommandExecutionContext";
+import CommandExecutionResult from "@/types/CommandExecutionResult";
 
-import replies from '@/properties/replies.json'
-
-export default class StatsCommand extends AbstractCommand implements CommandConfig {
-    public ru = {
-        name: 'пригласить',
-        aliases: ['добавить', 'добавить-бота', 'инвайт'],
-        category: 'Основное',
-        description: 'Отправляет ссылку на добавление бота к себе на сервер',
-        usage: 'пригласить'
+export default class InviteCommand extends AbstractCommand implements Command {
+    public config = {
+        ru: {
+            name: "пригласить",
+            description: 'Отправляет ссылку на добавление бота к себе на сервер',
+            aliases: ['добавить', 'добавить-бота', 'инвайт']
+        },
+        en: {
+            name: "invite",
+            description: 'Help in using the bot, one command or category',
+            aliases: ['add-bot', 'invite-bot']
+        }
     }
-    public en = {
-        name: 'invite',
-        aliases: ['add-bot', 'invite-bot'],
-        category: 'General',
-        description: 'Help in using the bot, one command or category',
-        usage: 'invite'
-    }
+    public options: Array<CommandOption> = []
+    public category = CommandCategory.General;
 
-    public async execute(cmd: CommandMessage) {
-        const reply = replies.invite[cmd.language.interface];
-
-        let embed = new Discord.MessageEmbed()
-            .setColor(cmd.color.system)
-            .setDescription(reply.embed.description.replace('{{invite}}', process.env.BOT_INVITE))
-        return cmd.message.channel.send(embed)
+    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
+        ctx.response.parse({invite: process.env.SUPPORT_SERVER});
+        let embed = new EmbedBuilder()
+            .setColor(process.env.SYSTEM_COLOR)
+            .setDescription(ctx.response.data.embed.description)
+        return {reply: {embeds: [embed]}};
     }
 }

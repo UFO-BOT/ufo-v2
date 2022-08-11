@@ -1,4 +1,5 @@
 import fs from "fs";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 
 export default class ClientLoader {
     // TODO: make it more beautiful
@@ -9,12 +10,12 @@ export default class ClientLoader {
                 delete require.cache[require.resolve(path + '/' + file)]
                 let cmd = require(path + '/' + file)?.default
                 if(cmd?.scope === 'command') {
-                    let command = new cmd()
-                    global.bot.cache.commands.set(command.en.name, command)
+                    let command: AbstractCommand = new cmd()
+                    global.client.cache.commands.set(command.config.en.name, command)
                 }
                 else if(cmd?.scope === 'devCommand') {
                     let command = new cmd()
-                    global.bot.cache.devCommands.set(command.name, command)
+                    global.client.cache.devCommands.set(command.name, command)
                 }
             }
         })
@@ -28,7 +29,7 @@ export default class ClientLoader {
                 let ev = require(path + '/' + file)?.default
                 if(ev?.scope === 'clientEvent') {
                     let event = new ev()
-                    global.bot.on(event.name, event.execute)
+                    global.client.on(event.name, event.execute)
                 }
             }
         })

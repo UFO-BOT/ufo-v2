@@ -1,8 +1,8 @@
-import Discord from 'discord.js'
+import Discord, {Awaitable, Serialized} from 'discord.js'
 
-import MongoDB from "@/structures/MongoDB";
+import MongoDB from "@/services/MongoDB";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
+import AbstractDevCommand from "../../deleted/AbstractDevCommand";
 import ClientCacheConfig from "@/types/ClientCacheConfig";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import ClientLoader from "@/utils/loaders/ClientLoader";
@@ -10,8 +10,7 @@ import ClientLoader from "@/utils/loaders/ClientLoader";
 import emojis from '@/properties/emojis.json'
 
 export default class Client extends Discord.Client {
-    public token: string
-    public supportGuildID: string = '712012571666022411'
+    public readonly supportGuildID: string = '712012571666022411'
 
     public cache: ClientCacheConfig = {
         commands: new Discord.Collection<string, AbstractCommand>(),
@@ -23,33 +22,32 @@ export default class Client extends Discord.Client {
     public constructor(token: string, options?: Discord.ClientOptions) {
         super(options);
         this.token = token;
-        global.bot = this;
+        global.client = this;
     }
 
-    oneShardEval(script: string): Promise<any> {
+    oneShardEval<T, P>(script: (client: Discord.Client, context: Serialized<P>) => Awaitable<T>,
+                       options: {context: P}): Promise<Serialized<T>> {
         return new Promise(async (resolve) => {
-            let results = await this.shard!.broadcastEval(script)
+            let results = await this.shard!.broadcastEval(script, options)
             let result = results.find(r => !!r)
             if (result) resolve(result)
             else resolve(undefined)
         })
     }
 
-    activity(): Promise<Discord.Presence> {
-        return this.user.setActivity({name: `!help | ${process.env.WEBSITE}`, type: 'WATCHING'})
+    activity(): Discord.ClientPresence {
+        return this.user.setActivity({name: `!help | ${process.env.WEBSITE}`, type: Discord.ActivityType.Watching})
     }
 
     load(): void {
-        console.log(`[SHARD #${global.bot.shard.ids[0]}] [LOADERS] Loading modules...`)
+        console.log(`[SHARD #${global.client.shard.ids[0]}] [LOADERS] Loading modules...`)
         ClientLoader.loadEvents()
         ClientLoader.loadCommands()
-        console.log(`[SHARD #${global.bot.shard.ids[0]}] [LOADERS] Loaded modules`)
+        console.log(`[SHARD #${global.client.shard.ids[0]}] [LOADERS] Loaded modules`)
     }
 
     async start(): Promise<any> {
-        const mongo = new MongoDB()
-        await mongo.start()
-        console.log(`[SHARD #${global.bot.shard.ids[0]}] [MONGO] MongoDB connected`)
+        console.log(`[SHARD #${global.client.shard.ids[0]}] [MONGO] MongoDB connected`);
 
         this.load()
 

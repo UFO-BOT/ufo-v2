@@ -1,7 +1,7 @@
 import Discord from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import AbstractDevCommand from "@/abstractions/commands/AbstractDevCommand";
+import AbstractDevCommand from "../../deleted/AbstractDevCommand";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 export default interface ClientCacheConfig {

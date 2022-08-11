@@ -24,12 +24,12 @@
   "avatar": {
     "ru": {
       "embed": {
-        "description": "Аватар **{{user}}**"
+        "title": "Аватар **{{user}}**"
       }
     },
     "en": {
       "embed": {
-        "description": "Avatar **{{user}}**"
+        "title": "Avatar **{{user}}**"
       }
     }
   },
@@ -860,7 +860,7 @@
   "random": {
     "ru": {
       "errors": {
-        "invalidEnds": "Нижняя и верхняя граница должны быть целыми числами"
+        "invalidEnds": "Наименьшее число должно быть меньше наибольшего"
       },
       "embed": {
         "author": "Случайное число",
@@ -869,7 +869,7 @@
     },
     "en": {
       "errors": {
-        "invalidEnds": "Lower and upper end must be an integer"
+        "invalidEnds": "The smallest number must be smaller than the largest"
       },
       "embed": {
         "author": "Random number",
@@ -986,18 +986,28 @@
     }
   },
   "say": {
-    "ru": {},
-    "en": {}
+    "ru": {
+      "embed": {
+        "author": "Сказать",
+        "description": "Сообщение было отправлено",
+        "error": "Не удалось отправить сообщение"
+      }
+    },
+    "en": {
+      "author": "Send",
+      "description": "Message has been sent",
+      "error": "Failed to send message"
+    }
   },
   "server": {
     "ru": {
-      "levels": {
-        "NONE": "<:offline:716372963217244161>Нет",
-        "LOW": "<:online:716372060590309437>Низкий",
-        "MEDIUM": "<:idle:716372368024666144>Средний",
-        "HIGH": "<:idnd:736492845078413373>Высокий",
-        "VERY_HIGH": "<:dnd:716372512425902161>Очень высокий"
-      },
+      "levels": [
+        "<:offline:716372963217244161>Нет",
+        "<:online:716372060590309437>Низкий",
+        "<:idle:716372368024666144>Средний",
+        "<:idnd:736492845078413373>Высокий",
+        "<:dnd:716372512425902161>Очень высокий"
+      ],
       "embed": {
         "verification": "Уровень проверки",
         "owner": "Владелец",
@@ -1022,13 +1032,13 @@
       }
     },
     "en": {
-      "levels": {
-        "NONE": "<:offline:716372963217244161>None",
-        "LOW": "<:online:716372060590309437>Low",
-        "MEDIUM": "<:idle:716372368024666144>Medium",
-        "HIGH": "<:idnd:736492845078413373>High",
-        "VERY_HIGH": "<:dnd:716372512425902161>Very high"
-      },
+      "levels": [
+        "<:offline:716372963217244161>None",
+        "<:online:716372060590309437>Low",
+        "<:idle:716372368024666144>Medium",
+        "<:idnd:736492845078413373>High",
+        "<:dnd:716372512425902161>Very high"
+      ],
       "embed": {
         "verification": "Verification level",
         "owner": "Owner",

@@ -1,4 +1,4 @@
-import ModAction from "@/types/ModAction";
+import ModAction from "../ModAction";
 
 export default interface Case {
     guildid: string

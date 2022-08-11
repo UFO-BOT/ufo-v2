@@ -1,64 +1,65 @@
-import Discord from "discord.js";
+import {EmbedBuilder, ChannelType} from "discord.js";
 import moment from "moment";
 
-import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import CommandConfig from "@/types/CommandConfig";
-import CommandMessage from "@/types/CommandMessage";
+import AbstractCommand from "../../abstractions/commands/AbstractCommand";
+import Command from "../../types/Command";
 
-import replies from '@/properties/replies.json'
+import replies from '../../properties/responses.json'
+import CommandOption from "@/types/CommandOption";
+import CommandCategory from "@/types/CommandCategory";
+import CommandExecutionContext from "@/types/CommandExecutionContext";
+import CommandExecutionResult from "@/types/CommandExecutionResult";
 
-export default class ServerCommand extends AbstractCommand implements CommandConfig {
-    public ru = {
-        name: 'сервер',
-        aliases: ['сервер-инфо', 'серверинфо'],
-        category: 'Основное',
-        description: 'Показывает информацию о сервере',
-        usage: 'сервер'
+export default class ServerCommand extends AbstractCommand implements Command {
+    public config = {
+        ru: {
+            name: "сервер",
+            description: 'Показывает информацию о сервере',
+            aliases: ['сервер-инфо', 'серверинфо']
+        },
+        en: {
+            name: "server",
+            description: 'Shows information about the server',
+            aliases: ['commands', 'h']
+        }
     }
-    public en = {
-        name: 'server',
-        aliases: ['commands', 'h'],
-        category: 'General',
-        description: 'Shows information about the server',
-        usage: 'server'
-    }
+    public options: Array<CommandOption> = []
+    public category = CommandCategory.General;
 
-    public async execute(cmd: CommandMessage) {
-        const reply:any = replies.server[cmd.language.interface];
-
-        let emojis = global.bot.cache.emojis;
-        let bans = await cmd.message.guild.fetchBans().catch(() => undefined)
-        let invites = await cmd.message.guild.fetchInvites().catch(() => undefined)
-        let { boost } = global.bot.cache.settings.get(cmd.message.guild.id)
-        let boosts = cmd.message.guild.premiumSubscriptionCount ?
-            `\n**<a:boost:751699949799866459> ${reply.embed.boosts}:** ${cmd.message.guild.premiumSubscriptionCount}` : ''
-        let splash = cmd.message.guild.splashURL() && cmd.message.guild.bannerURL() ?
-            `\n[**:frame_photo: ${reply.embed.splash}**](${cmd.message.guild.splashURL({format: 'gif'})})` : ''
-        let embed = new Discord.MessageEmbed()
-            .setColor(cmd.color.system)
-            .setTitle(cmd.message.guild.name)
+    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
+        let emojis = global.client.cache.emojis;
+        let bans = await ctx.guild.bans.fetch().catch(() => undefined)
+        let invites = await ctx.guild.invites.fetch().catch(() => undefined)
+        let { boost } = global.client.cache.settings.get(ctx.guild.id)
+        let boosts = ctx.guild.premiumSubscriptionCount ?
+            `\n**<a:boost:751699949799866459> ${ctx.response.data.embed.boosts}:** ${ctx.guild.premiumSubscriptionCount}` : ''
+        let splash = ctx.guild.splashURL() && ctx.guild.bannerURL() ?
+            `\n[**:frame_photo: ${ctx.response.data.embed.splash}**](${ctx.guild.splashURL({extension: 'gif'})})` : ''
+        let embed = new EmbedBuilder()
+            .setColor(process.env.SYSTEM_COLOR)
+            .setTitle(ctx.guild.name)
             .setDescription(`
-**${emojis.verification} ${reply.embed.verification}:** ${reply.levels[cmd.message.guild.verificationLevel]}
-**${emojis.owner} ${reply.embed.owner}:** ${cmd.message.guild.owner}
-**${emojis.invite} ${reply.embed.invites}:** ${invites?.size ?? reply.embed.missingPermissions}
-**🔨 ${reply.embed.bans}:** ${bans?.size ?? reply.embed.missingPermissions} ${boosts}
-**${emojis.textchannel} ${reply.embed.shard}:** #${cmd.message.guild.shardID}
-**🕐 ${reply.embed.creationDate}:** ${moment(cmd.message.guild.createdTimestamp).utc().format('D.MM.YYYY, `kk:mm:ss`')} (GMT+0000) ${splash}`)
-            .addField(`${reply.embed.channels} [${cmd.message.guild.channels.cache.size}]`, `
-${emojis.textchannel} ${reply.embed.text}: ${cmd.message.guild.channels.cache.filter(c => c.type === 'text').size}
-${emojis.voice} ${reply.embed.voice}: ${cmd.message.guild.channels.cache.filter(c => c.type === 'voice').size}
-${emojis.announcements} ${reply.embed.announcements}: ${cmd.message.guild.channels.cache.filter(c => c.type === 'news').size}
-${emojis.presence} ${reply.embed.categories}: ${cmd.message.guild.channels.cache.filter(c => c.type === 'category').size}
-                `, true)
-            .addField(reply.embed.stats, `
-${emojis.members} ${reply.embed.memberCount}: ${cmd.message.guild.memberCount}
-${emojis.textchannel} ${reply.embed.channelCount}: ${cmd.message.guild.channels.cache.size}
-${emojis.roles} ${reply.embed.roleCount}: ${cmd.message.guild.roles.cache.size}
-${emojis.emotes} ${reply.embed.emojiCount}: ${cmd.message.guild.emojis.cache.size}`, true)
-            .setThumbnail(cmd.message.guild.iconURL({dynamic: true}))
-            .setImage(cmd.message.guild.bannerURL({format: 'gif'}) ?? cmd.message.guild.splashURL({size: 2048, format: 'gif'}))
-            .setFooter(`ID: ${cmd.message.guild.id}`);
-        if(boost) embed.description += `\n${global.bot.cache.emojis.ufoboost} ${reply.embed.ufoboost}`
-        return cmd.message.channel.send(embed);
+**${emojis.verification} ${ctx.response.data.embed.verification}:** ${ctx.response.data.levels[ctx.guild.verificationLevel]}
+**${emojis.owner} ${ctx.response.data.embed.owner}:** <@${ctx.guild.ownerId}>
+**${emojis.invite} ${ctx.response.data.embed.invites}:** ${invites?.size ?? ctx.response.data.embed.missingPermissions}
+**🔨 ${ctx.response.data.embed.bans}:** ${bans?.size ?? ctx.response.data.embed.missingPermissions} ${boosts}
+**${emojis.textchannel} ${ctx.response.data.embed.shard}:** #${ctx.guild.shardId}
+**🕐 ${ctx.response.data.embed.creationDate}:** ${moment(ctx.guild.createdTimestamp).utc().format('D.MM.YYYY, `kk:mm:ss`')} (GMT+0000) ${splash}`)
+            .addFields({name: `${ctx.response.data.embed.channels} [${ctx.guild.channels.cache.size}]`, value: `
+${emojis.textchannel} ${ctx.response.data.embed.text}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildText).size}
+${emojis.voice} ${ctx.response.data.embed.voice}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildVoice).size}
+${emojis.announcements} ${ctx.response.data.embed.announcements}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildNews).size}
+${emojis.presence} ${ctx.response.data.embed.categories}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildCategory).size}
+                `, inline: true})
+            .addFields({name: ctx.response.data.embed.stats, value: `
+${emojis.members} ${ctx.response.data.embed.memberCount}: ${ctx.guild.memberCount}
+${emojis.textchannel} ${ctx.response.data.embed.channelCount}: ${ctx.guild.channels.cache.size}
+${emojis.roles} ${ctx.response.data.embed.roleCount}: ${ctx.guild.roles.cache.size}
+${emojis.emotes} ${ctx.response.data.embed.emojiCount}: ${ctx.guild.emojis.cache.size}`, inline: true})
+            .setThumbnail(ctx.guild.iconURL())
+            .setImage(ctx.guild.bannerURL({extension: 'gif'}) ?? ctx.guild.splashURL({size: 2048, extension: 'gif'}))
+            .setFooter({text: `ID: ${ctx.guild.id}`});
+        if(boost) embed.data.description += `\n${global.client.cache.emojis.ufoboost} ${ctx.response.data.embed.ufoboost}`
+        return {reply: {embeds: [embed]}}
     }
 }

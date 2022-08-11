@@ -1,59 +1,61 @@
-import Discord from "discord.js";
+import Discord, {EmbedBuilder} from "discord.js";
 
-import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import CommandConfig from "@/types/CommandConfig";
-import CommandMessage from "@/types/CommandMessage";
+import AbstractCommand from "../../abstractions/commands/AbstractCommand";
+import Command from "../../types/Command";
 
-import TimeParser from "@/utils/TimeParser";
+import TimeParser from "../../utils/TimeParser";
+import CommandOption from "@/types/CommandOption";
+import CommandCategory from "@/types/CommandCategory";
+import CommandExecutionContext from "@/types/CommandExecutionContext";
+import CommandExecutionResult from "@/types/CommandExecutionResult";
 
-import replies from '@/properties/replies.json'
-
-export default class StatsCommand extends AbstractCommand implements CommandConfig {
-    public ru = {
-        name: 'стат',
-        aliases: ['статистика', 'стата', 'бот-стат'],
-        category: 'Основное',
-        description: 'Показывает статистику бота',
-        usage: 'стат'
+export default class StatsCommand extends AbstractCommand implements Command {
+    public config = {
+        ru: {
+            name: "стат",
+            description: 'Показывает статистику бота',
+            aliases: ['статистика', 'стата', 'бот-стат']
+        },
+        en: {
+            name: "stats",
+            description: 'Shows bot statistics',
+            aliases: ['statistics', 'bot-stats']
+        }
     }
-    public en = {
-        name: 'stats',
-        aliases: ['statistics', 'bot-stats'],
-        category: 'General',
-        description: 'Shows bot statistics',
-        usage: 'stats'
-    }
+    public options: Array<CommandOption> = []
+    public category = CommandCategory.General;
 
-    public async execute(cmd: CommandMessage) {
-        const reply = replies.stats[cmd.language.interface];
-
+    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let stats = {
-            guilds: await global.bot.shard.fetchClientValues('guilds.cache.size'),
-            users: await global.bot.shard.fetchClientValues('users.cache.size'),
-            channels: await global.bot.shard.fetchClientValues('channels.cache.size'),
-            emojis: await global.bot.shard.fetchClientValues('emojis.cache.size'),
-            memory: await global.bot.shard.broadcastEval('Math.round(process.memoryUsage().heapUsed / 1024 ** 2)'),
-            ping: await global.bot.shard.fetchClientValues('ws.ping')
+            guilds: await global.client.shard.fetchClientValues('guilds.cache.size') as Array<number>,
+            users: await global.client.shard.fetchClientValues('users.cache.size') as Array<number>,
+            channels: await global.client.shard.fetchClientValues('channels.cache.size') as Array<number>,
+            emojis: await global.client.shard.fetchClientValues('emojis.cache.size') as Array<number>,
+            memory: await global.client.shard.broadcastEval(() =>
+                Math.round(process.memoryUsage().heapUsed / 1024 ** 2)) as Array<number>,
+            ping: await global.client.shard.fetchClientValues('ws.ping') as Array<number>
         }
 
-        let embed = new Discord.MessageEmbed()
-            .setColor(cmd.color.system)
-            .setAuthor(`${reply.embed.stats} ${global.bot.user!.username}`, global.bot.user.avatarURL({dynamic: true})!,
-                process.env.WEBSITE + '/stats')
-            .addField(reply.embed.stats, `
-${global.bot.cache.emojis.presence} ${reply.embed.servers}: ${stats.guilds.reduce((a, b) => a + b, 0)}
-${global.bot.cache.emojis.members} ${reply.embed.users}: ${stats.users.reduce((a, b) => a + b, 0)}
-${global.bot.cache.emojis.textchannel} ${reply.embed.channels}: ${stats.channels.reduce((a, b) => a + b, 0)}
-${global.bot.cache.emojis.emotes} ${reply.embed.emojis}: ${stats.emojis.reduce((a, b) => a + b, 0)}
-${global.bot.cache.emojis.announcements} ${reply.embed.shards}: ${stats.guilds.length}`)
-            .addField(reply.embed.platform, `
-💻 ${reply.embed.os}: ${require('os').type()}
-💓 ${reply.embed.ping}: ${Math.round(stats.ping.reduce((a, b) => a + b, 0) / stats.ping.length)} ms
-🎛️ ${reply.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0)} MB
-${global.bot.cache.emojis.slowmode} ${reply.embed.uptime}: ${TimeParser.stringify(global.bot.uptime, cmd.language.interface)}`)
-            .addField(reply.embed.versions, `
-${global.bot.cache.emojis.nodejs} Node JS: ${'`' + process.version + '`'}
-${global.bot.cache.emojis.discordjs} discord.js: ${'`' + Discord.version + '`'}`)
-        return cmd.message.channel.send(embed);
+        let embed = new EmbedBuilder()
+            .setColor(process.env.SYSTEM_COLOR)
+            .setAuthor({name: `${ctx.response.data.embed.stats} ${global.client.user!.username}`,
+                iconURL: global.client.user.avatarURL(),
+                url: process.env.WEBSITE + '/stats'})
+            .addFields({name: ctx.response.data.embed.stats, value:
+`${global.client.cache.emojis.presence} ${ctx.response.data.embed.servers}: ${stats.guilds.reduce((a, b) => a + b, 0)}
+${global.client.cache.emojis.members} ${ctx.response.data.embed.users}: ${stats.users.reduce((a, b) => a + b, 0)}
+${global.client.cache.emojis.textchannel} ${ctx.response.data.embed.channels}: ${stats.channels.reduce((a, b) => a + b, 0)}
+${global.client.cache.emojis.emotes} ${ctx.response.data.embed.emojis}: ${stats.emojis.reduce((a, b) => a + b, 0)}
+${global.client.cache.emojis.announcements} ${ctx.response.data.embed.shards}: ${stats.guilds.length}`})
+            .addFields({name: ctx.response.data.embed.platform, value:
+`💻 ${ctx.response.data.embed.os}: ${require('os').type()}
+💓 ${ctx.response.data.embed.ping}: ${Math.round(stats.ping.reduce((a: number, b: number) => a + b, 0) / stats.ping.length)} ms
+🎛️ ${ctx.response.data.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0)} MB
+${global.client.cache.emojis.slowmode} ${ctx.response.data.embed.uptime}: ${TimeParser.stringify(global.client.uptime,
+    ctx.settings.language.interface)}`})
+            .addFields({name: ctx.response.data.embed.versions, value:
+`${global.client.cache.emojis.nodejs} Node JS: ${'`' + process.version + '`'}
+${global.client.cache.emojis.discordjs} discord.js: ${'`' + Discord.version + '`'}`})
+        return {reply: {embeds: [embed]}}
     }
 }
