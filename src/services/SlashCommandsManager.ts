@@ -6,6 +6,7 @@ import Discord, {
 } from "discord.js";
 import Settings from "@/types/database/Settings";
 import CommandSettings from "@/types/CommandSettings";
+import GuildSettingsManager from "@/utils/GuildSettingsManager";
 
 export default class SlashCommandsManager {
     public guildId: string
@@ -15,22 +16,7 @@ export default class SlashCommandsManager {
     }
 
     public async set(): Promise<void> {
-        let settings = global.client.cache.settings.get(this.guildId)
-        if (!settings) {
-            let guildSettings = await global.mongo.findOne<Settings>('settings', {guildid: this.guildId})
-
-            settings = {
-                prefix: guildSettings?.prefix ?? '!',
-                language: {
-                    commands: guildSettings?.language?.commands ?? 'en',
-                    interface: guildSettings?.language?.interface ?? 'en'
-                },
-                boost: guildSettings.boost,
-                moneysymb: guildSettings?.moneysymb ?? '<:money:705401895019348018>',
-                commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>
-            }
-            global.client.cache.settings.set(this.guildId, settings)
-        }
+        let settings = await GuildSettingsManager.getCache(this.guildId)
 
         let commands: Array<ChatInputApplicationCommandData> = [];
 

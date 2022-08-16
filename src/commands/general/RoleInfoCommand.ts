@@ -1,12 +1,9 @@
-import Discord, {ApplicationCommandOptionType, EmbedBuilder, Role} from "discord.js";
+import {ApplicationCommandOptionType, EmbedBuilder, Role} from "discord.js";
 import moment from "moment";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
 import Command from "../../types/Command";
 
-import Resolver from "../../../deleted/Resolver";
-
-import replies from '../../properties/responses.json'
 import CommandOption from "@/types/CommandOption";
 import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";

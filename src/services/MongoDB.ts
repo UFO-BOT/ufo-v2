@@ -1,6 +1,6 @@
 import {DataSource} from "typeorm";
 import Settings from "@/types/database/Settings";
-import Boost from "../../deleted/Boost";
+import Balance from "@/types/database/Balance";
 
 export default class MongoDB {
     public url: string
@@ -19,7 +19,8 @@ export default class MongoDB {
             synchronize: true,
             logging: true,
             entities: [
-                Settings
+                Settings,
+                Balance
             ]
         });
         await global.mongo.initialize()

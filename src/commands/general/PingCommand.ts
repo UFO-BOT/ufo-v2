@@ -7,6 +7,7 @@ import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
 import {Writable} from "stream";
+import Balance from "@/types/database/Balance";
 
 export default class PingCommand extends AbstractCommand implements Command {
     public config = {
@@ -26,7 +27,7 @@ export default class PingCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let DBTime = Date.now()
-        await global.mongo.findOne('balances', {})
+        await global.mongo.mongoManager.findOneBy(Balance, {})
         let DBPing = Date.now() - DBTime;
         let embed = new EmbedBuilder()
             .setColor(process.env.SYSTEM_COLOR)

@@ -11,6 +11,7 @@ import CommandSettings from "@/types/CommandSettings";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
+import GuildSettingsManager from "@/utils/GuildSettingsManager";
 
 export default class SlashCommandsHandler {
     public interaction: CommandInteraction
@@ -25,22 +26,7 @@ export default class SlashCommandsHandler {
             cmd.config.ru.name === this.interaction.commandName);
         if(!command) return;
 
-        let settings = global.client.cache.settings.get(this.interaction.guild.id)
-        if (!settings) {
-            let guildSettings = await global.mongo.findOne<Settings>('settings', {guildid: this.interaction.guild?.id})
-
-            settings = {
-                prefix: guildSettings?.prefix ?? '!',
-                language: {
-                    commands: guildSettings?.language?.commands ?? 'en',
-                    interface: guildSettings?.language?.interface ?? 'en'
-                },
-                boost: guildSettings.boost,
-                moneysymb: guildSettings?.moneysymb ?? '<:money:705401895019348018>',
-                commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>
-            }
-            global.client.cache.settings.set(this.interaction.guild.id, settings)
-        }
+        let settings = await GuildSettingsManager.getCache(this.interaction.guildId);
         let args: Record<string, CommandInteractionOption> = {};
         command.options.forEach(option => {
             args[option.name] = this.interaction.options.get(option.config[settings.language.commands].name);
