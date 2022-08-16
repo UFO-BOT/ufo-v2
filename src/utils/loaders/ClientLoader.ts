@@ -13,10 +13,6 @@ export default class ClientLoader {
                     let command: AbstractCommand = new cmd()
                     global.client.cache.commands.set(command.config.en.name, command)
                 }
-                else if(cmd?.scope === 'devCommand') {
-                    let command = new cmd()
-                    global.client.cache.devCommands.set(command.name, command)
-                }
             }
         })
     }
