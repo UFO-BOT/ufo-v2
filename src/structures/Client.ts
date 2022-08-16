@@ -2,7 +2,6 @@ import Discord, {Awaitable, Serialized} from 'discord.js'
 
 import MongoDB from "@/services/MongoDB";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import AbstractDevCommand from "../../deleted/AbstractDevCommand";
 import ClientCacheConfig from "@/types/ClientCacheConfig";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import ClientLoader from "@/utils/loaders/ClientLoader";
@@ -14,7 +13,6 @@ export default class Client extends Discord.Client {
 
     public cache: ClientCacheConfig = {
         commands: new Discord.Collection<string, AbstractCommand>(),
-        devCommands: new Discord.Collection<string, AbstractDevCommand>(),
         emojis: emojis,
         settings: new Discord.Collection<string, GuildSettingsCache>()
     }
@@ -47,6 +45,8 @@ export default class Client extends Discord.Client {
     }
 
     async start(): Promise<any> {
+        const mongo = new MongoDB(process.env.DB_URL)
+        await mongo.connect()
         console.log(`[SHARD #${global.client.shard.ids[0]}] [MONGO] MongoDB connected`);
 
         this.load()

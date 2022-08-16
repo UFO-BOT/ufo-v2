@@ -30,9 +30,7 @@ export default class Manager extends Discord.ShardingManager {
     async start(): Promise<any> {
         const mongo = new MongoDB(process.env.DB_URL)
         await mongo.connect()
-        let sett = await global.mongo.mongoManager.getMongoRepository(Settings).findOneBy({})
-        console.log(sett)
-        console.log(`[MANAGER] [MONGO] MongoDB connected!`)
+        console.log(`[MANAGER] [MONGO] MongoDB connected!`) 
 
         this.load()
 
