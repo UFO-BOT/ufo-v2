@@ -3,14 +3,17 @@ import GuildLanguage from "../GuildLanguage";
 import CommandSettings from "../CommandSettings";
 
 @Entity('settings')
-class Settings extends BaseEntity {
+export default class Settings extends BaseEntity {
+    @ObjectIdColumn()
+    _id: ObjectID
+
     @Column()
     guildid: string
 
-    @Column({default: "!"})
+    @Column()
     prefix: string
 
-    @Column({default: {commands: 'en', interface: 'en'}})
+    @Column()
     language: GuildLanguage
 
     @Column()
@@ -29,6 +32,7 @@ class Settings extends BaseEntity {
     moneybags: {
         low: number
         high: number
+        cooldown: number
     }
 
     @Column()
@@ -52,5 +56,3 @@ class Settings extends BaseEntity {
     @Column()
     commands: Record<string, CommandSettings>
 }
-
-export default Settings;
