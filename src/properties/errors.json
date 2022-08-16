@@ -73,13 +73,13 @@
     "ru": {
       "embed": {
         "author": "Кулдаун",
-        "description": "Вы сможете использовать эту команду через `{{time}}`"
+        "description": "Вы сможете использовать эту команду {{time}}"
       }
     },
     "en": {
       "embed": {
         "author": "Cooldown",
-        "description": "You can use this command in `{{time}}`"
+        "description": "You can use this command {{time}}"
       }
     }
   },
