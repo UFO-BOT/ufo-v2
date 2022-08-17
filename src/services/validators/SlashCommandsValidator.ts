@@ -22,6 +22,7 @@ export default class SlashCommandsValidator {
                     args[option.name] = interactionOption.member
                     break;
             }
+            if(!interactionOption) continue;
             switch (option.type) {
                 case ApplicationCommandOptionType.User:
                     args[option.name] = interactionOption.user
