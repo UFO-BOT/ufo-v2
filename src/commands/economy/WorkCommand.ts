@@ -62,7 +62,7 @@ export default class WorkCommand extends AbstractCommand implements Command {
             monsymb: ctx.settings.moneysymb
         })
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.description)
         return {reply: {embeds: [embed]}};

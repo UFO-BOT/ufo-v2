@@ -1,6 +1,6 @@
 {
   "defaultPrefix": "!",
-  defaultMoneySymbol
+  "defaultMoneySymbol": "<:money:705401895019348018>",
   "colors": {
     "system": "#00a6ff",
     "error": "#ff0621"

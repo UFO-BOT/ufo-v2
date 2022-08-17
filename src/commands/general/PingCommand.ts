@@ -30,7 +30,7 @@ export default class PingCommand extends AbstractCommand implements Command {
         await global.mongo.mongoManager.findOneBy(Balance, {})
         let DBPing = Date.now() - DBTime;
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setDescription(ctx.response.data.embed.pinging + '..');
         return {reply: {embeds: [embed]}, data: {embed: embed, DBPing: DBPing}}
     }

@@ -102,7 +102,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
         await balance1.save();
         await balance2.save();
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(`${ctx.member.toString()}: -${amount}${ctx.settings.moneysymb}\n` +
             `${ctx.response.data.embed.commission}: ${commission}%\n` +

@@ -47,7 +47,7 @@ export default class RoleInfoCommand extends AbstractCommand implements Command 
 
     public async execute(ctx: CommandExecutionContext<RoleInfoCommandDTO>): Promise<CommandExecutionResult> {
         let role = ctx.args.role;
-        let color = process.env.SYSTEM_COLOR;
+        let color = global.constants.colors.system;
         if(role.hexColor != '#000000') color = role.hexColor;
         let embed = new EmbedBuilder()
             .setColor(color)

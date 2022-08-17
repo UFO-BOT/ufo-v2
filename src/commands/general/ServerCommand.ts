@@ -36,7 +36,7 @@ export default class ServerCommand extends AbstractCommand implements Command {
         let splash = ctx.guild.splashURL() && ctx.guild.bannerURL() ?
             `\n[**:frame_photo: ${ctx.response.data.embed.splash}**](${ctx.guild.splashURL({extension: 'gif'})})` : ''
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setTitle(ctx.guild.name)
             .setDescription(`
 **${emojis.verification} ${ctx.response.data.embed.verification}:** ${ctx.response.data.levels[ctx.guild.verificationLevel]}

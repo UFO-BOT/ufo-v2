@@ -76,7 +76,7 @@ export default class SayCommand extends AbstractCommand implements Command {
         let embed = new EmbedBuilder()
         await channel.send(text).then(() => {
             embed
-                .setColor(process.env.SYSTEM_COLOR)
+                .setColor(global.constants.colors.system)
                 .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
                 .setDescription(ctx.response.data.embed.description)
         })

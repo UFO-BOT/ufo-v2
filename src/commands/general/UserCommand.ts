@@ -81,7 +81,7 @@ export default class UserCommand extends AbstractCommand implements Command {
             if(global.client.cache.emojis[botBadgesEmojis[role.id]])
                 botBadges += global.client.cache.emojis[botBadgesEmojis[role.id]] + ' '
         })
-        let color = process.env.SYSTEM_COLOR;
+        let color = global.constants.colors.system;
         if(member && member?.displayHexColor !== '#000000') color = member?.displayHexColor;
         let badges: Array<string> = [];
         let flags = await user.fetchFlags();

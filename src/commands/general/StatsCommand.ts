@@ -37,7 +37,7 @@ export default class StatsCommand extends AbstractCommand implements Command {
         }
 
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setAuthor({name: `${ctx.response.data.embed.stats} ${global.client.user!.username}`,
                 iconURL: global.client.user.avatarURL(),
                 url: process.env.WEBSITE + '/stats'})

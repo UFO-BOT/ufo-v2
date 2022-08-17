@@ -5,8 +5,10 @@ import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import ClientCacheConfig from "@/types/ClientCacheConfig";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import ClientLoader from "@/utils/loaders/ClientLoader";
+import Constants from "@/types/Constants";
 
 import emojis from '@/properties/emojis.json'
+import constants from '@/properties/constants.json'
 
 export default class Client extends Discord.Client {
     public readonly supportGuildID: string = '712012571666022411'
@@ -41,6 +43,7 @@ export default class Client extends Discord.Client {
         console.log(`[SHARD #${global.client.shard.ids[0]}] [LOADERS] Loading modules...`)
         ClientLoader.loadEvents()
         ClientLoader.loadCommands()
+        global.constants = constants as Constants;
         console.log(`[SHARD #${global.client.shard.ids[0]}] [LOADERS] Loaded modules`)
     }
 

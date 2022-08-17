@@ -128,7 +128,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
         }
         await balance.save();
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.actions[action])
         return {reply: {embeds: [embed]}}

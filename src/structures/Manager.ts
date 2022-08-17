@@ -1,9 +1,10 @@
 import Discord from "discord.js";
 
 import ManagerLoader from "@/utils/loaders/ManagerLoader";
-import Settings from "@/types/database/Settings";
 import MongoDB from "@/services/MongoDB";
+import Constants from "@/types/Constants";
 
+import constants from '@/properties/constants.json'
 
 export default class Manager extends Discord.ShardingManager {
     public readonly supportGuildID: string = '712012571666022411'
@@ -30,6 +31,7 @@ export default class Manager extends Discord.ShardingManager {
     async start(): Promise<any> {
         const mongo = new MongoDB(process.env.DB_URL)
         await mongo.connect()
+        global.constants = constants as Constants;
         console.log(`[MANAGER] [MONGO] MongoDB connected!`) 
 
         this.load()

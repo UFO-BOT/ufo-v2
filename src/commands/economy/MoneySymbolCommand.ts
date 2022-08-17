@@ -59,7 +59,7 @@ export default class MoneySymbolCommand extends AbstractCommand implements Comma
         global.client.cache.settings.set(ctx.guild.id, settingsCache)
         ctx.response.parse({symbol: symbol});
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.description)
         return {reply: {embeds: [embed]}}

@@ -52,7 +52,7 @@ export default class AvatarCommand extends AbstractCommand implements Command {
             user: user.tag
         })
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setTitle(ctx.response.data.embed.title)
         if(user.avatarURL()) {
             embed.setDescription(`\n[WEBP](${user.avatarURL({size: 1024, extension: 'webp'})}) | ` +

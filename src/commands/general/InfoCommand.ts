@@ -42,7 +42,7 @@ export default class InfoCommand extends AbstractCommand implements Command {
         })
         let dev = await global.client.users.fetch('591321756799598592');
         let embed = new EmbedBuilder()
-            .setColor(process.env.SYSTEM_COLOR)
+            .setColor(global.constants.colors.system)
             .setTitle(global.client.user.username)
             .setDescription(ctx.response.data.embed.description)
             .addFields([{name: ctx.response.data.embed.links,
