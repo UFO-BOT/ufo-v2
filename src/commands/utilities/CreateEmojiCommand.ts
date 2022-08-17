@@ -16,6 +16,12 @@ import CommandExecutionResult from "../../types/CommandExecutionResult";
 import Language from "../../types/Language";
 import MakeError from "../../utils/MakeError";
 
+interface CreateEmojiCommandDTO {
+    name: string
+    image?: Attachment
+    url?: string
+}
+
 export default class CreateEmojiCommand extends AbstractCommand implements Command {
     public config = {
         ru: {
@@ -82,17 +88,16 @@ export default class CreateEmojiCommand extends AbstractCommand implements Comma
     public defaultMemberPermissions: PermissionResolvable = ["ManageEmojisAndStickers"];
     public deferReply = true
 
-    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let name = ctx.args.name.value as string;
-        let image = ctx.args.image?.attachment as Attachment;
-        let url = ctx.args.url?.value as string;
+    public async execute(ctx: CommandExecutionContext<CreateEmojiCommandDTO>): Promise<CommandExecutionResult> {
+        let name = ctx.args.name;
+        let image = ctx.args.image;
+        let url = ctx.args.url;
         let response: CommandExecutionResult;
         if (!image && !url) {
             return {
                 reply: {
                     embeds: [
-                        MakeError.other(ctx.member, ctx.settings.language.interface,
-                            ctx.response.data.errors.noImage)
+                        MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.noImage)
                     ]
                 }
             }
@@ -117,7 +122,7 @@ export default class CreateEmojiCommand extends AbstractCommand implements Comma
                     response = {
                         reply: {
                             embeds: [
-                                MakeError.other(ctx.member, ctx.settings.language.interface, error)
+                                MakeError.other(ctx.member, ctx.settings, error)
                             ]
                         }
                     }

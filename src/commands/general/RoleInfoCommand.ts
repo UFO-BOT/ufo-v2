@@ -9,7 +9,11 @@ import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
 
-export default class StatsCommand extends AbstractCommand implements Command {
+interface RoleInfoCommandDTO {
+    role: Role
+}
+
+export default class RoleInfoCommand extends AbstractCommand implements Command {
     public config = {
         ru: {
             name: "роль-инфо",
@@ -41,8 +45,8 @@ export default class StatsCommand extends AbstractCommand implements Command {
     ]
     public category = CommandCategory.General;
 
-    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let role = ctx.args.role.role as Role;
+    public async execute(ctx: CommandExecutionContext<RoleInfoCommandDTO>): Promise<CommandExecutionResult> {
+        let role = ctx.args.role;
         let color = process.env.SYSTEM_COLOR;
         if(role.hexColor != '#000000') color = role.hexColor;
         let embed = new EmbedBuilder()

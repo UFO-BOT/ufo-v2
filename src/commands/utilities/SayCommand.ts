@@ -14,6 +14,11 @@ import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
 import MakeError from "@/utils/MakeError";
 
+interface SayCommandDTO {
+    text: string
+    channel?: GuildTextBasedChannel
+}
+
 export default class SayCommand extends AbstractCommand implements Command {
     public config = {
         ru: {
@@ -64,9 +69,9 @@ export default class SayCommand extends AbstractCommand implements Command {
     public category = CommandCategory.Utilities;
     public defaultMemberPermissions: PermissionResolvable = ["ManageMessages"];
 
-    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let text = ctx.args.text.value as string;
-        let channel = ctx.args.channel?.channel as GuildTextBasedChannel;
+    public async execute(ctx: CommandExecutionContext<SayCommandDTO>): Promise<CommandExecutionResult> {
+        let text = ctx.args.text;
+        let channel = ctx.args.channel;
         if(!channel) channel = ctx.channel;
         let embed = new EmbedBuilder()
         await channel.send(text).then(() => {
@@ -76,8 +81,7 @@ export default class SayCommand extends AbstractCommand implements Command {
                 .setDescription(ctx.response.data.embed.description)
         })
         .catch(() => {
-            embed = MakeError.other(ctx.member, ctx.settings.language.interface,
-                ctx.response.data.embed.error)
+            embed = MakeError.other(ctx.member, ctx.settings, ctx.response.data.embed.error)
         })
         return {reply: {embeds: [embed], ephemeral: true}}
     }

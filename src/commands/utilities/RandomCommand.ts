@@ -9,6 +9,11 @@ import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
 import MakeError from "@/utils/MakeError";
 
+interface RandomCommandDTO {
+    smallest: number
+    largest: number
+}
+
 export default class RandomCommand extends AbstractCommand implements Command {
     public config = {
         ru: {
@@ -56,13 +61,13 @@ export default class RandomCommand extends AbstractCommand implements Command {
     ]
     public category = CommandCategory.Utilities;
 
-    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let smallest = ctx.args.smallest.value as number;
-        let largest = ctx.args.largest.value as number;
+    public async execute(ctx: CommandExecutionContext<RandomCommandDTO>): Promise<CommandExecutionResult> {
+        let smallest = ctx.args.smallest;
+        let largest = ctx.args.largest;
         if (smallest > largest) return {
             reply: {
                 embeds: [
-                    MakeError.other(ctx.member, ctx.settings.language.interface, ctx.response.data.errors.invalidEnds)
+                    MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.invalidEnds)
                 ],
                 ephemeral: true
             }

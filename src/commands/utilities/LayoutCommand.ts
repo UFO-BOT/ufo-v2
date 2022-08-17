@@ -8,6 +8,11 @@ import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
 
+interface LayoutCommandDTO {
+    text: string
+    layout?: 'ru' | 'en'
+}
+
 export default class LayoutCommand extends AbstractCommand implements Command {
     public config = {
         ru: {
@@ -63,9 +68,9 @@ export default class LayoutCommand extends AbstractCommand implements Command {
     ]
     public category = CommandCategory.Utilities;
 
-    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let text = ctx.args.text.value as string;
-        let layout = ctx.args.layout?.value as "ru" | "en";
+    public async execute(ctx: CommandExecutionContext<LayoutCommandDTO>): Promise<CommandExecutionResult> {
+        let text = ctx.args.text;
+        let layout = ctx.args.layout;
         let content = text.split('');
         let result = '';
         for(let i = 0; i < content.length; i++) {

@@ -3,6 +3,7 @@ import {DataSource} from "typeorm";
 
 import Client from '@/structures/Client'
 import Manager from "@/structures/Manager";
+import Constants from "@/types/Constants";
 
 declare global {
     namespace NodeJS {
@@ -10,7 +11,7 @@ declare global {
             client: Client
             manager: Manager
             mongo: DataSource
-            Discord: Discord
+            constants: Constants
         }
 
         interface ProcessEnv {
@@ -21,7 +22,6 @@ declare global {
             WEBSITE: string
             BOT_INVITE: string
             SUPPORT_SERVER: string
-            SYSTEM_COLOR: `#${string}`
         }
     }
 }

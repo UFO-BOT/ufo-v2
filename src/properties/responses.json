@@ -1,26 +1,4 @@
 {
-  "add-money": {
-    "ru": {
-      "errors": {
-        "memberNotFound": "Участник не найден",
-        "invalidAmount": "Количество должно быть целым числом, не меньшим 1"
-      },
-      "embed": {
-        "author": "Добавить деньги",
-        "description": "Добавлено +{{number}}{{monsymb}} к балансу {{member}}"
-      }
-    },
-    "en": {
-      "errors": {
-        "memberNotFound": "Member not found",
-        "invalidAmount": "Amount must be an integer not less than 1"
-      },
-      "embed": {
-        "author": "Add money",
-        "description": "Added +{{number}}{{monsymb}} to {{member}}'s balance"
-      }
-    }
-  },
   "avatar": {
     "ru": {
       "embed": {
@@ -37,15 +15,15 @@
     "ru": {
       "embed": {
         "description": "**Место в топе:** {{place}}",
-        "field1": "Баланс",
-        "field2": "Опыт"
+        "balance": "Баланс",
+        "xp": "Опыт"
       }
     },
     "en": {
       "embed": {
         "description": "**Leaderboard rank:** {{place}}",
-        "field1": "Balance",
-        "field2": "Experience"
+        "balance": "Balance",
+        "xp": "Experience"
       }
     }
   },
@@ -516,9 +494,7 @@
   "give-money": {
     "ru": {
       "errors": {
-        "memberNotFound": "Участник не найден",
-        "giveToYourself": "Вы не можете дать деньги самому себе",
-        "invalidAmount": "Количество должно быть целым числом, не меньшим 1"
+        "giveToYourself": "Вы не можете дать деньги самому себе"
       },
       "embed": {
         "author": "Дать деньги",
@@ -527,9 +503,7 @@
     },
     "en": {
       "errors": {
-        "memberNotFound": "Member not found",
-        "giveToYourself": "You cannot give money to yourself",
-        "invalidAmount": "Amount must be an integer not less than 1"
+        "giveToYourself": "You cannot give money to yourself"
       },
       "embed": {
         "author": "Give money",
@@ -803,18 +777,12 @@
   },
   "money-symbol": {
     "ru": {
-      "errors": {
-        "invalidLength": "Символ денег не может быть длиннее 100 символов"
-      },
       "embed": {
         "author": "Символ денег",
         "description": "Символ денег на этом сервере был изменен на {{symbol}}"
       }
     },
     "en": {
-      "errors": {
-        "invalidLength": "Money symbol cannot be longer than 100 characters"
-      },
       "embed": {
         "author": "Money symbol",
         "description": "Money symbol on this server has been changed to {{symbol}}"
@@ -874,28 +842,6 @@
       "embed": {
         "author": "Random number",
         "result": "Result"
-      }
-    }
-  },
-  "remove-money": {
-    "ru": {
-      "errors": {
-        "memberNotFound": "Участник не найден",
-        "invalidAmount": "Количество должно быть целым числом, не меньшим 1"
-      },
-      "embed": {
-        "author": "Забрать деньги",
-        "description": "Удалено -{{number}}{{monsymb}} из баланса {{member}}"
-      }
-    },
-    "en": {
-      "errors": {
-        "memberNotFound": "Member not found",
-        "invalidAmount": "Amount must be an integer not less than 1"
-      },
-      "embed": {
-        "author": "Remove money",
-        "description": "Removed -{{number}}{{monsymb}} from {{member}}'s balance"
       }
     }
   },
@@ -1063,25 +1009,25 @@
       }
     }
   },
-  "set-balance": {
+  "balance-manager": {
     "ru": {
-      "errors": {
-        "memberNotFound": "Участник не найден",
-        "invalidAmount": "Количество должно быть целым числом"
-      },
       "embed": {
-        "author": "Установить баланс",
-        "description": "Баланс {{member}} установлен: {{number}}{{monsymb}}"
+        "author": "Баланс менеджер",
+        "actions": {
+          "add": "Добавлено +{{number}}{{monsymb}} к балансу {{member}}",
+          "remove": "Отнято -{{number}}{{monsymb}} от баланса {{member}}",
+          "set": "Баланс участника {{member}} установлен: {{number}}{{monsymb}}"
+        }
       }
     },
     "en": {
-      "errors": {
-        "memberNotFound": "Member not found",
-        "invalidAmount": "Amount must be an integer"
-      },
       "embed": {
-        "author": "Set balance",
-        "description": "Set {{member}}'s balance: {{number}}{{monsymb}}"
+        "author": "Balance manager",
+        "actions": {
+          "add": "Added +{{number}}{{monsymb}} to {{member}}'s balance",
+          "remove": "Removed -{{number}}{{monsymb}} from {{member}}'s balance",
+          "set": "Set {{member}}'s balance: {{number}}{{monsymb}}"
+        }
       }
     }
   },

@@ -11,19 +11,79 @@
       }
     }
   },
-  "invalidUsage": {
+  "validationError": {
     "ru": {
       "embed": {
-        "author": "Ошибка",
-        "description": "Неверное использование команды",
-        "field": "Использование"
+        "author": "Неверное использование",
+        "description": "Обязательная опция `{{option}}` была указана неверно\nТип опции: {{type}}",
+        "fields": {
+          "option": "Опция",
+          "optionType": "Тип опции",
+          "minValue": "Минимальное значение",
+          "maxValue": "Максимальное значение",
+          "minLength": "Минимальная длина",
+          "maxLength": "Максимальная длина",
+          "channelTypes": "Типы каналов",
+          "symbols": "символов"
+        },
+        "enums": {
+          "User": "Пользователь",
+          "Channel": "Канал",
+          "Role": "Роль",
+          "Attachment": "Вложение",
+          "String": "Строка",
+          "Number": "Число",
+          "Integer": "Целое число",
+          "Boolean": "Логическое",
+          "GuildMember": "Участник",
+          "Duration": "Длительность",
+          "GuildText": "Текстовый",
+          "GuildNews": "Объявления"
+        }
       }
     },
     "en": {
       "embed": {
-        "author": "Error",
-        "description": "Invalid command usage",
-        "field": "Usage"
+        "author": "Invalid usage",
+        "description": "Required option `{{option}}` was specified incorrectly\nOption type: {{type}}",
+        "fields": {
+          "option": "Option",
+          "optionType": "Option type",
+          "minValue": "Min value",
+          "maxValue": "Max value",
+          "minLength": "Min length",
+          "maxLength": "Max length",
+          "channelTypes": "Channel types",
+          "symbols": "symbols"
+        },
+        "enums": {
+          "User": "User",
+          "Channel": "Channel",
+          "Role": "Role",
+          "Attachment": "Attachment",
+          "String": "String",
+          "Number": "Number",
+          "Integer": "Integer",
+          "Boolean": "Boolean",
+          "GuildMember": "Member",
+          "Duration": "Duration",
+          "GuildText": "Text",
+          "GuildNews": "News"
+        }
+      }
+    }
+  },
+  "notEnoughMoney": {
+    "ru": {
+      "embed": {
+        "author": "Недостаточно денег",
+        "description": "У вас есть только {{money}}{{moneysymb}}"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Not enough money",
+        "description": "You have only {{money}}{{moneysymb}}"
       }
     }
   },

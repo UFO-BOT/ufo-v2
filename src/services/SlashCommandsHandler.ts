@@ -1,5 +1,6 @@
 import GuildLanguage from "@/types/GuildLanguage";
 import Discord, {
+    ApplicationCommandOptionType,
     CommandInteraction,
     CommandInteractionOption,
     GuildMember,
@@ -12,6 +13,8 @@ import CommandExecutionContext from "@/types/CommandExecutionContext";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator";
+import MakeError from "@/utils/MakeError";
 
 export default class SlashCommandsHandler {
     public interaction: CommandInteraction
@@ -27,10 +30,15 @@ export default class SlashCommandsHandler {
         if(!command) return;
 
         let settings = await GuildSettingsManager.getCache(this.interaction.guildId);
-        let args: Record<string, CommandInteractionOption> = {};
-        command.options.forEach(option => {
-            args[option.name] = this.interaction.options.get(option.config[settings.language.commands].name);
-        })
+        let validator = new SlashCommandsValidator(this.interaction.options.data, command.options);
+        let validationResult = validator.validate();
+        if(!validationResult.valid) {
+            await this.interaction.reply({embeds:
+                    [MakeError.validationError(this.interaction.member as GuildMember,
+                validationResult.problemOption, settings)]
+            })
+            return;
+        }
 
         let response = responses[command.config.en.name as keyof typeof responses]?.[settings.language.interface];
         if(!response) return;
@@ -40,7 +48,7 @@ export default class SlashCommandsHandler {
             guild: this.interaction.guild,
             member: this.interaction.member as GuildMember,
             channel: this.interaction.channel as TextChannel,
-            args: args,
+            args: validationResult.args,
             response: new PropertyParser(response),
             settings: settings
         }

@@ -7,7 +7,11 @@ import CommandOption from "@/types/CommandOption";
 import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
-import internal from "stream";
+import CommandOptionValidationType from "@/types/CommandOptionValidationType";
+
+interface UserCommandDTO {
+    user?: User
+}
 
 export default class UserCommand extends AbstractCommand implements Command {
     public config = {
@@ -41,7 +45,7 @@ export default class UserCommand extends AbstractCommand implements Command {
     ]
     public category = CommandCategory.General;
 
-    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
+    public async execute(ctx: CommandExecutionContext<UserCommandDTO>): Promise<CommandExecutionResult> {
         const badgesEmojis: Record<string, string> = {
             HypeSquadOnlineHouse1: '<:bravery:716398817787772967>',
             HypeSquadOnlineHouse2: '<:brilliance:716399292604219404>',
@@ -65,7 +69,7 @@ export default class UserCommand extends AbstractCommand implements Command {
             '739068301749256212': 'bughunter'
         }
 
-        let user = ctx.args.user?.user as User;
+        let user = ctx.args.user;
         if(!user) user = ctx.member.user;
         let botBadges: string = '';
         let member = await ctx.guild.members.fetch(user.id).catch(() => undefined);

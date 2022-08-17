@@ -1,4 +1,4 @@
-import {ApplicationCommandOptionType, EmbedBuilder} from "discord.js";
+import {ApplicationCommandOptionType, EmbedBuilder, User} from "discord.js";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
 import Command from "../../types/Command";
@@ -8,6 +8,10 @@ import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
 import Language from "@/types/Language";
+
+interface AvatarCommandDTO {
+    user?: User
+}
 
 export default class AvatarCommand extends AbstractCommand implements Command {
     public config = {
@@ -41,8 +45,8 @@ export default class AvatarCommand extends AbstractCommand implements Command {
     ]
     public category = CommandCategory.Utilities;
 
-    public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let user = ctx.args.user?.user;
+    public async execute(ctx: CommandExecutionContext<AvatarCommandDTO>): Promise<CommandExecutionResult> {
+        let user = ctx.args.user;
         if(!user) user = ctx.member.user;
         ctx.response.parse({
             user: user.tag

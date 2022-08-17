@@ -9,13 +9,13 @@ export default class GuildSettingsManager {
             let guildSettings = await global.mongo.manager.findOneBy(Settings, {guildid: guildId})
 
             settings = {
-                prefix: guildSettings?.prefix ?? '!',
+                prefix: guildSettings?.prefix ?? global.constants.defaultPrefix,
                 language: {
                     commands: guildSettings?.language?.commands ?? 'en',
                     interface: guildSettings?.language?.interface ?? 'en'
                 },
                 boost: guildSettings?.boost,
-                moneysymb: guildSettings?.moneysymb ?? '<:money:705401895019348018>',
+                moneysymb: guildSettings?.moneysymb ?? global.constants.defaultMoneySymbol,
                 commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>
             }
 
