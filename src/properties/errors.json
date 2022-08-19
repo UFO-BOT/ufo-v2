@@ -19,6 +19,7 @@
         "fields": {
           "option": "Опция",
           "optionType": "Тип опции",
+          "choices": "Варианты",
           "minValue": "Минимальное значение",
           "maxValue": "Максимальное значение",
           "minLength": "Минимальная длина",
@@ -49,6 +50,7 @@
         "fields": {
           "option": "Option",
           "optionType": "Option type",
+          "choices": "Choices",
           "minValue": "Min value",
           "maxValue": "Max value",
           "minLength": "Min length",

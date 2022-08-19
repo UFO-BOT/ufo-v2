@@ -26,7 +26,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
         en: {
             name: "give-money",
             description: 'You will give member the specified amount of your money including commission',
-            aliases: ['money', 'bal']
+            aliases: ['givemoney', 'pay']
         }
     }
     public options: Array<CommandOption> = [

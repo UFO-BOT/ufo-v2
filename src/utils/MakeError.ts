@@ -19,6 +19,13 @@ export default class MakeError {
             .setDescription(error.embed.description
                 .replace("{{option}}", option.config[settings.language.interface].name)
                 .replace("{{type}}", enums[optionType]))
+        if(option.config.en.choices) {
+            embed.addFields({
+                name: error.embed.fields.choices,
+                value: option.config[settings.language.commands].choices.map(c => c.name).join(" | "),
+                inline: true
+            })
+        }
         if(option.minValue !== undefined) embed.addFields({
             name: error.embed.fields.minValue, value: option.minValue.toString(), inline: true
         })

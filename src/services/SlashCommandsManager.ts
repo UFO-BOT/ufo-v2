@@ -16,6 +16,7 @@ export default class SlashCommandsManager {
     }
 
     public async set(): Promise<void> {
+        if(global.client.cache.settings.get(this.guildId)) return;
         let settings = await GuildSettingsManager.getCache(this.guildId)
 
         let commands: Array<ChatInputApplicationCommandData> = [];

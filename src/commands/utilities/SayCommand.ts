@@ -1,5 +1,6 @@
 import {
-    ApplicationCommandOptionType, ChannelType,
+    ApplicationCommandOptionType,
+    ChannelType,
     EmbedBuilder,
     GuildTextBasedChannel,
     PermissionResolvable
@@ -13,6 +14,7 @@ import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
 import MakeError from "@/utils/MakeError";
+import CommandOptionValidationType from "@/types/CommandOptionValidationType";
 
 interface SayCommandDTO {
     text: string
@@ -23,18 +25,19 @@ export default class SayCommand extends AbstractCommand implements Command {
     public config = {
         ru: {
             name: "сказать",
-            description: 'Отправить введенное сообщение в текущий или указанный канал',
+            description: 'Отправить введенное сообщение в текущий канал',
             aliases: ['отправить']
         },
         en: {
             name: "say",
-            description: 'Sends entered message in current or specified channel',
+            description: 'Sends entered message in curren channel',
             aliases: ['send']
         }
     }
     public options: Array<CommandOption> = [
         {
             type: ApplicationCommandOptionType.String,
+            validationType: CommandOptionValidationType.LongString,
             name: "text",
             config: {
                 ru: {
@@ -48,22 +51,6 @@ export default class SayCommand extends AbstractCommand implements Command {
             },
             maxLength: 2000,
             required: true
-        },
-        {
-            type: ApplicationCommandOptionType.Channel,
-            channelTypes: [ChannelType.GuildText, ChannelType.GuildNews],
-            name: "channel",
-            config: {
-                ru: {
-                    name: "канал",
-                    description: "Канал, в который отправить сообщение",
-                },
-                en: {
-                    name: "channel",
-                    description: "Channel to send message to",
-                }
-            },
-            required: false
         }
     ]
     public category = CommandCategory.Utilities;
@@ -71,17 +58,15 @@ export default class SayCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext<SayCommandDTO>): Promise<CommandExecutionResult> {
         let text = ctx.args.text;
-        let channel = ctx.args.channel;
-        if(!channel) channel = ctx.channel;
         let embed = new EmbedBuilder()
-        await channel.send(text).then(() => {
+        await ctx.channel.send(text).then(() => {
             embed
                 .setColor(global.constants.colors.system)
-                .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
-                .setDescription(ctx.response.data.embed.description)
+                .setAuthor({name: ctx.response.data.author, iconURL: ctx.member.displayAvatarURL()})
+                .setDescription(ctx.response.data.description)
         })
         .catch(() => {
-            embed = MakeError.other(ctx.member, ctx.settings, ctx.response.data.embed.error)
+            embed = MakeError.other(ctx.member, ctx.settings, ctx.response.data.error)
         })
         return {reply: {embeds: [embed], ephemeral: true}}
     }

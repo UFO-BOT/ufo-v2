@@ -7,10 +7,10 @@ import CommandOption from "@/types/CommandOption";
 import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
+import CommandOptionValidationType from "@/types/CommandOptionValidationType";
 
 interface LayoutCommandDTO {
     text: string
-    layout?: 'ru' | 'en'
 }
 
 export default class LayoutCommand extends AbstractCommand implements Command {
@@ -29,6 +29,7 @@ export default class LayoutCommand extends AbstractCommand implements Command {
     public options: Array<CommandOption> = [
         {
             type: ApplicationCommandOptionType.String,
+            validationType: CommandOptionValidationType.LongString,
             name: "text",
             config: {
                 ru: {
@@ -41,55 +42,18 @@ export default class LayoutCommand extends AbstractCommand implements Command {
                 }
             },
             required: true
-        },
-        {
-            type: ApplicationCommandOptionType.String,
-            name: "layout",
-            config: {
-                ru: {
-                    name: "раскладка",
-                    description: "Раскладка, на которую поменять текст",
-                    choices: [
-                        {name: "русский", value: "ru"},
-                        {name: "английский", value: "en"}
-                    ]
-                },
-                en: {
-                    name: "layout",
-                    description: "Layout to change the text to",
-                    choices: [
-                        {name: "russian", value: "ru"},
-                        {name: "english", value: "en"}
-                    ]
-                }
-            },
-            required: false
         }
     ]
     public category = CommandCategory.Utilities;
 
     public async execute(ctx: CommandExecutionContext<LayoutCommandDTO>): Promise<CommandExecutionResult> {
         let text = ctx.args.text;
-        let layout = ctx.args.layout;
         let content = text.split('');
         let result = '';
         for(let i = 0; i < content.length; i++) {
-            if(layout) {
-                if(layout === "ru" && this.layouts.en.includes(content[i])) {
-                    result += `${this.layouts.ru[this.layouts.en.indexOf(content[i])]}`;
-                }
-                else if(layout === "en" && this.layouts.ru.includes(content[i])) {
-                    result += `${this.layouts.en[this.layouts.ru.indexOf(content[i])]}`;
-                }
-                else {
-                    result += content[i];
-                }
-            }
-            else {
-                result += this.layouts.en[this.layouts.ru.indexOf(content[i])] ??
-                    this.layouts.ru[this.layouts.en.indexOf(content[i])] ??
-                    content[i]
-            }
+            result += this.layouts.en[this.layouts.ru.indexOf(content[i])] ??
+                this.layouts.ru[this.layouts.en.indexOf(content[i])] ??
+                content[i]
         }
         let embed = new EmbedBuilder()
             .setColor(global.constants.colors.system)

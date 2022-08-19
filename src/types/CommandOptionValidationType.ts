@@ -1,6 +1,7 @@
 enum CommandOptionValidationType {
-    GuildMember,
-    Duration
+    GuildMember = 1,
+    Duration,
+    LongString
 }
 
 export default CommandOptionValidationType;

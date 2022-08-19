@@ -4,7 +4,7 @@ import EventConfig from "@/types/EventConfig";
 import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 
 import SlashCommandsManager from "@/services/SlashCommandsManager";
-import SlashCommandsHandler from "@/services/SlashCommandsHandler";
+import SlashCommandsHandler from "@/services/handlers/SlashCommandsHandler";
 
 export default class InteractionCreateEvent extends AbstractClientEvent implements EventConfig {
     public name = 'interactionCreate'

@@ -19,7 +19,8 @@ const client = new Client(process.env.TOKEN, {
         'GuildMessageReactions',
         'GuildMessageTyping',
         'GuildScheduledEvents',
-        'GuildPresences']
+        'GuildPresences',
+        'MessageContent']
 })
 
 client.start()
