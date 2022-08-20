@@ -1,16 +1,14 @@
-import Discord from "discord.js";
-import {DataSource} from "typeorm";
-
 import Client from '@/structures/Client'
 import Manager from "@/structures/Manager";
 import Constants from "@/types/Constants";
+import MongoDB from "@/structures/MongoDB";
 
 declare global {
     namespace NodeJS {
         interface Global {
             client: Client
             manager: Manager
-            mongo: DataSource
+            db: MongoDB
             constants: Constants
         }
 

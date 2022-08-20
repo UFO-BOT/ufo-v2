@@ -7,6 +7,8 @@ import Discord, {
 import Settings from "@/types/database/Settings";
 import CommandSettings from "@/types/CommandSettings";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import Client from "@/structures/Client";
+import MongoDB from "@/structures/MongoDB";
 
 export default class SlashCommandsManager {
     public guildId: string

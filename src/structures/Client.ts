@@ -1,10 +1,10 @@
 import Discord, {Awaitable, Serialized} from 'discord.js'
 
-import MongoDB from "@/services/MongoDB";
+import MongoDB from "@/structures/MongoDB";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import ClientCacheConfig from "@/types/ClientCacheConfig";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
-import ClientLoader from "@/utils/loaders/ClientLoader";
+import ClientLoader from "@/services/loaders/ClientLoader";
 import Constants from "@/types/Constants";
 
 import emojis from '@/properties/emojis.json'
@@ -39,20 +39,21 @@ export default class Client extends Discord.Client {
         return this.user.setActivity({name: `!help | ${process.env.WEBSITE}`, type: Discord.ActivityType.Watching})
     }
 
-    load(): void {
-        console.log(`[SHARD #${global.client.shard.ids[0]}] [LOADERS] Loading modules...`)
-        ClientLoader.loadEvents()
-        ClientLoader.loadCommands()
+    load(loader: ClientLoader): void {
         global.constants = constants as Constants;
-        console.log(`[SHARD #${global.client.shard.ids[0]}] [LOADERS] Loaded modules`)
+        console.log(`[SHARD #${this.shard.ids[0]}] [LOADERS] Loading modules...`)
+        loader.loadEvents()
+        loader.loadCommands()
+        console.log(`[SHARD #${this.shard.ids[0]}] [LOADERS] Loaded modules`)
     }
 
     async start(): Promise<any> {
-        const mongo = new MongoDB(process.env.DB_URL)
-        await mongo.connect()
-        console.log(`[SHARD #${global.client.shard.ids[0]}] [MONGO] MongoDB connected`);
+        const mongo = new MongoDB(process.env.DB_URL, process.env.DB_NAME)
+        await mongo.initialize()
+        console.log(`[SHARD #${this.shard.ids[0]}] [MONGO] MongoDB connected`);
 
-        this.load()
+        const loader = new ClientLoader()
+        this.load(loader)
 
         await this.login(this.token)
     }

@@ -100,7 +100,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
         let action = ctx.args.action;
         let amount = ctx.args.amount;
         let settings = await GuildSettingsManager.findOrCreate(ctx.guild.id);
-        let balance = await global.mongo.manager.findOneBy(Balance, {
+        let balance = await global.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: user.id
         })
@@ -109,7 +109,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
             balance.guildid = ctx.guild.id;
             balance.userid = user.id;
             balance.balance = 0;
-            await global.mongo.manager.save(balance)
+            await global.db.manager.save(balance)
         }
         ctx.response.parse({
             member: user.toString(),

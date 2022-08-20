@@ -2,18 +2,14 @@ import {DataSource} from "typeorm";
 import Settings from "@/types/database/Settings";
 import Balance from "@/types/database/Balance";
 
-export default class MongoDB {
+export default class MongoDB extends DataSource {
     public url: string
 
-    constructor(url: string) {
-        this.url = url;
-    }
-
-    public async connect() {
-        global.mongo = new DataSource({
+    constructor(url: string, dbName: string) {
+        super({
             type: "mongodb",
-            database: process.env.DB_NAME,
-            url: process.env.DB_URL,
+            database: dbName,
+            url: url,
             useNewUrlParser: true,
             useUnifiedTopology: true,
             synchronize: true,
@@ -22,7 +18,7 @@ export default class MongoDB {
                 Settings,
                 Balance
             ]
-        });
-        await global.mongo.initialize()
+        })
+        global.db = this;
     }
 }

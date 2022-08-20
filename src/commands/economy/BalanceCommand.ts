@@ -49,7 +49,7 @@ export default class BalanceCommand extends AbstractCommand implements Command {
     public async execute(ctx: CommandExecutionContext<BalanceCommandDTO>): Promise<CommandExecutionResult> {
         let user = ctx.args.user;
         if(!user) user = ctx.member.user;
-        let balance = await global.mongo.manager.findOneBy(Balance, {
+        let balance = await global.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: user.id
         })
@@ -65,7 +65,7 @@ export default class BalanceCommand extends AbstractCommand implements Command {
                 value: (balance?.xp?.toString() ?? "0") + global.client.cache.emojis.xp,
                 inline: true
             }])
-        let top = await global.mongo.manager.findBy(Balance, {guildid: ctx.guild.id})
+        let top = await global.db.manager.findBy(Balance, {guildid: ctx.guild.id})
         top.sort((a, b) => b.balance - a.balance)
         let topMember = top.find(m => m.userid === user.id)
         let place = top.indexOf(topMember) + 1;

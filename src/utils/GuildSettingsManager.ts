@@ -6,7 +6,7 @@ export default class GuildSettingsManager {
     public static async getCache(guildId: string): Promise<GuildSettingsCache> {
         let settings: GuildSettingsCache = global.client.cache.settings.get(guildId)
         if (!settings) {
-            let guildSettings = await global.mongo.manager.findOneBy(Settings, {guildid: guildId})
+            let guildSettings = await global.db.manager.findOneBy(Settings, {guildid: guildId})
 
             settings = {
                 prefix: guildSettings?.prefix ?? global.constants.defaultPrefix,
@@ -25,11 +25,11 @@ export default class GuildSettingsManager {
     }
 
     public static async findOrCreate(guildId: string): Promise<Settings> {
-        let settings = await global.mongo.manager.findOneBy(Settings, {guildid: guildId});
+        let settings = await global.db.manager.findOneBy(Settings, {guildid: guildId});
         if(!settings) {
             settings = new Settings()
             settings.guildid = guildId;
-            await global.mongo.manager.save(settings);
+            await global.db.manager.save(settings);
         }
         return settings;
     }

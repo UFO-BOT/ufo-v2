@@ -4,5 +4,9 @@
   "colors": {
     "system": "#00a6ff",
     "error": "#ff0621"
+  },
+  "paths": {
+    "commands": "/dist/src/commands",
+    "eventsClient": "/dist/src/events/client"
   }
 }

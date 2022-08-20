@@ -27,7 +27,7 @@ export default class PingCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let DBTime = Date.now()
-        await global.mongo.mongoManager.findOneBy(Balance, {})
+        await global.db.mongoManager.findOneBy(Balance, {})
         let DBPing = Date.now() - DBTime;
         let embed = new EmbedBuilder()
             .setColor(global.constants.colors.system)

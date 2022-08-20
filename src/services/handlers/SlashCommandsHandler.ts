@@ -4,7 +4,7 @@ import Discord, {
     CommandInteraction,
     CommandInteractionOption,
     GuildMember,
-    InteractionReplyOptions,
+    InteractionReplyOptions, Message,
     TextChannel
 } from "discord.js";
 import Settings from "@/types/database/Settings";
@@ -15,6 +15,8 @@ import responses from "@/properties/responses.json";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
 import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator";
 import MakeError from "@/utils/MakeError";
+import Client from "@/structures/Client";
+import MongoDB from "@/structures/MongoDB";
 
 export default class SlashCommandsHandler {
     public interaction: CommandInteraction

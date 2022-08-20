@@ -5,6 +5,8 @@ import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 
 import SlashCommandsManager from "@/services/SlashCommandsManager";
 import SlashCommandsHandler from "@/services/handlers/SlashCommandsHandler";
+import Client from "@/structures/Client";
+import MongoDB from "@/structures/MongoDB";
 
 export default class InteractionCreateEvent extends AbstractClientEvent implements EventConfig {
     public name = 'interactionCreate'

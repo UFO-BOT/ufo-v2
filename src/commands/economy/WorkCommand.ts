@@ -29,10 +29,10 @@ export default class WorkCommand extends AbstractCommand implements Command {
     public category = CommandCategory.Economy;
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let settings = await global.mongo.manager.findOneBy(Settings, {guildid: ctx.guild.id})
+        let settings = await global.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
         let salary = settings?.salary ?? {low: 1, high: 500};
         let workcooldown = settings?.workcooldown ?? 1200000;
-        let balance = await global.mongo.manager.findOneBy(Balance, {
+        let balance = await global.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
         })
@@ -43,7 +43,7 @@ export default class WorkCommand extends AbstractCommand implements Command {
             balance.balance = 0;
             balance.xp = 0;
             balance.lastwork = 0;
-            await global.mongo.manager.save(balance);
+            await global.db.manager.save(balance);
         }
         let timePassed = Date.now() - balance.lastwork;
         if (timePassed < workcooldown) return {

@@ -75,7 +75,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
             }
         }
         let settings = await GuildSettingsManager.findOrCreate(ctx.guild.id);
-        let balance1 = await global.mongo.manager.findOneBy(Balance, {
+        let balance1 = await global.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
         })
@@ -84,7 +84,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
                 embeds: [MakeError.notEnoughMoney(ctx.member, balance1?.balance ?? 0, ctx.settings)]
             }
         }
-        let balance2 = await global.mongo.manager.findOneBy(Balance, {
+        let balance2 = await global.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: user.id
         })
@@ -93,7 +93,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
             balance2.guildid = ctx.guild.id;
             balance2.userid = user.id;
             balance2.balance = 0;
-            await global.mongo.manager.save(balance2)
+            await global.db.manager.save(balance2)
         }
         balance1.balance -= amount;
         let commission = settings?.commission ?? 0;

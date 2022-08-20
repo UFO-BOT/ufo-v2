@@ -16,6 +16,8 @@ import GuildSettingsManager from "@/utils/GuildSettingsManager";
 import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator";
 import MakeError from "@/utils/MakeError";
 import TextCommandsValidator from "@/services/validators/TextCommandsValidator";
+import Client from "@/structures/Client";
+import MongoDB from "@/structures/MongoDB";
 
 export default class TextCommandsHandler {
     public message: Message
