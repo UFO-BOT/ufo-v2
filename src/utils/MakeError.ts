@@ -48,6 +48,14 @@ export default class MakeError {
         return embed;
     }
 
+    static noMemberPermissions(member: GuildMember, perms: Array<string>, settings: GuildSettingsCache): EmbedBuilder {
+        let error = errors.noMemberPermissions[settings.language.interface];
+        return new EmbedBuilder()
+            .setColor(global.constants.colors.error)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(error.embed.description.replace("{{perms}}", perms.map(p => '`' + p + '`').join(", ")));
+    }
+
     static userCoolDown(member: GuildMember, time: number, settings: GuildSettingsCache): EmbedBuilder {
         let error = errors.userCooldown[settings.language.interface];
         return new EmbedBuilder()

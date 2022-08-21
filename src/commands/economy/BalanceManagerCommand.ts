@@ -99,7 +99,6 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
         let user = ctx.args.member;
         let action = ctx.args.action;
         let amount = ctx.args.amount;
-        let settings = await GuildSettingsManager.findOrCreate(ctx.guild.id);
         let balance = await global.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: user.id

@@ -107,6 +107,7 @@
         "noRemoveRolePermission": "У меня недостаточно прав чтобы снять с вас роль {{removerole}}"
       },
       "embed": {
+        "author": "Купить товар",
         "description": "Вы успешно купили товар `{{item}}`"
       }
     },
@@ -117,6 +118,7 @@
         "noRemoveRolePermission": "I have no permission to remove role {{removerole}} from you"
       },
       "embed": {
+        "author": "Buy item",
         "description": "You've successfully bought item `{{item}}`"
       }
     }

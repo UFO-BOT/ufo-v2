@@ -12,6 +12,8 @@ export default class InteractionCreateEvent extends AbstractClientEvent implemen
     public name = 'interactionCreate'
 
     public async execute(interaction: Interaction): Promise<any> {
+        let manager = new SlashCommandsManager(interaction.guildId)
+        await manager.set()
         if(interaction.isCommand()) {
             let handler = new SlashCommandsHandler(interaction);
             await handler.handle();

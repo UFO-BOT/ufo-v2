@@ -18,6 +18,7 @@ import MakeError from "@/utils/MakeError";
 import TextCommandsValidator from "@/services/validators/TextCommandsValidator";
 import Client from "@/structures/Client";
 import MongoDB from "@/structures/MongoDB";
+import PermissionsParser from "@/utils/PermissionsParser";
 
 export default class TextCommandsHandler {
     public message: Message
@@ -45,12 +46,25 @@ export default class TextCommandsHandler {
             c.config[settings?.language?.commands ?? 'en'].aliases.includes(cmd.slice(settings.prefix.length)))
         if(!command) return;
 
+        if(command.defaultMemberPermissions) {
+            if(!this.message.member.permissions.has(command.defaultMemberPermissions)) {
+                await this.message.reply({embeds:
+                        [MakeError.noMemberPermissions(this.message.member as GuildMember,
+                            PermissionsParser.parse(command.defaultMemberPermissions,
+                                settings.language.interface), settings)],
+                    allowedMentions: {repliedUser: false}
+                })
+                return;
+            }
+        }
+
         let validator = new TextCommandsValidator(args, command.options, this.message.guild, settings);
         let validationResult = await validator.validate();
         if(!validationResult.valid) {
             await this.message.reply({embeds:
                     [MakeError.validationError(this.message.member as GuildMember,
-                        validationResult.problemOption, settings)]
+                        validationResult.problemOption, settings)],
+                allowedMentions: {repliedUser: false}
             })
             return;
         }

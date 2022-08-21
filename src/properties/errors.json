@@ -38,6 +38,7 @@
           "Boolean": "Логическое",
           "GuildMember": "Участник",
           "Duration": "Длительность",
+          "LongString": "Длинная строка",
           "GuildText": "Текстовый",
           "GuildNews": "Объявления"
         }
@@ -69,6 +70,7 @@
           "Boolean": "Boolean",
           "GuildMember": "Member",
           "Duration": "Duration",
+          "LongString": "Long string",
           "GuildText": "Text",
           "GuildNews": "News"
         }
