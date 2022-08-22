@@ -30,7 +30,7 @@ export default class SayCommand extends AbstractCommand implements Command {
         },
         en: {
             name: "say",
-            description: 'Sends entered message in curren channel',
+            description: 'Sends entered message in current channel',
             aliases: ['send']
         }
     }
