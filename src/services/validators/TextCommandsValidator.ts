@@ -5,6 +5,7 @@ import CommandValidationResult from "@/types/CommandValidationResult";
 import Resolver from "@/utils/Resolver";
 import {settings} from "cluster";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
+import TimeParser from "@/utils/TimeParser";
 
 export default class TextCommandsValidator {
     public args: Array<string>
@@ -35,23 +36,23 @@ export default class TextCommandsValidator {
                 ApplicationCommandOptionType[option.type]
             switch (type) {
                 case "GuildMember":
-                    let member = await Resolver.member(this.guild, arg);
-                    if(member) value = member;
+                    value = await Resolver.member(this.guild, arg);
                     break;
                 case "LongString":
                     value = this.args.join(" ")
                     break;
+                case "Duration":
+                    value = TimeParser.parse(arg, this.settings.language.commands)
+                    break
                 case "User":
-                    let user = await Resolver.user(this.guild, arg)
-                    if(user) value = user;
+                    value = await Resolver.user(this.guild, arg)
                     break;
                 case "Channel":
                     let channel = await Resolver.channel(this.guild, arg);
                     if(channel && option.channelTypes.includes(channel?.type)) value = channel;
                     break;
                 case "Role":
-                    let role = await Resolver.role(this.guild, arg);
-                    if(role) value = role;
+                    value = await Resolver.role(this.guild, arg);
                     break;
                 case "Number": case "Integer":
                     value = parseInt(arg);

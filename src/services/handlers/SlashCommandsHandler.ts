@@ -32,12 +32,13 @@ export default class SlashCommandsHandler {
         if(!command) return;
 
         let settings = await GuildSettingsManager.getCache(this.interaction.guildId);
-        let validator = new SlashCommandsValidator(this.interaction.options.data, command.options);
+        let validator = new SlashCommandsValidator(this.interaction.options.data, command.options, settings);
         let validationResult = validator.validate();
         if(!validationResult.valid) {
             await this.interaction.reply({embeds:
                     [MakeError.validationError(this.interaction.member as GuildMember,
-                validationResult.problemOption, settings)]
+                validationResult.problemOption, settings)],
+                ephemeral: true
             })
             return;
         }
