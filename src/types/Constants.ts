@@ -6,6 +6,7 @@ interface Colors {
 interface Paths {
     commands: string
     eventsClient: string
+    eventsManager: string
 }
 
 export default interface Constants {

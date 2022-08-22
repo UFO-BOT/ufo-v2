@@ -7,6 +7,7 @@
   },
   "paths": {
     "commands": "/dist/src/commands",
-    "eventsClient": "/dist/src/events/client"
+    "eventsClient": "/dist/src/events/client",
+    "eventsManager": "/dist/src/events/manager"
   }
 }
