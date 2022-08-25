@@ -51,24 +51,20 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext<ItemInfoCommandDTO>): Promise<CommandExecutionResult> {
         let item = await global.db.manager.findOneBy(Item, {guildid: ctx.guild.id, name: ctx.args.name})
-        if(!item) return {
-            reply: {
-                embeds: [
-                    MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.itemNotFound)
-                ],
-                ephemeral: true
+        if (!item) return {
+            error: {
+                type: "other",
+                options: {text: ctx.response.data.errors.itemNotFound}
             }
         }
         let balance = await global.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
         })
-        if((balance?.balance ?? 0) < item.price) return {
-            reply: {
-                embeds: [
-                    MakeError.notEnoughMoney(ctx.member, balance?.balance ?? 0, ctx.settings)
-                ],
-                ephemeral: true
+        if ((balance?.balance ?? 0) < item.price) return {
+            error: {
+                type: "notEnoughMoney",
+                options: {money: balance?.balance ?? 0}
             }
         }
         if (!balance) {
@@ -86,24 +82,20 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
             removerole: removeRole?.toString(),
             item: item.name
         })
-        if(addRole) {
-            if(ctx.guild.members.me.roles.highest.position <= addRole.position) return {
-                reply: {
-                    embeds: [
-                        MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.noAddRolePermission)
-                    ],
-                    ephemeral: true
+        if (addRole) {
+            if (ctx.guild.members.me.roles.highest.position <= addRole.position) return {
+                error: {
+                    type: "other",
+                    options: {text: ctx.response.data.errors.noAddRolePermission}
                 }
             }
             await ctx.member.roles.add(addRole);
         }
-        if(removeRole) {
-            if(ctx.guild.members.me.roles.highest.position <= removeRole.position) return {
-                reply: {
-                    embeds: [
-                        MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.noRemoveRolePermission)
-                    ],
-                    ephemeral: true
+        if (removeRole) {
+            if (ctx.guild.members.me.roles.highest.position <= removeRole.position) return {
+                error: {
+                    type: "other",
+                    options: {text: ctx.response.data.errors.noRemoveRolePermission}
                 }
             }
             await ctx.member.roles.remove(removeRole)

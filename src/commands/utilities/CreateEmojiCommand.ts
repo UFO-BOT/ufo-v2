@@ -95,10 +95,9 @@ export default class CreateEmojiCommand extends AbstractCommand implements Comma
         let response: CommandExecutionResult;
         if (!image && !url) {
             return {
-                reply: {
-                    embeds: [
-                        MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.noImage)
-                    ]
+                error: {
+                    type: "other",
+                    options: {text: ctx.response.data.errors.noImage}
                 }
             }
         }
@@ -120,10 +119,9 @@ export default class CreateEmojiCommand extends AbstractCommand implements Comma
                         error = ctx.response.data.errors.unknownError
                     }
                     response = {
-                        reply: {
-                            embeds: [
-                                MakeError.other(ctx.member, ctx.settings, error)
-                            ]
+                        error: {
+                            type: "other",
+                            options: {text: error}
                         }
                     }
                 }

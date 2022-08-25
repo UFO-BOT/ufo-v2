@@ -7,7 +7,7 @@ import CommandOption from "@/types/CommandOption";
 import CommandOptionValidationType from "@/types/CommandOptionValidationType";
 
 export default class MakeError {
-    static validationError(member: GuildMember, option: CommandOption, settings: GuildSettingsCache): EmbedBuilder {
+    static validationError(member: GuildMember, settings: GuildSettingsCache, option: CommandOption): EmbedBuilder {
         let error = errors.validationError[settings.language.interface];
         let enums = error.embed.enums;
         let optionType = (option.validationType !== undefined ?
@@ -48,7 +48,7 @@ export default class MakeError {
         return embed;
     }
 
-    static noMemberPermissions(member: GuildMember, perms: Array<string>, settings: GuildSettingsCache): EmbedBuilder {
+    static noMemberPermissions(member: GuildMember, settings: GuildSettingsCache, perms: Array<string>): EmbedBuilder {
         let error = errors.noMemberPermissions[settings.language.interface];
         return new EmbedBuilder()
             .setColor(global.constants.colors.error)
@@ -56,30 +56,30 @@ export default class MakeError {
             .setDescription(error.embed.description.replace("{{perms}}", perms.map(p => '`' + p + '`').join(", ")));
     }
 
-    static userCoolDown(member: GuildMember, time: number, settings: GuildSettingsCache): EmbedBuilder {
+    static userCoolDown(member: GuildMember, settings: GuildSettingsCache, options: {time: number}): EmbedBuilder {
         let error = errors.userCooldown[settings.language.interface];
         return new EmbedBuilder()
             .setColor(global.constants.colors.system)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
-            .setDescription(error.embed.description.replace("{{time}}", `<t:${Math.floor(time/1000)}:R>`));
+            .setDescription(error.embed.description.replace("{{time}}", `<t:${Math.floor(options.time/1000)}:R>`));
     }
 
-    static notEnoughMoney(member: GuildMember, money: number, settings: GuildSettingsCache): EmbedBuilder {
+    static notEnoughMoney(member: GuildMember, settings: GuildSettingsCache, options: {money: number}): EmbedBuilder {
         let error = errors.notEnoughMoney[settings.language.interface];
         return new EmbedBuilder()
             .setColor(global.constants.colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(error.embed.description
-                .replace("{{money}}", money.toString())
+                .replace("{{money}}", options.money.toString())
                 .replace("{{moneysymb}}", settings.moneysymb)
             );
     }
 
-    static other(member: GuildMember, settings: GuildSettingsCache, text: string, name?: string): EmbedBuilder {
+    static other(member: GuildMember, settings: GuildSettingsCache, options: {text: string, name?: string}): EmbedBuilder {
         let error = errors.other[settings.language.interface];
         return new EmbedBuilder()
             .setColor(global.constants.colors.error)
-            .setAuthor({name: name ?? error.embed.author, iconURL: member.displayAvatarURL()})
-            .setDescription(text);
+            .setAuthor({name: options.name ?? error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(options.text);
     }
 }

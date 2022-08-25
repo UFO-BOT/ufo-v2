@@ -50,11 +50,9 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
     public async execute(ctx: CommandExecutionContext<ItemInfoCommandDTO>): Promise<CommandExecutionResult> {
         let item = await global.db.manager.findOneBy(Item, {guildid: ctx.guild.id, name: ctx.args.name})
         if(!item) return {
-            reply: {
-                embeds: [
-                    MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.itemNotFound)
-                ],
-                ephemeral: true
+            error: {
+                type: "other",
+                options: {text: ctx.response.data.errors.itemNotFound}
             }
         }
         let addRole = ctx.guild.roles.cache.get(item.addrole);

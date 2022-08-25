@@ -65,11 +65,9 @@ export default class RandomCommand extends AbstractCommand implements Command {
         let smallest = ctx.args.smallest;
         let largest = ctx.args.largest;
         if (smallest > largest) return {
-            reply: {
-                embeds: [
-                    MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.invalidEnds)
-                ],
-                ephemeral: true
+            error: {
+                type: "other",
+                options: {text: ctx.response.data.errors.invalidEnds}
             }
         }
         let embed = new EmbedBuilder()

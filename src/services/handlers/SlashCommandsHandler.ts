@@ -17,6 +17,7 @@ import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator
 import MakeError from "@/utils/MakeError";
 import Client from "@/structures/Client";
 import MongoDB from "@/structures/MongoDB";
+import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 export default class SlashCommandsHandler {
     public interaction: CommandInteraction
@@ -36,8 +37,8 @@ export default class SlashCommandsHandler {
         let validationResult = validator.validate();
         if(!validationResult.valid) {
             await this.interaction.reply({embeds:
-                    [MakeError.validationError(this.interaction.member as GuildMember,
-                validationResult.problemOption, settings)],
+                    [MakeError.validationError(this.interaction.member as GuildMember, settings,
+                validationResult.problemOption)],
                 ephemeral: true
             })
             return;
@@ -56,9 +57,19 @@ export default class SlashCommandsHandler {
             settings: settings
         }
         let result = await command.execute(context);
+        let reply = result.reply;
+        if(result.error) {
+            type ErrorFunction = ((member: Discord.GuildMember, settings: GuildSettingsCache, options: {})
+                => Discord.EmbedBuilder)
+            let errorFn = MakeError[result.error.type] as ErrorFunction;
+            reply = {
+                embeds: [errorFn(this.interaction.member as GuildMember, settings, result.error.options)],
+                ephemeral: true
+            }
+        }
         command.deferReply ?
-            await this.interaction.editReply(result.reply) :
-            await this.interaction.reply(result.reply as InteractionReplyOptions).catch(() => {});
+            await this.interaction.editReply(reply) :
+            await this.interaction.reply(reply as InteractionReplyOptions).catch(() => {});
         if(command.after) {
             let message = await this.interaction.fetchReply();
             context.data = result.data;

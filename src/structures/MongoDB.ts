@@ -2,6 +2,7 @@ import {DataSource} from "typeorm";
 import Settings from "@/types/database/Settings";
 import Balance from "@/types/database/Balance";
 import Item from "@/types/database/Item";
+import Coupon from "@/types/database/Coupon";
 
 export default class MongoDB extends DataSource {
     public url: string
@@ -18,7 +19,8 @@ export default class MongoDB extends DataSource {
             entities: [
                 Settings,
                 Balance,
-                Item
+                Item,
+                Coupon
             ]
         })
         global.db = this;

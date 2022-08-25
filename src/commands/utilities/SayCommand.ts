@@ -59,14 +59,21 @@ export default class SayCommand extends AbstractCommand implements Command {
     public async execute(ctx: CommandExecutionContext<SayCommandDTO>): Promise<CommandExecutionResult> {
         let text = ctx.args.text;
         let embed = new EmbedBuilder()
+        let reply: CommandExecutionResult
         await ctx.channel.send(text).then(() => {
             embed
                 .setColor(global.constants.colors.system)
                 .setAuthor({name: ctx.response.data.author, iconURL: ctx.member.displayAvatarURL()})
                 .setDescription(ctx.response.data.description)
+            reply = {reply: {embeds: [embed]}}
         })
         .catch(() => {
-            embed = MakeError.other(ctx.member, ctx.settings, ctx.response.data.error)
+            reply = {
+                error: {
+                    type: "other",
+                    options: {text: ctx.response.data.error}
+                }
+            }
         })
         return {reply: {embeds: [embed], ephemeral: true}}
     }

@@ -47,9 +47,9 @@ export default class WorkCommand extends AbstractCommand implements Command {
         }
         let timePassed = Date.now() - balance.lastwork;
         if (timePassed < workcooldown) return {
-            reply: {
-                embeds: [MakeError.userCoolDown(ctx.member, balance.lastwork + workcooldown, ctx.settings)],
-                ephemeral: true
+            error: {
+                type: "userCoolDown",
+                options: {time: balance.lastwork + workcooldown}
             }
         }
         let money = Math.floor(Math.random() * (salary.high - salary.low) + salary.low)

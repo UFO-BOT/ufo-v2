@@ -70,8 +70,9 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
         let user = ctx.args.member;
         let amount = ctx.args.amount;
         if (user.id === ctx.member.id) return {
-            reply: {
-                embeds: [MakeError.other(ctx.member, ctx.settings, ctx.response.data.errors.giveToYourself)]
+            error: {
+                type: "other",
+                options: {text: ctx.response.data.errors.giveToYourself}
             }
         }
         let settings = await GuildSettingsManager.findOrCreate(ctx.guild.id);
@@ -80,8 +81,9 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
             userid: ctx.member.id
         })
         if (!balance1?.balance || balance1?.balance < amount) return {
-            reply: {
-                embeds: [MakeError.notEnoughMoney(ctx.member, balance1?.balance ?? 0, ctx.settings)]
+            error: {
+                type: "notEnoughMoney",
+                options: {money: balance1?.balance ?? 0}
             }
         }
         let balance2 = await global.db.manager.findOneBy(Balance, {
