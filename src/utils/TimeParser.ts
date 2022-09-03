@@ -12,6 +12,15 @@ type UnitType = 'one'
 | 'twoFour'
 | 'five'
 
+type TimestampType = ''
+| 't'
+| 'T'
+| 'd'
+| 'D'
+| 'f'
+| 'F'
+| 'R'
+
 interface AllOutput {
     duration: number
     string: string
@@ -70,7 +79,11 @@ export default class TimeParser {
         }
     }
 
-    public static numberLastDigits (number: number, count: number = 1) {
+        public static formatTimestamp(timestamp: number, type: TimestampType): string {
+        return `<t:${Math.floor(timestamp/1000)}${type?.length ? ":" + type : ""}>`;
+    }
+
+    private static numberLastDigits (number: number, count: number = 1) {
         let power = 10 ** count;
         return number - Math.floor(number/power)*power
     }

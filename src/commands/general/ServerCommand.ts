@@ -9,6 +9,7 @@ import CommandOption from "@/types/CommandOption";
 import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
+import TimeParser from "@/utils/TimeParser";
 
 export default class ServerCommand extends AbstractCommand implements Command {
     public config = {
@@ -44,7 +45,7 @@ export default class ServerCommand extends AbstractCommand implements Command {
 **${emojis.invite} ${ctx.response.data.embed.invites}:** ${invites?.size ?? ctx.response.data.embed.missingPermissions}
 **🔨 ${ctx.response.data.embed.bans}:** ${bans?.size ?? ctx.response.data.embed.missingPermissions} ${boosts}
 **${emojis.textchannel} ${ctx.response.data.embed.shard}:** #${ctx.guild.shardId}
-**🕐 ${ctx.response.data.embed.creationDate}:** ${moment(ctx.guild.createdTimestamp).utc().format('D.MM.YYYY, `kk:mm:ss`')} (GMT+0000) ${splash}`)
+**🕐 ${ctx.response.data.embed.creationDate}:** ${TimeParser.formatTimestamp(ctx.guild.createdTimestamp, "f")} ${splash}`)
             .addFields({name: `${ctx.response.data.embed.channels} [${ctx.guild.channels.cache.size}]`, value: `
 ${emojis.textchannel} ${ctx.response.data.embed.text}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildText).size}
 ${emojis.voice} ${ctx.response.data.embed.voice}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildVoice).size}

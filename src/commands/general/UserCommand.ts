@@ -8,6 +8,7 @@ import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/CommandOptionValidationType";
+import TimeParser from "@/utils/TimeParser";
 
 interface UserCommandDTO {
     user?: User
@@ -96,9 +97,9 @@ export default class UserCommand extends AbstractCommand implements Command {
             value: `${global.client.cache.emojis[member.presence.status]} ${ctx.response.data.statuses[member.presence.status]}`})
         if(badges.length > 0) embed.addFields({name: ctx.response.data.embed.badges, value: badges.join(" ")});
         if(member) embed.addFields({name: ctx.response.data.embed.joinedServer,
-            value: moment(member.joinedTimestamp).utc().format('D.MM.YYYY, `kk:mm:ss`') + ' (GMT+0000)'})
+            value: TimeParser.formatTimestamp(member.joinedTimestamp, "f")})
         embed.addFields({name: ctx.response.data.embed.joinedDiscord,
-            value: moment(user.createdTimestamp).utc().format('D.MM.YYYY, `kk:mm:ss`') + ' (GMT+0000)'})
+            value: TimeParser.formatTimestamp(user.createdTimestamp, "f")})
         if(member && member?.roles.highest.id !== ctx.member.guild.id) embed.addFields({name: ctx.response.data.embed.highestRole,
             value: member.roles.highest.toString()})
         embed

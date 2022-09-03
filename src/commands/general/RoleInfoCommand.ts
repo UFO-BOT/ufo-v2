@@ -8,6 +8,7 @@ import CommandOption from "@/types/CommandOption";
 import CommandCategory from "@/types/CommandCategory";
 import CommandExecutionContext from "@/types/CommandExecutionContext";
 import CommandExecutionResult from "@/types/CommandExecutionResult";
+import TimeParser from "@/utils/TimeParser";
 
 interface RoleInfoCommandDTO {
     role: Role
@@ -73,7 +74,7 @@ export default class RoleInfoCommand extends AbstractCommand implements Command 
                 },
                 {
                     name: ctx.response.data.embed.creationDate,
-                    value: moment(role.createdTimestamp).utc().format('D.MM.YYYY, `kk:mm:ss`') + '(GMT+0000)'
+                    value: TimeParser.formatTimestamp(role.createdTimestamp, "f")
                 }
             ])
         return {reply: {embeds: [embed]}};

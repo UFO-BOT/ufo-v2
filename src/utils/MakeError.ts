@@ -61,7 +61,7 @@ export default class MakeError {
         return new EmbedBuilder()
             .setColor(global.constants.colors.system)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
-            .setDescription(error.embed.description.replace("{{time}}", `<t:${Math.floor(options.time/1000)}:R>`));
+            .setDescription(error.embed.description.replace("{{time}}", TimeParser.formatTimestamp(options.time, 'R')));
     }
 
     static notEnoughMoney(member: GuildMember, settings: GuildSettingsCache, options: {money: number}): EmbedBuilder {

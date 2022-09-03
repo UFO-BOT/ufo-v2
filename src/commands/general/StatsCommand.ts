@@ -51,8 +51,7 @@ ${global.client.cache.emojis.announcements} ${ctx.response.data.embed.shards}: $
 `💻 ${ctx.response.data.embed.os}: ${require('os').type()}
 💓 ${ctx.response.data.embed.ping}: ${Math.round(stats.ping.reduce((a: number, b: number) => a + b, 0) / stats.ping.length)} ms
 🎛️ ${ctx.response.data.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0)} MB
-${global.client.cache.emojis.slowmode} ${ctx.response.data.embed.uptime}: ${TimeParser.stringify(global.client.uptime,
-    ctx.settings.language.interface)}`})
+${global.client.cache.emojis.slowmode} ${ctx.response.data.embed.uptime}: ${TimeParser.formatTimestamp(global.client.readyTimestamp, "R")}`})
             .addFields({name: ctx.response.data.embed.versions, value:
 `${global.client.cache.emojis.nodejs} Node JS: ${'`' + process.version + '`'}
 ${global.client.cache.emojis.discordjs} discord.js: ${'`' + Discord.version + '`'}`})
