@@ -3,7 +3,8 @@
   "defaultMoneySymbol": "<:money:705401895019348018>",
   "colors": {
     "system": "#00a6ff",
-    "error": "#ff0621"
+    "error": "#ff0621",
+    "success": "#00ff74"
   },
   "paths": {
     "commands": "/dist/src/commands",

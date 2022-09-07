@@ -1,6 +1,7 @@
 interface Colors {
     system: `#${string}`
     error: `#${string}`
+    success: `#${string}`
 }
 
 interface Paths {

@@ -1,0 +1,86 @@
+{
+  "MoneyBags": {
+    "ru": {
+      "embed": {
+        "author": "Игра с мешками",
+        "description": "Выберите один из трех мешков",
+        "result": "Результат",
+        "currentBalance": "Текущий баланс"
+      },
+      "menu": {
+        "placeholder": "Выберите мешок",
+        "options": [
+          {
+            "label": "Красный",
+            "value": "red",
+            "emoji": "734036717509541928"
+          },
+          {
+            "label": "Желтый",
+            "value": "yellow",
+            "emoji": "734036847042232330"
+          },
+          {
+            "label": "Синий",
+            "value": "blue",
+            "emoji": "734037011287244830"
+          }
+        ]
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Moneybags",
+        "description": "Choose one of three moneybags",
+        "result": "Result",
+        "currentBalance": "Current balance"
+      },
+      "menu": {
+        "placeholder": "Select moneybag",
+        "options": [
+          {
+            "label": "Red",
+            "value": "red",
+            "emoji": "734036717509541928"
+          },
+          {
+            "label": "Yellow",
+            "value": "yellow",
+            "emoji": "734036847042232330"
+          },
+          {
+            "label": "Blue",
+            "value": "blue",
+            "emoji": "734037011287244830"
+          }
+        ]
+      }
+    }
+  },
+  "Leaderboard": {
+    "ru": {
+      "embed": {
+        "author": "Лидеры сервера",
+        "balance": "Баланс",
+        "xp": "Опыт",
+        "footer": "Страница"
+      },
+      "buttons": {
+        "backward": "1017012856463573042",
+        "forward": "1017013009228501052"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Server leaders",
+        "balance": "Balance",
+        "xp": "Experience",
+        "footer": "Page"
+      },
+      "buttons": {
+        "backward": "1017012856463573042",
+        "forward": "1017013009228501052"
+      }
+    }
+  }
+}

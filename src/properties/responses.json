@@ -760,22 +760,8 @@
     }
   },
   "moneybags": {
-    "ru": {
-      "embed": {
-        "author": "Игра с мешками",
-        "description": "Выберите один из трех мешков",
-        "result": "Результат",
-        "currentBalance": "Текущий баланс"
-      }
-    },
-    "en": {
-      "embed": {
-        "author": "Moneybags",
-        "description": "Choose one of three moneybags",
-        "result": "Result",
-        "currentBalance": "Current balance"
-      }
-    }
+    "ru": {},
+    "en": {}
   },
   "money-symbol": {
     "ru": {

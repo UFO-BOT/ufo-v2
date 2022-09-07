@@ -147,6 +147,34 @@
       }
     }
   },
+  "interactionUnavailable": {
+    "ru": {
+      "embed": {
+        "author": "Взаимодействие недоступно",
+        "description": "Данное взаимодействие больше недоступно"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Interaction unavailable",
+        "description": "This interaction is no longer available"
+      }
+    }
+  },
+  "interactionNotAllowed": {
+    "ru": {
+      "embed": {
+        "author": "Взаимодействие недоступно",
+        "description": "Вам недоступно это взаимодействие"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Interaction unavailable",
+        "description": "You have no access to this interaction"
+      }
+    }
+  },
   "other": {
     "ru": {
       "embed": {

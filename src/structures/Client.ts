@@ -9,6 +9,7 @@ import Constants from "@/types/Constants";
 
 import emojis from '@/properties/emojis.json'
 import constants from '@/properties/constants.json'
+import AbstractInteraction from "@/abstractions/AbstractInteraction";
 
 export default class Client extends Discord.Client {
     public readonly supportGuildID: string = '712012571666022411'
@@ -16,7 +17,8 @@ export default class Client extends Discord.Client {
     public cache: ClientCacheConfig = {
         commands: new Discord.Collection<string, AbstractCommand>(),
         emojis: emojis,
-        settings: new Discord.Collection<string, GuildSettingsCache>()
+        settings: new Discord.Collection<string, GuildSettingsCache>(),
+        interactions: new Discord.Collection<string, AbstractInteraction>()
     }
 
     public constructor(token: string, options?: Discord.ClientOptions) {

@@ -3,5 +3,5 @@ import {ApplicationCommandOptionChoiceData} from "discord.js";
 export default interface CommandOptionConfig {
     name: string
     description: string
-    choices?: Array<ApplicationCommandOptionChoiceData>
+    choices?: Array<ApplicationCommandOptionChoiceData<string>>
 }
