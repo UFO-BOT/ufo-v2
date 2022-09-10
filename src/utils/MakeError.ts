@@ -69,8 +69,19 @@ export default class MakeError {
         return new EmbedBuilder()
             .setColor(global.constants.colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
-            .setDescription(error.embed.description
+            .setDescription(options.money > 0 ? error.embed.description
                 .replace("{{money}}", options.money.toString())
+                .replace("{{moneysymb}}", settings.moneysymb) : error.embed.holdOn
+            );
+    }
+
+    static invalidBet(member: GuildMember, settings: GuildSettingsCache, options: {bet: number}): EmbedBuilder {
+        let error = errors.invalidBet[settings.language.interface];
+        return new EmbedBuilder()
+            .setColor(global.constants.colors.error)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(error.embed.description
+                .replace("{{bet}}", options.bet.toString())
                 .replace("{{moneysymb}}", settings.moneysymb)
             );
     }

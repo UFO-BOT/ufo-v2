@@ -82,5 +82,93 @@
         "forward": "1017013009228501052"
       }
     }
+  },
+  "CrashCasino": {
+    "ru": {
+      "embed": {
+        "author": "Краш казино",
+        "description": "Нажмите `Поднять` чтобы поднять множитель\n`Стоп` - чтобы остановиться",
+        "result": "Результат",
+        "bet": "Ставка",
+        "multiplier": "Множитель",
+        "gain": "Выигрыш",
+        "crashedAt": "Крашнуто на",
+        "currentBalance": "Текущий баланс"
+      },
+      "buttons": {
+        "raise": {
+          "label": "Поднять",
+          "emoji": "1017464785538908170"
+        },
+        "stop": {
+          "label": "Стоп",
+          "emoji": "1017465488235839589"
+        }
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Crash casino",
+        "description": "Press `Raise` to raise the multiplier\n`Stop` - to stop",
+        "result": "Result",
+        "bet": "Bet",
+        "multiplier": "Multiplier",
+        "gain": "Gain",
+        "crashedAt": "Crashed at",
+        "currentBalance": "Current balance"
+      },
+      "buttons": {
+        "raise": {
+          "label": "Raise",
+          "emoji": "1017464785538908170"
+        },
+        "stop": {
+          "label": "Stop",
+          "emoji": "1017465488235839589"
+        }
+      }
+    }
+  },
+  "MineField": {
+    "ru": {
+      "embed": {
+        "author": "Минное поле",
+        "description": "<:raise:1017464785538908170> - выбрать клетку, <:stop:1017465488235839589> - забрать деньги",
+        "result": "Результат",
+        "bet": "Ставка",
+        "multiplier": "Множитель",
+        "gain": "Выигрыш",
+        "field": "Поле",
+        "currentBalance": "Текущий баланс"
+      },
+      "buttons": {
+        "up": {
+          "emoji": "1017464785538908170"
+        },
+        "stop": {
+          "emoji": "1017465488235839589"
+        }
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Minefield",
+        "result": "Result",
+        "description": "<:raise:1017464785538908170> - select cell, <:stop:1017465488235839589> - take money",
+        "bet": "Bet",
+        "multiplier": "Multiplier",
+        "gain": "Gain",
+        "field": "Field",
+        "currentBalance": "Current balance"
+      },
+      "buttons": {
+        "up": {
+          "emoji": "1017464785538908170"
+        },
+        "stop": {
+          "emoji": "1017465488235839589"
+        }
+      }
+    }
   }
 }

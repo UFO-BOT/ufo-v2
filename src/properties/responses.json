@@ -252,36 +252,8 @@
     }
   },
   "crash-casino": {
-    "ru": {
-      "errors": {
-        "invalidBet": "Ставка должна быть целым числом, не меньшим {{minbet}}"
-      },
-      "embed": {
-        "author": "Краш казино",
-        "description": "Нажмите ⏹ чтобы остановиться",
-        "result": "Результат",
-        "bet": "Ставка",
-        "multiplier": "Множитель",
-        "gain": "Выигрыш",
-        "crashedAt": "Крашнуто на",
-        "currentBalance": "Текущий баланс"
-      }
-    },
-    "en": {
-      "errors": {
-        "invalidBet": "Bet must be an integer not less than {{minbet}}"
-      },
-      "embed": {
-        "author": "Crash casino",
-        "description": "Press ⏹ to stop",
-        "result": "Result",
-        "bet": "Bet",
-        "multiplier": "Multiplier",
-        "gain": "Gain",
-        "crashedAt": "Crashed at",
-        "currentBalance": "Current balance"
-      }
-    }
+    "ru": {},
+    "en": {}
   },
   "create-coupon": {
     "ru": {
@@ -702,22 +674,8 @@
     }
   },
   "leaders": {
-    "ru": {
-      "embed": {
-        "author": "Лидеры сервера",
-        "balance": "Баланс",
-        "xp": "Опыт",
-        "footer": "Страница"
-      }
-    },
-    "en": {
-      "embed": {
-        "author": "Server leaders",
-        "balance": "Balance",
-        "xp": "Experience",
-        "footer": "Page"
-      }
-    }
+    "ru": {},
+    "en": {}
   },
   "minefield": {
     "ru": {

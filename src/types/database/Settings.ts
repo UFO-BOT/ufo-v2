@@ -45,7 +45,7 @@ export default class Settings extends BaseEntity {
     casenum: number
 
     @Column()
-    muterole: number
+    muterole: string
 
     @Column()
     boost: boolean
@@ -55,4 +55,7 @@ export default class Settings extends BaseEntity {
 
     @Column()
     commands: Record<string, CommandSettings>
+
+    @Column()
+    minBet: number
 }

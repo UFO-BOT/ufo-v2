@@ -71,20 +71,16 @@ export default class SlashCommandsHandler {
         if(interaction) {
             reply = {embeds: [interaction.embed], components: [interaction.row()]}
             global.client.cache.interactions.set(interaction.id, interaction)
-            setTimeout(async () => {
-                if(interaction.end) await interaction.end()
-                global.client.cache.interactions.delete(interaction.id)
-            }, interaction.lifetime)
         }
         let msg = (command.deferReply ?
             await this.interaction.editReply(reply) :
-            await this.interaction.reply(reply as InteractionReplyOptions).catch(() => {})) as Message;
+            await this.interaction.reply(reply as InteractionReplyOptions)) as Message;
         if(command.after) {
             let message = await this.interaction.fetchReply();
             context.data = result.data;
             await command.after(context, message);
         }
-        if(interaction.lifetime) setTimeout(async () => {
+        if(interaction?.lifetime) setTimeout(async () => {
             if(interaction.end && global.client.cache.interactions.has(interaction.id)) {
                 await interaction.end()
                 await msg.edit({embeds: [interaction.embed], components: []})

@@ -81,13 +81,29 @@
     "ru": {
       "embed": {
         "author": "Недостаточно денег",
-        "description": "У вас есть только {{money}}{{moneysymb}}"
+        "description": "У вас есть только {{money}}{{moneysymb}}",
+        "holdOn": "Денег нет, но вы держитесь"
       }
     },
     "en": {
       "embed": {
         "author": "Not enough money",
-        "description": "You have only {{money}}{{moneysymb}}"
+        "description": "You have only {{money}}{{moneysymb}}",
+        "holdOn": "You have no money, but hold on"
+      }
+    }
+  },
+  "invalidBet": {
+    "ru": {
+      "embed": {
+        "author": "Недействительная ставка",
+        "description": "Минимальная ставка на этом сервере: {{bet}}{{moneysymb}}"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Invalid bet",
+        "description": "Minimal bet on this server: {{bet}}{{moneysymb}}"
       }
     }
   },

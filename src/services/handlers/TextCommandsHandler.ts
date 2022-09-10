@@ -96,7 +96,7 @@ export default class TextCommandsHandler {
         reply.allowedMentions.repliedUser = false;
 
         let msg = await this.message.reply(reply);
-        if(interaction.lifetime) setTimeout(async () => {
+        if(interaction?.lifetime) setTimeout(async () => {
             if(interaction.end && global.client.cache.interactions.has(interaction.id)) {
                 await interaction.end()
                 await msg.edit({embeds: [interaction.embed], components: []})
