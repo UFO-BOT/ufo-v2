@@ -170,5 +170,63 @@
         }
       }
     }
+  },
+  "Jackpot": {
+    "ru": {
+      "errors": {
+        "invalidNumbersAmount": "Введите `7` чисел",
+        "invalidNumbers": "Числа должны быть целыми и быть в диапазоне от 1 до 50",
+        "numbersRepeat": "Числа не должны повторяться"
+      },
+      "embed": {
+        "author": "Джекпот",
+        "description": "Загадано 7 чисел от 1 до 50\nЧтобы ввести числа, нажмите `Ввести`",
+        "result": "Результат",
+        "made": "Загадано",
+        "entered": "Вы назвали",
+        "guessed": "Угадано",
+        "bet": "Ставка",
+        "multiplier": "Множитель",
+        "gain": "Выигрыш",
+        "currentBalance": "Текущий баланс"
+      },
+      "buttons": {
+        "enter": {
+          "label": "Ввести"
+        }
+      },
+      "modal": {
+        "enter": "Ввести числа",
+        "enterNumbers": "Введите 7 чисел через пробел"
+      }
+    },
+    "en": {
+      "errors": {
+        "invalidNumbersAmount": "Enter `7` numbers",
+        "invalidNumbers": "The numbers must be integers from 1 to 50",
+        "numbersRepeat": "Numbers may not be repeated"
+      },
+      "embed": {
+        "author": "Jackpot",
+        "description": "I made 7 numbers from 1 to 50\nPress `Enter` to enter numbers",
+        "result": "Result",
+        "made": "I made",
+        "entered": "You entered",
+        "guessed": "Guessed",
+        "bet": "Bet",
+        "multiplier": "Multiplier",
+        "gain": "Gain",
+        "currentBalance": "Current balance"
+      },
+      "buttons": {
+        "enter": {
+          "label": "Enter"
+        }
+      },
+      "modal": {
+        "enter": "Enter numbers",
+        "enterNumbers": "Enter 7 numbers separated by a space"
+      }
+    }
   }
 }

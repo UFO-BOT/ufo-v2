@@ -4,6 +4,7 @@
   "colors": {
     "system": "#00a6ff",
     "error": "#ff0621",
+    "warning": "#ffe500",
     "success": "#00ff74"
   },
   "paths": {

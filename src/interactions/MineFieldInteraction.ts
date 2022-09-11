@@ -30,7 +30,7 @@ interface MineFieldInteractionData {
     field: Array<Array<string>>
 }
 
-type LeaderboardInteractionAction = '1' | '2' | '3' | 'stop'
+type MinefieldInteractionAction = '1' | '2' | '3' | 'stop'
 
 export default class MineFieldInteraction extends AbstractInteraction implements Interaction {
     public declare data: MineFieldInteractionData
@@ -71,7 +71,7 @@ export default class MineFieldInteraction extends AbstractInteraction implements
             ])
     }
 
-    public async execute(interaction: ButtonInteraction, action: LeaderboardInteractionAction): Promise<InteractionExecutionResult> {
+    public async execute(interaction: ButtonInteraction, action: MinefieldInteractionAction): Promise<InteractionExecutionResult> {
         if(action === "stop") return this.stop()
         this.components.stop.setDisabled(false)
         let cell = Number(action)-1;

@@ -1,6 +1,7 @@
 interface Colors {
     system: `#${string}`
     error: `#${string}`
+    warning: `#${string}`
     success: `#${string}`
 }
 

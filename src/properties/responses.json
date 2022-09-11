@@ -608,46 +608,8 @@
     }
   },
   "jackpot": {
-    "ru": {
-      "errors": {
-        "invalidBet": "Ставка должна быть целым числом, не меньшим {{minbet}}",
-        "invalidNumbersAmount": "введите `7` чисел",
-        "invalidNumbers": "числа должны быть целыми и быть в диапазоне от 1 до 50",
-        "numbersRepeat": "числа не должны повторяться"
-      },
-      "embed": {
-        "author": "Джекпот",
-        "description": "Загадано 7 чисел от 1 до 50. Попытайтесь угадать их\nЧем больше вы угадаете, тем больше денег выиграете!:money_with_wings:\n**ВНИМАНИЕ!** Отправьте числа одним сообщением через пробел\nПример: 1 2 3 4 5 6 7",
-        "result": "Результат",
-        "made": "Загадано",
-        "entered": "Вы назвали",
-        "guessed": "Угадано",
-        "bet": "Ставка",
-        "multiplier": "Множитель",
-        "gain": "Выигрыш",
-        "currentBalance": "Текущий баланс"
-      }
-    },
-    "en": {
-      "errors": {
-        "invalidBet": "Bet must be an integer not less than {{minbet}}",
-        "invalidNumbersAmount": "enter `7` numbers",
-        "invalidNumbers": "the numbers must be integers from 1 to 50",
-        "numbersRepeat": "numbers may not be repeated"
-      },
-      "embed": {
-        "author": "Jackpot",
-        "description": "I made 7 numbers from 1 to 50. Try to guess them\nThe more you guess, the more money you win!:money_with_wings:\n**ATTENTION!** Send numbers in one message using space\nFor example: 1 2 3 4 5 6 7",
-        "result": "Result",
-        "made": "I made",
-        "entered": "You entered",
-        "guessed": "Guessed",
-        "bet": "Bet",
-        "multiplier": "Multiplier",
-        "gain": "Gain",
-        "currentBalance": "Current balance"
-      }
-    }
+    "ru": {},
+    "en": {}
   },
   "kick": {
     "ru": {
