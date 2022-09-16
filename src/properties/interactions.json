@@ -228,5 +228,87 @@
         "enterNumbers": "Enter 7 numbers separated by a space"
       }
     }
+  },
+  "RockScissorsPaper": {
+    "ru": {
+      "embed": {
+        "author": "Камень ножницы бумага",
+        "acceptDescription": "{{opponent}}, нажмите `Принять` чтобы играть в Камень ножницы бумага на {{bet}} с {{member}}",
+        "description": "Выберите камень :punch:, ножницы :v: или бумагу :raised_hand:",
+        "chooses": "Выбирает",
+        "winner": "Победитель",
+        "draw": "Ничья, деньги возвращены",
+        "result": "Результат",
+        "currentBalance": "Текущий баланс",
+        "yourChoice": "Ваш выбор",
+        "myChoice": "Мой выбор",
+        "returnMoney": "Возврат денег"
+      },
+      "buttons": {
+        "accept": {
+          "label": "Принять"
+        }
+      },
+      "menu": {
+        "placeholder": "Выберите предмет",
+        "options": [
+          {
+            "label": "Камень",
+            "value": "rock",
+            "emoji": "\uD83D\uDC4A"
+          },
+          {
+            "label": "Желтый",
+            "value": "scissors",
+            "emoji": "✌"
+          },
+          {
+            "label": "Бумага",
+            "value": "paper",
+            "emoji": "✋"
+          }
+        ]
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Rock scissors paper",
+        "acceptDescription": "{{opponent}}, press `Accept` to play Rock scissors paper for {{bet}} with {{member}}",
+        "description": "Choose rock :punch:, scissors :v: or paper :raised_hand:",
+        "chooses": "Chooses",
+        "winner": "Winner",
+        "draw": "Draw, money returned",
+        "result": "Result",
+        "currentBalance": "Current balance",
+        "yourChoice": "Your choice",
+        "myChoice": "My choice",
+        "returnMoney": "Return money"
+      },
+      "buttons": {
+        "accept": {
+          "label": "Accept"
+        }
+      },
+      "menu": {
+        "placeholder": "Select item",
+        "options": [
+          {
+            "label": "Rock",
+            "value": "rock",
+            "emoji": "\uD83D\uDC4A"
+          },
+          {
+            "label": "Scissors",
+            "value": "scissors",
+            "emoji": "✌"
+          },
+          {
+            "label": "Paper",
+            "value": "paper",
+            "emoji": "✋"
+          }
+        ]
+      }
+    }
   }
 }
