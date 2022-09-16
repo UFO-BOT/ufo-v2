@@ -136,7 +136,7 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
     public async end() {
         await this.data.balance.reload()
         this.data.balance.balance += this.data.bet;
-        await this.data.balance.reload()
+        await this.data.balance.save()
         if(this.data.opponent && this.data.accepted) {
             await this.data.opponentBalance.reload()
             this.data.opponentBalance.balance++;

@@ -31,7 +31,8 @@ export default class RockScissorsPaperCommand extends AbstractCommand implements
     }
     public options: Array<CommandOption> = [
         {
-            type: ApplicationCommandOptionType.Integer,
+            type: ApplicationCommandOptionType.String,
+            validationType: CommandOptionValidationType.Bet,
             name: "bet",
             config: {
                 ru: {
@@ -43,8 +44,7 @@ export default class RockScissorsPaperCommand extends AbstractCommand implements
                     description: "Amount of money to bet"
                 }
             },
-            required: true,
-            minValue: 1
+            required: true
         },
         {
             type: ApplicationCommandOptionType.User,
@@ -67,26 +67,8 @@ export default class RockScissorsPaperCommand extends AbstractCommand implements
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<RockScissorsPaperDTO>): Promise<CommandExecutionResult> {
-        let balance = await global.db.manager.findOneBy(Balance, {
-            guildid: ctx.guild.id,
-            userid: ctx.member.id
-        })
-        let settings = await global.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
-        let minBet = settings?.minBet ?? 100;
-        if(ctx.args.bet < minBet) return {
-            error: {
-                type: "invalidBet",
-                options: {bet: minBet}
-            }
-        }
-        if(balance.balance < ctx.args.bet) return {
-            error: {
-                type: "notEnoughMoney",
-                options: {money: balance.balance}
-            }
-        }
-        balance.balance -= ctx.args.bet;
-        await balance.save()
+        ctx.balance.balance -= ctx.args.bet;
+        await ctx.balance.save()
         let opponentBalance;
         if(ctx.args.member) opponentBalance = await global.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
@@ -101,7 +83,7 @@ export default class RockScissorsPaperCommand extends AbstractCommand implements
         }
         let interaction = new RockScissorsPaperInteraction(ctx.args.member ? [ctx.args.member.id] : [ctx.member.id], {
             member: ctx.member,
-            balance: balance,
+            balance: ctx.balance,
             bet: ctx.args.bet,
             opponent: ctx.args.member,
             opponentBalance: opponentBalance,

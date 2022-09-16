@@ -16,7 +16,8 @@ export default class GuildSettingsManager {
                 },
                 boost: guildSettings?.boost,
                 moneysymb: guildSettings?.moneysymb ?? global.constants.defaultMoneySymbol,
-                commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>
+                commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>,
+                minBet: guildSettings?.minBet ?? 100
             }
 
             global.client.cache.settings.set(guildId, settings)

@@ -20,6 +20,8 @@ import Client from "@/structures/Client";
 import MongoDB from "@/structures/MongoDB";
 import PermissionsParser from "@/utils/PermissionsParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
+import CommandOptionValidationType from "@/types/CommandOptionValidationType";
+import Balance from "@/types/database/Balance";
 
 export default class TextCommandsHandler {
     public message: Message
@@ -29,6 +31,9 @@ export default class TextCommandsHandler {
     }
 
     public async handle(): Promise<void> {
+        type ErrorFunction = ((member: Discord.GuildMember, settings: GuildSettingsCache, options: {})
+            => Discord.EmbedBuilder)
+
         if (this.message.channel.type !== ChannelType.GuildText &&
             this.message.channel.type !== ChannelType.GuildNews) return;
 
@@ -58,12 +63,22 @@ export default class TextCommandsHandler {
             }
         }
 
-        let validator = new TextCommandsValidator(args, command.options, this.message.guild, settings);
+        let balance;
+        if(command.options.find(op => op.validationType === CommandOptionValidationType.Bet)) {
+            balance = await global.db.manager.findOneBy(Balance, {
+                guildid: this.message.guildId,
+                userid: this.message.author.id
+            })
+        }
+        let validator = new TextCommandsValidator(args, command.options, this.message.guild, settings, balance);
         let validationResult = await validator.validate();
         if(!validationResult.valid) {
+            let error = MakeError[validationResult.error?.type] as ErrorFunction;
             await this.message.reply({embeds:
-                    [MakeError.validationError(this.message.member as GuildMember, settings,
-                        validationResult.problemOption)],
+                    [validationResult.error ?
+                        error(this.message.member as GuildMember, settings, validationResult.error.options) :
+                        MakeError.validationError(this.message.member as GuildMember, settings,
+                            validationResult.problemOption)],
                 allowedMentions: {repliedUser: false}
             })
             return;
@@ -78,12 +93,11 @@ export default class TextCommandsHandler {
             channel: this.message.channel,
             args: validationResult.args,
             response: new PropertyParser(response),
-            settings
+            settings,
+            balance
         })
         let reply = result.reply as ReplyMessageOptions;
         if(result.error) {
-            type ErrorFunction = ((member: Discord.GuildMember, settings: GuildSettingsCache, options: {})
-                => Discord.EmbedBuilder)
             let errorFn = MakeError[result.error.type] as ErrorFunction;
             reply = {embeds: [errorFn(this.message.member as GuildMember, settings, result.error.options)]}
         }

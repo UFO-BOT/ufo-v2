@@ -7,4 +7,5 @@ export default interface GuildSettingsCache {
     boost: boolean
     moneysymb: string
     commandsSettings: Record<string, CommandSettings>
+    minBet: number
 }

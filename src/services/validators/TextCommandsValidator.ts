@@ -6,18 +6,22 @@ import Resolver from "@/utils/Resolver";
 import {settings} from "cluster";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import TimeParser from "@/utils/TimeParser";
+import Balance from "@/types/database/Balance";
 
 export default class TextCommandsValidator {
     public args: Array<string>
     public commandOptions: Array<CommandOption>
     public guild: Guild
     public settings: GuildSettingsCache
+    public balance: Balance
 
-    constructor(args: Array<string>, commandOptions: Array<CommandOption>, guild: Guild, settings: GuildSettingsCache) {
+    constructor(args: Array<string>, commandOptions: Array<CommandOption>, guild: Guild, settings: GuildSettingsCache,
+                balance?: Balance) {
         this.args = args;
         this.commandOptions = commandOptions;
         this.guild = guild;
         this.settings = settings;
+        this.balance = balance;
     }
 
     public async validate(): Promise<CommandValidationResult> {
@@ -44,6 +48,24 @@ export default class TextCommandsValidator {
                 case "Duration":
                     value = TimeParser.parse(arg, this.settings.language.commands)
                     break
+                case "Bet":
+                    option.minValue = this.settings.minBet;
+                    let all = {
+                        ru: /^вс[её]$/i,
+                        en: /^all$/i
+                    }
+                    let num = !!arg.match(all[this.settings.language.commands]) ?
+                        this.balance?.balance ?? 0 : Number(arg);
+                    value = (!isNaN(num) && !(num % 1) && num >= this.settings.minBet) ? num : null
+                    let balance = this.balance?.balance ?? 0;
+                    if(num > balance) return {
+                        valid: false,
+                        error: {
+                            type: "notEnoughMoney",
+                            options: {money: balance}
+                        }
+                    }
+                    break;
                 case "User":
                     value = await Resolver.user(this.guild, arg)
                     break;

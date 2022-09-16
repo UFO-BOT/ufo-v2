@@ -4,17 +4,20 @@ import CommandOptionValidationType from "@/types/CommandOptionValidationType";
 import CommandValidationResult from "@/types/CommandValidationResult";
 import TimeParser from "@/utils/TimeParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
+import Balance from "@/types/database/Balance";
 
 export default class SlashCommandsValidator {
     public interactionOptions: Readonly<Array<CommandInteractionOption>>
     public commandOptions: Array<CommandOption>
     public settings: GuildSettingsCache
+    public balance: Balance
 
     constructor(interactionOptions: Readonly<Array<CommandInteractionOption>>, commandOptions: Array<CommandOption>,
-                settings: GuildSettingsCache) {
+                settings: GuildSettingsCache, balance?: Balance) {
         this.interactionOptions = interactionOptions;
         this.commandOptions = commandOptions;
         this.settings = settings;
+        this.balance = balance;
     }
 
     public validate(): CommandValidationResult {
@@ -34,6 +37,26 @@ export default class SlashCommandsValidator {
                     let duration = TimeParser.parse(interactionOption.value as string, this.settings.language.commands)
                     if(!duration) return {valid: false, problemOption: option}
                     args[option.name] = duration;
+                    break;
+                case "Bet":
+                    option.minValue = this.settings.minBet;
+                    let all = {
+                        ru: /^вс[её]$/i,
+                        en: /^all$/i
+                    }
+                    let arg = interactionOption.value as string;
+                    let num = !!arg.match(all[this.settings.language.commands]) ?
+                        this.balance?.balance ?? 0 : Number(arg);
+                    if(isNaN(num) || num % 1 || num < this.settings.minBet) return {valid: false, problemOption: option}
+                    let balance = this.balance?.balance ?? 0;
+                    if(num > balance) return {
+                        valid: false,
+                        error: {
+                            type: "notEnoughMoney",
+                            options: {money: balance}
+                        }
+                    }
+                    args[option.name] = num;
                     break;
                 case "User":
                     args[option.name] = interactionOption.user
