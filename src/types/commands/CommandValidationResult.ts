@@ -1,4 +1,4 @@
-import CommandOption from "@/types/CommandOption";
+import CommandOption from "@/types/commands/CommandOption";
 import ExecutionError from "@/types/ExecutionError";
 
 export default interface CommandValidationResult {

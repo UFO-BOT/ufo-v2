@@ -1,12 +1,12 @@
 import {Message, PermissionResolvable} from "discord.js";
 
-import Command from "@/types/Command";
-import CommandConfig from "@/types/CommandConfig";
+import Command from "@/types/commands/Command";
+import CommandConfig from "@/types/commands/CommandConfig";
 import Language from "@/types/Language";
-import CommandOption from "@/types/CommandOption";
-import CommandCategory from "@/types/CommandCategory";
-import CommandExecutionContext from "@/types/CommandExecutionContext";
-import CommandExecutionResult from "@/types/CommandExecutionResult";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandCategory from "@/types/commands/CommandCategory";
+import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
+import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 
 export default abstract class AbstractCommand implements Command {
     public static readonly scope = 'command'

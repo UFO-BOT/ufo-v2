@@ -1,6 +1,6 @@
 import {Entity, Column, ObjectIdColumn, ObjectID, BaseEntity, PrimaryGeneratedColumn, PrimaryColumn} from "typeorm"
 import GuildLanguage from "../GuildLanguage";
-import CommandSettings from "../CommandSettings";
+import CommandSettings from "../commands/CommandSettings";
 
 @Entity('settings')
 export default class Settings extends BaseEntity {

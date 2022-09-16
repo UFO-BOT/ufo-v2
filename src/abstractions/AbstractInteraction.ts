@@ -1,6 +1,6 @@
-import Interaction from "@/types/Interaction";
+import Interaction from "@/types/interactions/Interaction";
 import Discord, {ActionRowBuilder, EmbedBuilder, MessageActionRowComponentBuilder, SnowflakeUtil} from "discord.js";
-import InteractionExecutionResult from "@/types/InteractionExecutionResult";
+import InteractionExecutionResult from "@/types/interactions/InteractionExecutionResult";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 export default abstract class AbstractInteraction implements Interaction {

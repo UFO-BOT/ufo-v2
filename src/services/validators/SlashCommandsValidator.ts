@@ -1,7 +1,7 @@
 import {ApplicationCommandOptionType, CommandInteractionOption} from "discord.js";
-import CommandOption from "@/types/CommandOption";
-import CommandOptionValidationType from "@/types/CommandOptionValidationType";
-import CommandValidationResult from "@/types/CommandValidationResult";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
+import CommandValidationResult from "@/types/commands/CommandValidationResult";
 import TimeParser from "@/utils/TimeParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import Balance from "@/types/database/Balance";

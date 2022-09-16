@@ -1,7 +1,7 @@
 import {ApplicationCommandOptionType, GuildMember, Guild, User, GuildBasedChannel, Role} from "discord.js";
-import CommandOption from "@/types/CommandOption";
-import CommandOptionValidationType from "@/types/CommandOptionValidationType";
-import CommandValidationResult from "@/types/CommandValidationResult";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
+import CommandValidationResult from "@/types/commands/CommandValidationResult";
 import Resolver from "@/utils/Resolver";
 import {settings} from "cluster";
 import GuildSettingsCache from "@/types/GuildSettingsCache";

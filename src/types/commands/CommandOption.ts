@@ -1,7 +1,7 @@
 import Language from "@/types/Language";
-import CommandOptionConfig from "@/types/CommandOptionConfig";
+import CommandOptionConfig from "@/types/commands/CommandOptionConfig";
 import {ChannelType} from "discord.js";
-import CommandOptionValidationType from "@/types/CommandOptionValidationType";
+import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 
 export default interface CommandOption {
     type: any

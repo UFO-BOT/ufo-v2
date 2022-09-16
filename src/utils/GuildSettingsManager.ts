@@ -1,5 +1,5 @@
 import Settings from "@/types/database/Settings";
-import CommandSettings from "@/types/CommandSettings";
+import CommandSettings from "@/types/commands/CommandSettings";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 export default class GuildSettingsManager {

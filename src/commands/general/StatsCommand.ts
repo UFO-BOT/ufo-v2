@@ -1,13 +1,13 @@
 import Discord, {EmbedBuilder} from "discord.js";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/Command";
+import Command from "../../types/commands/Command";
 
 import TimeParser from "../../utils/TimeParser";
-import CommandOption from "@/types/CommandOption";
-import CommandCategory from "@/types/CommandCategory";
-import CommandExecutionContext from "@/types/CommandExecutionContext";
-import CommandExecutionResult from "@/types/CommandExecutionResult";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandCategory from "@/types/commands/CommandCategory";
+import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
+import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 
 export default class StatsCommand extends AbstractCommand implements Command {
     public config = {

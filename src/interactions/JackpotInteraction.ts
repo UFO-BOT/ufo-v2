@@ -10,10 +10,10 @@ import Discord, {
     TextInputStyle
 } from "discord.js";
 import AbstractInteraction from "@/abstractions/AbstractInteraction";
-import Interaction from "@/types/Interaction";
+import Interaction from "@/types/interactions/Interaction";
 import Balance from "@/types/database/Balance";
 import interactions from "@/properties/interactions.json";
-import InteractionExecutionResult from "@/types/InteractionExecutionResult";
+import InteractionExecutionResult from "@/types/interactions/InteractionExecutionResult";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 interface JackpotInteractionComponents {

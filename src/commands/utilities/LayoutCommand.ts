@@ -1,13 +1,13 @@
 import {ApplicationCommandOptionType, EmbedBuilder} from "discord.js";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/Command";
+import Command from "../../types/commands/Command";
 
-import CommandOption from "@/types/CommandOption";
-import CommandCategory from "@/types/CommandCategory";
-import CommandExecutionContext from "@/types/CommandExecutionContext";
-import CommandExecutionResult from "@/types/CommandExecutionResult";
-import CommandOptionValidationType from "@/types/CommandOptionValidationType";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandCategory from "@/types/commands/CommandCategory";
+import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
+import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
+import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 
 interface LayoutCommandDTO {
     text: string

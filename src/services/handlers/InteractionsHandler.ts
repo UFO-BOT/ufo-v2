@@ -8,8 +8,8 @@ import Discord, {
     TextChannel
 } from "discord.js";
 import Settings from "@/types/database/Settings";
-import CommandSettings from "@/types/CommandSettings";
-import CommandExecutionContext from "@/types/CommandExecutionContext";
+import CommandSettings from "@/types/commands/CommandSettings";
+import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";

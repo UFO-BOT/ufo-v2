@@ -1,8 +1,8 @@
 import {PermissionResolvable} from "discord.js";
-import CommandConfig from "@/types/CommandConfig";
+import CommandConfig from "@/types/commands/CommandConfig";
 import Language from "@/types/Language";
-import CommandOption from "@/types/CommandOption";
-import CommandCategory from "@/types/CommandCategory";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandCategory from "@/types/commands/CommandCategory";
 
 export default interface Command {
     config: Record<Language, CommandConfig>

@@ -8,8 +8,8 @@ import Discord, {
     TextChannel
 } from "discord.js";
 import Settings from "@/types/database/Settings";
-import CommandSettings from "@/types/CommandSettings";
-import CommandExecutionContext from "@/types/CommandExecutionContext";
+import CommandSettings from "@/types/commands/CommandSettings";
+import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
@@ -20,7 +20,7 @@ import Client from "@/structures/Client";
 import MongoDB from "@/structures/MongoDB";
 import PermissionsParser from "@/utils/PermissionsParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
-import CommandOptionValidationType from "@/types/CommandOptionValidationType";
+import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import Balance from "@/types/database/Balance";
 
 export default class TextCommandsHandler {

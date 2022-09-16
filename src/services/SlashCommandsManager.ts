@@ -5,7 +5,7 @@ import Discord, {
     ChatInputApplicationCommandData
 } from "discord.js";
 import Settings from "@/types/database/Settings";
-import CommandSettings from "@/types/CommandSettings";
+import CommandSettings from "@/types/commands/CommandSettings";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
 import Client from "@/structures/Client";
 import MongoDB from "@/structures/MongoDB";

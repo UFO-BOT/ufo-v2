@@ -1,11 +1,11 @@
 import {ApplicationCommandOptionType, EmbedBuilder, GuildMember} from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
-import Command from "@/types/Command";
-import CommandOption from "@/types/CommandOption";
-import CommandCategory from "@/types/CommandCategory";
-import CommandExecutionContext from "@/types/CommandExecutionContext";
-import CommandExecutionResult from "@/types/CommandExecutionResult";
+import Command from "@/types/commands/Command";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandCategory from "@/types/commands/CommandCategory";
+import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
+import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 
 export default class InviteCommand extends AbstractCommand implements Command {
     public config = {

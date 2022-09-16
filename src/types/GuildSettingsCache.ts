@@ -1,5 +1,5 @@
 import GuildLanguage from "@/types/GuildLanguage";
-import CommandSettings from "@/types/CommandSettings";
+import CommandSettings from "@/types/commands/CommandSettings";
 
 export default interface GuildSettingsCache {
     prefix: string

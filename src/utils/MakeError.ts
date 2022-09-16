@@ -3,8 +3,8 @@ import Language from "@/types/Language";
 import errors from "@/properties/errors.json";
 import TimeParser from "@/utils/TimeParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
-import CommandOption from "@/types/CommandOption";
-import CommandOptionValidationType from "@/types/CommandOptionValidationType";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 
 export default class MakeError {
     static validationError(member: GuildMember, settings: GuildSettingsCache, option: CommandOption): EmbedBuilder {
