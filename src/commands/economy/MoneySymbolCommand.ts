@@ -54,12 +54,12 @@ export default class MoneySymbolCommand extends AbstractCommand implements Comma
         let settings = await GuildSettingsManager.findOrCreate(ctx.guild.id);
         settings.moneysymb = symbol;
         await settings.save();
-        let settingsCache = global.client.cache.settings.get(ctx.guild.id);
+        let settingsCache = this.client.cache.settings.get(ctx.guild.id);
         settingsCache.moneysymb = symbol;
-        global.client.cache.settings.set(ctx.guild.id, settingsCache)
+        this.client.cache.settings.set(ctx.guild.id, settingsCache)
         ctx.response.parse({symbol: symbol});
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.description)
         return {reply: {embeds: [embed]}}

@@ -1,9 +1,9 @@
 import Discord from "discord.js";
 
-import IEvent from "@/types/EventConfig";
+import EventConfig from "@/types/EventConfig";
 import AbstractManagerEvent from "@/abstractions/events/AbstractManagerEvent";
 
-export default class ShardCreateEvent extends AbstractManagerEvent implements IEvent {
+export default class ShardCreateEvent extends AbstractManagerEvent implements EventConfig {
     public name = 'shardCreate'
 
     public async execute(shard: Discord.Shard): Promise<any> {

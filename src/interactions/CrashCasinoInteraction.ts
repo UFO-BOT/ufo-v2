@@ -50,7 +50,7 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
                 .setDisabled(true)
         }
         this.embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: this.props.embed.author, iconURL: data.member.displayAvatarURL()})
             .setDescription(this.props.embed.description)
             .addFields([
@@ -78,18 +78,21 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
         if(Math.round(Math.random()*10) > 2) {
             let gain = Math.round(this.data.bet * this.data.multiplier);
             this.embed.setFields([
-                {name: this.props.embed.bet, value: this.data.bet.toString() + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.bet, value: this.data.bet
+                        .toLocaleString(this.settings.language.interface) + this.settings.moneysymb, inline: true},
                 {name: this.props.embed.multiplier, value: 'x' + this.data.multiplier.toString(), inline: true},
-                {name: this.props.embed.gain,value: gain.toString() + this.settings.moneysymb,inline: true}])
+                {name: this.props.embed.gain,value: gain
+                        .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb,inline: true}])
             return {action: 'update', ended: false}
         }
         else {
             this.embed
-                .setColor(global.constants.colors.error)
+                .setColor(this.constants.colors.error)
                 .setDescription(`**${this.props.embed.result}:** -${this.data.bet}${this.settings.moneysymb}\n` +
                     `**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`)
                 .setFields([
-                    {name: this.props.embed.bet, value: this.data.bet.toString() + this.settings.moneysymb, inline: true},
+                    {name: this.props.embed.bet, value: this.data.bet
+                            .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},
                     {name: this.props.embed.multiplier, value: 'x' + this.data.multiplier.toString(), inline: true},
                     {name: this.props.embed.gain, value: "0" + this.settings.moneysymb, inline: true}])
             return {action: 'update', ended: true}
@@ -102,13 +105,15 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
         this.data.balance.balance += gain;
         await this.data.balance.save();
         this.embed
-            .setColor(global.constants.colors.success)
+            .setColor(this.constants.colors.success)
             .setDescription(`**${this.props.embed.result}:** +${gain}${this.settings.moneysymb}\n` +
                 `**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`)
             .setFields([
-                {name: this.props.embed.bet, value: this.data.bet.toString() + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.bet, value: this.data.bet
+                        .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},
                 {name: this.props.embed.multiplier, value: 'x' + this.data.multiplier.toString(), inline: true},
-                {name: this.props.embed.gain, value: gain + this.settings.moneysymb, inline: true}])
+                {name: this.props.embed.gain, value: gain
+                        .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true}])
         return {action: "update", ended: true}
     }
 }

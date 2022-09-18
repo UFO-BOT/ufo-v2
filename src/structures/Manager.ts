@@ -3,7 +3,6 @@ import Discord, {Awaitable, Serialized} from "discord.js";
 import MongoDB from "@/structures/MongoDB";
 import Constants from "@/types/Constants";
 
-import constants from '@/properties/constants.json'
 import ManagerLoader from "@/services/loaders/ManagerLoader"
 
 export default class Manager extends Discord.ShardingManager {
@@ -26,14 +25,12 @@ export default class Manager extends Discord.ShardingManager {
     }
 
     load(loader: ManagerLoader) {
-        global.constants = constants as Constants;
         loader.loadEvents()
     }
 
     async start(): Promise<any> {
         const mongo = new MongoDB(process.env.DB_URL, process.env.DB_NAME)
         await mongo.initialize()
-        global.constants = constants as Constants;
         console.log(`[MANAGER] [MONGO] MongoDB connected!`)
 
         let loader = new ManagerLoader()

@@ -7,8 +7,9 @@ import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
+import Base from "@/abstractions/Base";
 
-export default abstract class AbstractCommand implements Command {
+export default abstract class AbstractCommand extends Base implements Command {
     public static readonly scope = 'command'
 
     public abstract config: Record<Language, CommandConfig>

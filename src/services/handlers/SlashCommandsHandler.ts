@@ -15,11 +15,13 @@ import MakeError from "@/utils/MakeError";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import Balance from "@/types/database/Balance";
+import AbstractService from "@/abstractions/AbstractService";
 
-export default class SlashCommandsHandler {
+export default class SlashCommandsHandler extends AbstractService {
     public interaction: CommandInteraction
 
     constructor(interaction: CommandInteraction) {
+        super()
         this.interaction = interaction;
     }
 

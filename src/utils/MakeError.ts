@@ -5,6 +5,9 @@ import TimeParser from "@/utils/TimeParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
+import Constants from "@/types/Constants";
+import constants from "@/properties/constants.json";
+const colors = (constants as Constants).colors;
 
 export default class MakeError {
     static validationError(member: GuildMember, settings: GuildSettingsCache, option: CommandOption): EmbedBuilder {
@@ -14,7 +17,7 @@ export default class MakeError {
             CommandOptionValidationType[option.validationType] :
             ApplicationCommandOptionType[option.type]) as keyof typeof enums;
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.error)
+            .setColor(colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(error.embed.description
                 .replace("{{option}}", option.config[settings.language.interface].name)
@@ -51,7 +54,7 @@ export default class MakeError {
     static noMemberPermissions(member: GuildMember, settings: GuildSettingsCache, perms: Array<string>): EmbedBuilder {
         let error = errors.noMemberPermissions[settings.language.interface];
         return new EmbedBuilder()
-            .setColor(global.constants.colors.error)
+            .setColor(colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(error.embed.description.replace("{{perms}}", perms.map(p => '`' + p + '`').join(", ")));
     }
@@ -59,7 +62,7 @@ export default class MakeError {
     static userCoolDown(member: GuildMember, settings: GuildSettingsCache, options: {time: number}): EmbedBuilder {
         let error = errors.userCooldown[settings.language.interface];
         return new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(colors.system)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(error.embed.description.replace("{{time}}", TimeParser.formatTimestamp(options.time, 'R')));
     }
@@ -67,7 +70,7 @@ export default class MakeError {
     static notEnoughMoney(member: GuildMember, settings: GuildSettingsCache, options: {money: number}): EmbedBuilder {
         let error = errors.notEnoughMoney[settings.language.interface];
         return new EmbedBuilder()
-            .setColor(global.constants.colors.error)
+            .setColor(colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(options.money > 0 ? error.embed.description
                 .replace("{{money}}", options.money.toString())
@@ -78,7 +81,7 @@ export default class MakeError {
     static invalidBet(member: GuildMember, settings: GuildSettingsCache, options: {bet: number}): EmbedBuilder {
         let error = errors.invalidBet[settings.language.interface];
         return new EmbedBuilder()
-            .setColor(global.constants.colors.error)
+            .setColor(colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(error.embed.description
                 .replace("{{bet}}", options.bet.toString())
@@ -89,7 +92,7 @@ export default class MakeError {
     static interactionUnavailable(member: GuildMember, settings: GuildSettingsCache): EmbedBuilder {
         let error = errors.interactionUnavailable[settings.language.interface];
         return new EmbedBuilder()
-            .setColor(global.constants.colors.error)
+            .setColor(colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(error.embed.description);
     }
@@ -97,7 +100,7 @@ export default class MakeError {
     static interactionNotAllowed(member: GuildMember, settings: GuildSettingsCache): EmbedBuilder {
         let error = errors.interactionNotAllowed[settings.language.interface];
         return new EmbedBuilder()
-            .setColor(global.constants.colors.error)
+            .setColor(colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(error.embed.description);
     }
@@ -105,7 +108,7 @@ export default class MakeError {
     static other(member: GuildMember, settings: GuildSettingsCache, options: {text: string, name?: string}): EmbedBuilder {
         let error = errors.other[settings.language.interface];
         return new EmbedBuilder()
-            .setColor(global.constants.colors.error)
+            .setColor(colors.error)
             .setAuthor({name: options.name ?? error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(options.text);
     }

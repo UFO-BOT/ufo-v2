@@ -50,14 +50,14 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
     public category = CommandCategory.Economy;
 
     public async execute(ctx: CommandExecutionContext<ItemInfoCommandDTO>): Promise<CommandExecutionResult> {
-        let item = await global.db.manager.findOneBy(Item, {guildid: ctx.guild.id, name: ctx.args.name})
+        let item = await this.db.manager.findOneBy(Item, {guildid: ctx.guild.id, name: ctx.args.name})
         if (!item) return {
             error: {
                 type: "other",
                 options: {text: ctx.response.data.errors.itemNotFound}
             }
         }
-        let balance = await global.db.manager.findOneBy(Balance, {
+        let balance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
         })
@@ -73,7 +73,7 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
             balance.userid = ctx.member.id;
             balance.balance = 0;
             balance.xp = 0;
-            await global.db.manager.save(balance)
+            await this.db.manager.save(balance)
         }
         let addRole = ctx.guild.roles.cache.get(item.addrole);
         let removeRole = ctx.guild.roles.cache.get(item.removerole);
@@ -104,7 +104,7 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
         balance.xp += (item.xp ?? 0);
         await balance.save()
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.description)
         return {reply: {embeds: [embed]}};

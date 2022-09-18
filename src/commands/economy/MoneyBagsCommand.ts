@@ -38,9 +38,9 @@ export default class MoneyBagsCommand extends AbstractCommand implements Command
     public category = CommandCategory.Economy;
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let settings = await global.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
+        let settings = await this.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
         let setting = settings?.moneybags ?? {low: -500, high: 500, cooldown: 600000};
-        let balance = await global.db.manager.findOneBy(Balance, {
+        let balance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
         })
@@ -51,7 +51,7 @@ export default class MoneyBagsCommand extends AbstractCommand implements Command
             balance.balance = 0;
             balance.xp = 0;
             balance.lastmb = 0;
-            await global.db.manager.save(balance);
+            await this.db.manager.save(balance);
         }
         let timePassed = Date.now() - balance.lastmb;
         if (timePassed < setting.cooldown) return {

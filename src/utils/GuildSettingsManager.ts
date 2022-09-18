@@ -2,6 +2,8 @@ import Settings from "@/types/database/Settings";
 import CommandSettings from "@/types/commands/CommandSettings";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
+import constants from "@/properties/constants.json"
+
 export default class GuildSettingsManager {
     public static async getCache(guildId: string): Promise<GuildSettingsCache> {
         let settings: GuildSettingsCache = global.client.cache.settings.get(guildId)
@@ -9,13 +11,13 @@ export default class GuildSettingsManager {
             let guildSettings = await global.db.manager.findOneBy(Settings, {guildid: guildId})
 
             settings = {
-                prefix: guildSettings?.prefix ?? global.constants.defaultPrefix,
+                prefix: guildSettings?.prefix ?? constants.defaultPrefix,
                 language: {
                     commands: guildSettings?.language?.commands ?? 'en',
                     interface: guildSettings?.language?.interface ?? 'en'
                 },
                 boost: guildSettings?.boost,
-                moneysymb: guildSettings?.moneysymb ?? global.constants.defaultMoneySymbol,
+                moneysymb: guildSettings?.moneysymb ?? constants.defaultMoneySymbol,
                 commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>,
                 minBet: guildSettings?.minBet ?? 100
             }

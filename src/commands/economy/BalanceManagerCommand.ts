@@ -99,7 +99,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
         let user = ctx.args.member;
         let action = ctx.args.action;
         let amount = ctx.args.amount;
-        let balance = await global.db.manager.findOneBy(Balance, {
+        let balance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: user.id
         })
@@ -108,7 +108,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
             balance.guildid = ctx.guild.id;
             balance.userid = user.id;
             balance.balance = 0;
-            await global.db.manager.save(balance)
+            await this.db.manager.save(balance)
         }
         ctx.response.parse({
             member: user.toString(),
@@ -127,7 +127,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
         }
         await balance.save();
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.actions[action])
         return {reply: {embeds: [embed]}}

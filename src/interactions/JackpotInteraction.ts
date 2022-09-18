@@ -44,7 +44,7 @@ export default class JackpotInteraction extends AbstractInteraction implements I
                 .setLabel(this.props.buttons.enter.label),
         }
         this.embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: this.props.embed.author, iconURL: data.member.displayAvatarURL()})
             .setDescription(this.props.embed.description)
             .addFields([
@@ -111,8 +111,8 @@ export default class JackpotInteraction extends AbstractInteraction implements I
         this.data.balance.balance += gain;
         await this.data.balance.save();
         this.embed
-            .setColor(guessed === 0 ? global.constants.colors.error : (guessed < 5 ? global.constants.colors.warning :
-            global.constants.colors.success))
+            .setColor(guessed === 0 ? this.constants.colors.error : (guessed < 5 ? this.constants.colors.warning :
+            this.constants.colors.success))
             .setFields([
                 {name: this.props.embed.made, value: this.data.numbers.join(" ")},
                 {name: this.props.embed.entered, value: guessedString},
@@ -123,9 +123,12 @@ export default class JackpotInteraction extends AbstractInteraction implements I
                 {name: this.props.embed.multiplier, value: gain
                         .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true}
             ])
-        let result = guessed === 0 ? `-${this.data.bet}` : `+${gain}` + this.settings.moneysymb;
+        let result = guessed === 0 ? `-${this.data.bet
+            .toLocaleString(this.settings.language.interface)}` : `+${gain
+            .toLocaleString(this.settings.language.interface)}` + this.settings.moneysymb;
         this.embed.setDescription(`**${this.props.embed.result}:** ${result}\n` +
-        `**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`)
+        `**${this.props.embed.currentBalance}:** ${this.data.balance.balance
+            .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
         return {action: "update", ended: true}
     }
 }

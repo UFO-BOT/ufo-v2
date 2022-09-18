@@ -98,7 +98,7 @@ export default class CreateCouponCommand extends AbstractCommand implements Comm
     public category = CommandCategory.Economy;
 
     public async execute(ctx: CommandExecutionContext<CreateCouponCommandDTO>): Promise<CommandExecutionResult> {
-        let count = await global.db.manager.countBy(Coupon, {guildid: ctx.guild.id})
+        let count = await this.db.manager.countBy(Coupon, {guildid: ctx.guild.id})
         let limit = ctx.settings.boost ? 25 : 10;
         ctx.response.parse({limit: limit.toString()})
         if(count >= limit) return {
@@ -107,7 +107,7 @@ export default class CreateCouponCommand extends AbstractCommand implements Comm
                 options: {text: ctx.response.data.errors.limit}
             }
         }
-        let coupon = await global.db.manager.findOneBy(Coupon, {
+        let coupon = await this.db.manager.findOneBy(Coupon, {
             guildid: ctx.guild.id,
             name: ctx.args.name
         })
@@ -125,10 +125,10 @@ export default class CreateCouponCommand extends AbstractCommand implements Comm
         coupon.duration = ctx.args.duration;
         coupon.created = Date.now();
         coupon.usedBy = [];
-        await global.db.manager.save(coupon);
+        await this.db.manager.save(coupon);
         ctx.response.parse({name: coupon.name});
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.description)
             .addFields([

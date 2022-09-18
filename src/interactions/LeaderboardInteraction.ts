@@ -52,7 +52,7 @@ export default class LeaderboardInteraction extends AbstractInteraction implemen
                 .setDisabled(this.data.maxPage === 1),
         }
         this.embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: this.props.embed.author, iconURL: this.data.guild.iconURL()})
             .setTitle(this.data.sort === 'balance' ? this.props.embed.balance : this.props.embed.xp)
             .setURL(process.env.WEBSITE + `/leaderboard/${this.data.guild.id}`)
@@ -81,7 +81,7 @@ export default class LeaderboardInteraction extends AbstractInteraction implemen
     private setLeaders() {
         this.embed.data.description = '';
         this.data.leaders.forEach((leader, i) => {
-            let emoji = this.data.sort === 'balance' ? this.settings.moneysymb : global.client.cache.emojis.xp;
+            let emoji = this.data.sort === 'balance' ? this.settings.moneysymb : this.client.cache.emojis.xp;
             this.embed.data.description +=
                 `**${(this.data.page-1)*10+i+1}.** <@${leader.userid}> • ${leader[this.data.sort]
                     .toLocaleString(this.settings.language.interface)}${emoji}\n`

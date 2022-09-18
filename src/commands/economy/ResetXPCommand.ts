@@ -56,7 +56,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<BalanceManagerCommandDTO>): Promise<CommandExecutionResult> {
-        let balance = await global.db.manager.findOneBy(Balance, {
+        let balance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.args.member.id
         })
@@ -68,7 +68,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
             member: ctx.args.member.toString()
         })
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.description)
         return {reply: {embeds: [embed]}}

@@ -27,10 +27,10 @@ export default class PingCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let DBTime = Date.now()
-        await global.db.mongoManager.findOneBy(Balance, {})
+        await this.db.mongoManager.findOneBy(Balance, {})
         let DBPing = Date.now() - DBTime;
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setDescription(ctx.response.data.embed.pinging + '..');
         return {reply: {embeds: [embed]}, data: {embed: embed, DBPing: DBPing}}
     }
@@ -43,14 +43,14 @@ export default class PingCommand extends AbstractCommand implements Command {
         ctx.data.embed.setTitle(ctx.response.data.embed.title)
         let emojis = ['dnd', 'idle', 'online']
         let statuses = {
-            bot: this.statusNumber(global.client.ws.ping, {operational: 100, outage: 1000}),
+            bot: this.statusNumber(this.client.ws.ping, {operational: 100, outage: 1000}),
             db: this.statusNumber(ctx.data.DBPing, {operational: 150, outage: 500}),
             edit: this.statusNumber(editPing, {operational: 400, outage: 1500})
         }
         ctx.data.embed.setDescription(`
-**${global.client.cache.emojis[emojis[statuses.bot]]} ${ctx.response.data.embed.bot}:** ${global.client.ws.ping} ms
-**${global.client.cache.emojis[emojis[statuses.db]]} ${ctx.response.data.embed.database}:** ${ctx.data.DBPing} ms
-**${global.client.cache.emojis[emojis[statuses.edit]]} ${ctx.response.data.embed.edit}:** ${editPing} ms
+**${this.client.cache.emojis[emojis[statuses.bot]]} ${ctx.response.data.embed.bot}:** ${this.client.ws.ping} ms
+**${this.client.cache.emojis[emojis[statuses.db]]} ${ctx.response.data.embed.database}:** ${ctx.data.DBPing} ms
+**${this.client.cache.emojis[emojis[statuses.edit]]} ${ctx.response.data.embed.edit}:** ${editPing} ms
         `)
         let colors = ['#ff2a2a', '#ffc800', '#00ff8c']
         let midStatus = Math.round(Object.values(statuses).reduce((a, b) => a + b, 0) /

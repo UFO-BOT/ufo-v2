@@ -18,11 +18,13 @@ import MakeError from "@/utils/MakeError";
 import Client from "@/structures/Client";
 import MongoDB from "@/structures/MongoDB";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
+import AbstractService from "@/abstractions/AbstractService";
 
-export default class InteractionsHandler {
+export default class InteractionsHandler extends AbstractService {
     public interaction: Interaction
 
     constructor(interaction: Interaction) {
+        super()
         this.interaction = interaction;
     }
 
@@ -33,7 +35,7 @@ export default class InteractionsHandler {
         let customId = this.interaction.customId.split("-");
         let id = customId[0];
         let action = customId[1];
-        let interaction = global.client.cache.interactions.get(id);
+        let interaction = this.client.cache.interactions.get(id);
         if(!interaction) {
             await this.interaction.reply({
                 embeds: [MakeError.interactionUnavailable(this.interaction.member as GuildMember, settings)],
@@ -70,7 +72,7 @@ export default class InteractionsHandler {
                 components: result.ended ? [] : [interaction.row()],
                 ephemeral: result.ephemeral
             });
-            if(result.ended) global.client.cache.interactions.delete(interaction.id);
+            if(result.ended) this.client.cache.interactions.delete(interaction.id);
         }
     }
 }

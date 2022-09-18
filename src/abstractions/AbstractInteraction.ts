@@ -2,8 +2,9 @@ import Interaction from "@/types/interactions/Interaction";
 import Discord, {ActionRowBuilder, EmbedBuilder, MessageActionRowComponentBuilder, SnowflakeUtil} from "discord.js";
 import InteractionExecutionResult from "@/types/interactions/InteractionExecutionResult";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
+import Base from "@/abstractions/Base";
 
-export default abstract class AbstractInteraction implements Interaction {
+export default abstract class AbstractInteraction extends Base implements Interaction {
     public id: string
     public users: Array<string>
     public data: any
@@ -14,6 +15,7 @@ export default abstract class AbstractInteraction implements Interaction {
     protected abstract props: any
 
     protected constructor(users: Array<string>, data: any, settings: GuildSettingsCache) {
+        super()
         this.settings = settings;
         this.users = users;
         this.data = data;

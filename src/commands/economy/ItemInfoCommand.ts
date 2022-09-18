@@ -48,7 +48,7 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
     public category = CommandCategory.Economy;
 
     public async execute(ctx: CommandExecutionContext<ItemInfoCommandDTO>): Promise<CommandExecutionResult> {
-        let item = await global.db.manager.findOneBy(Item, {guildid: ctx.guild.id, name: ctx.args.name})
+        let item = await this.db.manager.findOneBy(Item, {guildid: ctx.guild.id, name: ctx.args.name})
         if(!item) return {
             error: {
                 type: "other",
@@ -58,7 +58,7 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
         let addRole = ctx.guild.roles.cache.get(item.addrole);
         let removeRole = ctx.guild.roles.cache.get(item.removerole);
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setTitle(item.name)
             .setDescription(item.description ?? '')
@@ -70,7 +70,7 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
                 },
                 {
                     name: ctx.response.data.embed.xp,
-                    value: `${item.xp.toLocaleString(ctx.settings.language.interface)}${global.client.cache.emojis.xp}`,
+                    value: `${item.xp.toLocaleString(ctx.settings.language.interface)}${this.client.cache.emojis.xp}`,
                     inline: true
                 },
                 {

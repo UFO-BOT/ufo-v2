@@ -75,14 +75,14 @@ export default class UserCommand extends AbstractCommand implements Command {
         let botBadges: string = '';
         let member = await ctx.guild.members.fetch(user.id).catch(() => undefined);
         let supportServerRoles: Array<Role> =
-            await global.client.oneShardEval((client, c) =>
+            await this.client.oneShardEval((client, c) =>
                 client.guilds.cache.get(c.supportGuildID)?.members?.fetch(c.id).then(m => m.roles.cache).catch(() => undefined),
-                {context: {supportGuildID: global.client.supportGuildID, id: user.id}})
+                {context: {supportGuildID: this.client.supportGuildID, id: user.id}})
         supportServerRoles?.forEach(role => {
-            if(global.client.cache.emojis[botBadgesEmojis[role.id]])
-                botBadges += global.client.cache.emojis[botBadgesEmojis[role.id]] + ' '
+            if(this.client.cache.emojis[botBadgesEmojis[role.id]])
+                botBadges += this.client.cache.emojis[botBadgesEmojis[role.id]] + ' '
         })
-        let color = global.constants.colors.system;
+        let color = this.constants.colors.system;
         if(member && member?.displayHexColor !== '#000000') color = member?.displayHexColor;
         let badges: Array<string> = [];
         let flags = await user.fetchFlags();
@@ -94,7 +94,7 @@ export default class UserCommand extends AbstractCommand implements Command {
             .setAuthor({name: user.tag, iconURL: user.avatarURL()})
             .addFields({name: ctx.response.data.embed.user, value: `${user} ${botBadges}`})
         if(member?.presence?.status) embed.addFields({name: ctx.response.data.embed.status,
-            value: `${global.client.cache.emojis[member.presence.status]} ${ctx.response.data.statuses[member.presence.status]}`})
+            value: `${this.client.cache.emojis[member.presence.status]} ${ctx.response.data.statuses[member.presence.status]}`})
         if(badges.length > 0) embed.addFields({name: ctx.response.data.embed.badges, value: badges.join(" ")});
         if(member) embed.addFields({name: ctx.response.data.embed.joinedServer,
             value: TimeParser.formatTimestamp(member.joinedTimestamp, "f")})

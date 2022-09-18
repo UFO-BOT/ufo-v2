@@ -48,7 +48,7 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
                     .setLabel(this.props.buttons.accept.label)
             }
             this.embed = new EmbedBuilder()
-                .setColor(global.constants.colors.system)
+                .setColor(this.constants.colors.system)
                 .setAuthor({name: this.props.embed.author, iconURL: data.member.displayAvatarURL()})
                 .setDescription(this.props.embed.acceptDescription
                     .replace("{{opponent}}", this.data.opponent.toString())
@@ -71,7 +71,7 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
         await this.data.balance.reload()
         await this.data.opponentBalance?.reload()
         if(this.data.opponent) {
-            this.embed.setColor(global.constants.colors.system)
+            this.embed.setColor(this.constants.colors.system)
             if(this.combinations[this.data.choice] === choice) {
                 this.embed.setDescription(`**${this.props.embed.winner}:** ${this.data.member.toString()}\n` +
                 `**${this.data.member.user.tag}:** +${this.data.bet
@@ -99,19 +99,20 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
             if(this.combinations[this.data.choice as keyof typeof this.combinations] === choice) {
                 let gain = this.data.bet * 2
                 this.embed
-                    .setColor(global.constants.colors.success)
-                    .setDescription(`**${this.props.embed.result}**: +${gain}${this.settings.moneysymb}`)
+                    .setColor(this.constants.colors.success)
+                    .setDescription(`**${this.props.embed.result}**: +${gain
+                        .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
                 this.data.balance.balance += gain;
             }
             else if(this.data.choice === choice) {
                 this.embed
-                    .setColor(global.constants.colors.warning)
+                    .setColor(this.constants.colors.warning)
                     .setDescription(`**${this.props.embed.result}**: ${this.props.embed.returnMoney}`)
                 this.data.balance.balance += this.data.bet;
             }
             else {
                 this.embed
-                    .setColor(global.constants.colors.error)
+                    .setColor(this.constants.colors.error)
                     .setDescription(`**${this.props.embed.result}**: -${this.data.bet
                         .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
             }
@@ -127,7 +128,7 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
                 inline: true
             },
             {
-                name: this.data.opponent?.user?.tag ?? global.client.user.tag,
+                name: this.data.opponent?.user?.tag ?? this.client.user.tag,
                 value: this.emojis[choice as keyof typeof this.emojis],
                 inline: true
             }
@@ -174,7 +175,7 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
                 .addOptions(this.props.menu.options)
         }
         this.embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: this.props.embed.author, iconURL: this.data.member.displayAvatarURL()})
             .setDescription(this.props.embed.description)
         if(this.data.opponent) {

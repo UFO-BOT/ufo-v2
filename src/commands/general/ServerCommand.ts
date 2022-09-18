@@ -28,16 +28,16 @@ export default class ServerCommand extends AbstractCommand implements Command {
     public category = CommandCategory.General;
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let emojis = global.client.cache.emojis;
+        let emojis = this.client.cache.emojis;
         let bans = await ctx.guild.bans.fetch().catch(() => undefined)
         let invites = await ctx.guild.invites.fetch().catch(() => undefined)
-        let { boost } = global.client.cache.settings.get(ctx.guild.id)
+        let { boost } = this.client.cache.settings.get(ctx.guild.id)
         let boosts = ctx.guild.premiumSubscriptionCount ?
             `\n**<a:boost:751699949799866459> ${ctx.response.data.embed.boosts}:** ${ctx.guild.premiumSubscriptionCount}` : ''
         let splash = ctx.guild.splashURL() && ctx.guild.bannerURL() ?
             `\n[**:frame_photo: ${ctx.response.data.embed.splash}**](${ctx.guild.splashURL({extension: 'gif'})})` : ''
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setTitle(ctx.guild.name)
             .setDescription(`
 **${emojis.verification} ${ctx.response.data.embed.verification}:** ${ctx.response.data.levels[ctx.guild.verificationLevel]}
@@ -60,7 +60,7 @@ ${emojis.emotes} ${ctx.response.data.embed.emojiCount}: ${ctx.guild.emojis.cache
             .setThumbnail(ctx.guild.iconURL())
             .setImage(ctx.guild.bannerURL({extension: 'gif'}) ?? ctx.guild.splashURL({size: 2048, extension: 'gif'}))
             .setFooter({text: `ID: ${ctx.guild.id}`});
-        if(boost) embed.data.description += `\n${global.client.cache.emojis.ufoboost} ${ctx.response.data.embed.ufoboost}`
+        if(boost) embed.data.description += `\n${this.client.cache.emojis.ufoboost} ${ctx.response.data.embed.ufoboost}`
         return {reply: {embeds: [embed]}}
     }
 }

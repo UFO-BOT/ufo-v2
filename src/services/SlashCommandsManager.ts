@@ -9,21 +9,23 @@ import CommandSettings from "@/types/commands/CommandSettings";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
 import Client from "@/structures/Client";
 import MongoDB from "@/structures/MongoDB";
+import AbstractService from "@/abstractions/AbstractService";
 
-export default class SlashCommandsManager {
+export default class SlashCommandsManager extends AbstractService {
     public guildId: string
 
     constructor(guildId: string) {
+        super()
         this.guildId = guildId;
     }
 
     public async set(): Promise<void> {
-        if(global.client.cache.settings.get(this.guildId)) return;
+        if(this.client.cache.settings.get(this.guildId)) return;
         let settings = await GuildSettingsManager.getCache(this.guildId)
 
         let commands: Array<ChatInputApplicationCommandData> = [];
 
-        global.client.cache.commands.forEach(cmd => {
+        this.client.cache.commands.forEach(cmd => {
 
             let options: Array<ApplicationCommandOption> = [];
             cmd.options.forEach(option => {
@@ -50,6 +52,6 @@ export default class SlashCommandsManager {
 
         })
 
-        await global.client.guilds.cache.get(this.guildId).commands.set(commands);
+        await this.client.guilds.cache.get(this.guildId).commands.set(commands);
     }
 }

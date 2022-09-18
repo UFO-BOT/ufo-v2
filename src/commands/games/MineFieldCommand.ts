@@ -62,7 +62,7 @@ export default class MineFieldCommand extends AbstractCommand implements Command
             multiplier: 1,
             step: 0,
             field: Array.from({length: 5}, () => Array.from({length: 3}, () =>
-                global.client.cache.emojis.hide))
+                this.client.cache.emojis.hide))
         }, ctx.settings)
         return {interaction: interaction}
     }

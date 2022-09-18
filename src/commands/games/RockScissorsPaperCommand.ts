@@ -70,7 +70,7 @@ export default class RockScissorsPaperCommand extends AbstractCommand implements
         ctx.balance.balance -= ctx.args.bet;
         await ctx.balance.save()
         let opponentBalance;
-        if(ctx.args.member) opponentBalance = await global.db.manager.findOneBy(Balance, {
+        if(ctx.args.member) opponentBalance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.args.member?.id
         })

@@ -26,7 +26,7 @@ export default class InviteCommand extends AbstractCommand implements Command {
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         ctx.response.parse({invite: process.env.BOT_INVITE});
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setDescription(ctx.response.data.embed.description)
         return {reply: {embeds: [embed]}};
     }

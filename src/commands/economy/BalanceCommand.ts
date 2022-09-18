@@ -54,7 +54,7 @@ export default class BalanceCommand extends AbstractCommand implements Command {
             userid: user.id
         })
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: user.tag, iconURL: user.displayAvatarURL()})
             .addFields([{
                 name: ctx.response.data.embed.balance,

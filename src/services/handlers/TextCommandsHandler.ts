@@ -22,11 +22,13 @@ import PermissionsParser from "@/utils/PermissionsParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import Balance from "@/types/database/Balance";
+import AbstractService from "@/abstractions/AbstractService";
 
-export default class TextCommandsHandler {
+export default class TextCommandsHandler extends AbstractService {
     public message: Message
 
     constructor(message: Message) {
+        super()
         this.message = message;
     }
 

@@ -1,6 +1,5 @@
 import Client from '@/structures/Client'
 import Manager from "@/structures/Manager";
-import Constants from "@/types/Constants";
 import MongoDB from "@/structures/MongoDB";
 
 declare global {
@@ -9,7 +8,6 @@ declare global {
             client: Client
             manager: Manager
             db: MongoDB
-            constants: Constants
         }
 
         interface ProcessEnv {

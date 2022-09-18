@@ -56,7 +56,7 @@ export default class LayoutCommand extends AbstractCommand implements Command {
                 content[i]
         }
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(result)
         return {reply: {embeds: [embed]}}

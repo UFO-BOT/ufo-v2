@@ -76,7 +76,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
             }
         }
         let settings = await GuildSettingsManager.findOrCreate(ctx.guild.id);
-        let balance1 = await global.db.manager.findOneBy(Balance, {
+        let balance1 = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
         })
@@ -86,7 +86,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
                 options: {money: balance1?.balance ?? 0}
             }
         }
-        let balance2 = await global.db.manager.findOneBy(Balance, {
+        let balance2 = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: user.id
         })
@@ -95,7 +95,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
             balance2.guildid = ctx.guild.id;
             balance2.userid = user.id;
             balance2.balance = 0;
-            await global.db.manager.save(balance2)
+            await this.db.manager.save(balance2)
         }
         balance1.balance -= amount;
         let commission = settings?.commission ?? 0;
@@ -104,7 +104,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
         await balance1.save();
         await balance2.save();
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(`${ctx.member.toString()}: -${amount
                     .toLocaleString(ctx.settings.language.interface)}${ctx.settings.moneysymb}\n` +

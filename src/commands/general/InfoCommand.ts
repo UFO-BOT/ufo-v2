@@ -38,10 +38,10 @@ export default class InfoCommand extends AbstractCommand implements Command {
             helpCommand: helpCommand[ctx.settings.language.commands],
             language: languageCommand[ctx.settings.language.commands]
         })
-        let dev = await global.client.users.fetch('591321756799598592');
+        let dev = await this.client.users.fetch('591321756799598592');
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
-            .setTitle(global.client.user.username)
+            .setColor(this.constants.colors.system)
+            .setTitle(this.client.user.username)
             .setDescription(ctx.response.data.embed.description)
             .addFields([{name: ctx.response.data.embed.links,
                  value: `[${ctx.response.data.embed.website}](https://ufobot.ru)\n` +

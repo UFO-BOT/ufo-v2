@@ -39,19 +39,19 @@ export default class MoneyBagsInteraction extends AbstractInteraction implements
                 .addOptions(this.props.menu.options)
         }
         this.embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: this.props.embed.author, iconURL: data.member.displayAvatarURL()})
             .setDescription(this.props.embed.description)
     }
 
     public async execute(interaction: SelectMenuInteraction): Promise<InteractionExecutionResult> {
         let amount = Math.floor(this.data.low+(this.data.high-this.data.low)*Math.random())
-        let emoji = global.client.cache.emojis[interaction.values[0] + '_moneybag'];
+        let emoji = this.client.cache.emojis[interaction.values[0] + '_moneybag'];
         await this.data.balance.reload()
         this.data.balance.balance += amount;
         this.data.balance.lastmb = Date.now();
         await this.data.balance.save();
-        this.embed.setColor(amount >= 0 ? global.constants.colors.success : global.constants.colors.error)
+        this.embed.setColor(amount >= 0 ? this.constants.colors.success : this.constants.colors.error)
         this.embed.setDescription(`${emoji} => ${amount >= 0 ? "💸" : "💥"}\n` +
         `**${this.props.embed.result}** ${amount
             .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}\n` +

@@ -60,7 +60,7 @@ export default class MineFieldInteraction extends AbstractInteraction implements
                 .setDisabled(true),
         }
         this.embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: this.props.embed.author, iconURL: data.member.displayAvatarURL()})
             .setDescription(this.props.embed.description)
             .addFields([
@@ -77,7 +77,7 @@ export default class MineFieldInteraction extends AbstractInteraction implements
         if(action === "stop") return this.stop()
         this.components.stop.setDisabled(false)
         let cell = Number(action)-1;
-        let emojis = ["💥", global.client.cache.emojis.one, global.client.cache.emojis.two]
+        let emojis = ["💥", this.client.cache.emojis.one, this.client.cache.emojis.two]
         let multipliers = [0, 1, 2];
         let random = Math.round(Math.random() * 2);
         this.data.multiplier *= multipliers[random];
@@ -93,7 +93,7 @@ export default class MineFieldInteraction extends AbstractInteraction implements
                 {name: this.props.embed.field, value: this.data.field.map(r => r.join(" ")).join("\n\n")}
             ])
         if(random === 0) {
-            this.embed.setColor(global.constants.colors.error)
+            this.embed.setColor(this.constants.colors.error)
                 .setDescription(`**${this.props.embed.result}:** -${this.data.bet
                         .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}\n` +
                     `**${this.props.embed.currentBalance}:** ${this.data.balance.balance
@@ -117,9 +117,11 @@ export default class MineFieldInteraction extends AbstractInteraction implements
         this.data.balance.balance += gain;
         await this.data.balance.save();
         this.embed
-            .setColor(global.constants.colors.success)
-            .setDescription(`**${this.props.embed.result}:** +${gain}${this.settings.moneysymb}\n` +
-                `**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`)
+            .setColor(this.constants.colors.success)
+            .setDescription(`**${this.props.embed.result}:** +${gain
+                    .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}\n` +
+                `**${this.props.embed.currentBalance}:** ${this.data.balance.balance
+                    .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
             .setFields([
                 {name: this.props.embed.bet, value: this.data.bet
                         .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},

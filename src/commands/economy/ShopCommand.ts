@@ -31,9 +31,9 @@ export default class ShopCommand extends AbstractCommand implements Command {
     public category = CommandCategory.Economy;
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let items = await global.db.manager.findBy(Item, {guildid: ctx.guild.id})
+        let items = await this.db.manager.findBy(Item, {guildid: ctx.guild.id})
         let embed = new EmbedBuilder()
-            .setColor(global.constants.colors.system)
+            .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.guild.iconURL()})
         if(items.length === 0) embed.setDescription(ctx.response.data.embed.empty)
         items.forEach(item => {
