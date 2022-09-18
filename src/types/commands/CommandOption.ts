@@ -13,5 +13,6 @@ export default interface CommandOption {
     minLength?: number
     maxLength?: number
     channelTypes?: Array<ChannelType>
-    required: boolean
+    options?: Array<CommandOption>
+    required?: boolean
 }

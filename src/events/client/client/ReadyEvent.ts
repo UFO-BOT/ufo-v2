@@ -5,7 +5,7 @@ export default class ReadyEvent extends AbstractClientEvent implements EventConf
     public name = 'ready'
 
     public async execute(): Promise<any> {
-        console.log(`[SHARD] Bot ${global.client.user?.tag} is online`)
+        console.log(`Bot ${global.client.user?.tag} is online`)
         await global.client.activity()
     }
 }
