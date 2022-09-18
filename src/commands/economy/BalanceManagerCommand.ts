@@ -112,7 +112,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
         }
         ctx.response.parse({
             member: user.toString(),
-            number: amount.toString(),
+            number: amount.toLocaleString(ctx.settings.language.interface),
             monsymb: ctx.settings.moneysymb
         })
         switch (action) {

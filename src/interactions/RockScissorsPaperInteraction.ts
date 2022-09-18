@@ -74,8 +74,10 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
             this.embed.setColor(global.constants.colors.system)
             if(this.combinations[this.data.choice] === choice) {
                 this.embed.setDescription(`**${this.props.embed.winner}:** ${this.data.member.toString()}\n` +
-                `**${this.data.member.user.tag}:** +${this.data.bet}${this.settings.moneysymb}\n` +
-                `**${this.data.opponent.user.tag}:** -${this.data.bet}${this.settings.moneysymb}`)
+                `**${this.data.member.user.tag}:** +${this.data.bet
+                    .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}\n` +
+                `**${this.data.opponent.user.tag}:** -${this.data.bet
+                    .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
                 this.data.balance.balance += this.data.bet * 2;
             }
             else if(this.data.choice === choice) {
@@ -85,8 +87,10 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
             }
             else {
                 this.embed.setDescription(`**${this.props.embed.winner}:** ${this.data.opponent.toString()}\n` +
-                    `**${this.data.opponent.user.tag}:** +${this.data.bet}${this.settings.moneysymb}\n` +
-                    `**${this.data.member.user.tag}:** -${this.data.bet}${this.settings.moneysymb}`)
+                    `**${this.data.opponent.user.tag}:** +${this.data.bet
+                        .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}\n` +
+                    `**${this.data.member.user.tag}:** -${this.data.bet
+                        .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
                 this.data.opponentBalance.balance += this.data.bet * 2;
             }
         }
@@ -108,10 +112,12 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
             else {
                 this.embed
                     .setColor(global.constants.colors.error)
-                    .setDescription(`**${this.props.embed.result}**: -${this.data.bet}${this.settings.moneysymb}`)
+                    .setDescription(`**${this.props.embed.result}**: -${this.data.bet
+                        .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
             }
             this.embed.data.description +=
-                `\n**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`;
+                `\n**${this.props.embed.currentBalance}:** ${this.data.balance.balance
+                    .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`;
         }
 
         this.embed.addFields([

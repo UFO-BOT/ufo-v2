@@ -57,7 +57,7 @@ export default class WorkCommand extends AbstractCommand implements Command {
         balance.lastwork = Date.now();
         await balance.save();
         ctx.response.parse({
-            salary: money.toString(),
+            salary: money.toLocaleString(ctx.settings.language.interface),
             balance: balance.balance.toString(),
             monsymb: ctx.settings.moneysymb
         })

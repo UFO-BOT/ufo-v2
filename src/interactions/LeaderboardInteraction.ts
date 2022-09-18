@@ -83,7 +83,8 @@ export default class LeaderboardInteraction extends AbstractInteraction implemen
         this.data.leaders.forEach((leader, i) => {
             let emoji = this.data.sort === 'balance' ? this.settings.moneysymb : global.client.cache.emojis.xp;
             this.embed.data.description +=
-                `**${(this.data.page-1)*10+i+1}.** <@${leader.userid}> • ${leader[this.data.sort]}${emoji}\n`
+                `**${(this.data.page-1)*10+i+1}.** <@${leader.userid}> • ${leader[this.data.sort]
+                    .toLocaleString(this.settings.language.interface)}${emoji}\n`
         })
         this.embed.setFooter({text: `${this.props.embed.footer} ${this.data.page}/${this.data.maxPage}`})
     }

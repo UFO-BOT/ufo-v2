@@ -53,8 +53,10 @@ export default class MoneyBagsInteraction extends AbstractInteraction implements
         await this.data.balance.save();
         this.embed.setColor(amount >= 0 ? global.constants.colors.success : global.constants.colors.error)
         this.embed.setDescription(`${emoji} => ${amount >= 0 ? "💸" : "💥"}\n` +
-        `**${this.props.embed.result}** ${amount}${this.settings.moneysymb}\n` +
-        `**${this.props.embed.currentBalance}**: ${this.data.balance.balance}${this.settings.moneysymb}`)
+        `**${this.props.embed.result}** ${amount
+            .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}\n` +
+        `**${this.props.embed.currentBalance}**: ${this.data.balance.balance
+            .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
 
         return {action: "update", ended: true};
     }

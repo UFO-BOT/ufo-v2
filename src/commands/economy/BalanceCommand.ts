@@ -58,11 +58,11 @@ export default class BalanceCommand extends AbstractCommand implements Command {
             .setAuthor({name: user.tag, iconURL: user.displayAvatarURL()})
             .addFields([{
                 name: ctx.response.data.embed.balance,
-                value: (balance?.balance?.toString() ?? "0") + ctx.settings.moneysymb,
+                value: (balance?.balance?.toLocaleString(ctx.settings.language.interface) ?? "0") + ctx.settings.moneysymb,
                 inline: true
             }, {
                 name: ctx.response.data.embed.xp,
-                value: (balance?.xp?.toString() ?? "0") + global.client.cache.emojis.xp,
+                value: (balance?.xp?.toLocaleString(ctx.settings.language.interface) ?? "0") + global.client.cache.emojis.xp,
                 inline: true
             }])
         let top = await global.db.manager.findBy(Balance, {guildid: ctx.guild.id})

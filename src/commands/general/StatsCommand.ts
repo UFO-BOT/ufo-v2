@@ -42,15 +42,15 @@ export default class StatsCommand extends AbstractCommand implements Command {
                 iconURL: global.client.user.avatarURL(),
                 url: process.env.WEBSITE + '/stats'})
             .addFields({name: ctx.response.data.embed.stats, value:
-`${global.client.cache.emojis.presence} ${ctx.response.data.embed.servers}: ${stats.guilds.reduce((a, b) => a + b, 0)}
-${global.client.cache.emojis.members} ${ctx.response.data.embed.users}: ${stats.users.reduce((a, b) => a + b, 0)}
-${global.client.cache.emojis.textchannel} ${ctx.response.data.embed.channels}: ${stats.channels.reduce((a, b) => a + b, 0)}
-${global.client.cache.emojis.emotes} ${ctx.response.data.embed.emojis}: ${stats.emojis.reduce((a, b) => a + b, 0)}
-${global.client.cache.emojis.announcements} ${ctx.response.data.embed.shards}: ${stats.guilds.length}`})
+`${global.client.cache.emojis.presence} ${ctx.response.data.embed.servers}: ${stats.guilds.reduce((a, b) => a + b, 0).toLocaleString(ctx.settings.language.interface)}
+${global.client.cache.emojis.members} ${ctx.response.data.embed.users}: ${stats.users.reduce((a, b) => a + b, 0).toLocaleString(ctx.settings.language.interface)}
+${global.client.cache.emojis.textchannel} ${ctx.response.data.embed.channels}: ${stats.channels.reduce((a, b) => a + b, 0).toLocaleString(ctx.settings.language.interface)}
+${global.client.cache.emojis.emotes} ${ctx.response.data.embed.emojis}: ${stats.emojis.reduce((a, b) => a + b, 0).toLocaleString(ctx.settings.language.interface)}
+${global.client.cache.emojis.announcements} ${ctx.response.data.embed.shards}: ${stats.guilds.length.toLocaleString(ctx.settings.language.interface)}`})
             .addFields({name: ctx.response.data.embed.platform, value:
 `💻 ${ctx.response.data.embed.os}: ${require('os').type()}
 💓 ${ctx.response.data.embed.ping}: ${Math.round(stats.ping.reduce((a: number, b: number) => a + b, 0) / stats.ping.length)} ms
-🎛️ ${ctx.response.data.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0)} MB
+🎛️ ${ctx.response.data.embed.memory}: ${stats.memory.reduce((a, b) => a + b, 0).toLocaleString(ctx.settings.language.interface)} MB
 ${global.client.cache.emojis.slowmode} ${ctx.response.data.embed.uptime}: ${TimeParser.formatTimestamp(global.client.readyTimestamp, "R")}`})
             .addFields({name: ctx.response.data.embed.versions, value:
 `${global.client.cache.emojis.nodejs} Node JS: ${'`' + process.version + '`'}

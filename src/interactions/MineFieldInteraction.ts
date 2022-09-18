@@ -64,9 +64,11 @@ export default class MineFieldInteraction extends AbstractInteraction implements
             .setAuthor({name: this.props.embed.author, iconURL: data.member.displayAvatarURL()})
             .setDescription(this.props.embed.description)
             .addFields([
-                {name: this.props.embed.bet, value: this.data.bet.toString() + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.bet, value: this.data.bet
+                        .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},
                 {name: this.props.embed.multiplier, value: 'x' + this.data.multiplier.toString(), inline: true},
-                {name: this.props.embed.gain, value: this.data.bet.toString() + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.gain, value: this.data.bet
+                        .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},
                 {name: this.props.embed.field, value: this.data.field.reverse().map(r => r.join(" ")).join("\n\n")}
             ])
     }
@@ -83,15 +85,19 @@ export default class MineFieldInteraction extends AbstractInteraction implements
         this.data.field[4-this.data.step][cell] = emojis[random]
         this.embed
             .setFields([
-                {name: this.props.embed.bet, value: this.data.bet.toString() + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.bet, value: this.data.bet
+                        .toLocaleString(this.settings.language.interface) + this.settings.moneysymb, inline: true},
                 {name: this.props.embed.multiplier, value: 'x' + this.data.multiplier.toString(), inline: true},
-                {name: this.props.embed.gain, value: gain.toString() + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.gain, value: gain
+                        .toLocaleString(this.settings.language.interface) + this.settings.moneysymb, inline: true},
                 {name: this.props.embed.field, value: this.data.field.map(r => r.join(" ")).join("\n\n")}
             ])
         if(random === 0) {
             this.embed.setColor(global.constants.colors.error)
-                .setDescription(`**${this.props.embed.result}:** -${this.data.bet}${this.settings.moneysymb}\n` +
-                    `**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`)
+                .setDescription(`**${this.props.embed.result}:** -${this.data.bet
+                        .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}\n` +
+                    `**${this.props.embed.currentBalance}:** ${this.data.balance.balance
+                        .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
             return {action: "update", ended: true}
         }
         this.data.step++;
@@ -115,9 +121,11 @@ export default class MineFieldInteraction extends AbstractInteraction implements
             .setDescription(`**${this.props.embed.result}:** +${gain}${this.settings.moneysymb}\n` +
                 `**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`)
             .setFields([
-                {name: this.props.embed.bet, value: this.data.bet.toString() + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.bet, value: this.data.bet
+                        .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},
                 {name: this.props.embed.multiplier, value: 'x' + this.data.multiplier.toString(), inline: true},
-                {name: this.props.embed.gain, value: gain + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.gain, value: gain
+                        .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},
                 {name: this.props.embed.field, value: this.data.field.map(r => r.join(" ")).join("\n\n")}
             ])
         return {action: "update", ended: true}

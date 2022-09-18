@@ -42,21 +42,21 @@ export default class ServerCommand extends AbstractCommand implements Command {
             .setDescription(`
 **${emojis.verification} ${ctx.response.data.embed.verification}:** ${ctx.response.data.levels[ctx.guild.verificationLevel]}
 **${emojis.owner} ${ctx.response.data.embed.owner}:** <@${ctx.guild.ownerId}>
-**${emojis.invite} ${ctx.response.data.embed.invites}:** ${invites?.size ?? ctx.response.data.embed.missingPermissions}
-**🔨 ${ctx.response.data.embed.bans}:** ${bans?.size ?? ctx.response.data.embed.missingPermissions} ${boosts}
+**${emojis.invite} ${ctx.response.data.embed.invites}:** ${invites?.size.toLocaleString(ctx.settings.language.interface) ?? ctx.response.data.embed.missingPermissions}
+**🔨 ${ctx.response.data.embed.bans}:** ${bans?.size.toLocaleString(ctx.settings.language.interface) ?? ctx.response.data.embed.missingPermissions} ${boosts}
 **${emojis.textchannel} ${ctx.response.data.embed.shard}:** #${ctx.guild.shardId}
 **🕐 ${ctx.response.data.embed.creationDate}:** ${TimeParser.formatTimestamp(ctx.guild.createdTimestamp, "f")} ${splash}`)
-            .addFields({name: `${ctx.response.data.embed.channels} [${ctx.guild.channels.cache.size}]`, value: `
-${emojis.textchannel} ${ctx.response.data.embed.text}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildText).size}
-${emojis.voice} ${ctx.response.data.embed.voice}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildVoice).size}
-${emojis.announcements} ${ctx.response.data.embed.announcements}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildNews).size}
-${emojis.presence} ${ctx.response.data.embed.categories}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildCategory).size}
+            .addFields({name: `${ctx.response.data.embed.channels} [${ctx.guild.channels.cache.size.toLocaleString(ctx.settings.language.interface)}]`, value: `
+${emojis.textchannel} ${ctx.response.data.embed.text}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildText).size.toLocaleString(ctx.settings.language.interface)}
+${emojis.voice} ${ctx.response.data.embed.voice}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildVoice).size.toLocaleString(ctx.settings.language.interface)}
+${emojis.announcements} ${ctx.response.data.embed.announcements}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildNews).size.toLocaleString(ctx.settings.language.interface)}
+${emojis.presence} ${ctx.response.data.embed.categories}: ${ctx.guild.channels.cache.filter(c => c.type === ChannelType.GuildCategory).size.toLocaleString(ctx.settings.language.interface)}
                 `, inline: true})
             .addFields({name: ctx.response.data.embed.stats, value: `
-${emojis.members} ${ctx.response.data.embed.memberCount}: ${ctx.guild.memberCount}
-${emojis.textchannel} ${ctx.response.data.embed.channelCount}: ${ctx.guild.channels.cache.size}
-${emojis.roles} ${ctx.response.data.embed.roleCount}: ${ctx.guild.roles.cache.size}
-${emojis.emotes} ${ctx.response.data.embed.emojiCount}: ${ctx.guild.emojis.cache.size}`, inline: true})
+${emojis.members} ${ctx.response.data.embed.memberCount}: ${ctx.guild.memberCount.toLocaleString(ctx.settings.language.interface)}
+${emojis.textchannel} ${ctx.response.data.embed.channelCount}: ${ctx.guild.channels.cache.size.toLocaleString(ctx.settings.language.interface)}
+${emojis.roles} ${ctx.response.data.embed.roleCount}: ${ctx.guild.roles.cache.size.toLocaleString(ctx.settings.language.interface)}
+${emojis.emotes} ${ctx.response.data.embed.emojiCount}: ${ctx.guild.emojis.cache.size.toLocaleString(ctx.settings.language.interface)}`, inline: true})
             .setThumbnail(ctx.guild.iconURL())
             .setImage(ctx.guild.bannerURL({extension: 'gif'}) ?? ctx.guild.splashURL({size: 2048, extension: 'gif'}))
             .setFooter({text: `ID: ${ctx.guild.id}`});

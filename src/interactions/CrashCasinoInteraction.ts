@@ -54,9 +54,11 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
             .setAuthor({name: this.props.embed.author, iconURL: data.member.displayAvatarURL()})
             .setDescription(this.props.embed.description)
             .addFields([
-                {name: this.props.embed.bet, value: this.data.bet.toString() + this.settings.moneysymb, inline: true},
+                {name: this.props.embed.bet, value: this.data.bet
+                        .toLocaleString(this.settings.language.interface) + this.settings.moneysymb, inline: true},
                 {name: this.props.embed.multiplier, value: 'x' + this.data.multiplier.toString(), inline: true},
-                {name: this.props.embed.gain, value: this.data.bet.toString() + this.settings.moneysymb, inline: true}
+                {name: this.props.embed.gain, value: this.data.bet
+                        .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true}
             ])
     }
 

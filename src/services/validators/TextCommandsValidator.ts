@@ -77,7 +77,7 @@ export default class TextCommandsValidator {
                     value = await Resolver.role(this.guild, arg);
                     break;
                 case "Number": case "Integer":
-                    value = parseInt(arg);
+                    value = Number(arg);
                     if(isNaN(value)) value = undefined;
                     if(option.type === ApplicationCommandOptionType.Integer && value % 1) value = undefined;
                     if(option.minValue && value < option.minValue) value = undefined;

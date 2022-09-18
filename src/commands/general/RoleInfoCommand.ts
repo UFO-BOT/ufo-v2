@@ -58,10 +58,12 @@ export default class RoleInfoCommand extends AbstractCommand implements Command 
                 {name: ctx.response.data.embed.color, value: role.hexColor, inline: true},
                 {
                     name: ctx.response.data.embed.position,
-                    value: (ctx.guild.roles.cache.size - role.position).toString() + '/' +  ctx.guild.roles.cache.size,
+                    value: (ctx.guild.roles.cache.size - role.position)
+                        .toLocaleString(ctx.settings.language.interface)+ '/' +  ctx.guild.roles.cache.size,
                     inline: true
                 },
-                {name: ctx.response.data.embed.members, value: role.members.size.toString(), inline: true},
+                {name: ctx.response.data.embed.members, value: role.members.size
+                        .toLocaleString(ctx.settings.language.interface), inline: true},
                 {
                     name: ctx.response.data.embed.mentionable,
                     value: role.mentionable ? ctx.response.data.embed.yes : ctx.response.data.embed.no,

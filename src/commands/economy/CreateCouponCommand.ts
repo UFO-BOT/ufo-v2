@@ -134,12 +134,12 @@ export default class CreateCouponCommand extends AbstractCommand implements Comm
             .addFields([
                 {
                     name: ctx.response.data.embed.field1,
-                    value: coupon.amount.toString(),
+                    value: coupon.amount.toLocaleString(ctx.settings.language.interface),
                     inline: true
                 },
                 {
                     name: ctx.response.data.embed.field2,
-                    value: coupon.usages.toString(),
+                    value: coupon.usages.toLocaleString(ctx.settings.language.interface),
                     inline: true
                 }
             ])
