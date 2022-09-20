@@ -30,7 +30,7 @@ export default class ClientLoader extends AbstractService {
                 let ev = require(filePath)?.default
                 if(ev?.scope === 'clientEvent') {
                     let event: AbstractClientEvent = new ev(this.client)
-                    this.client.on(event.name, event.execute)
+                    this.client.on(event.name, params => event.execute(params))
                 }
             }
         })

@@ -86,6 +86,7 @@ export default class SlashCommandsHandler extends AbstractService {
         let msg = (command.deferReply ?
             await this.interaction.editReply(reply) :
             await this.interaction.reply(reply as InteractionReplyOptions)) as Message;
+        for(let reaction of result.reactions ?? []) await msg.react(reaction);
         if(command.after) {
             let message = await this.interaction.fetchReply();
             context.data = result.data;

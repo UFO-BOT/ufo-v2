@@ -10,6 +10,10 @@ export default class ShardCreateEvent extends AbstractManagerEvent implements Ev
         console.log(`[SHARDS] Shard ${shard.id} is created`)
         shard.on('ready', () => {
             console.log(`[SHARDS] Shard ${shard.id} is ready`)
+            if(global.manager.shards.filter(s => s.ready).size >= global.manager.totalShards) {
+                console.log(`[SHARDS] All shards have been engaged`)
+                global.manager.loadJobs()
+            }
         })
         shard.on('disconnect', () => {
             console.log(`[SHARDS] Shard ${shard.id} was disconnected`)

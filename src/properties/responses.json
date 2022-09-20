@@ -235,7 +235,7 @@
         "author": "Купон",
         "description": "Вы получаете +{{amount}}{{monsymb}}",
         "field1": "Осталось использований",
-        "field2": "Оставшееся время"
+        "footer": "Купон заканчивается"
       }
     },
     "en": {
@@ -247,7 +247,7 @@
         "author": "Coupon",
         "description": "You got +{{amount}}{{monsymb}}",
         "field1": "Usages left",
-        "field2": "Time left"
+        "footer": "Coupon ends at"
       }
     }
   },

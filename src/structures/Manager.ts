@@ -1,12 +1,12 @@
 import Discord, {Awaitable, Serialized} from "discord.js";
 
 import MongoDB from "@/structures/MongoDB";
-import Constants from "@/types/Constants";
 
 import ManagerLoader from "@/services/loaders/ManagerLoader"
 
 export default class Manager extends Discord.ShardingManager {
     public readonly supportGuildID: string = '712012571666022411'
+    public loader: ManagerLoader
 
     public constructor(file: string, options?: any) {
         super(file, options);
@@ -24,8 +24,12 @@ export default class Manager extends Discord.ShardingManager {
         })
     }
 
-    load(loader: ManagerLoader) {
-        loader.loadEvents()
+    load() {
+        this.loader.loadEvents()
+    }
+
+    loadJobs() {
+        this.loader.loadJobs()
     }
 
     async start(): Promise<any> {
@@ -33,8 +37,8 @@ export default class Manager extends Discord.ShardingManager {
         await mongo.initialize()
         console.log(`[MANAGER] [MONGO] MongoDB connected!`)
 
-        let loader = new ManagerLoader()
-        this.load(loader)
+        this.loader = new ManagerLoader();
+        this.load()
 
         await this.spawn()
     }

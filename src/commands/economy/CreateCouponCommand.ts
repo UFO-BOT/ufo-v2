@@ -1,4 +1,4 @@
-import {ApplicationCommandOptionType, EmbedBuilder} from "discord.js";
+import {ApplicationCommandOptionType, EmbedBuilder, PermissionResolvable} from "discord.js";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
 import Command from "../../types/commands/Command";
@@ -96,6 +96,7 @@ export default class CreateCouponCommand extends AbstractCommand implements Comm
         }
     ]
     public category = CommandCategory.Economy;
+    public defaultMemberPermissions: PermissionResolvable = ["ManageGuild"];
 
     public async execute(ctx: CommandExecutionContext<CreateCouponCommandDTO>): Promise<CommandExecutionResult> {
         let count = await this.db.manager.countBy(Coupon, {guildid: ctx.guild.id})

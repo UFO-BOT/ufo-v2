@@ -3,6 +3,7 @@ import Settings from "@/types/database/Settings";
 import Balance from "@/types/database/Balance";
 import Item from "@/types/database/Item";
 import Coupon from "@/types/database/Coupon";
+import Giveaway from "@/types/database/Giveaway";
 
 export default class MongoDB extends DataSource {
     public url: string
@@ -20,7 +21,8 @@ export default class MongoDB extends DataSource {
                 Settings,
                 Balance,
                 Item,
-                Coupon
+                Coupon,
+                Giveaway
             ]
         })
         global.db = this;

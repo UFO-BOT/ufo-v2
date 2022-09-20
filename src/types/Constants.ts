@@ -9,6 +9,7 @@ interface Paths {
     commands: string
     eventsClient: string
     eventsManager: string
+    jobs: string
 }
 
 export default interface Constants {
