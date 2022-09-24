@@ -10,6 +10,14 @@ import constants from "@/properties/constants.json";
 const colors = (constants as Constants).colors;
 
 export default class MakeError {
+    static boostRequired(member: GuildMember, settings: GuildSettingsCache): EmbedBuilder {
+        let error = errors.boostRequired[settings.language.interface]
+        return new EmbedBuilder()
+            .setColor(colors.system)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(error.embed.description)
+    }
+
     static validationError(member: GuildMember, settings: GuildSettingsCache, option: CommandOption): EmbedBuilder {
         let error = errors.validationError[settings.language.interface];
         let enums = error.embed.enums;

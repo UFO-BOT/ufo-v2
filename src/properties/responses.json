@@ -329,7 +329,7 @@
       },
       "embed": {
         "author": "Daily bonus",
-        "description": "**you got:** +{{amount}}{{monsymb}}\n**Current balance:** {{balance}}{{monsymb}}"
+        "description": "**You got:** +{{amount}}{{monsymb}}\n**Current balance:** {{balance}}{{monsymb}}"
       }
     }
   },
@@ -1116,7 +1116,7 @@
       },
       "embed": {
         "author": "Еженедельный бонус",
-        "description": "Вы получаете +{{amount}}{{monsymb}}"
+        "description": "Вы получаете:** +{{amount}}{{monsymb}}\n**Текущий баланс:** {{balance}}{{monsymb}}"
       }
     },
     "en": {
@@ -1125,7 +1125,7 @@
       },
       "embed": {
         "author": "Weekly bonus",
-        "description": "You got +{{amount}}{{monsymb}}"
+        "description": "**You got:** +{{amount}}{{monsymb}}\n**Current balance:** {{balance}}{{monsymb}}"
       }
     }
   },

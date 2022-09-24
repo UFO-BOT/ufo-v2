@@ -2,11 +2,13 @@
   "boostRequired": {
     "ru": {
       "embed": {
+        "author": "Требуется UFO Boost",
         "description": "Для использования этой функции нужно активировать UFO Boost на этом сервере <:ufo_boost:750724590891696198>\n[Поддержите нас](https://ufobot.ru/donate) чтобы получить UFO бусты"
       }
     },
     "en": {
       "embed": {
+        "author": "UFO Boost required",
         "description": "UFO Boost is required for this feature <:ufo_boost:750724590891696198>\n[Support us](https://ufobot.ru/donate) to get UFO Boosts"
       }
     }

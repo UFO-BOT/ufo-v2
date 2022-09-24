@@ -54,6 +54,14 @@ export default class TextCommandsHandler extends AbstractService {
             c.config[settings?.language?.commands ?? 'en'].aliases.includes(cmd.slice(settings.prefix.length)))
         if(!command) return;
 
+        if(command.boostRequired && !settings.boost) {
+            await this.message.reply({
+                embeds: [MakeError.boostRequired(this.message.member, settings)],
+                allowedMentions: {repliedUser: false}
+            })
+            return;
+        }
+
         if(command.defaultMemberPermissions) {
             if(!this.message.member.permissions.has(command.defaultMemberPermissions)) {
                 await this.message.reply({embeds:

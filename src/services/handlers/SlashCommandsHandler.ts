@@ -35,6 +35,13 @@ export default class SlashCommandsHandler extends AbstractService {
         if(!command) return;
 
         let settings = await GuildSettingsManager.getCache(this.interaction.guildId);
+        if(command.boostRequired && !settings.boost) {
+            await this.interaction.reply({
+                embeds: [MakeError.boostRequired(this.interaction.member as GuildMember, settings)],
+                ephemeral: true
+            })
+            return;
+        }
         let balance;
         if(command.options.find(op => op.validationType === CommandOptionValidationType.Bet)) {
             balance = await global.db.manager.findOneBy(Balance, {

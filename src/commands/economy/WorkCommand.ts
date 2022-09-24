@@ -58,7 +58,7 @@ export default class WorkCommand extends AbstractCommand implements Command {
         await balance.save();
         ctx.response.parse({
             salary: money.toLocaleString(ctx.settings.language.interface),
-            balance: balance.balance.toString(),
+            balance: balance.balance.toLocaleString(ctx.settings.language.interface),
             monsymb: ctx.settings.moneysymb
         })
         let embed = new EmbedBuilder()
