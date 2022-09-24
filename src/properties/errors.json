@@ -39,6 +39,7 @@
           "GuildMember": "Участник",
           "Duration": "Длительность",
           "LongString": "Длинная строка",
+          "Bet": "Ставка",
           "GuildText": "Текстовый",
           "GuildNews": "Объявления"
         }
@@ -71,6 +72,7 @@
           "GuildMember": "Member",
           "Duration": "Duration",
           "LongString": "Long string",
+          "Bet": "Bet",
           "GuildText": "Text",
           "GuildNews": "News"
         }

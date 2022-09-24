@@ -23,7 +23,8 @@ export default class SlashCommandsValidator {
     public validate(): CommandValidationResult {
         let args: Record<string, any> = {};
         for(let option of this.commandOptions)  {
-            let interactionOption = this.interactionOptions.find(o => o.name === option.name);
+            let interactionOption = this.interactionOptions
+                .find(o => o.name === option.config[this.settings.language.commands].name);
             if(!interactionOption) continue;
             let type = option.validationType ?
                 CommandOptionValidationType[option.validationType] :

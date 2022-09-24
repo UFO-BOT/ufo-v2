@@ -58,4 +58,10 @@ export default class Settings extends BaseEntity {
 
     @Column()
     minBet: number
+
+    @Column()
+    moneybonuses: {
+        daily: number
+        weekly: number
+    }
 }

@@ -320,7 +320,7 @@
       },
       "embed": {
         "author": "Ежедневный бонус",
-        "description": "Вы получаете +{{amount}}{{monsymb}}"
+        "description": "**Вы получаете:** +{{amount}}{{monsymb}}\n**Текущий баланс:** {{balance}}{{monsymb}}"
       }
     },
     "en": {
@@ -329,7 +329,7 @@
       },
       "embed": {
         "author": "Daily bonus",
-        "description": "You got +{{amount}}{{monsymb}}"
+        "description": "**you got:** +{{amount}}{{monsymb}}\n**Current balance:** {{balance}}{{monsymb}}"
       }
     }
   },
