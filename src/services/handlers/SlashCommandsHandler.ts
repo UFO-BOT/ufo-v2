@@ -83,14 +83,12 @@ export default class SlashCommandsHandler extends AbstractService {
             reply = {embeds: [interaction.embed], components: [interaction.row()]}
             global.client.cache.interactions.set(interaction.id, interaction)
         }
-        let msg = (command.deferReply ?
+        command.deferReply ?
             await this.interaction.editReply(reply) :
-            await this.interaction.reply(reply as InteractionReplyOptions)) as Message;
-        for(let reaction of result.reactions ?? []) await msg.react(reaction);
+            await this.interaction.reply(reply as InteractionReplyOptions)
+        let msg = await this.interaction.fetchReply()
         if(command.after) {
-            let message = await this.interaction.fetchReply();
-            context.data = result.data;
-            await command.after(context, message);
+            await command.after(msg, result.data);
         }
         if(interaction?.lifetime) setTimeout(async () => {
             if(interaction.end && global.client.cache.interactions.has(interaction.id)) {

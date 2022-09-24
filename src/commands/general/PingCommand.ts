@@ -9,6 +9,12 @@ import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import {Writable} from "stream";
 import Balance from "@/types/database/Balance";
 
+interface PingCommandData {
+    embed: EmbedBuilder
+    DBPing: number
+    response: any
+}
+
 export default class PingCommand extends AbstractCommand implements Command {
     public config = {
         ru: {
@@ -32,31 +38,31 @@ export default class PingCommand extends AbstractCommand implements Command {
         let embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
             .setDescription(ctx.response.data.embed.pinging + '..');
-        return {reply: {embeds: [embed]}, data: {embed: embed, DBPing: DBPing}}
+        return {reply: {embeds: [embed]}, data: {embed: embed, DBPing: DBPing, response: ctx.response}}
     }
 
-    public async after(ctx: CommandExecutionContext, message: Message) {
-        ctx.data.embed.data.description += '.'
+    public async after(message: Message, data: PingCommandData) {
+        data.embed.data.description += '.'
         let editStart = Date.now();
-        message = await message.edit({embeds: [ctx.data.embed]})
+        message = await message.edit({embeds: [data.embed]})
         let editPing = Date.now() - editStart;
-        ctx.data.embed.setTitle(ctx.response.data.embed.title)
+        data.embed.setTitle(data.response.data.embed.title)
         let emojis = ['dnd', 'idle', 'online']
         let statuses = {
             bot: this.statusNumber(this.client.ws.ping, {operational: 100, outage: 1000}),
-            db: this.statusNumber(ctx.data.DBPing, {operational: 150, outage: 500}),
+            db: this.statusNumber(data.DBPing, {operational: 150, outage: 500}),
             edit: this.statusNumber(editPing, {operational: 400, outage: 1500})
         }
-        ctx.data.embed.setDescription(`
-**${this.client.cache.emojis[emojis[statuses.bot]]} ${ctx.response.data.embed.bot}:** ${this.client.ws.ping} ms
-**${this.client.cache.emojis[emojis[statuses.db]]} ${ctx.response.data.embed.database}:** ${ctx.data.DBPing} ms
-**${this.client.cache.emojis[emojis[statuses.edit]]} ${ctx.response.data.embed.edit}:** ${editPing} ms
+        data.embed.setDescription(`
+**${this.client.cache.emojis[emojis[statuses.bot]]} ${data.response.data.embed.bot}:** ${this.client.ws.ping} ms
+**${this.client.cache.emojis[emojis[statuses.db]]} ${data.response.data.embed.database}:** ${data.DBPing} ms
+**${this.client.cache.emojis[emojis[statuses.edit]]} ${data.response.data.embed.edit}:** ${editPing} ms
         `)
-        let colors = ['#ff2a2a', '#ffc800', '#00ff8c']
+        let colors = [this.constants.colors.error, this.constants.colors.warning, this.constants.colors.success]
         let midStatus = Math.round(Object.values(statuses).reduce((a, b) => a + b, 0) /
             Object.keys(statuses).length);
-        ctx.data.embed.setColor(colors[midStatus]);
-        await message.edit({embeds: [ctx.data.embed]})
+        data.embed.setColor(colors[midStatus]);
+        await message.edit({embeds: [data.embed]})
     }
 
     private statusNumber(ping: number, values: {operational: number, outage: number}): number {

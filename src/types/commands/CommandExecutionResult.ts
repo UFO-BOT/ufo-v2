@@ -7,5 +7,4 @@ export default interface CommandExecutionResult {
     error?: ExecutionError
     data?: any
     interaction?: AbstractInteraction
-    reactions?: Array<EmojiIdentifierResolvable>
 }

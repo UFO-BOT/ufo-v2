@@ -436,9 +436,6 @@
   "giveaway": {
     "ru": {
       "errors": {
-        "invalidAmount": "Количество должно быть целым числом, не меньшим нуля",
-        "invalidDuration": "Время указано неверно",
-        "tooLongDuration": "Длительность розыгрыша не должна быть больше 10 лет",
         "limit": "Достигнут лимит розыгрышей - {{limit}}"
       },
       "embed": {
@@ -451,9 +448,6 @@
     },
     "en": {
       "errors": {
-        "invalidAmount": "Amount must be an integer not less than 0",
-        "invalidDuration": "Invalid duration",
-        "tooLongDuration": "Giveaway duration may not be longer than 10 years",
         "limit": "Limit of giveaways is reached - {{limit}}"
       },
       "embed": {

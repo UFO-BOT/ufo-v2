@@ -1,7 +1,7 @@
-import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('giveaways')
-export default class Giveaway {
+export default class Giveaway extends BaseEntity {
     @ObjectIdColumn()
     _id: ObjectID
 
@@ -28,4 +28,7 @@ export default class Giveaway {
 
     @Column()
     duration: number
+
+    @Column()
+    timeout: boolean
 }

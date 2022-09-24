@@ -1,0 +1,58 @@
+{
+  "Giveaway": {
+    "ru": {
+      "embed": {
+        "author": "Розыгрыш",
+        "prize": "Приз",
+        "created": "Запустил",
+        "footer": "Закончился",
+        "notEnoughMembers": "Недостаточно участников присоединилось",
+        "winner": "Победитель"
+      },
+      "congratulations": "{{emote}} Поздравляю, {{winner}}, вы выиграли **{{prize}}{{monsymb}}** (Розыгрыш #{{number}})"
+    },
+    "en": {
+      "embed": {
+        "author": "Giveaway",
+        "prize": "Prize",
+        "created": "Created by",
+        "footer": "Ended",
+        "notEnoughMembers": "Not enough members joined",
+        "winner": "Winner"
+      },
+      "congratulations": "{{emote}} Congratulations, {{winner}}, you've won **{{prize}}{{monsymb}}** (Giveaway #{{number}})"
+    }
+  },
+  "Mute": {
+    "ru": {
+      "embed": {
+        "author": "Автоматический размут",
+        "member": "Участник",
+        "footer": "Случай"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Automatic unmute",
+        "member": "Member",
+        "footer": "Case"
+      }
+    }
+  },
+  "TempBan": {
+    "ru": {
+      "embed": {
+        "author": "Автоматический разбан",
+        "user": "Пользователь",
+        "footer": "Случай"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Automatic unban",
+        "user": "User",
+        "footer": "Case"
+      }
+    }
+  }
+}

@@ -112,7 +112,7 @@ export default class TextCommandsHandler extends AbstractService {
         reply.allowedMentions.repliedUser = false;
 
         let msg = await this.message.reply(reply);
-        for(let reaction of result.reactions ?? []) await msg.react(reaction);
+        if(command.after) await command.after(msg, result.data);
         if(interaction?.lifetime) setTimeout(async () => {
             if(interaction.end && global.client.cache.interactions.has(interaction.id)) {
                 await interaction.end()
