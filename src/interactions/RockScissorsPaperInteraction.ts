@@ -15,7 +15,7 @@ import InteractionExecutionResult from "@/types/interactions/InteractionExecutio
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 interface RockScissorsPaperInteractionComponents {
-    moneybag?: SelectMenuBuilder
+    item?: SelectMenuBuilder
     accept?: ButtonBuilder
 }
 
@@ -169,7 +169,7 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
 
     private setEmbed(): void {
         this.components = {
-            moneybag: new SelectMenuBuilder()
+            item: new SelectMenuBuilder()
                 .setCustomId(`${this.id}-rsp`)
                 .setPlaceholder(this.props.menu.placeholder)
                 .addOptions(this.props.menu.options)
