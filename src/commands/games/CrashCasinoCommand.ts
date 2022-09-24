@@ -48,12 +48,6 @@ export default class CrashCasinoCommand extends AbstractCommand implements Comma
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<CrashCasinoCommandDTO>): Promise<CommandExecutionResult> {
-        if(ctx.balance.balance < ctx.args.bet) return {
-            error: {
-                type: "notEnoughMoney",
-                options: {money: ctx.balance.balance}
-            }
-        }
         ctx.balance.balance -= ctx.args.bet;
         await ctx.balance.save()
         let interaction = new CrashCasinoInteraction([ctx.member.id], {
