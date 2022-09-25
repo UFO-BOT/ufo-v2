@@ -246,7 +246,8 @@
       },
       "buttons": {
         "accept": {
-          "label": "Принять"
+          "label": "Принять",
+          "emoji": "1023358384214380585"
         }
       },
       "menu": {
@@ -286,7 +287,8 @@
       },
       "buttons": {
         "accept": {
-          "label": "Accept"
+          "label": "Accept",
+          "emoji": "1023358384214380585"
         }
       },
       "menu": {
@@ -306,6 +308,153 @@
             "label": "Paper",
             "value": "paper",
             "emoji": "✋"
+          }
+        ]
+      }
+    }
+  },
+  "Duel": {
+    "ru": {
+      "embed": {
+        "author": "Дуэль",
+        "acceptDescription": "{{opponent}}, нажмите `Принять` чтобы играть в Дуэль на {{bet}} с {{member}}",
+        "equipment": "Выберите снаряжение из списка",
+        "chooses": "Выбирает",
+        "turn": "Ходит",
+        "winner": "Победитель",
+        "actions": {
+          "start": "Игра начинается",
+          "miss": "Промах",
+          "leg": "Попадание в ногу, -{{hp}}HP",
+          "body": "Попадание в тело, -{{hp}}HP",
+          "head": "Попадание в голову, -{{hp}}HP",
+          "medKit": "Использование аптечки, +50HP",
+          "grenade": "Взрыв гранаты, -{{hp}}HP"
+        }
+      },
+      "buttons": {
+        "accept": {
+          "label": "Принять",
+          "emoji": "1023358384214380585"
+        },
+        "shoot": {
+          "label": "Выстрел",
+          "emoji": "712952900636246147"
+        },
+        "medKit": {
+          "label": "Аптечка",
+          "emoji": "1023676151694106654"
+        },
+        "grenade": {
+          "label": "Граната",
+          "emoji": "1023670476901453825"
+        }
+      },
+      "equipment": {
+        "placeholder": "Выберите снаряжение",
+        "options": [
+          {
+            "label": "Шлем",
+            "value": "helmet",
+            "description": "Снижает урон от попадания в голову",
+            "emoji": "1023670631939702824"
+          },
+          {
+            "label": "Бронежилет",
+            "value": "armor",
+            "description": "Снижает урон от попадания в тело",
+            "emoji": "1023670559638290552"
+          },
+          {
+            "label": "Прицел",
+            "value": "scope",
+            "description": "Повышает точность ваших выстрелов",
+            "emoji": "1023673509253226557"
+
+          },
+          {
+            "label": "Аптечка",
+            "value": "medKit",
+            "description": "Восстанавливает 50 единиц здоровья",
+            "emoji": "1023676151694106654"
+          },
+          {
+            "label": "Граната",
+            "value": "grenade",
+            "description": "Наносит от 20 до 60 единиц урона противнику",
+            "emoji": "1023670476901453825"
+          }
+        ]
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Duel",
+        "acceptDescription": "{{opponent}}, press `Accept` to play Duel for {{bet}} with {{member}}",
+        "equipment": "Choose equipment from the list",
+        "chooses": "Chooses",
+        "turn": "Move",
+        "winner": "Winner",
+        "actions": {
+          "start": "Game starts",
+          "miss": "Miss",
+          "leg": "Bullet hit the leg, -{{hp}}HP",
+          "body": "Bullet hit the body, -{{hp}}HP",
+          "head": "Headshot, -{{hp}}HP",
+          "medKit": "Use of the MedKit, +50HP",
+          "grenade": "Grenade exploded, -{{hp}}HP"
+        }
+      },
+      "buttons": {
+        "accept": {
+          "label": "Accept",
+          "emoji": "1023358384214380585"
+        },
+        "shoot": {
+          "label": "Shoot",
+          "emoji": "712952900636246147"
+        },
+        "medKit": {
+          "label": "MedKit",
+          "emoji": "1023676151694106654"
+        },
+        "grenade": {
+          "label": "Grenade",
+          "emoji": "1023670476901453825"
+        }
+      },
+      "equipment": {
+        "placeholder": "Select equipment",
+        "options": [
+          {
+            "label": "Helmet",
+            "value": "helmet",
+            "description": "Reduces headshot damage",
+            "emoji": "1023670631939702824"
+          },
+          {
+            "label": "Armor",
+            "value": "armor",
+            "description": "Reduces body damage",
+            "emoji": "1023670559638290552"
+          },
+          {
+            "label": "Scope",
+            "value": "scope",
+            "description": "Increases accuracy of your shots",
+            "emoji": "1023673509253226557"
+          },
+          {
+            "label": "MedKit",
+            "value": "medKit",
+            "description": "Restores 50 HP",
+            "emoji": "1023676151694106654"
+          },
+          {
+            "label": "Grenade",
+            "value": "grenade",
+            "description": "Issues 20-60 HP damage",
+            "emoji": "1023670476901453825"
           }
         ]
       }
