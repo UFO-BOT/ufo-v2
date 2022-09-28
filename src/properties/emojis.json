@@ -43,6 +43,12 @@
   "announcements": "<:announcements:762690743047290940>",
   "slowmode": "<:uptime:718984650956996678>",
 
+  "helmet": "<:helmet:1023670631939702824>",
+  "armor": "<:armor:1023670559638290552>",
+  "scope": "<:scope:1023673509253226557>",
+  "medKit": "<:medkit:1023676151694106654>",
+  "grenade": "<:grenade:1023670476901453825>",
+
   "ufo": "<:ufo:714399168461930557>",
   "nodejs": "<:nodejs:740640066531229856>",
   "discordjs": "<:discordjs:740637985896398923>"

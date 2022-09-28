@@ -83,6 +83,32 @@
       }
     }
   },
+  "Shop": {
+    "ru": {
+      "embed": {
+        "author": "Магазин",
+        "empty": "Магазин пока пуст",
+        "noDescription": "*Описание отсутствует*",
+        "footer": "Страница"
+      },
+      "buttons": {
+        "backward": "1017012856463573042",
+        "forward": "1017013009228501052"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Shop",
+        "empty": "Shop is empty",
+        "noDescription": "*No description*",
+        "footer": "Page"
+      },
+      "buttons": {
+        "backward": "1017012856463573042",
+        "forward": "1017013009228501052"
+      }
+    }
+  },
   "CrashCasino": {
     "ru": {
       "embed": {
@@ -234,6 +260,7 @@
       "embed": {
         "author": "Камень ножницы бумага",
         "acceptDescription": "{{opponent}}, нажмите `Принять` чтобы играть в Камень ножницы бумага на {{bet}} с {{member}}",
+        "declined": "{{opponent}} отказался играть",
         "description": "Выберите камень :punch:, ножницы :v: или бумагу :raised_hand:",
         "chooses": "Выбирает",
         "winner": "Победитель",
@@ -247,7 +274,11 @@
       "buttons": {
         "accept": {
           "label": "Принять",
-          "emoji": "1023358384214380585"
+          "emoji": "1024709618934497290"
+        },
+        "decline": {
+          "label": "Отклонить",
+          "emoji": "1024706571927818251"
         }
       },
       "menu": {
@@ -259,7 +290,7 @@
             "emoji": "\uD83D\uDC4A"
           },
           {
-            "label": "Желтый",
+            "label": "Ножницы",
             "value": "scissors",
             "emoji": "✌"
           },
@@ -275,6 +306,7 @@
       "embed": {
         "author": "Rock scissors paper",
         "acceptDescription": "{{opponent}}, press `Accept` to play Rock scissors paper for {{bet}} with {{member}}",
+        "declined": "{{opponent}} has refused to play",
         "description": "Choose rock :punch:, scissors :v: or paper :raised_hand:",
         "chooses": "Chooses",
         "winner": "Winner",
@@ -288,7 +320,11 @@
       "buttons": {
         "accept": {
           "label": "Accept",
-          "emoji": "1023358384214380585"
+          "emoji": "1024709618934497290"
+        },
+        "decline": {
+          "label": "Decline",
+          "emoji": "1024706571927818251"
         }
       },
       "menu": {
@@ -318,6 +354,7 @@
       "embed": {
         "author": "Дуэль",
         "acceptDescription": "{{opponent}}, нажмите `Принять` чтобы играть в Дуэль на {{bet}} с {{member}}",
+        "declined": "{{opponent}} отказался играть",
         "equipment": "Выберите снаряжение из списка",
         "chooses": "Выбирает",
         "turn": "Ходит",
@@ -335,7 +372,11 @@
       "buttons": {
         "accept": {
           "label": "Принять",
-          "emoji": "1023358384214380585"
+          "emoji": "1024709618934497290"
+        },
+        "decline": {
+          "label": "Отклонить",
+          "emoji": "1024706571927818251"
         },
         "shoot": {
           "label": "Выстрел",
@@ -356,7 +397,7 @@
           {
             "label": "Шлем",
             "value": "helmet",
-            "description": "Снижает урон от попадания в голову",
+            "description": "Снижает урон от одного попадания в голову",
             "emoji": "1023670631939702824"
           },
           {
@@ -391,6 +432,7 @@
       "embed": {
         "author": "Duel",
         "acceptDescription": "{{opponent}}, press `Accept` to play Duel for {{bet}} with {{member}}",
+        "declined": "{{opponent}} has refused to play",
         "equipment": "Choose equipment from the list",
         "chooses": "Chooses",
         "turn": "Move",
@@ -408,7 +450,11 @@
       "buttons": {
         "accept": {
           "label": "Accept",
-          "emoji": "1023358384214380585"
+          "emoji": "1024709618934497290"
+        },
+        "decline": {
+          "label": "Decline",
+          "emoji": "1024706571927818251"
         },
         "shoot": {
           "label": "Shoot",
@@ -429,7 +475,7 @@
           {
             "label": "Helmet",
             "value": "helmet",
-            "description": "Reduces headshot damage",
+            "description": "Reduces damage from single headshot",
             "emoji": "1023670631939702824"
           },
           {

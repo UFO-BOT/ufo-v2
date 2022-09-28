@@ -37,6 +37,7 @@ interface Player {
 
 interface DuelInteractionComponents {
     accept?: ButtonBuilder
+    decline?: ButtonBuilder
     menu?: SelectMenuBuilder
     shoot?: ButtonBuilder
     medKit?: ButtonBuilder
@@ -50,7 +51,7 @@ interface DuelInteractionData {
     accepted?: boolean
 }
 
-type DuelInteractionAction = 'accept' | 'equipment' | 'medKit'
+type DuelInteractionAction = 'accept' | 'decline' | 'equipment' | 'medKit'
 
 export default class DuelInteraction extends AbstractInteraction implements Interaction {
     public declare data: DuelInteractionData
@@ -65,7 +66,12 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
                 .setCustomId(`${this.id}-accept`)
                 .setStyle(ButtonStyle.Primary)
                 .setLabel(this.props.buttons.accept.label)
-                .setEmoji(this.props.buttons.accept.emoji)
+                .setEmoji(this.props.buttons.accept.emoji),
+            decline: new ButtonBuilder()
+                .setCustomId(`${this.id}-decline`)
+                .setStyle(ButtonStyle.Danger)
+                .setLabel(this.props.buttons.decline.label)
+                .setEmoji(this.props.buttons.decline.emoji),
         }
         this.embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
@@ -79,7 +85,8 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
 
     public async execute(interaction: Discord.Interaction, action: DuelInteractionAction): Promise<InteractionExecutionResult> {
         if(action === "accept") return this.accept()
-        if(action === "equipment") return this.equipment(interaction as SelectMenuInteraction)
+        else if(action === "decline") return this.decline()
+        else if(action === "equipment") return this.equipment(interaction as SelectMenuInteraction)
         else {
             this[action]();
             let player = this.data.players.find(pl => pl.hp <= 0)
@@ -128,6 +135,12 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
         return {action: "update"}
     }
 
+    private async decline(): Promise<InteractionExecutionResult> {
+        this.embed.setDescription(this.props.embed.declined.replace("{{opponent}}", this.data.players[1].member.toString()))
+        await this.end()
+        return {action: "update", ended: true}
+    }
+
     private equipment(interaction: SelectMenuInteraction): InteractionExecutionResult {
         this.data.players[this.data.turn].equipment = new Set(interaction.values as Array<Equipment>);
         this.data.turn = Number(!this.data.turn)
@@ -158,24 +171,25 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
         let helmet = this.data.players[Number(!this.data.turn)].equipment.has("helmet")
         let armor = this.data.players[Number(!this.data.turn)].equipment.has("armor")
         let shoot = Math.round(Math.random()*100)
-        if(shoot < (scope ? 25 : 50)) {
+        if(shoot < (scope ? 15 : 40)) {
             this.action("miss")
         }
         else {
             let part = Math.round(Math.random()*100)
             let shotPart: 'leg' | 'body' | 'head';
             if(scope) shotPart = part <= 40 ? 'leg' : (part > 40 && part < 95 ? 'body' : 'head')
-            else shotPart = part <= 20 ? 'leg' : (part > 20 && part < 90 ? 'body' : 'head')
+            else shotPart = part <= 15 ? 'leg' : (part > 15 && part < 85 ? 'body' : 'head')
             let hp;
             switch (shotPart) {
                 case "leg":
-                    hp = Math.floor(1+Math.random()*14);
+                    hp = Math.round(1+Math.random()*14);
                     break;
                 case "body":
-                    hp = armor ? Math.floor(5+Math.random()*20) : Math.floor(10+Math.random()*25);
+                    hp = armor ? Math.round(5+Math.random()*15) : Math.round(10+Math.random()*30);
                     break;
                 case "head":
                     hp = helmet ? 60 : 100;
+                    if(helmet) this.data.players[Number(!this.data.turn)].equipment.delete("helmet")
             }
             this.data.players[Number(!this.data.turn)].hp -= hp;
             if(this.data.players[Number(!this.data.turn)].hp < 0) this.data.players[Number(!this.data.turn)].hp = 0;
@@ -191,7 +205,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
     }
 
     private grenade() {
-        let damage = Math.floor(20+Math.random()*60)
+        let damage = Math.round(20+Math.random()*60)
         this.data.players[Number(!this.data.turn)].hp -= damage;
         if(this.data.players[Number(!this.data.turn)].hp < 0) this.data.players[Number(!this.data.turn)].hp = 0;
         this.data.players[this.data.turn].equipment.delete("grenade")
@@ -205,7 +219,8 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
                 `\n${this.props.embed.turn}: ${this.data.players[this.data.turn].member.toString()}`)
             .setFields(this.data.players.map((player, i) => {return {
                 name: this.data.players[i].member.user.tag,
-                value: this.data.players[i].hp + "HP",
+                value: this.data.players[i].hp + "HP" + "  " +
+                Array.from(this.data.players[i].equipment).map(e => this.client.cache.emojis[e]).join(" "),
                 inline: true
             }}))
         this.users = [this.data.players[this.data.turn].member.id]

@@ -17,6 +17,7 @@ import GuildSettingsCache from "@/types/GuildSettingsCache";
 interface RockScissorsPaperInteractionComponents {
     item?: SelectMenuBuilder
     accept?: ButtonBuilder
+    decline?: ButtonBuilder
 }
 
 interface RockScissorsPaperInteractionData {
@@ -29,7 +30,7 @@ interface RockScissorsPaperInteractionData {
     choice?: 'rock' | 'scissors' | 'paper'
 }
 
-type RockScissorsPaperInteractionAction = 'rsp' | 'accept'
+type RockScissorsPaperInteractionAction = 'rsp' | 'accept' | 'decline'
 
 export default class RockScissorsPaperInteraction extends AbstractInteraction implements Interaction {
     public declare data: RockScissorsPaperInteractionData
@@ -46,6 +47,12 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
                     .setCustomId(`${this.id}-accept`)
                     .setStyle(ButtonStyle.Primary)
                     .setLabel(this.props.buttons.accept.label)
+                    .setEmoji(this.props.buttons.accept.emoji),
+                decline: new ButtonBuilder()
+                    .setCustomId(`${this.id}-decline`)
+                    .setStyle(ButtonStyle.Danger)
+                    .setLabel(this.props.buttons.decline.label)
+                    .setEmoji(this.props.buttons.decline.emoji),
             }
             this.embed = new EmbedBuilder()
                 .setColor(this.constants.colors.system)
@@ -60,6 +67,7 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
 
     public async execute(interaction: SelectMenuInteraction, action: RockScissorsPaperInteractionAction): Promise<InteractionExecutionResult> {
         if(action === "accept") return this.accept();
+        else if(action === "decline") return this.decline();
         if(this.data.opponent && !this.data.choice) {
             this.data.choice = interaction.values[0] as typeof this.data.choice;
             this.setEmbed()
@@ -165,6 +173,12 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
         this.users = [this.data.member.id];
         this.setEmbed();
         return {action: "update"}
+    }
+
+    private async decline(): Promise<InteractionExecutionResult> {
+        this.embed.setDescription(this.props.embed.declined.replace("{{opponent}}", this.data.opponent.toString()))
+        await this.end()
+        return {action: "update", ended: true}
     }
 
     private setEmbed(): void {
