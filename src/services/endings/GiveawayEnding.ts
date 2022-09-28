@@ -41,7 +41,8 @@ export default class GiveawayEnding extends AbstractService {
             .setFooter({text: props.data.embed.footer})
             .setTimestamp()
         let reaction = await rct.fetch();
-        let users = reaction.users.cache.filter(u => !u.bot);
+        let users = await reaction.users.fetch();
+        users = users.filter(u => !u.bot);
         if(users.size <= 0) {
             embed
                 .setColor(this.constants.colors.error)
