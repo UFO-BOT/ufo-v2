@@ -13,6 +13,7 @@ import Settings from "@/types/database/Settings";
 import MakeError from "@/utils/MakeError";
 import Item from "@/types/database/Item";
 import {settings} from "cluster";
+import ShopInteraction from "@/interactions/ShopInteraction";
 
 export default class ShopCommand extends AbstractCommand implements Command {
     public config = {
@@ -32,16 +33,12 @@ export default class ShopCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let items = await this.db.manager.findBy(Item, {guildid: ctx.guild.id})
-        let embed = new EmbedBuilder()
-            .setColor(this.constants.colors.system)
-            .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.guild.iconURL()})
-        if(items.length === 0) embed.setDescription(ctx.response.data.embed.empty)
-        items.forEach(item => {
-            embed.addFields({
-                name: `${item.name} - ${item.price.toLocaleString(ctx.settings.language.interface)}${ctx.settings.moneysymb}`,
-                value: item.description?.length ? item.description : ctx.response.data.embed.noDescription
-            })
-        })
-        return {reply: {embeds: [embed]}};
+        let interaction = new ShopInteraction([ctx.member.id], {
+            guild: ctx.guild,
+            items,
+            page: 1,
+            maxPage: Math.ceil(items.length/10)
+        }, ctx.settings)
+        return {interaction};
     }
 }
