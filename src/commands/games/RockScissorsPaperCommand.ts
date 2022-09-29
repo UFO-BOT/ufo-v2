@@ -60,6 +60,7 @@ export default class RockScissorsPaperCommand extends AbstractCommand implements
                     description: "Member you want to play with"
                 }
             },
+            noSelf: true,
             required: false
         }
     ]

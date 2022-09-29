@@ -111,6 +111,34 @@
       }
     }
   },
+  "invalidDuration": {
+    "ru": {
+      "embed": {
+        "author": "Недействительная длительность",
+        "description": "Длительность не должна превышать 10 лет"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Invalid duration",
+        "description": "Duration may not be longer than 10 years"
+      }
+    }
+  },
+  "noSelf": {
+    "ru": {
+      "embed": {
+        "author": "Ошибка",
+        "description": "Вы не можете указать себя"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Error",
+        "description": "You cannot specify yourself"
+      }
+    }
+  },
   "noMemberPermissions": {
     "ru": {
       "embed": {

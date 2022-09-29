@@ -44,6 +44,7 @@ export default class DuelCommand extends AbstractCommand implements Command {
                     description: "Member you want to play with"
                 }
             },
+            noSelf: true,
             required: true
         },
         {

@@ -1,4 +1,4 @@
-import {ApplicationCommandOptionType, GuildMember, Guild, User, GuildBasedChannel, Role} from "discord.js";
+import {ApplicationCommandOptionType, GuildMember, Guild, User, GuildBasedChannel, Role, Message} from "discord.js";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import CommandValidationResult from "@/types/commands/CommandValidationResult";
@@ -9,14 +9,16 @@ import TimeParser from "@/utils/TimeParser";
 import Balance from "@/types/database/Balance";
 
 export default class TextCommandsValidator {
+    public message: Message
     public args: Array<string>
     public commandOptions: Array<CommandOption>
     public guild: Guild
     public settings: GuildSettingsCache
     public balance: Balance
 
-    constructor(args: Array<string>, commandOptions: Array<CommandOption>, guild: Guild, settings: GuildSettingsCache,
-                balance?: Balance) {
+    constructor(message: Message, args: Array<string>, commandOptions: Array<CommandOption>, guild: Guild,
+                settings: GuildSettingsCache, balance?: Balance) {
+        this.message = message;
         this.args = args;
         this.commandOptions = commandOptions;
         this.guild = guild;
@@ -41,12 +43,20 @@ export default class TextCommandsValidator {
             switch (type) {
                 case "GuildMember":
                     value = await Resolver.member(this.guild, arg);
+                    if(value?.id === this.message.author.id) return {
+                        valid: false,
+                        error: {type: "noSelf", options: {}}
+                    }
                     break;
                 case "LongString":
                     value = this.args.join(" ")
                     break;
                 case "Duration":
                     value = TimeParser.parse(arg, this.settings.language.commands)
+                    if(value > 315360000000) return {
+                        valid: false,
+                        error: {type: "invalidDuration", options: {}}
+                    }
                     break
                 case "Bet":
                     option.minValue = this.settings.minBet;
@@ -68,6 +78,10 @@ export default class TextCommandsValidator {
                     break;
                 case "User":
                     value = await Resolver.user(this.guild, arg)
+                    if(value?.id === this.message.author.id) return {
+                        valid: false,
+                        error: {type: "noSelf", options: {}}
+                    }
                     break;
                 case "Channel":
                     let channel = await Resolver.channel(this.guild, arg);

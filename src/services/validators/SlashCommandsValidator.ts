@@ -1,4 +1,9 @@
-import {ApplicationCommandOptionType, CommandInteractionOption} from "discord.js";
+import Discord, {
+    ApplicationCommandOptionType,
+    CommandInteraction,
+    CommandInteractionOption,
+    GuildMember
+} from "discord.js";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import CommandValidationResult from "@/types/commands/CommandValidationResult";
@@ -7,13 +12,15 @@ import GuildSettingsCache from "@/types/GuildSettingsCache";
 import Balance from "@/types/database/Balance";
 
 export default class SlashCommandsValidator {
+    public interaction: CommandInteraction
     public interactionOptions: Readonly<Array<CommandInteractionOption>>
     public commandOptions: Array<CommandOption>
     public settings: GuildSettingsCache
     public balance: Balance
 
-    constructor(interactionOptions: Readonly<Array<CommandInteractionOption>>, commandOptions: Array<CommandOption>,
-                settings: GuildSettingsCache, balance?: Balance) {
+    constructor(interaction: Discord.CommandInteraction, interactionOptions: Readonly<Array<CommandInteractionOption>>,
+                commandOptions: Array<CommandOption>, settings: GuildSettingsCache, balance?: Balance) {
+        this.interaction = interaction;
         this.interactionOptions = interactionOptions;
         this.commandOptions = commandOptions;
         this.settings = settings;
@@ -32,11 +39,20 @@ export default class SlashCommandsValidator {
             switch (type) {
                 case "GuildMember":
                     if(!interactionOption.member && option.required) return {valid: false, problemOption: option};
-                    args[option.name] = interactionOption.member
+                    let member = interactionOption.member as GuildMember;
+                    args[option.name] = member;
+                    if(member?.id === this.interaction.user.id) return {
+                        valid: false,
+                        error: {type: "noSelf", options: {}}
+                    }
                     break;
                 case "Duration":
                     let duration = TimeParser.parse(interactionOption.value as string, this.settings.language.commands)
                     if(!duration) return {valid: false, problemOption: option}
+                    if(duration > 315360000000) return {
+                        valid: false,
+                        error: {type: "invalidDuration", options: {}}
+                    }
                     args[option.name] = duration;
                     break;
                 case "Bet":
@@ -61,6 +77,10 @@ export default class SlashCommandsValidator {
                     break;
                 case "User":
                     args[option.name] = interactionOption.user
+                    if(interactionOption.user?.id === this.interaction.user.id) return {
+                        valid: false,
+                        error: {type: "noSelf", options: {}}
+                    }
                     break;
                 case "Channel":
                     args[option.name] = interactionOption.channel;

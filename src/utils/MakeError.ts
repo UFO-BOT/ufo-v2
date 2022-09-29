@@ -97,6 +97,22 @@ export default class MakeError {
             );
     }
 
+    static invalidDuration(member: GuildMember, settings: GuildSettingsCache): EmbedBuilder {
+        let error = errors.invalidDuration[settings.language.interface];
+        return new EmbedBuilder()
+            .setColor(colors.error)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(error.embed.description)
+    }
+
+    static noSelf(member: GuildMember, settings: GuildSettingsCache): EmbedBuilder {
+        let error = errors.noSelf[settings.language.interface];
+        return new EmbedBuilder()
+            .setColor(colors.error)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(error.embed.description)
+    }
+
     static interactionUnavailable(member: GuildMember, settings: GuildSettingsCache): EmbedBuilder {
         let error = errors.interactionUnavailable[settings.language.interface];
         return new EmbedBuilder()
