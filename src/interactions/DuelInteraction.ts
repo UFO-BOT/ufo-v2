@@ -171,6 +171,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
         let helmet = this.data.players[Number(!this.data.turn)].equipment.has("helmet")
         let armor = this.data.players[Number(!this.data.turn)].equipment.has("armor")
         let shoot = Math.round(Math.random()*100)
+        let rico = Math.round(Math.random()*1000) < 5;
         if(shoot < (scope ? 15 : 40)) {
             this.action("miss")
         }
@@ -191,9 +192,10 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
                     hp = helmet ? 60 : 100;
                     if(helmet) this.data.players[Number(!this.data.turn)].equipment.delete("helmet")
             }
-            this.data.players[Number(!this.data.turn)].hp -= hp;
-            if(this.data.players[Number(!this.data.turn)].hp < 0) this.data.players[Number(!this.data.turn)].hp = 0;
-            this.action(shotPart, hp);
+            let number = Number(rico ? this.data.turn : !this.data.turn);
+            this.data.players[number].hp -= hp;
+            if(this.data.players[number].hp < 0) this.data.players[number].hp = 0;
+            this.action(shotPart, hp, rico);
         }
     }
 
@@ -212,7 +214,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
         this.action("grenade", damage);
     }
 
-    private action(action: GameAction, hp?: number) {
+    private action(action: GameAction, hp?: number, rico?: boolean) {
         this.data.turn = Number(!this.data.turn)
         this.embed
             .setDescription(this.props.embed.actions[action].replace("{{hp}}", hp?.toString()) +
@@ -223,6 +225,8 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
                 Array.from(this.data.players[i].equipment).map(e => this.client.cache.emojis[e]).join(" "),
                 inline: true
             }}))
+        if(rico) this.embed.setDescription(`**${this.props.embed.rico} 😵${this.client.cache.emojis.revolver}**\n`
+            + this.embed.data.description)
         this.users = [this.data.players[this.data.turn].member.id]
         this.setButtons()
     }

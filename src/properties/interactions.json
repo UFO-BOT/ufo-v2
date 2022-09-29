@@ -359,6 +359,7 @@
         "chooses": "Выбирает",
         "turn": "Ходит",
         "winner": "Победитель",
+        "rico": "Рикошет",
         "actions": {
           "start": "Игра начинается",
           "miss": "Промах",
@@ -437,6 +438,7 @@
         "chooses": "Chooses",
         "turn": "Move",
         "winner": "Winner",
+        "rico": "Ricochet",
         "actions": {
           "start": "Game starts",
           "miss": "Miss",
