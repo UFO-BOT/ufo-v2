@@ -78,6 +78,7 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
                 value: item.description?.length ? item.description : this.props.embed.noDescription
             })
         })
+        this.embed.setFooter({text: this.props.embed.footer + ` ${this.data.page}/${this.data.maxPage}`})
         this.components.backward.setDisabled(this.data.page === 1)
         this.components.forward.setDisabled(this.data.page === this.data.maxPage)
         return {action: "update"};
