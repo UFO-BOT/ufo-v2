@@ -47,7 +47,7 @@ export default class MoneyBagsInteraction extends AbstractInteraction implements
     public async execute(interaction: SelectMenuInteraction): Promise<InteractionExecutionResult> {
         let amount = Math.floor(this.data.low+(this.data.high-this.data.low)*Math.random())
         let emoji = this.client.cache.emojis[interaction.values[0] + '_moneybag'];
-        await this.data.balance.reload()
+        await this.data.balance.reload().catch(() => null)
         this.data.balance.balance += amount;
         this.data.balance.lastmb = Date.now();
         await this.data.balance.save();

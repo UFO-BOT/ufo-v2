@@ -58,7 +58,7 @@ export default class JackpotInteraction extends AbstractInteraction implements I
     }
 
     public async end() {
-        await this.data.balance.reload()
+        await this.data.balance.reload().catch(() => null)
         this.data.balance.balance += this.data.bet;
         await this.data.balance.save()
     }
@@ -107,7 +107,7 @@ export default class JackpotInteraction extends AbstractInteraction implements I
             else guessedString += (num + " ");
         })
         let gain = Math.round(this.data.bet * multipliers[guessed]);
-        await this.data.balance.reload();
+        await this.data.balance.reload().catch(() => null);
         this.data.balance.balance += gain;
         await this.data.balance.save();
         this.embed

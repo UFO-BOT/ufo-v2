@@ -76,8 +76,8 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
         }
         let choice = this.data.opponent ? interaction.values[0] as typeof this.data.choice :
             Object.keys(this.emojis)[Math.floor(Object.keys(this.emojis).length * Math.random())];
-        await this.data.balance.reload()
-        await this.data.opponentBalance?.reload()
+        await this.data.balance.reload().catch(() => null)
+        await this.data.opponentBalance?.reload().catch(() => null)
         if(this.data.opponent) {
             this.embed.setColor(this.constants.colors.system)
             if(this.combinations[this.data.choice] === choice) {
@@ -149,18 +149,18 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
     }
 
     public async end() {
-        await this.data.balance.reload()
+        await this.data.balance.reload().catch(() => null)
         this.data.balance.balance += this.data.bet;
         await this.data.balance.save()
         if(this.data.opponent && this.data.accepted) {
-            await this.data.opponentBalance.reload()
+            await this.data.opponentBalance.reload().catch(() => null)
             this.data.opponentBalance.balance++;
             await this.data.opponentBalance.save()
         }
     }
 
     private async accept(): Promise<InteractionExecutionResult> {
-        await this.data.opponentBalance.reload()
+        await this.data.opponentBalance.reload().catch(() => null)
         if(this.data.opponentBalance.balance < this.data.bet) return {
             error: {
                 type: "notEnoughMoney",

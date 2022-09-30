@@ -106,14 +106,14 @@ export default class MineFieldInteraction extends AbstractInteraction implements
     }
 
     public async end() {
-        await this.data.balance.reload()
+        await this.data.balance.reload().catch(() => null)
         this.data.balance.balance += this.data.bet;
         await this.data.balance.save()
     }
 
     private async stop(): Promise<InteractionExecutionResult> {
         let gain = Math.round(this.data.bet * this.data.multiplier);
-        await this.data.balance.reload();
+        await this.data.balance.reload().catch(() => null);
         this.data.balance.balance += gain;
         await this.data.balance.save();
         this.embed

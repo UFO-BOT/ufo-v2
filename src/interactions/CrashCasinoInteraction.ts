@@ -67,7 +67,7 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
     }
 
     public async end() {
-        await this.data.balance.reload()
+        await this.data.balance.reload().catch(() => null)
         this.data.balance.balance += this.data.bet;
         await this.data.balance.save()
     }
@@ -101,7 +101,7 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
 
     private async stop(interaction: ButtonInteraction): Promise<InteractionExecutionResult> {
         let gain = Math.round(this.data.bet * this.data.multiplier);
-        await this.data.balance.reload();
+        await this.data.balance.reload().catch(() => null);
         this.data.balance.balance += gain;
         await this.data.balance.save();
         this.embed

@@ -99,18 +99,18 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
     }
 
     public async end() {
-        await this.data.players[0].balance.reload()
+        await this.data.players[0].balance.reload().catch(() => null)
         this.data.players[0].balance.balance += this.data.bet;
         await this.data.players[0].balance.save()
         if (this.data.accepted) {
-            await this.data.players[1].balance.reload()
+            await this.data.players[1].balance.reload().catch(() => null)
             this.data.players[1].balance.balance++;
             await this.data.players[1].balance.save()
         }
     }
 
     private async accept(): Promise<InteractionExecutionResult> {
-        await this.data.players[1].balance.reload()
+        await this.data.players[1].balance.reload().catch(() => null)
         if (this.data.players[1].balance.balance < this.data.bet) return {
             error: {
                 type: "notEnoughMoney",
@@ -157,7 +157,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
 
     private async finish(player: Player) {
         let winner = this.data.players[Number(!this.data.players.indexOf(player))];
-        await winner.balance.reload();
+        await winner.balance.reload().catch(() => null);
         winner.balance.balance += this.data.bet * 2;
         await winner.balance.save();
         this.embed.setDescription(this.embed.data.description.split("\n")[0] + "\n" +
