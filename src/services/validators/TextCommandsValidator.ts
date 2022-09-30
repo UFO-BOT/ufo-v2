@@ -43,7 +43,7 @@ export default class TextCommandsValidator {
             switch (type) {
                 case "GuildMember":
                     value = await Resolver.member(this.guild, arg);
-                    if(value?.id === this.message.author.id) return {
+                    if(option.noSelf && value?.id === this.message.author.id) return {
                         valid: false,
                         error: {type: "noSelf", options: {}}
                     }
@@ -78,7 +78,7 @@ export default class TextCommandsValidator {
                     break;
                 case "User":
                     value = await Resolver.user(this.guild, arg)
-                    if(value?.id === this.message.author.id) return {
+                    if(option.noSelf && value?.id === this.message.author.id) return {
                         valid: false,
                         error: {type: "noSelf", options: {}}
                     }

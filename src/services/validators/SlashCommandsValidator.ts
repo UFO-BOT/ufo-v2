@@ -41,7 +41,7 @@ export default class SlashCommandsValidator {
                     if(!interactionOption.member && option.required) return {valid: false, problemOption: option};
                     let member = interactionOption.member as GuildMember;
                     args[option.name] = member;
-                    if(member?.id === this.interaction.user.id) return {
+                    if(option.noSelf && member?.id === this.interaction.user.id) return {
                         valid: false,
                         error: {type: "noSelf", options: {}}
                     }
@@ -77,7 +77,7 @@ export default class SlashCommandsValidator {
                     break;
                 case "User":
                     args[option.name] = interactionOption.user
-                    if(interactionOption.user?.id === this.interaction.user.id) return {
+                    if(option.noSelf && interactionOption.user?.id === this.interaction.user.id) return {
                         valid: false,
                         error: {type: "noSelf", options: {}}
                     }
