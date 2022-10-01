@@ -16,6 +16,7 @@ import GuildSettingsCache from "@/types/GuildSettingsCache";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import Balance from "@/types/database/Balance";
 import AbstractService from "@/abstractions/AbstractService";
+import SetInteraction from "@/utils/SetInteraction";
 
 export default class SlashCommandsHandler extends AbstractService {
     public interaction: CommandInteraction
@@ -87,10 +88,7 @@ export default class SlashCommandsHandler extends AbstractService {
             }
         }
         let interaction = result.interaction;
-        if(interaction) {
-            reply = {embeds: [interaction.embed], components: [interaction.row()]}
-            global.client.cache.interactions.set(interaction.id, interaction)
-        }
+        if(interaction) reply = {embeds: [interaction.embed], components: [interaction.row()]};
         command.deferReply ?
             await this.interaction.editReply(reply) :
             await this.interaction.reply(reply as InteractionReplyOptions)
@@ -98,12 +96,6 @@ export default class SlashCommandsHandler extends AbstractService {
         if(command.after) {
             await command.after(msg, result.data);
         }
-        if(interaction?.lifetime) setTimeout(async () => {
-            if(interaction.end && global.client.cache.interactions.has(interaction.id)) {
-                await interaction.end()
-                await msg.edit({embeds: [interaction.embed], components: []})
-            }
-            global.client.cache.interactions.delete(interaction.id)
-        }, interaction.lifetime)
+        if(interaction) SetInteraction(this.client, interaction, msg);
     }
 }

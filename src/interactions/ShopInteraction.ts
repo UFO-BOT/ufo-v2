@@ -1,4 +1,4 @@
-import {
+import Discord, {
     ButtonBuilder,
     ButtonInteraction,
     EmbedBuilder, Guild,
@@ -47,7 +47,7 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
                 .setCustomId(`${this.id}-forward`)
                 .setStyle(ButtonStyle.Primary)
                 .setEmoji(this.props.buttons.forward)
-                .setDisabled(this.data.maxPage === 1),
+                .setDisabled(this.data.maxPage === 1)
         }
         this.embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
@@ -55,7 +55,7 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
         this.setItems();
     }
 
-    public async execute(interaction: SelectMenuInteraction, action: ShopInteractionAction): Promise<InteractionExecutionResult> {
+    public async execute(interaction: ButtonInteraction, action: ShopInteractionAction): Promise<InteractionExecutionResult> {
         switch (action) {
             case "forward":
                 this.data.page++;

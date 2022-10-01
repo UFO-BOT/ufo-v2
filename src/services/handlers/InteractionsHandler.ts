@@ -19,6 +19,7 @@ import Client from "@/structures/Client";
 import MongoDB from "@/structures/MongoDB";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import AbstractService from "@/abstractions/AbstractService";
+import SetInteraction from "@/utils/SetInteraction";
 
 export default class InteractionsHandler extends AbstractService {
     public interaction: Interaction
@@ -65,13 +66,23 @@ export default class InteractionsHandler extends AbstractService {
             await this.interaction.showModal(result.modal);
             return;
         }
+        let options = {
+            embeds: [interaction.embed],
+            components: result.ended ? [] : [interaction.row()],
+            ephemeral: result.ephemeral
+        }
+        if(result.interaction) {
+            options = {
+                embeds: [result.interaction.embed],
+                components: [result.interaction.row()],
+                ephemeral: result.ephemeral
+            }
+        }
         if(result) {
             type fn = (options: InteractionReplyOptions) => Promise<Message>;
-            await (this.interaction[result.action] as fn)({
-                embeds: [interaction.embed],
-                components: result.ended ? [] : [interaction.row()],
-                ephemeral: result.ephemeral
-            });
+            await (this.interaction[result.action] as fn)(options);
+            let message = await this.interaction.fetchReply();
+            if(result.interaction) SetInteraction(this.client, result.interaction, message);
             if(result.ended) this.client.cache.interactions.delete(interaction.id);
         }
     }

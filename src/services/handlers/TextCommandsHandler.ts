@@ -23,6 +23,7 @@ import GuildSettingsCache from "@/types/GuildSettingsCache";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import Balance from "@/types/database/Balance";
 import AbstractService from "@/abstractions/AbstractService";
+import SetInteraction from "@/utils/SetInteraction";
 
 export default class TextCommandsHandler extends AbstractService {
     public message: Message
@@ -112,21 +113,12 @@ export default class TextCommandsHandler extends AbstractService {
             reply = {embeds: [errorFn(this.message.member as GuildMember, settings, result.error.options)]}
         }
         let interaction = result.interaction;
-        if(interaction) {
-            reply = {embeds: [interaction.embed], components: [interaction.row()]}
-            global.client.cache.interactions.set(interaction.id, interaction)
-        }
+        if(interaction) reply = {embeds: [interaction.embed], components: [interaction.row()]};
         if(!reply.allowedMentions) reply.allowedMentions = {};
         reply.allowedMentions.repliedUser = false;
 
         let msg = await this.message.reply(reply);
         if(command.after) await command.after(msg, result.data);
-        if(interaction?.lifetime) setTimeout(async () => {
-            if(interaction.end && global.client.cache.interactions.has(interaction.id)) {
-                await interaction.end()
-                await msg.edit({embeds: [interaction.embed], components: []})
-            }
-            global.client.cache.interactions.delete(interaction.id)
-        }, interaction.lifetime)
+        if(interaction) SetInteraction(this.client, interaction, msg);
     }
 }
