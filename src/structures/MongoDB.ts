@@ -4,6 +4,7 @@ import Balance from "@/types/database/Balance";
 import Item from "@/types/database/Item";
 import Coupon from "@/types/database/Coupon";
 import Giveaway from "@/types/database/Giveaway";
+import Case from "@/types/database/Case";
 
 export default class MongoDB extends DataSource {
     public url: string
@@ -22,7 +23,8 @@ export default class MongoDB extends DataSource {
                 Balance,
                 Item,
                 Coupon,
-                Giveaway
+                Giveaway,
+                Case
             ]
         })
         global.db = this;

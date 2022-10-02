@@ -10,21 +10,24 @@ export default class GuildSettingsManager {
         if (!settings) {
             let guildSettings = await global.db.manager.findOneBy(Settings, {guildid: guildId})
 
-            settings = {
-                prefix: guildSettings?.prefix ?? constants.defaultPrefix,
-                language: {
-                    commands: guildSettings?.language?.commands ?? 'en',
-                    interface: guildSettings?.language?.interface ?? 'en'
-                },
-                boost: guildSettings?.boost,
-                moneysymb: guildSettings?.moneysymb ?? constants.defaultMoneySymbol,
-                commandsSettings: guildSettings?.commands ?? {} as Record<string, CommandSettings>,
-                minBet: guildSettings?.minBet ?? 100
-            }
-
+            settings = this.toCache(guildSettings)
             global.client.cache.settings.set(guildId, settings)
         }
         return settings;
+    }
+
+    public static toCache(settings: Settings): GuildSettingsCache {
+        return {
+            prefix: settings?.prefix ?? constants.defaultPrefix,
+            language: {
+                commands: settings?.language?.commands ?? 'en',
+                interface: settings?.language?.interface ?? 'en'
+            },
+            boost: settings?.boost,
+            moneysymb: settings?.moneysymb ?? constants.defaultMoneySymbol,
+            commandsSettings: settings?.commands ?? {} as Record<string, CommandSettings>,
+            minBet: settings?.minBet ?? 100
+        }
     }
 
     public static async findOrCreate(guildId: string): Promise<Settings> {

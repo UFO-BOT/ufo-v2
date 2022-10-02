@@ -1,0 +1,102 @@
+{
+  "ru": {
+    "autoMod": "[АВТОМОД]",
+    "reason": "Причина",
+    "notSpecified": "Не указана",
+    "user": "Пользователь",
+    "moderator": "Модератор",
+    "duration": "Длительность",
+    "case": "Случай",
+    "ends": "Заканчивается",
+    "actions": {
+      "warn": {
+        "color": "#f6ff00",
+        "log": "Предупреждение",
+        "author": "был предупрежден",
+        "errors": {
+          "noMemberPermissions": "У вас недостаточно прав чтобы предупредить этого участника"
+        }
+      },
+      "mute": {
+        "color": "#ffa700",
+        "log": "Мут",
+        "author": "был замучен",
+        "errors": {}
+      },
+      "kick": {
+        "color": "#ff5a00",
+        "log": "Кик",
+        "author": "был кикнут",
+        "errors": {}
+      },
+      "ban": {
+        "color": "#ec0b0b",
+        "log": "Бан",
+        "author": "был забанен",
+        "errors": {}
+      },
+      "unmute": {
+        "color": "#00ff74",
+        "log": "Размут",
+        "author": "был размучен",
+        "errors": {}
+      },
+      "unban": {
+        "color": "#00ff74",
+        "log": "Разбан",
+        "author": "был разбанен",
+        "errors": {}
+      }
+    }
+  },
+  "en": {
+    "autoMod": "[AUTOMOD]",
+    "reason": "Reason",
+    "notSpecified": "Not specified",
+    "user": "User",
+    "moderator": "Moderator",
+    "duration": "Duration",
+    "case": "Case",
+    "ends": "Ends at",
+    "actions": {
+      "warn": {
+        "color": "#f6ff00",
+        "log": "Warn",
+        "author": "has been warned",
+        "errors": {
+          "noMemberPermissions": "You have no permissions to warn this member"
+        }
+      },
+      "mute": {
+        "color": "#ffa700",
+        "log": "Mute",
+        "author": "has been muted",
+        "errors": {}
+      },
+      "kick": {
+        "color": "#ff5a00",
+        "log": "Kick",
+        "author": "has been kicked",
+        "errors": {}
+      },
+      "ban": {
+        "color": "#ec0b0b",
+        "log": "Ban",
+        "author": "has been banned",
+        "errors": {}
+      },
+      "unmute": {
+        "color": "#00ff74",
+        "log": "Unmute",
+        "author": "has been unmuted",
+        "errors": {}
+      },
+      "unban": {
+        "color": "#00ff74",
+        "log": "Unban",
+        "author": "has been unbanned",
+        "errors": {}
+      }
+    }
+  }
+}

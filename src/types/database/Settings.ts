@@ -39,10 +39,16 @@ export default class Settings extends BaseEntity {
     commission: number
 
     @Column()
-    duelCommission: boolean
-
-    @Column()
-    casenum: number
+    logs: {
+        channels: {
+            messageDelete: string
+            messageEdit: string
+            moderation: string
+        }
+        ignore: {
+            channels: Array<string>
+        }
+    }
 
     @Column()
     muterole: string

@@ -1,2 +1,10 @@
-type ModAction = 'warn' | 'mute' | 'kick' | 'ban' | 'tempban' | 'unmute' | 'unban'
-export default ModAction
+enum ModAction {
+    Warn = "warn",
+    Mute = "mute",
+    Kick = "kick",
+    Ban = "ban",
+    Unmute = "unmute",
+    Unban = "unban"
+}
+
+export default ModAction;
