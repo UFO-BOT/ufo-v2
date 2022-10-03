@@ -1,8 +1,8 @@
 import ModAction from "../ModAction";
-import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('cases')
-export default class Case {
+export default class Case extends BaseEntity {
     @ObjectIdColumn()
     _id: ObjectID
 

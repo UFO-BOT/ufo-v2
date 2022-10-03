@@ -9,7 +9,8 @@ export default class WarnAction extends ModerationAction {
     }
 
     public async action(): Promise<ModActionExecutionResult> {
-        if(this.options.member.roles.highest.position >= this.options.executor.roles.highest.position) return {
+        if((this.options.guild.ownerId !== this.options.member.id) &&
+            this.options.member.roles.highest.position >= this.options.executor.roles.highest.position) return {
             success: false,
             error: "noMemberPermissions"
         }

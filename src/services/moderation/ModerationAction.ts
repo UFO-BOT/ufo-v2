@@ -6,9 +6,10 @@ import properties from "@/properties/moderation.json";
 import Settings from "@/types/database/Settings";
 import {ColorResolvable, EmbedBuilder, GuildTextBasedChannel} from "discord.js";
 import TimeParser from "@/utils/TimeParser";
-import ModActionExecutionResult from "@/types/ModActionExecutionResult";
+import actionExecutionResult from "@/types/ModActionExecutionResult";
 import MakeError from "@/utils/MakeError";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import ModerationActionLog from "@/utils/ModerationActionLog";
 
 export default abstract class ModerationAction extends AbstractService {
     public settings: Settings
@@ -31,7 +32,7 @@ export default abstract class ModerationAction extends AbstractService {
             }) : null
         }
 
-        let modAction = new Case();
+        let action = new Case();
         let cases = await this.db.mongoManager.createCursor(Case, {guildid: this.options.guild.id})
             .sort({number: -1})
             .limit(1)
@@ -39,46 +40,16 @@ export default abstract class ModerationAction extends AbstractService {
         let number = (cases[0]?.number ?? 0) + 1;
         let reason = this.options.reason?.length ? this.options.reason : props.notSpecified;
         let ends = this.options.duration ? ` | ${props.ends}` : '';
-        modAction.guildid = this.options.guild.id;
-        modAction.userid = this.options.user.id;
-        modAction.action = this.options.action;
-        modAction.number = number;
-        modAction.executor = this.options.executor.id;
-        modAction.reason = reason;
-        modAction.timestamp = Date.now();
-        modAction.duration = this.options.duration ?? null;
-        await this.db.manager.save(modAction);
-        let logEmbed = new EmbedBuilder()
-            .setColor(props.actions[this.options.action].color as ColorResolvable)
-            .setAuthor({
-                name: props.actions[this.options.action] + ' ' + this.options.member.user.tag,
-                iconURL: this.options.member.displayAvatarURL()
-            })
-            .setDescription(`**${props.reason}:** ${reason}`)
-            .addFields([
-                {
-                    name: props.user,
-                    value: this.options.user.toString(),
-                    inline: true
-                },
-                {
-                    name: props.moderator,
-                    value: this.options.executor.toString(),
-                    inline: true
-                }
-            ])
-        if (this.options.duration) logEmbed.addFields({
-            name: props.duration,
-            value: TimeParser.stringify(this.options.duration, lang),
-            inline: true
-        })
-        logEmbed.addFields({
-            name: props.reason,
-            value: reason
-        })
-            .setFooter({text: `${props.case} #${number}`})
-            .setTimestamp()
-
+        action.guildid = this.options.guild.id;
+        action.userid = this.options.user.id;
+        action.action = this.options.action;
+        action.number = number;
+        action.executor = this.options.executor.id;
+        action.reason = reason;
+        action.timestamp = Date.now();
+        action.duration = this.options.duration ?? null;
+        await this.db.manager.save(action);
+        let logEmbed = await ModerationActionLog(this.client, action, GuildSettingsManager.toCache(this.settings));
         let channel = this.options.guild.channels.cache.get(this.settings?.logs?.channels?.moderation) as GuildTextBasedChannel;
         if (channel) await channel.send({embeds: [logEmbed]});
         let embed = new EmbedBuilder()
@@ -97,5 +68,5 @@ export default abstract class ModerationAction extends AbstractService {
         return embed;
     }
 
-    public abstract action(): Promise<ModActionExecutionResult>
+    public abstract action(): Promise<actionExecutionResult>
 }
