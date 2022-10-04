@@ -26,7 +26,7 @@ export default abstract class ModerationAction extends AbstractService {
         let result = await this.action();
         if(!result.success) {
             let errors = props.actions[this.options.action].errors as Record<string, string>;
-            return this.options.autoMod ?
+            return !this.options.autoMod ?
                 MakeError.other(this.options.member, GuildSettingsManager.toCache(this.settings), {
                     text: errors[result.error]
             }) : null

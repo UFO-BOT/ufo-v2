@@ -27,7 +27,10 @@
         "color": "#ff5a00",
         "log": "Кик",
         "author": "был кикнут",
-        "errors": {}
+        "errors": {
+          "noMemberPermissions": "У вас недостаточно прав чтобы кикнуть этого участника",
+          "noBotPermissions": "У меня недостаточно прав чтобы кикнуть этого участника"
+        }
       },
       "ban": {
         "color": "#ec0b0b",
@@ -77,7 +80,10 @@
         "color": "#ff5a00",
         "log": "Kick",
         "author": "has been kicked",
-        "errors": {}
+        "errors": {
+          "noMemberPermissions": "You have no permissions to kick this member",
+          "noBotPermissions": "I have no permissions to kick this member"
+        }
       },
       "ban": {
         "color": "#ec0b0b",

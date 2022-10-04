@@ -8,23 +8,24 @@ import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import WarnAction from "@/services/moderation/actions/WarnAction";
+import KickAction from "@/services/moderation/actions/KickAction";
 
-interface WarnCommandDTO {
+interface KickCommandDTO {
     member: GuildMember
     reason?: string
 }
 
-export default class WarnCommand extends AbstractCommand implements Command {
+export default class KickCommand extends AbstractCommand implements Command {
     public config = {
         ru: {
-            name: "пред",
-            description: 'Выдает предупреждение указанному участнику по указанной причине',
-            aliases: ['предупредить', 'предупреждение', 'варн']
+            name: "кик",
+            description: 'Выгоняет участника с сервера по указанной причине',
+            aliases: ['выгнать', 'к']
         },
         en: {
-            name: "warn",
-            description: 'Warns specified member for specified reason',
-            aliases: ['w', 'warning']
+            name: "kick",
+            description: 'Kicks a member from the server for specified reason',
+            aliases: ['k']
         }
     }
     public options: Array<CommandOption> = [
@@ -51,11 +52,11 @@ export default class WarnCommand extends AbstractCommand implements Command {
             config: {
                 ru: {
                     name: "причина",
-                    description: "Причина предупреждения"
+                    description: "Причина кика"
                 },
                 en: {
                     name: "reason",
-                    description: "Warn reason"
+                    description: "Kick reason"
                 }
             },
             required: false
@@ -65,8 +66,8 @@ export default class WarnCommand extends AbstractCommand implements Command {
     public defaultMemberPermissions: PermissionResolvable = ["KickMembers"];
     public deferReply = true;
 
-    public async execute(ctx: CommandExecutionContext<WarnCommandDTO>): Promise<CommandExecutionResult> {
-        let action = new WarnAction({
+    public async execute(ctx: CommandExecutionContext<KickCommandDTO>): Promise<CommandExecutionResult> {
+        let action = new KickAction({
             guild: ctx.guild,
             user: ctx.args.member.user,
             member: ctx.args.member,
