@@ -48,7 +48,7 @@ export default class SlashCommandsValidator {
                     break;
                 case "Duration":
                     let duration = TimeParser.parse(interactionOption.value as string, this.settings.language.commands)
-                    if(!duration) return {valid: false, problemOption: option}
+                    if(duration === undefined) return {valid: false, problemOption: option}
                     if(duration > 315360000000) return {
                         valid: false,
                         error: {type: "invalidDuration", options: {}}

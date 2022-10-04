@@ -66,7 +66,7 @@ export default class TextCommandsValidator {
                     }
                     let num = !!arg.match(all[this.settings.language.commands]) ?
                         this.balance?.balance ?? 0 : Number(arg);
-                    value = (!isNaN(num) && !(num % 1) && num >= this.settings.minBet) ? num : null
+                    value = (!isNaN(num) && !(num % 1) && num >= this.settings.minBet) ? num : undefined
                     let balance = this.balance?.balance ?? 0;
                     if(num > balance) return {
                         valid: false,
@@ -102,7 +102,7 @@ export default class TextCommandsValidator {
             }
             let choices = option.config[this.settings.language.commands].choices;
             if(choices) value = choices.find(c => c.name === arg)?.value;
-            if(!value) {
+            if(value === undefined) {
                 if(option.required) return {valid: false, problemOption: option}
                 else this.args = [arg].concat(this.args)
             }
