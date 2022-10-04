@@ -957,7 +957,7 @@
       },
       "embed": {
         "author": "Слоумод",
-        "description": "<:slowmode:718984650956996678> Установлен слоумод в этом канале - `{{slowmode}}`"
+        "description": "{{emoji}} Установлен слоумод в этом канале - `{{slowmode}}`"
       }
     },
     "en": {
@@ -967,7 +967,7 @@
       },
       "embed": {
         "author": "Slowmode",
-        "description": "<:slowmode:718984650956996678> Set slowmode in this channel - `{{slowmode}}`"
+        "description": "{{emoji}} Set slowmode in this channel - `{{slowmode}}`"
       }
     }
   },
