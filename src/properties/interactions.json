@@ -89,7 +89,6 @@
         "author": "Магазин",
         "empty": "Магазин пока пуст",
         "noDescription": "*Описание отсутствует*",
-        "description": "Выберите товар в меню чтобы посмотреть информацию о нем",
         "footer": "Страница"
       },
       "buttons": {
@@ -107,69 +106,38 @@
       "embed": {
         "author": "Shop",
         "empty": "Shop is empty",
-        "description": "Select item from the menu to view information about it",
         "noDescription": "*No description*",
         "footer": "Page"
       },
       "buttons": {
         "backward": "1017012856463573042",
         "forward": "1017013009228501052"
-      },
-      "menu": {
-        "placeholder": "Select item"
-      },
-      "errors": {
-        "notFound": "Item not found. It has most likely been deleted"
       }
     }
   },
-  "Item": {
+  "Warns": {
     "ru": {
       "embed": {
-        "author": "Информация о товаре",
-        "price": "Цена",
-        "xp": "Experience given",
-        "addRole": "Дается роль",
-        "removeRole": "Снимается роль",
-        "none": "нет"
-      },
-      "buyEmbed": {
-        "author": "Купить товар",
-        "description": "Вы успешно купили товар `{{item}}`"
+        "author": "Предупреждения",
+        "empty": "У этого пользователя нет предупреждений",
+        "case": "Случай",
+        "footer": "Страница"
       },
       "buttons": {
-        "buy": {
-          "label": "Купить"
-        }
-      },
-      "errors": {
-        "notFound": "Товар не найден. Скорее всего, он был удален",
-        "noAddRolePermission": "У меня недостаточно прав чтобы дать вам роль {{addRole}}",
-        "noRemoveRolePermission": "У меня недостаточно прав чтобы снять с вас роль {{removeRole}}"
+        "backward": "1017012856463573042",
+        "forward": "1017013009228501052"
       }
     },
     "en": {
       "embed": {
-        "author": "Item info",
-        "price": "Price",
-        "xp": "Experience given",
-        "addRole": "Added role",
-        "removeRole": "Removed role",
-        "none": "none"
-      },
-      "buyEmbed": {
-        "author": "Buy item",
-        "description": "You've successfully bought item `{{item}}`"
+        "author": "Warns",
+        "empty": "This user has no warnings",
+        "case": "Case",
+        "footer": "Page"
       },
       "buttons": {
-        "buy": {
-          "label": "Buy"
-        }
-      },
-      "errors": {
-        "notFound": "Item not found. It has most likely been deleted",
-        "noAddRolePermission": "I have no permission to add you role {{addRole}}",
-        "noRemoveRolePermission": "I have no permission to remove role {{removeRole}} from you"
+        "backward": "1017012856463573042",
+        "forward": "1017013009228501052"
       }
     }
   },
