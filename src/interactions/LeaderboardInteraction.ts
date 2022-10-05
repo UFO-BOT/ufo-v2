@@ -49,7 +49,7 @@ export default class LeaderboardInteraction extends AbstractInteraction implemen
                 .setCustomId(`${this.id}-forward`)
                 .setStyle(ButtonStyle.Primary)
                 .setEmoji(this.props.buttons.forward)
-                .setDisabled(this.data.maxPage === 1),
+                .setDisabled(this.data.maxPage <= 1),
         }
         this.embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
@@ -73,7 +73,7 @@ export default class LeaderboardInteraction extends AbstractInteraction implemen
         this.data.page = result.page;
         this.data.leaders = result.leaders;
         this.components.backward.setDisabled(this.data.page === 1)
-        this.components.forward.setDisabled(this.data.page === this.data.maxPage)
+        this.components.forward.setDisabled(this.data.page >= this.data.maxPage)
         this.setLeaders()
         return {action: "update"};
     }

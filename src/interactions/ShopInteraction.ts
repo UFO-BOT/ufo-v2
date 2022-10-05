@@ -47,7 +47,7 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
                 .setCustomId(`${this.id}-forward`)
                 .setStyle(ButtonStyle.Primary)
                 .setEmoji(this.props.buttons.forward)
-                .setDisabled(this.data.maxPage === 1)
+                .setDisabled(this.data.maxPage <= 1)
         }
         this.embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
@@ -80,7 +80,7 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
         })
         this.embed.setFooter({text: this.props.embed.footer + ` ${this.data.page}/${this.data.maxPage}`})
         this.components.backward.setDisabled(this.data.page === 1)
-        this.components.forward.setDisabled(this.data.page === this.data.maxPage)
+        this.components.forward.setDisabled(this.data.page >= this.data.maxPage)
         return {action: "update"};
     }
 }
