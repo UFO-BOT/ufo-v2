@@ -1,7 +1,6 @@
 import AbstractService from "@/abstractions/AbstractService";
 import ModerationActionOptions from "@/types/ModerationActionOptions";
 import Case from "@/types/database/Case";
-import GuildSettingsCache from "@/types/GuildSettingsCache";
 import properties from "@/properties/moderation.json";
 import Settings from "@/types/database/Settings";
 import {ColorResolvable, EmbedBuilder, GuildTextBasedChannel} from "discord.js";
@@ -10,6 +9,7 @@ import actionExecutionResult from "@/types/ModActionExecutionResult";
 import MakeError from "@/utils/MakeError";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
 import ModerationActionLog from "@/utils/ModerationActionLog";
+import ModAction from "@/types/ModAction";
 
 export default abstract class ModerationAction extends AbstractService {
     public settings: Settings
@@ -20,8 +20,19 @@ export default abstract class ModerationAction extends AbstractService {
 
     public async execute(): Promise<EmbedBuilder> {
         this.settings = await this.db.manager.findOneBy(Settings, {guildid: this.options.guild.id});
-        let lang = this.settings?.language?.interface ?? "en";
+        if(!this.settings) {
+            this.settings = new Settings()
+            this.settings.guildid = this.options.guild.id;
+        }
+        let lang = this.settings.language?.interface ?? "en";
         const props = properties[lang];
+
+        let action = new Case();
+        let cases = await this.db.mongoManager.createCursor(Case, {guildid: this.options.guild.id})
+            .sort({number: -1})
+            .limit(1)
+            .toArray();
+        this.options.number = (cases[0]?.number ?? 0) + 1;
 
         let result = await this.action();
         if(!result.success) {
@@ -29,21 +40,15 @@ export default abstract class ModerationAction extends AbstractService {
             return !this.options.autoMod ?
                 MakeError.other(this.options.member, GuildSettingsManager.toCache(this.settings), {
                     text: errors[result.error]
-            }) : null
+                }) : null
         }
 
-        let action = new Case();
-        let cases = await this.db.mongoManager.createCursor(Case, {guildid: this.options.guild.id})
-            .sort({number: -1})
-            .limit(1)
-            .toArray();
-        let number = (cases[0]?.number ?? 0) + 1;
         let reason = this.options.reason?.length ? this.options.reason : props.notSpecified;
         let ends = this.options.duration ? ` | ${props.ends}` : '';
         action.guildid = this.options.guild.id;
         action.userid = this.options.user.id;
         action.action = this.options.action;
-        action.number = number;
+        action.number = this.options.number;
         action.executor = this.options.executor.id;
         action.reason = reason;
         action.timestamp = Date.now();
@@ -55,12 +60,13 @@ export default abstract class ModerationAction extends AbstractService {
         let embed = new EmbedBuilder()
             .setColor(props.actions[this.options.action].color as ColorResolvable)
             .setAuthor({
-                name: `${props.case} #${number} | ${this.options.member.user.tag} ${props.actions[this.options.action].author}`,
+                name: `${props.case} #${this.options.number} | ${this.options.member.user.tag} ${props.actions[this.options.action].author}`,
                 iconURL: this.options.member.displayAvatarURL()
             })
-            .setDescription(`**${props.reason}:** ${reason}`)
             .setFooter({text: `${props.moderator} ${this.options.executor.user.tag}` + ends})
             .setTimestamp(Date.now() + (this.options.duration ?? 0))
+        if(this.options.action !== ModAction.Unmute && this.options.action !== ModAction.Unban)
+            embed.setDescription(`**${props.reason}:** ${reason}`)
         if (this.options.duration) embed.addFields({
             name: props.duration,
             value: TimeParser.stringify(this.options.duration, lang)

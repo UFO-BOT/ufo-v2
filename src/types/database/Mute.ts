@@ -1,7 +1,7 @@
-import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('mutes')
-export default class Mute {
+export default class Mute extends BaseEntity {
     @ObjectIdColumn()
     _id: ObjectID
 
@@ -21,5 +21,8 @@ export default class Mute {
     infinity: boolean
 
     @Column()
-    started: number
+    timeout?: boolean
+
+    @Column()
+    ends?: Date
 }

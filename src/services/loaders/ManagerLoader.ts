@@ -12,7 +12,7 @@ export default class ManagerLoader extends AbstractService {
                 let ev = require(filePath)?.default
                 if(ev?.scope === 'managerEvent') {
                     let event = new ev()
-                    this.manager.on(event.name, params => event.execute(params))
+                    this.manager.on(event.name, (...params) => event.execute(...params))
                 }
             }
         })

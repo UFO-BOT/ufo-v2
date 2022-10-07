@@ -9,5 +9,6 @@ export default interface ModerationActionOptions {
     executor: GuildMember
     reason: string
     duration?: number
+    number?: number
     autoMod?: boolean
 }

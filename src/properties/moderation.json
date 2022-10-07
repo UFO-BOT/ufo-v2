@@ -21,7 +21,12 @@
         "color": "#ffa700",
         "log": "Мут",
         "author": "был замучен",
-        "errors": {}
+        "errors": {
+          "noMemberPermissions": "У вас недостаточно прав чтобы замутить этого участника",
+          "noBotPermissions": "У меня недостаточно прав чтобы замутить этого участника",
+          "noMuteRolePermissions": "У меня недостаточно прав чтобы создать роль мута. Дайте мне права `Управлять ролями` и `Управлять каналами` или установите существующую роль на сайте",
+          "alreadyMuted": "Этот участник уже замучен"
+        }
       },
       "kick": {
         "color": "#ff5a00",
@@ -42,7 +47,11 @@
         "color": "#00ff74",
         "log": "Размут",
         "author": "был размучен",
-        "errors": {}
+        "errors": {
+          "noMemberPermissions": "У вас недостаточно прав чтобы размутить этого участника",
+          "noBotPermissions": "У меня недостаточно прав чтобы размутить этого участника",
+          "notMuted": "Этот участник не замучен"
+        }
       },
       "unban": {
         "color": "#00ff74",
@@ -74,7 +83,12 @@
         "color": "#ffa700",
         "log": "Mute",
         "author": "has been muted",
-        "errors": {}
+        "errors": {
+          "noMemberPermissions": "You have no permissions to mute this member",
+          "noBotPermissions": "I have no permissions to mute this member",
+          "noMuteRolePermissions": "I have no permissions to create mute role. Give me `Manage roles` and `Manage channels` permissions or set existing role at the website",
+          "alreadyMuted": "This member is already muted"
+        }
       },
       "kick": {
         "color": "#ff5a00",
@@ -95,7 +109,11 @@
         "color": "#00ff74",
         "log": "Unmute",
         "author": "has been unmuted",
-        "errors": {}
+        "errors": {
+          "noMemberPermissions": "You have no permissions to unmute this member",
+          "noBotPermissions": "I have no permissions to unmute this member",
+          "alreadyMuted": "This member is not muted"
+        }
       },
       "unban": {
         "color": "#00ff74",
