@@ -27,14 +27,14 @@
     "ru": {
       "embed": {
         "author": "Автоматический размут",
-        "member": "Участник",
+        "user": "Пользователь",
         "footer": "Случай"
       }
     },
     "en": {
       "embed": {
         "author": "Automatic unmute",
-        "member": "Member",
+        "user": "User",
         "footer": "Case"
       }
     }

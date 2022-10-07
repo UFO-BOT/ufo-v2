@@ -25,7 +25,7 @@ export default class MuteEnding extends AbstractService {
             .setColor(this.constants.colors.success)
             .setAuthor({name: props.data.embed.author + ' ' + member.user.tag, iconURL: member.displayAvatarURL()})
             .addFields({
-                name: props.data.embed.member,
+                name: props.data.embed.user,
                 value: member.toString()
             })
             .setFooter({text: props.data.embed.footer + ' ' + `#${this.mute.casenum}`})
