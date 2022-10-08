@@ -1,7 +1,7 @@
 import Discord, {
     ApplicationCommandOptionType,
     CommandInteraction,
-    CommandInteractionOption,
+    CommandInteractionOption, Guild,
     GuildMember
 } from "discord.js";
 import CommandOption from "@/types/commands/CommandOption";
@@ -10,24 +10,27 @@ import CommandValidationResult from "@/types/commands/CommandValidationResult";
 import TimeParser from "@/utils/TimeParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import Balance from "@/types/database/Balance";
+import Resolver from "@/utils/Resolver";
 
 export default class SlashCommandsValidator {
     public interaction: CommandInteraction
     public interactionOptions: Readonly<Array<CommandInteractionOption>>
     public commandOptions: Array<CommandOption>
+    public guild: Guild
     public settings: GuildSettingsCache
     public balance: Balance
 
     constructor(interaction: Discord.CommandInteraction, interactionOptions: Readonly<Array<CommandInteractionOption>>,
-                commandOptions: Array<CommandOption>, settings: GuildSettingsCache, balance?: Balance) {
+                commandOptions: Array<CommandOption>, guild: Guild, settings: GuildSettingsCache, balance?: Balance) {
         this.interaction = interaction;
         this.interactionOptions = interactionOptions;
         this.commandOptions = commandOptions;
+        this.guild = guild;
         this.settings = settings;
         this.balance = balance;
     }
 
-    public validate(): CommandValidationResult {
+    public async validate(): Promise<CommandValidationResult> {
         let args: Record<string, any> = {};
         for(let option of this.commandOptions)  {
             let interactionOption = this.interactionOptions
@@ -38,7 +41,6 @@ export default class SlashCommandsValidator {
                 ApplicationCommandOptionType[option.type]
             switch (type) {
                 case "GuildMember":
-                    if(!interactionOption.member && option.required) return {valid: false, problemOption: option};
                     let member = interactionOption.member as GuildMember;
                     args[option.name] = member;
                     if(option.noSelf && member?.id === this.interaction.user.id) return {
@@ -48,7 +50,6 @@ export default class SlashCommandsValidator {
                     break;
                 case "Duration":
                     let duration = TimeParser.parse(interactionOption.value as string, this.settings.language.commands)
-                    if(duration === undefined) return {valid: false, problemOption: option}
                     if(duration > 315360000000) return {
                         valid: false,
                         error: {type: "invalidDuration", options: {}}
@@ -64,7 +65,7 @@ export default class SlashCommandsValidator {
                     let arg = interactionOption.value as string;
                     let num = !!arg.match(all[this.settings.language.commands]) ?
                         this.balance?.balance ?? 0 : Number(arg);
-                    if(isNaN(num) || num % 1 || num < this.settings.minBet) return {valid: false, problemOption: option}
+                    if(isNaN(num) || num % 1 || num < this.settings.minBet) num = undefined;
                     let balance = this.balance?.balance ?? 0;
                     if(num > balance) return {
                         valid: false,
@@ -74,6 +75,9 @@ export default class SlashCommandsValidator {
                         }
                     }
                     args[option.name] = num;
+                    break;
+                case "Ban":
+                    args[option.name] = await Resolver.ban(this.guild, interactionOption.value as string);
                     break;
                 case "User":
                     args[option.name] = interactionOption.user
@@ -94,6 +98,7 @@ export default class SlashCommandsValidator {
                 default:
                     args[option.name] = interactionOption.value;
             }
+            if(args[option.name] === undefined && option.required) return {valid: false, problemOption: option};
         }
         return {valid: true, args: args}
     }

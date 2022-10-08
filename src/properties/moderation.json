@@ -41,7 +41,11 @@
         "color": "#ec0b0b",
         "log": "Бан",
         "author": "был забанен",
-        "errors": {}
+        "errors": {
+          "noMemberPermissions": "У вас недостаточно прав чтобы забанить этого пользователя",
+          "noBotPermissions": "У меня недостаточно прав чтобы забанить этого пользователя",
+          "alreadyBanned": "Этот пользователь уже забанен"
+        }
       },
       "unmute": {
         "color": "#00ff74",
@@ -57,7 +61,10 @@
         "color": "#00ff74",
         "log": "Разбан",
         "author": "был разбанен",
-        "errors": {}
+        "errors": {
+          "noBotPermissions": "У меня недостаточно прав чтобы разбанить этого пользователя",
+          "notBanned": "Этот пользователь не забанен"
+        }
       }
     }
   },
@@ -103,7 +110,11 @@
         "color": "#ec0b0b",
         "log": "Ban",
         "author": "has been banned",
-        "errors": {}
+        "errors": {
+          "noMemberPermissions": "You have no permissions to ban this user",
+          "noBotPermissions": "I have no permissions to ban this user",
+          "alreadyBanned": "This user is already banned"
+        }
       },
       "unmute": {
         "color": "#00ff74",
@@ -119,7 +130,10 @@
         "color": "#00ff74",
         "log": "Unban",
         "author": "has been unbanned",
-        "errors": {}
+        "errors": {
+          "noBotPermissions": "I have no permissions to unban this user",
+          "alreadyBanned": "This user is not banned"
+        }
       }
     }
   }

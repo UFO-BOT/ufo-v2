@@ -1,4 +1,4 @@
-import {Guild, GuildBasedChannel, GuildMember, Role, User} from "discord.js";
+import {Guild, GuildBan, GuildBasedChannel, GuildMember, Role, User} from "discord.js";
 
 export default class Resolver {
     public static async member(guild: Guild, arg: string): Promise<GuildMember> {
@@ -53,5 +53,14 @@ export default class Resolver {
             || r.name?.toLowerCase()?.includes(arg)
             || r.toString()?.toLowerCase() === arg
         )
+    }
+
+    public static async ban(guild: Guild, arg: string): Promise<GuildBan> {
+        arg = arg.toLowerCase()
+        await guild.bans.fetch().catch(() => null);
+        return guild.bans.cache.find(b =>
+            b.user.id.toLowerCase() === arg
+            || b.user.tag.toLowerCase().includes(arg)
+            || b.user.toString().toLowerCase() === arg)
     }
 }

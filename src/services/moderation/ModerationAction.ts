@@ -26,6 +26,8 @@ export default abstract class ModerationAction extends AbstractService {
         }
         let lang = this.settings.language?.interface ?? "en";
         const props = properties[lang];
+        if(!this.options.member)
+            this.options.member = await this.options.guild.members.fetch(this.options.user).catch(() => null)
 
         let action = new Case();
         let cases = await this.db.mongoManager.createCursor(Case, {guildid: this.options.guild.id})
@@ -38,7 +40,7 @@ export default abstract class ModerationAction extends AbstractService {
         if(!result.success) {
             let errors = props.actions[this.options.action].errors as Record<string, string>;
             return !this.options.autoMod ?
-                MakeError.other(this.options.member, GuildSettingsManager.toCache(this.settings), {
+                MakeError.other(this.options.executor, GuildSettingsManager.toCache(this.settings), {
                     text: errors[result.error]
                 }) : null
         }
@@ -60,8 +62,8 @@ export default abstract class ModerationAction extends AbstractService {
         let embed = new EmbedBuilder()
             .setColor(props.actions[this.options.action].color as ColorResolvable)
             .setAuthor({
-                name: `${props.case} #${this.options.number} | ${this.options.member.user.tag} ${props.actions[this.options.action].author}`,
-                iconURL: this.options.member.displayAvatarURL()
+                name: `${props.case} #${this.options.number} | ${this.options.user.tag} ${props.actions[this.options.action].author}`,
+                iconURL: this.options.user.displayAvatarURL()
             })
             .setFooter({text: `${props.moderator} ${this.options.executor.user.tag}` + ends})
             .setTimestamp(Date.now() + (this.options.duration ?? 0))

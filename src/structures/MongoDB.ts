@@ -6,6 +6,7 @@ import Coupon from "@/types/database/Coupon";
 import Giveaway from "@/types/database/Giveaway";
 import Case from "@/types/database/Case";
 import Mute from "@/types/database/Mute";
+import Ban from "@/types/database/Ban";
 
 export default class MongoDB extends DataSource {
     public url: string
@@ -26,7 +27,8 @@ export default class MongoDB extends DataSource {
                 Coupon,
                 Giveaway,
                 Case,
-                Mute
+                Mute,
+                Ban
             ]
         })
         global.db = this;

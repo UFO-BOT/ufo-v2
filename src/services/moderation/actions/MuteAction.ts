@@ -5,6 +5,7 @@ import ModActionExecutionResult from "@/types/ModActionExecutionResult";
 import Mute from "@/types/database/Mute";
 import MuteEnding from "@/services/endings/MuteEnding";
 import {BaseGuildTextChannel, BaseGuildVoiceChannel, ChannelType, GuildChannel, Role, ThreadChannel} from "discord.js";
+import MemberModeratable from "@/utils/MemberModeratable";
 
 export default class MuteAction extends ModerationAction {
     constructor(options: Omit<ModerationActionOptions, 'action'>) {
@@ -12,9 +13,7 @@ export default class MuteAction extends ModerationAction {
     }
 
     public async action(): Promise<ModActionExecutionResult> {
-        if (((this.options.guild.ownerId !== this.options.member.id) &&
-                this.options.member.roles.highest.position >= this.options.executor.roles.highest.position) ||
-            this.options.guild.ownerId === this.options.member.id) return {
+        if (!MemberModeratable(this.options.executor, this.options.member)) return {
             success: false,
             error: "noMemberPermissions"
         }

@@ -7,7 +7,8 @@ export default interface ModerationActionOptions {
     user: User
     member?: GuildMember
     executor: GuildMember
-    reason: string
+    daysDelete?: number
+    reason?: string
     duration?: number
     number?: number
     autoMod?: boolean

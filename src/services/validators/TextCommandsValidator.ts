@@ -3,7 +3,6 @@ import CommandOption from "@/types/commands/CommandOption";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import CommandValidationResult from "@/types/commands/CommandValidationResult";
 import Resolver from "@/utils/Resolver";
-import {settings} from "cluster";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import TimeParser from "@/utils/TimeParser";
 import Balance from "@/types/database/Balance";
@@ -49,7 +48,7 @@ export default class TextCommandsValidator {
                     }
                     break;
                 case "LongString":
-                    value = this.args.join(" ")
+                    value = this.args.slice(Number(i)).join(" ")
                     break;
                 case "Duration":
                     value = TimeParser.parse(arg, this.settings.language.commands)
@@ -76,6 +75,9 @@ export default class TextCommandsValidator {
                         }
                     }
                     break;
+                case "Ban":
+                    value = await Resolver.ban(this.guild, arg);
+                    break;
                 case "User":
                     value = await Resolver.user(this.guild, arg)
                     if(option.noSelf && value?.id === this.message.author.id) return {
@@ -92,10 +94,9 @@ export default class TextCommandsValidator {
                     break;
                 case "Number": case "Integer":
                     value = Number(arg);
-                    if(isNaN(value)) value = undefined;
                     if(option.type === ApplicationCommandOptionType.Integer && value % 1) value = undefined;
-                    if(option.minValue && value < option.minValue) value = undefined;
-                    if(option.maxValue && value < option.minValue) value = undefined;
+                    if(option.minValue !== undefined && value < option.minValue) value = undefined;
+                    if(option.maxValue !== undefined && value > option.maxValue) value = undefined;
                     break;
                 case "String":
                     value = arg;

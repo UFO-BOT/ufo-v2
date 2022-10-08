@@ -11,8 +11,6 @@ import UnmuteAction from "@/services/moderation/actions/UnmuteAction";
 
 interface UnuteCommandDTO {
     member: GuildMember
-    duration?: number
-    reason?: string
 }
 
 export default class UnmuteCommand extends AbstractCommand implements Command {
@@ -55,9 +53,7 @@ export default class UnmuteCommand extends AbstractCommand implements Command {
             guild: ctx.guild,
             user: ctx.args.member.user,
             member: ctx.args.member,
-            executor: ctx.member,
-            duration: ctx.args.duration,
-            reason: ctx.args.reason
+            executor: ctx.member
         })
         let embed = await action.execute();
         return {reply: {embeds: [embed]}}

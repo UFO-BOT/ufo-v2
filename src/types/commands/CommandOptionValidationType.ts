@@ -2,7 +2,8 @@ enum CommandOptionValidationType {
     GuildMember = 1,
     Duration,
     LongString,
-    Bet
+    Bet,
+    Ban
 }
 
 export default CommandOptionValidationType;

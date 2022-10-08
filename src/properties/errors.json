@@ -42,6 +42,7 @@
           "Duration": "Длительность",
           "LongString": "Длинная строка",
           "Bet": "Ставка",
+          "Ban": "Забаненный пользователь",
           "GuildText": "Текстовый",
           "GuildNews": "Объявления"
         }
@@ -75,6 +76,7 @@
           "Duration": "Duration",
           "LongString": "Long string",
           "Bet": "Bet",
+          "Ban": "Banned user",
           "GuildText": "Text",
           "GuildNews": "News"
         }

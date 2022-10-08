@@ -1,7 +1,7 @@
-import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('tempbans')
-export default class Tempban {
+export default class Ban extends BaseEntity {
     @ObjectIdColumn()
     _id: ObjectID
 
@@ -15,8 +15,8 @@ export default class Tempban {
     casenum: number
 
     @Column()
-    started: number
+    timeout: boolean
 
     @Column()
-    duration: number
+    ends: Date
 }
