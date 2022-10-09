@@ -1,14 +1,13 @@
-import {ChannelType, Role, ThreadChannel} from "discord.js";
+import {ChannelType} from "discord.js";
 import ModerationAction from "@/services/moderation/ModerationAction";
 import ModerationActionOptions from "@/types/ModerationActionOptions";
 import ModAction from "@/types/ModAction";
 import ModActionExecutionResult from "@/types/ModActionExecutionResult";
-import Mute from "@/types/database/Mute";
-import MuteEnding from "@/services/endings/MuteEnding";
 import Ban from "@/types/database/Ban";
-import {options} from "superagent";
 import MemberModeratable from "@/utils/MemberModeratable";
 import BanEnding from "@/services/endings/BanEnding";
+import properties from "@/properties/moderation.json"
+import TimeParser from "@/utils/TimeParser";
 
 export default class BanAction extends ModerationAction {
     constructor(options: Omit<ModerationActionOptions, 'action'>) {
@@ -16,6 +15,8 @@ export default class BanAction extends ModerationAction {
     }
 
     public async action(): Promise<ModActionExecutionResult> {
+        const props = properties[this.settings.language?.interface ?? 'en'];
+
         if (!MemberModeratable(this.options.executor, this.options.member)) return {
             success: false,
             error: "noMemberPermissions"
@@ -48,6 +49,14 @@ export default class BanAction extends ModerationAction {
             }, this.options.duration)
         }
         this.options.member = await this.options.guild.members.fetch(this.options.user).catch(() => null)
+        if(this.options.member) {
+            let msg = (this.options.duration ? props.dms.TempBan : props.dms.ban)
+                .replace("{{server}}", this.options.guild.name)
+                .replace("{{moderator}}", this.options.executor.user.tag)
+                .replace("{{duration}}", TimeParser.stringify(this.options.duration, this.settings.language?.interface ?? "en", true))
+                .replace("{{reason}}", this.options.reason)
+            await this.options.member.send({content: msg}).catch(() => null);
+        }
         await this.options.guild.members.ban(this.options.user, {
             deleteMessageDays: this.options.daysDelete ?? 0,
             reason: this.options.reason

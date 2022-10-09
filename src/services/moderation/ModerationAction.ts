@@ -35,6 +35,7 @@ export default abstract class ModerationAction extends AbstractService {
             .limit(1)
             .toArray();
         this.options.number = (cases[0]?.number ?? 0) + 1;
+        this.options.reason = this.options.reason?.length ? this.options.reason : props.notSpecified;
 
         let result = await this.action();
         if(!result.success) {
@@ -45,14 +46,13 @@ export default abstract class ModerationAction extends AbstractService {
                 }) : null
         }
 
-        let reason = this.options.reason?.length ? this.options.reason : props.notSpecified;
         let ends = this.options.duration ? ` | ${props.ends}` : '';
         action.guildid = this.options.guild.id;
         action.userid = this.options.user.id;
         action.action = this.options.action;
         action.number = this.options.number;
         action.executor = this.options.executor.id;
-        action.reason = reason;
+        action.reason = this.options.reason;
         action.timestamp = Date.now();
         action.duration = this.options.duration ?? null;
         await this.db.manager.save(action);
@@ -68,7 +68,7 @@ export default abstract class ModerationAction extends AbstractService {
             .setFooter({text: `${props.moderator} ${this.options.executor.user.tag}` + ends})
             .setTimestamp(Date.now() + (this.options.duration ?? 0))
         if(this.options.action !== ModAction.Unmute && this.options.action !== ModAction.Unban)
-            embed.setDescription(`**${props.reason}:** ${reason}`)
+            embed.setDescription(`**${props.reason}:** ${this.options.reason}`)
         if (this.options.duration) embed.addFields({
             name: props.duration,
             value: TimeParser.stringify(this.options.duration, lang)

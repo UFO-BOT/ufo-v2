@@ -8,6 +8,11 @@
     "duration": "Длительность",
     "case": "Случай",
     "ends": "Заканчивается",
+    "dms": {
+      "kick": "Вы были кикнуты с сервера **{{server}}** модератором **{{moderator}}** по причине: {{reason}}",
+      "ban": "Вы были забанены на сервере **{{server}}** модератором **{{moderator}}** по причине: {{reason}}",
+      "TempBan": "Вы были забанены на сервере **{{server}}** модератором **{{moderator}}** на `{{duration}}` по причине: {{reason}}"
+    },
     "actions": {
       "warn": {
         "color": "#f6ff00",
@@ -77,6 +82,11 @@
     "duration": "Duration",
     "case": "Case",
     "ends": "Ends at",
+    "dms": {
+      "kick": "You have been kicked from server **{{server}}** by **{{moderator}}** with a reason: {{reason}}",
+      "ban": "You have been banned from server **{{server}}** by **{{moderator}}** with a reason: {{reason}}",
+      "TempBan": "You have been banned from server **{{server}}** by **{{moderator}}** for `{{duration}}` with a reason: {{reason}}"
+    },
     "actions": {
       "warn": {
         "color": "#f6ff00",
@@ -123,7 +133,7 @@
         "errors": {
           "noMemberPermissions": "You have no permissions to unmute this member",
           "noBotPermissions": "I have no permissions to unmute this member",
-          "alreadyMuted": "This member is not muted"
+          "notMuted": "This member is not muted"
         }
       },
       "unban": {
