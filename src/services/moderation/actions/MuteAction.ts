@@ -73,6 +73,7 @@ export default class MuteAction extends ModerationAction {
             await channel.permissionOverwrites.create(role, {
                 SendMessages: false,
                 AddReactions: false,
+                ManageThreads: false,
                 CreatePublicThreads: false,
                 CreatePrivateThreads: false,
                 SendMessagesInThreads: false,
