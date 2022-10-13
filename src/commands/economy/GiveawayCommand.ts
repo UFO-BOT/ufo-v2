@@ -113,23 +113,23 @@ export default class GiveawayCommand extends AbstractCommand implements Command 
         giveaway.creator = ctx.member.id
         giveaway.number = number
         giveaway.prize = ctx.args.amount
-        giveaway.started = Date.now()
-        giveaway.duration = ctx.args.duration
+        giveaway.ends = new Date(Date.now() + ctx.args.duration)
         return {reply: {embeds: [embed]}, data: {giveaway}}
     }
 
     public async after(message: Message, data: GiveawayCommandData) {
         data.giveaway.message = message.id;
-        if(data.giveaway.duration < 60000) data.giveaway.timeout = true;
+        let time = data.giveaway.ends.getTime() - Date.now()
+        if(time < 60000) data.giveaway.timeout = true;
         await this.db.manager.save(data.giveaway);
         await message.react("755726912273383484");
-        if(data.giveaway.duration < 60000) {
+        if(time < 60000) {
             setTimeout(async () => {
                 data.giveaway = await this.db.manager.findOneBy(Giveaway, {message: data.giveaway.message});
                 if(!data.giveaway) return;
                 let ending = new GiveawayEnding(data.giveaway);
                 await ending.end();
-            }, data.giveaway.duration)
+            },time)
         }
     }
 }

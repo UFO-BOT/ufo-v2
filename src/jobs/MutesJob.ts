@@ -9,6 +9,10 @@ export default class MutesJob extends AbstractJob {
         let mutes = await this.db.mongoManager.findBy(Mute, {ends: {$lte: date}})
         for(let mute of mutes) {
             let time = mute.ends.getTime() - Date.now();
+            let guild = await this.manager.oneShardEval((client, context)  => {
+                return client.guilds.cache.get(context.id);
+            }, {context: {id: mute.guildid}});
+            if(!guild) return mute.remove();
             if(new Date() < mute.ends && mute.timeout) continue;
             mute.timeout = true;
             await mute.save();

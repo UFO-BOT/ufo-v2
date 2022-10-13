@@ -24,10 +24,7 @@ export default class Giveaway extends BaseEntity {
     prize: number
 
     @Column()
-    started: number
-
-    @Column()
-    duration: number
+    ends: Date
 
     @Column()
     timeout: boolean

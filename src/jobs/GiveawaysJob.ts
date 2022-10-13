@@ -5,9 +5,14 @@ export default class GiveawaysJob extends AbstractJob {
     public interval = 60000
 
     public async execute(): Promise<any> {
-        let giveaways = await this.db.mongoManager.findBy(Giveaway, {})
+        let date = new Date(Date.now()+60000)
+        let giveaways = await this.db.mongoManager.findBy(Giveaway, {ends: {$lte: date}})
         for(let giveaway of giveaways) {
-            let time = giveaway.duration - (Date.now() - giveaway.started);
+            let time = giveaway.ends.getTime() - Date.now();
+            let guild = await this.manager.oneShardEval((client, context)  => {
+                return client.guilds.cache.get(context.id);
+            }, {context: {id: giveaway.guildid}});
+            if(!guild) return giveaway.remove();
             if(time > 0 && giveaway.timeout) continue;
             if(time <= 60000) {
                 giveaway.timeout = true;

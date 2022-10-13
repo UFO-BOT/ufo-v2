@@ -9,6 +9,10 @@ export default class BansJob extends AbstractJob {
         let bans = await this.db.mongoManager.findBy(Ban, {ends: {$lte: date}})
         for(let ban of bans) {
             let time = ban.ends.getTime() - Date.now();
+            let guild = await this.manager.oneShardEval((client, context)  => {
+                return client.guilds.cache.get(context.id);
+            }, {context: {id: ban.guildid}});
+            if(!guild) return ban.remove();
             if(new Date() < ban.ends && ban.timeout) continue;
             ban.timeout = true;
             await ban.save();
