@@ -102,8 +102,10 @@ export default class UserCommand extends AbstractCommand implements Command {
             value: TimeParser.formatTimestamp(user.createdTimestamp, "f")})
         if(member && member?.roles.highest.id !== ctx.member.guild.id) embed.addFields({name: ctx.response.data.embed.highestRole,
             value: member.roles.highest.toString()})
+        user = await user.fetch(true)
         embed
-            .setThumbnail(user.avatar ? user.avatarURL() : `https://cdn.discordapp.com/embed/avatars/${Number(user.discriminator)%5}.png?width=230&height=230`)
+            .setThumbnail(user.avatarURL())
+            .setImage(user.bannerURL({size: 2048}))
             .setFooter({text: `ID: ${user.id}`});
         return {reply: {embeds: [embed]}}
     }
