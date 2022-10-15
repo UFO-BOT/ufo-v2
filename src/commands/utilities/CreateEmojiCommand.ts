@@ -86,6 +86,7 @@ export default class CreateEmojiCommand extends AbstractCommand implements Comma
     ]
     public category = CommandCategory.Utilities;
     public defaultMemberPermissions: PermissionResolvable = ["ManageEmojisAndStickers"];
+    public botPermissions: PermissionResolvable = ["ManageEmojisAndStickers"];
     public deferReply = true
 
     public async execute(ctx: CommandExecutionContext<CreateEmojiCommandDTO>): Promise<CommandExecutionResult> {

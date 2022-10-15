@@ -67,6 +67,14 @@ export default class MakeError {
             .setDescription(error.embed.description.replace("{{perms}}", perms.map(p => '`' + p + '`').join(", ")));
     }
 
+    static noBotPermissions(member: GuildMember, settings: GuildSettingsCache, perms: Array<string>): EmbedBuilder {
+        let error = errors.noBotPermissions[settings.language.interface];
+        return new EmbedBuilder()
+            .setColor(colors.error)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(error.embed.description.replace("{{perms}}", perms.map(p => '`' + p + '`').join(", ")));
+    }
+
     static userCoolDown(member: GuildMember, settings: GuildSettingsCache, options: {time: number}): EmbedBuilder {
         let error = errors.userCooldown[settings.language.interface];
         return new EmbedBuilder()

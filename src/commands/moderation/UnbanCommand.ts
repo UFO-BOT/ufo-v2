@@ -46,6 +46,7 @@ export default class UnbanCommand extends AbstractCommand implements Command {
     ]
     public category = CommandCategory.Moderation;
     public defaultMemberPermissions: PermissionResolvable = ["BanMembers"];
+    public botPermissions: PermissionResolvable = ["BanMembers"];
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<UnbanCommandDTO>): Promise<CommandExecutionResult> {

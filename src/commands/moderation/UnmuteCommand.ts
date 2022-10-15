@@ -46,6 +46,7 @@ export default class UnmuteCommand extends AbstractCommand implements Command {
     ]
     public category = CommandCategory.Moderation;
     public defaultMemberPermissions: PermissionResolvable = ["KickMembers"];
+    public botPermissions: PermissionResolvable = ["ManageRoles"];
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<UnuteCommandDTO>): Promise<CommandExecutionResult> {

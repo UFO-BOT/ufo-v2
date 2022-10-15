@@ -16,6 +16,7 @@ export default abstract class AbstractCommand extends Base implements Command {
     public abstract options: Array<CommandOption>
     public abstract category: CommandCategory
     public defaultMemberPermissions?: PermissionResolvable
+    public botPermissions?: PermissionResolvable
     public deferReply?: boolean
     public boostRequired?: boolean
 

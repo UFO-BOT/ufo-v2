@@ -155,6 +155,20 @@
       }
     }
   },
+  "noBotPermissions": {
+    "ru": {
+      "embed": {
+        "author": "Ошибка",
+        "description": "Для выполнения этой команды мне нужны следующие права: {{perms}}"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Error",
+        "description": "I need these permissions to execute this command: {{perms}}"
+      }
+    }
+  },
   "certainRoles": {
     "ru": {
       "embed": {

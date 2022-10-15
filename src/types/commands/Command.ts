@@ -9,6 +9,7 @@ export default interface Command {
     options: Array<CommandOption>
     category: CommandCategory
     defaultMemberPermissions?: PermissionResolvable
+    botPermissions?: PermissionResolvable
     deferReply?: boolean
     boostRequired?: boolean
 }

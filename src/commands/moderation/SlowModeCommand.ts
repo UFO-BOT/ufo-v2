@@ -1,4 +1,4 @@
-import Discord, {ApplicationCommandOptionType, EmbedBuilder, GuildMember, PermissionResolvable} from "discord.js";
+import {ApplicationCommandOptionType, EmbedBuilder, PermissionResolvable} from "discord.js";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
 import Command from "../../types/commands/Command";
@@ -7,8 +7,6 @@ import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
-import WarnAction from "@/services/moderation/actions/WarnAction";
-import KickAction from "@/services/moderation/actions/KickAction";
 import TimeParser from "@/utils/TimeParser";
 
 interface SlowModeCommandDTO {
@@ -48,6 +46,7 @@ export default class SlowModeCommand extends AbstractCommand implements Command 
     ]
     public category = CommandCategory.Moderation;
     public defaultMemberPermissions: PermissionResolvable = ["ManageChannels"];
+    public botPermissions: PermissionResolvable = ["ManageChannels"];
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<SlowModeCommandDTO>): Promise<CommandExecutionResult> {
