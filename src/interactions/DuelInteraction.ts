@@ -181,8 +181,8 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
         else {
             let part = Math.round(Math.random()*100)
             let shotPart: 'leg' | 'body' | 'head';
-            if(scope) shotPart = part <= 40 ? 'leg' : (part > 40 && part < 95 ? 'body' : 'head')
-            else shotPart = part <= 15 ? 'leg' : (part > 15 && part < 85 ? 'body' : 'head')
+            if(scope) shotPart = part <= 15 ? 'leg' : (part > 15 && part < 85 ? 'body' : 'head')
+            else shotPart = part <= 40 ? 'leg' : (part > 40 && part < 95 ? 'body' : 'head')
             let hp;
             switch (shotPart) {
                 case "leg":
