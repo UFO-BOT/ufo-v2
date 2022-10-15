@@ -13,8 +13,6 @@ import CommandOption from "../../types/commands/CommandOption";
 import CommandCategory from "../../types/commands/CommandCategory";
 import CommandExecutionContext from "../../types/commands/CommandExecutionContext";
 import CommandExecutionResult from "../../types/commands/CommandExecutionResult";
-import Language from "../../types/Language";
-import MakeError from "../../utils/MakeError";
 
 interface CreateEmojiCommandDTO {
     name: string
@@ -114,7 +112,7 @@ export default class CreateEmojiCommand extends AbstractCommand implements Comma
                         error = ctx.response.data.errors.emojisLimit
                     } else if (err.message.includes('must be a')) {
                         error = ctx.response.data.errors.invalidImage
-                    } else if (err.message.includes('file cannot be larger than')) {
+                    } else if (err.message.includes('size')) {
                         error = ctx.response.data.errors.imageTooLarge
                     } else {
                         error = ctx.response.data.errors.unknownError

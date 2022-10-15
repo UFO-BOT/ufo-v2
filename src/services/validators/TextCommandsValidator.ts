@@ -31,14 +31,14 @@ export default class TextCommandsValidator {
             let value;
             let option = this.commandOptions[i];
             let arg = this.args[i];
-            if(!arg) {
+            let type = option.validationType ?
+                CommandOptionValidationType[option.validationType] :
+                ApplicationCommandOptionType[option.type]
+            if(!arg && type !== "Attachment") {
                 if(option.required) return {valid: false, problemOption: option}
                 else this.args = [arg].concat(this.args)
                 continue;
             }
-            let type = option.validationType ?
-                CommandOptionValidationType[option.validationType] :
-                ApplicationCommandOptionType[option.type]
             switch (type) {
                 case "GuildMember":
                     value = await Resolver.member(this.guild, arg);
@@ -49,6 +49,8 @@ export default class TextCommandsValidator {
                     break;
                 case "LongString":
                     value = this.args.slice(Number(i)).join(" ")
+                    if(option.minLength !== undefined && value?.length < option.minLength) value = undefined;
+                    if(option.maxLength !== undefined && value?.length > option.maxLength) value = undefined;
                     break;
                 case "Duration":
                     value = TimeParser.parse(arg, this.settings.language.commands)
@@ -100,6 +102,11 @@ export default class TextCommandsValidator {
                     break;
                 case "String":
                     value = arg;
+                    if(option.minLength !== undefined && value?.length < option.minLength) value = undefined;
+                    if(option.maxLength !== undefined && value?.length > option.maxLength) value = undefined;
+                    break;
+                case "Attachment":
+                    value = this.message.attachments.first()
             }
             let choices = option.config[this.settings.language.commands].choices;
             if(choices) value = choices.find(c => c.name === arg)?.value;
@@ -107,6 +114,7 @@ export default class TextCommandsValidator {
                 if(option.required) return {valid: false, problemOption: option}
                 else this.args = [arg].concat(this.args)
             }
+            else if(type === "Attachment") this.args = [arg].concat(this.args)
             args[option.name] = value;
         }
         return {valid: true, args: args}
