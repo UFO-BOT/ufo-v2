@@ -59,7 +59,8 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
                 .setAuthor({name: this.props.embed.author, iconURL: data.member.displayAvatarURL()})
                 .setDescription(this.props.embed.acceptDescription
                     .replace("{{opponent}}", this.data.opponent.toString())
-                    .replace("{{bet}}", this.data.bet + this.settings.moneysymb)
+                    .replace("{{bet}}", this.data.bet
+                        .toLocaleString(this.settings.language.interface) + this.settings.moneysymb)
                     .replace("{{member}}", this.data.member.toString())
                 )
         }

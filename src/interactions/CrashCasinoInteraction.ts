@@ -89,7 +89,8 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
             this.embed
                 .setColor(this.constants.colors.error)
                 .setDescription(`**${this.props.embed.result}:** -${this.data.bet}${this.settings.moneysymb}\n` +
-                    `**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`)
+                    `**${this.props.embed.currentBalance}:** ${this.data.balance.balance
+                        .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
                 .setFields([
                     {name: this.props.embed.bet, value: this.data.bet
                             .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},
@@ -107,7 +108,8 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
         this.embed
             .setColor(this.constants.colors.success)
             .setDescription(`**${this.props.embed.result}:** +${gain}${this.settings.moneysymb}\n` +
-                `**${this.props.embed.currentBalance}:** ${this.data.balance.balance}${this.settings.moneysymb}`)
+                `**${this.props.embed.currentBalance}:** ${this.data.balance.balance
+                    .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
             .setFields([
                 {name: this.props.embed.bet, value: this.data.bet
                         .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},

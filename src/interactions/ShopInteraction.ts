@@ -74,7 +74,8 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
         this.embed.data.fields = []
         this.data.items.slice((this.data.page-1) * 10, this.data.page * 10).forEach(item => {
             this.embed.addFields({
-                name: `${item.name} - ${item.price.toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`,
+                name: `${item.name} - ${item.price
+                    .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`,
                 value: item.description?.length ? item.description : this.props.embed.noDescription
             })
         })

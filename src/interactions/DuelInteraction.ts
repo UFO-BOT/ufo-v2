@@ -78,7 +78,8 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
             .setAuthor({name: this.props.embed.author})
             .setDescription(this.props.embed.acceptDescription
                 .replace("{{opponent}}", this.data.players[1].member.toString())
-                .replace("{{bet}}", this.data.bet + this.settings.moneysymb)
+                .replace("{{bet}}", this.data.bet
+                    .toLocaleString(this.settings.language.interface) + this.settings.moneysymb)
                 .replace("{{member}}", this.data.players[0].member.toString())
             )
     }
@@ -162,8 +163,10 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
         await winner.balance.save();
         this.embed.setDescription(this.embed.data.description.split("\n")[0] + "\n" +
         `**${this.props.embed.winner}:** ${winner.member.toString()}\n` +
-        `**${winner.member.user.tag}:** +${this.data.bet}${this.settings.moneysymb}\n` +
-        `**${player.member.user.tag}:** -${this.data.bet}${this.settings.moneysymb}`)
+        `**${winner.member.user.tag}:** +${this.data.bet
+            .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}\n` +
+        `**${player.member.user.tag}:** -${this.data.bet
+            .toLocaleString(this.settings.language.interface)}${this.settings.moneysymb}`)
     }
 
     private shoot() {
