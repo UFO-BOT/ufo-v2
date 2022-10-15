@@ -85,7 +85,14 @@ export default class TextCommandsHandler extends AbstractService {
                 userid: this.message.author.id
             })
         }
-        let validator = new TextCommandsValidator(this.message, args, command.options, this.message.guild, settings, balance);
+
+        let validator = new TextCommandsValidator({
+            message: this.message,
+            args,
+            commandOptions: command.options,
+            guild: this.message.guild,
+            balance
+        });
         let validationResult = await validator.validate();
         if (!validationResult.valid) {
             let error = MakeError[validationResult.error?.type] as ErrorFunction;

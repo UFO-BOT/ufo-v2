@@ -58,8 +58,14 @@ export default class SlashCommandsHandler extends AbstractService {
                 userid: this.interaction.user.id
             })
         }
-        let validator = new SlashCommandsValidator(this.interaction, this.interaction.options.data, command.options,
-            this.interaction.guild, settings, balance);
+
+        let validator = new SlashCommandsValidator({
+            interaction: this.interaction,
+            interactionOptions: this.interaction.options.data,
+            commandOptions: command.options,
+            guild: this.interaction.guild,
+            balance
+        });
         let validationResult = await validator.validate();
         if (!validationResult.valid) {
             let error = MakeError[validationResult.error?.type] as ErrorFunction;

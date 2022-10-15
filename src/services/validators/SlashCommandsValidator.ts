@@ -1,4 +1,4 @@
-import Discord, {
+import {
     ApplicationCommandOptionType,
     CommandInteraction,
     CommandInteractionOption, Guild,
@@ -11,30 +11,29 @@ import TimeParser from "@/utils/TimeParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import Balance from "@/types/database/Balance";
 import Resolver from "@/utils/Resolver";
+import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import AbstractService from "@/abstractions/AbstractService";
 
-export default class SlashCommandsValidator {
-    public interaction: CommandInteraction
-    public interactionOptions: Readonly<Array<CommandInteractionOption>>
-    public commandOptions: Array<CommandOption>
-    public guild: Guild
-    public settings: GuildSettingsCache
-    public balance: Balance
+interface SlashCommandsValidatorOptions {
+    interaction: CommandInteraction
+    interactionOptions: Readonly<Array<CommandInteractionOption>>
+    commandOptions: Array<CommandOption>
+    guild: Guild
+    settings?: GuildSettingsCache
+    balance?: Balance
+}
 
-    constructor(interaction: Discord.CommandInteraction, interactionOptions: Readonly<Array<CommandInteractionOption>>,
-                commandOptions: Array<CommandOption>, guild: Guild, settings: GuildSettingsCache, balance?: Balance) {
-        this.interaction = interaction;
-        this.interactionOptions = interactionOptions;
-        this.commandOptions = commandOptions;
-        this.guild = guild;
-        this.settings = settings;
-        this.balance = balance;
+export default class SlashCommandsValidator extends AbstractService {
+    constructor(public options: SlashCommandsValidatorOptions) {
+        super()
+        this.options.settings = this.client.cache.settings.get(this.options.guild.id);
     }
 
     public async validate(): Promise<CommandValidationResult> {
         let args: Record<string, any> = {};
-        for(let option of this.commandOptions)  {
-            let interactionOption = this.interactionOptions
-                .find(o => o.name === option.config[this.settings.language.commands].name);
+        for(let option of this.options.commandOptions)  {
+            let interactionOption = this.options.interactionOptions
+                .find(o => o.name === option.config[this.options.settings.language.commands].name);
             if(!interactionOption) continue;
             let type = option.validationType ?
                 CommandOptionValidationType[option.validationType] :
@@ -43,13 +42,13 @@ export default class SlashCommandsValidator {
                 case "GuildMember":
                     let member = interactionOption.member as GuildMember;
                     args[option.name] = member;
-                    if(option.noSelf && member?.id === this.interaction.user.id) return {
+                    if(option.noSelf && member?.id === this.options.interaction.user.id) return {
                         valid: false,
                         error: {type: "noSelf", options: {}}
                     }
                     break;
                 case "Duration":
-                    let duration = TimeParser.parse(interactionOption.value as string, this.settings.language.commands)
+                    let duration = TimeParser.parse(interactionOption.value as string, this.options.settings.language.commands)
                     if(duration > 315360000000) return {
                         valid: false,
                         error: {type: "invalidDuration", options: {}}
@@ -57,16 +56,16 @@ export default class SlashCommandsValidator {
                     args[option.name] = duration;
                     break;
                 case "Bet":
-                    option.minValue = this.settings.minBet;
+                    option.minValue = this.options.settings.minBet;
                     let all = {
                         ru: /^вс[её]$/i,
                         en: /^all$/i
                     }
                     let arg = interactionOption.value as string;
-                    let num = !!arg.match(all[this.settings.language.commands]) ?
-                        this.balance?.balance ?? 0 : Number(arg);
-                    if(isNaN(num) || num % 1 || num < this.settings.minBet) num = undefined;
-                    let balance = this.balance?.balance ?? 0;
+                    let num = !!arg.match(all[this.options.settings.language.commands]) ?
+                        this.options.balance?.balance ?? 0 : Number(arg);
+                    if(isNaN(num) || num % 1 || num < this.options.settings.minBet) num = undefined;
+                    let balance = this.options.balance?.balance ?? 0;
                     if(num > balance) return {
                         valid: false,
                         error: {
@@ -77,11 +76,11 @@ export default class SlashCommandsValidator {
                     args[option.name] = num;
                     break;
                 case "Ban":
-                    args[option.name] = await Resolver.ban(this.guild, interactionOption.value as string);
+                    args[option.name] = await Resolver.ban(this.options.guild, interactionOption.value as string);
                     break;
                 case "User":
                     args[option.name] = interactionOption.user
-                    if(option.noSelf && interactionOption.user?.id === this.interaction.user.id) return {
+                    if(option.noSelf && interactionOption.user?.id === this.options.interaction.user.id) return {
                         valid: false,
                         error: {type: "noSelf", options: {}}
                     }
