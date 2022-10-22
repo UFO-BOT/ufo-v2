@@ -489,13 +489,18 @@
         "economy": "Экономика",
         "games": "Игры",
         "utilities": "Утилиты",
-        "moderation": "Модерация",
-        "greetings": "Приветствия",
-        "disabled": "Отключенные команды"
+        "moderation": "Модерация"
+      },
+      "emojis": {
+        "general": "\uD83D\uDD30",
+        "economy": "\uD83D\uDCB0",
+        "games": "\uD83D\uDCF1",
+        "utilities": "\uD83D\uDD27",
+        "moderation": "\uD83D\uDD28"
       },
       "embed": {
         "title": "Команды",
-        "description": "Чтобы получить подробную информацию об отдельной команде или категории, введите: {{helpCommand}} `[команда/категория]`\nНастройки бота на сайте: https://ufobot.ru",
+        "description": "Чтобы получить подробную информацию об отдельной команде или категории, введите: `{{helpCommand}} [команда/категория]`\nНастройки бота на сайте: https://ufobot.ru",
         "footer": "Разработчик",
         "usage": "Использование",
         "aliases": "Псевдонимы (алиасы)",
@@ -511,13 +516,18 @@
         "economy": "Economy",
         "games": "Games",
         "utilities": "Utilities",
-        "moderation": "Moderation",
-        "greetings": "Greetings",
-        "disabled": "Disabled commands"
+        "moderation": "Moderation"
+      },
+      "emojis": {
+        "general": "\uD83D\uDD30",
+        "economy": "\uD83D\uDCB0",
+        "games": "\uD83D\uDCF1",
+        "utilities": "\uD83D\uDD27",
+        "moderation": "\uD83D\uDD28"
       },
       "embed": {
         "title": "Commands",
-        "description": "To get detailed information about specific command or category, enter: {{helpCommand}} `[command/category]`\nBot settings are on the website: https://ufobot.ru",
+        "description": "To get detailed information about specific command or category, enter: `{{helpCommand}} [command/category]`\nBot settings are on the website: https://ufobot.ru",
         "footer": "Developer",
         "usage": "Usage",
         "aliases": "Aliases",

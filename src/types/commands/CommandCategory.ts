@@ -1,8 +1,8 @@
 enum CommandCategory {
-    General,
-    Economy,
-    Moderation,
-    Utilities,
-    Games
+    General = 'general',
+    Economy = 'economy',
+    Moderation = 'moderation',
+    Utilities = 'utilities',
+    Games = 'games'
 }
 export default CommandCategory;
