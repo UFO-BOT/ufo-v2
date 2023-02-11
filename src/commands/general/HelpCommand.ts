@@ -64,8 +64,8 @@ export default class HelpCommand extends AbstractCommand implements Command {
             .setDescription(ctx.response.data.embed.description)
             .setThumbnail(this.client.user.avatarURL())
         for (let category in ctx.response.data.categories) {
-            let emoji = ctx.response.data.categories[category] as string
-            let categoryName = emoji + ctx.response.data.categories[category] as string
+            let emoji = ctx.response.data.emojis[category] as string
+            let categoryName = emoji + " " + ctx.response.data.categories[category] as string
             embed.addFields({
                 name: categoryName,
                 value: this.client.cache.commands.filter(cmd => cmd.category === category)

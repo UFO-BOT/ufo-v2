@@ -111,7 +111,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
     }
 
     private async accept(): Promise<InteractionExecutionResult> {
-        await this.data.players[1].balance.reload().catch(() => null)
+        await this.data.players[1].balance?.reload().catch(() => null)
         if (this.data.players[1].balance.balance < this.data.bet) return {
             error: {
                 type: "notEnoughMoney",
