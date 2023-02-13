@@ -15,7 +15,7 @@ export default class Manager extends Discord.ShardingManager {
     }
 
     oneShardEval<T, P>(script: (client: Discord.Client, context: Serialized<P>) => Awaitable<T>,
-                       options: {context: P}): Promise<Serialized<T>> {
+                       options?: {context: P}): Promise<Serialized<T>> {
         return new Promise(async (resolve) => {
             let results = await this.broadcastEval(script, options)
             let result = results.find(r => !!r)

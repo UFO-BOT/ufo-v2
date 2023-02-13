@@ -11,4 +11,15 @@ const manager = new Manager('dist/src/shard.js', {
     mode: 'process'
 })
 
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from '@/api/modules/app.module';
+
+async function bootstrap() {
+    const app = await NestFactory.create(AppModule);
+    app.enableCors();
+    await app.listen(4827);
+}
+bootstrap();
+
+
 manager.start()
