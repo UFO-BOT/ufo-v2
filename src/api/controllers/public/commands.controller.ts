@@ -1,10 +1,10 @@
 import {Controller, Get} from "@nestjs/common";
 import Base from "@/abstractions/Base";
 
-@Controller("public")
+@Controller('commands')
 export class CommandsController extends Base {
 
-    @Get('commands')
+    @Get()
     async execute() {
         return await this.manager.shards.first().eval(client =>
             (client as typeof this.client).cache.commands.map(cmd => {

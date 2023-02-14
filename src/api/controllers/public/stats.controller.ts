@@ -13,10 +13,10 @@ interface ShardStats {
     memory: number
 }
 
-@Controller("public")
+@Controller('stats')
 export class StatsController extends Base {
 
-    @Get('stats')
+    @Get()
     async execute() {
         let DBPing = Date.now();
         await this.db.manager.findOneBy(Balance, {});

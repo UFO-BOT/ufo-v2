@@ -12,9 +12,12 @@ declare global {
 
         interface ProcessEnv {
             TOKEN: string
+            SECRET: string
             TOTAL_SHARDS: number
+            PORT: number
             DB_URL: string
             DB_NAME: string
+            DISCORD_API: string
             WEBSITE: string
             BOT_INVITE: string
             SUPPORT_SERVER: string
