@@ -4,7 +4,7 @@ import {RawGuildData} from "discord.js/typings/rawDataTypes";
 import {ChannelType} from "discord.js";
 import {GuildData} from "@/api/types/GuildData";
 import {GuildRequest} from "@/api/types/GuildRequest";
-import Settings from "@/types/database/Settings";
+import GuildSettingsManager from "@/utils/GuildSettingsManager";
 
 @Injectable()
 export class GuildGuard extends Base implements CanActivate {
@@ -34,11 +34,12 @@ export class GuildGuard extends Base implements CanActivate {
                 botHighestRole: guild.members.me.roles.highest,
                 id: guild.id,
                 name: guild.name,
-                icon: guild.icon
+                icon: guild.icon,
+                shardId: guild.shardId
             }
         }, {context: {guild: guild.id, user: request.user.id, ChannelType}}) as GuildData
         if(!guildData) throw new ForbiddenException("Missing permissions to manage the guild")
-        guildData.settings = await this.db.manager.findOneBy(Settings, {guildid: guild.id})
+        guildData.settings = await GuildSettingsManager.findOrCreate(guild.id);
         request.guild = guildData;
         return true;
     }

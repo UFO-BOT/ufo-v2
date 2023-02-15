@@ -20,13 +20,11 @@ export default class Settings extends BaseEntity {
     moneysymb: string
 
     @Column()
-    salary: {
+    work: {
         low: number
         high: number
+        cooldown: number
     }
-
-    @Column()
-    workcooldown: number
 
     @Column()
     moneybags: {

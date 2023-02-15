@@ -13,11 +13,13 @@ const manager = new Manager('dist/src/shard.js', {
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '@/api/modules/app.module';
+import {ValidationPipe} from "@nestjs/common";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.enableCors();
-    await app.listen(4827);
+    app.useGlobalPipes(new ValidationPipe({transform: true}))
+    await app.listen(Number(process.env.PORT));
 }
 bootstrap();
 

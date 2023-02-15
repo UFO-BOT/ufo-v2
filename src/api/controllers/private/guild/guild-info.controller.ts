@@ -1,9 +1,9 @@
 import {Controller, Get, Headers, Param, Req, UseGuards} from "@nestjs/common";
 import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
-import {Oauth2Service} from "@/api/services/oauth2.service";
 import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
+import {settings} from "cluster";
 
 @Controller('guilds')
 @UseGuards(AuthGuard, GuildGuard)
@@ -21,7 +21,19 @@ export class GuildInfoController extends Base {
             roles: request.guild.roles
                 .map(role => {return {id: role.id, name: role.name, color: role.color,
                     memberManageable: role.memberManageable, botManageable: role.botManageable}}),
-            boost: request.guild.settings?.boost ?? false
+            settings: {
+                prefix: request.guild.settings.prefix ?? "!",
+                language: {
+                    commands: request.guild.settings.language?.commands ?? "en",
+                    interface: request.guild.settings.language?.interface ?? "en"
+                },
+                moneySymbol: request.guild.settings.moneysymb ?? this.constants.defaultMoneySymbol,
+                muteRole: request.guild.settings.muterole ?? null,
+                work: request.guild.settings.work ?? {low: 1, high: 500, cooldown: 1200000},
+                moneybags: request.guild.settings.moneybags ?? {low: -500, high: 500, cooldown: 600000},
+                minBet: request.guild.settings.minBet ?? 100,
+                boost: request.guild.settings.boost ?? false
+            }
         }
     }
 

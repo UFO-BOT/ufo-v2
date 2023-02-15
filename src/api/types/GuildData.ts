@@ -15,6 +15,7 @@ export interface GuildData {
     id: string
     name: string
     icon: string
+    shardId: number
     member: APIGuildMember
     roles: Array<RoleData>
     channels: Array<ChannelData>
