@@ -4,9 +4,10 @@ import {AuthGuard} from "@/api/guards/auth.guard";
 import {BadgesController} from "@/api/controllers/private/badges.controller";
 import {Oauth2Service} from "@/api/services/oauth2.service";
 import {GuildsController} from "@/api/controllers/private/guilds.controller";
+import {GuildInfoController} from "@/api/controllers/private/guild-info.controller";
 
 @Module({
-    controllers: [GuildsController, BadgesController],
+    controllers: [GuildsController, BadgesController, GuildInfoController],
     providers: [Oauth2Service]
 })
 export class PrivateModule {}

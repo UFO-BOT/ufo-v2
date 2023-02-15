@@ -1,6 +1,7 @@
 import { Request } from "@nestjs/common";
-import {User} from "discord.js";
+import {RawUserData} from "discord.js/typings/rawDataTypes";
 
 export interface AuthorizedRequest extends Request {
-    user: User
+    params: Record<string, string>
+    user: RawUserData
 }
