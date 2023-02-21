@@ -26,7 +26,7 @@ export class GuildsController extends Base {
                 id: guild.id,
                 name: guild.name,
                 icon: guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.` +
-                    `${guild.icon.startsWith("a_" ? "gif" : "png")}?size=128` : null,
+                    `${guild.icon.startsWith("a_") ? "gif" : "png"}?size=128` : null,
                 invited: Boolean(botGuild),
                 manageable: new PermissionsBitField(BigInt(guild.permissions)).has("Administrator")
             })
