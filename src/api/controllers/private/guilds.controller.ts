@@ -19,7 +19,6 @@ export class GuildsController extends Base {
         let guilds = await this.oauth2.getGuilds(token);
         let userGuilds = [];
         for(let guild of guilds) {
-            console.log(guild)
             let botGuild = await this.manager.oneShardEval((client, context) =>
                 client.guilds.cache.get(context.id), {context: {id: guild.id}}) as Guild
             userGuilds.push({

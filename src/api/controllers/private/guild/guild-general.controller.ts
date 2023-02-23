@@ -17,6 +17,7 @@ export class GuildGeneralController extends Base {
         await this.manager.shards.get(request.guild.shardId).eval((client, context) => {
             const ufo = client as typeof this.client;
             let settings = ufo.cache.settings.get(context.guild)
+            if(!settings) return;
             settings.prefix = context.body.prefix;
             settings.language = context.body.language;
             ufo.cache.settings.set(context.guild, settings);
