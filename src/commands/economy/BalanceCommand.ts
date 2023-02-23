@@ -9,6 +9,7 @@ import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import internal from "stream";
 import Balance from "@/types/database/Balance";
+import Leaderboard from "@/utils/Leaderboard";
 
 interface BalanceCommandDTO {
     user?: User
@@ -65,14 +66,13 @@ export default class BalanceCommand extends AbstractCommand implements Command {
                 value: (balance?.xp?.toLocaleString(ctx.settings.language.interface) ?? "0") + global.client.cache.emojis.xp,
                 inline: true
             }])
-        let top = await global.db.manager.findBy(Balance, {guildid: ctx.guild.id})
-        top.sort((a, b) => b.balance - a.balance)
-        let topMember = top.find(m => m.userid === user.id)
-        let place = top.indexOf(topMember) + 1;
-        ctx.response.parse({
-            place: place.toString()
-        })
-        embed.setDescription(ctx.response.data.embed.description)
+        let place = await Leaderboard.leaderboardRank(ctx.guild.id, user.id);
+        if(place) {
+            ctx.response.parse({
+                place: place.toString()
+            })
+            embed.setDescription(ctx.response.data.embed.description)
+        }
         return {reply: {embeds: [embed]}}
     }
 }

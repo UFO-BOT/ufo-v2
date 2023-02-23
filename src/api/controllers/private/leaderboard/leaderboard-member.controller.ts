@@ -16,7 +16,7 @@ import {AuthGuard} from "@/api/guards/auth.guard";
 import {LeaderboardRequest} from "@/api/types/LeaderboardRequest";
 import Balance from "@/types/database/Balance";
 import {LeaderboardGuard} from "@/api/guards/leaderboard.guard";
-import {LeaderboardDto} from "@/api/dto/leaderboard.dto";
+import Leaderboard from "@/utils/Leaderboard";
 
 @Controller('leaderboard')
 @UseGuards(AuthGuard, LeaderboardGuard)
@@ -30,15 +30,19 @@ export class LeaderboardMemberController extends Base {
         if(!user) return new NotFoundException('User not found')
         let balance = await this.db.manager.findOneBy(Balance, {guildid: request.guild.id, userid: user.id})
         if(!balance) balance = {balance: 0, xp: 0} as Balance;
+        let number = await Leaderboard.leaderboardRank(request.guild.id, user.id);
         return {
             guildName: request.guild.name,
-            user: {
-                id: user.id,
-                tag: user.tag,
-                avatar: user.avatarURL ?? user.defaultAvatarURL
-            },
-            balance: balance.balance,
-            xp: balance.xp
+            leader: {
+                number,
+                user: {
+                    id: user.id,
+                    tag: user.tag,
+                    avatar: user.avatarURL ?? user.defaultAvatarURL
+                },
+                balance: balance.balance,
+                xp: balance.xp
+            }
         }
     }
 

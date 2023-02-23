@@ -14,7 +14,7 @@ import Balance from "@/types/database/Balance";
 import interactions from "@/properties/interactions.json";
 import InteractionExecutionResult from "@/types/interactions/InteractionExecutionResult";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
-import GetGuildLeaderboard from "@/utils/GetGuildLeaderboard";
+import Leaderboard from "@/utils/Leaderboard";
 
 interface LeaderboardInteractionComponents {
     backward: ButtonBuilder
@@ -69,7 +69,7 @@ export default class LeaderboardInteraction extends AbstractInteraction implemen
                 this.data.page--;
                 if(this.data.page < 1) this.data.page = 1;
         }
-        let result = await GetGuildLeaderboard(this.data.guild.id, this.data.sort, this.data.page);
+        let result = await Leaderboard.getGuildLeaderboard(this.data.guild.id, this.data.sort, this.data.page);
         this.data.page = result.page;
         this.data.leaders = result.leaders;
         this.components.backward.setDisabled(this.data.page === 1)

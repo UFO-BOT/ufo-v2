@@ -7,7 +7,6 @@ import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
-import GetGuildLeaderboard from "@/utils/GetGuildLeaderboard";
 import LeaderboardInteraction from "@/interactions/LeaderboardInteraction";
 import Balance from "@/types/database/Balance";
 import Settings from "@/types/database/Settings";

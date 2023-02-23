@@ -13,8 +13,8 @@ import MakeError from "@/utils/MakeError";
 import {settings} from "cluster";
 import GuildSettingsManager from "@/utils/GuildSettingsManager";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
-import GetGuildLeaderboard from "@/utils/GetGuildLeaderboard";
 import LeaderboardInteraction from "@/interactions/LeaderboardInteraction";
+import Leaderboard from "@/utils/Leaderboard";
 
 interface LeaderboardCommandDTO {
     sort: 'balance' | 'xp'
@@ -79,13 +79,14 @@ export default class LeaderboardCommand extends AbstractCommand implements Comma
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<LeaderboardCommandDTO>): Promise<CommandExecutionResult> {
-        let result = await GetGuildLeaderboard(ctx.guild.id, ctx.args.sort, ctx.args.page);
+
+        let result = await Leaderboard.getGuildLeaderboard(ctx.guild.id, ctx.args.sort, ctx.args.page);
         let interaction = new LeaderboardInteraction([ctx.member.id], {
             guild: ctx.guild,
             leaders: result.leaders,
             sort: ctx.args.sort ?? "balance",
             page: result.page,
-            maxPage: result.maxPage
+            maxPage: result.pageCount
         }, ctx.settings)
         return {interaction: interaction}
     }
