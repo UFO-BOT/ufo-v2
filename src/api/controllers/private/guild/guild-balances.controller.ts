@@ -30,7 +30,6 @@ export class GuildBalancesController extends Base {
         }
         balance.balance = body.balance;
         if(body.resetXP) balance.xp = 0;
-        console.log(balance)
         await this.db.manager.save(balance);
         return {message: "Member balance saved successfully"}
     }
