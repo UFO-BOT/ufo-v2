@@ -108,6 +108,7 @@ export default class BalanceManagerCommand extends AbstractCommand implements Co
             balance.guildid = ctx.guild.id;
             balance.userid = user.id;
             balance.balance = 0;
+            balance.xp = 0;
             await this.db.manager.save(balance)
         }
         ctx.response.parse({

@@ -95,6 +95,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
             balance2.guildid = ctx.guild.id;
             balance2.userid = user.id;
             balance2.balance = 0;
+            balance2.xp = 0;
             await this.db.manager.save(balance2)
         }
         balance1.balance -= amount;

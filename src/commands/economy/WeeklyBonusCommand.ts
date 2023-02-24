@@ -47,7 +47,6 @@ export default class WeeklyBonusCommand extends AbstractCommand implements Comma
             balance.userid = ctx.member.id;
             balance.balance = 0;
             balance.xp = 0;
-            balance.lastwork = 0;
             await this.db.manager.save(balance);
         }
         if(Date.now() - (balance.lastWeeklyBonus ?? 0) < 604800000) return {
