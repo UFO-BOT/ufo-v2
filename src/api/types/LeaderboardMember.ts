@@ -5,6 +5,6 @@ export interface LeaderboardMember {
         tag: string
         avatar: string
     }
-    balance: number
+    balance: number | 'Infinity'
     xp: number
 }

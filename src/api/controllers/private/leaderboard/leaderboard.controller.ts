@@ -34,7 +34,7 @@ export class LeaderboardController extends Base {
                     tag: user.tag,
                     avatar: user.avatarURL ?? user.defaultAvatarURL
                 },
-                balance: leader.balance,
+                balance: leader.balance === Infinity ? 'Infinity' : leader.balance,
                 xp: leader.xp
             })
         }

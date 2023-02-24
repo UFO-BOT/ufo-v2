@@ -40,7 +40,7 @@ export class LeaderboardMemberController extends Base {
                     tag: user.tag,
                     avatar: user.avatarURL ?? user.defaultAvatarURL
                 },
-                balance: balance.balance,
+                balance: balance.balance === Infinity ? 'Infinity' : balance.balance,
                 xp: balance.xp
             }
         }
