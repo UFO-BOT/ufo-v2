@@ -16,6 +16,8 @@ export class GuildInfoController extends Base {
             name: request.guild.name,
             icon: request.guild.icon ? `https://cdn.discordapp.com/icons/${request.guild.id}/${request.guild.icon}.` +
                     `${request.guild.icon.startsWith('a_') ? 'gif' : 'png'}?size=128` : null,
+            invited: true,
+            manageable: true,
             channels: request.guild.channels
                 .map(chan => {return {id: chan.id, name: chan.name, botManageable: chan.botManageable}}),
             roles: request.guild.roles
