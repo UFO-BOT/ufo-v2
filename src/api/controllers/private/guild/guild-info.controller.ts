@@ -34,6 +34,8 @@ export class GuildInfoController extends Base {
                 work: request.guild.settings.work ?? {low: 1, high: 500, cooldown: 1200000},
                 moneybags: request.guild.settings.moneybags ?? {low: -500, high: 500, cooldown: 600000},
                 minBet: request.guild.settings.minBet ?? 100,
+                commission: request.guild.settings.commission ?? 0,
+                duelCommission: request.guild.settings.duelCommission ?? false,
                 boost: request.guild.settings.boost ?? false
             }
         }

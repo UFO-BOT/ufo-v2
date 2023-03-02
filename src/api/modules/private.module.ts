@@ -8,10 +8,13 @@ import {GuildEconomyController} from "@/api/controllers/private/guild/guild-econ
 import {LeaderboardController} from "@/api/controllers/private/leaderboard/leaderboard.controller";
 import {LeaderboardMemberController} from "@/api/controllers/private/leaderboard/leaderboard-member.controller";
 import {GuildBalancesController} from "@/api/controllers/private/guild/guild-balances.controller";
+import {GuildItemsController} from "@/api/controllers/private/guild/guild-items.controller";
+import {GuildResetController} from "@/api/controllers/private/guild/guild-reset.controller";
 
 @Module({
     controllers: [GuildsController, BadgesController, GuildInfoController, GuildGeneralController,
-        GuildEconomyController, LeaderboardController, LeaderboardMemberController, GuildBalancesController],
+        GuildEconomyController, LeaderboardController, LeaderboardMemberController, GuildBalancesController,
+        GuildItemsController, GuildResetController],
     providers: [Oauth2Service]
 })
 export class PrivateModule {}

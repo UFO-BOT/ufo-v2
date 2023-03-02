@@ -1,6 +1,6 @@
 import {IsBoolean, IsInt} from "class-validator";
 
-export class GuildBalancesDto {
+export class GuildBalanceDto {
 
     @IsInt()
     balance: number

@@ -12,6 +12,7 @@ export default class Leaderboard {
         Promise<GetGuildLeaderboardResult>  {
         let count = await global.db.manager.countBy(Balance, {guildid: guildID});
         let pageCount = Math.ceil(count/10);
+        if(count === 0) return {page: 0, pageCount: 0, leaders: []};
         if(page > pageCount) page = pageCount;
         let leaders: Array<Balance> = await global.db.mongoManager.createCursor(Balance, {guildid: guildID})
             .sort({[sort]: -1})

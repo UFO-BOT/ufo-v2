@@ -27,7 +27,7 @@ export class LeaderboardMemberController extends Base {
         let user = await this.manager.shards.first().eval((client, context) =>
                 client.users.fetch(context.id).catch(() => null),
             {id: request.params.user})
-        if(!user) return new NotFoundException('User not found')
+        if(!user) throw new NotFoundException("User not found")
         let balance = await this.db.manager.findOneBy(Balance, {guildid: request.guild.id, userid: user.id})
         if(!balance) balance = {balance: 0, xp: 0} as Balance;
         let number = await Leaderboard.leaderboardRank(request.guild.id, user.id);

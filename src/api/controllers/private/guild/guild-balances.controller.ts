@@ -3,7 +3,7 @@ import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
 import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
-import {GuildBalancesDto} from "@/api/dto/guild/guild-balances.dto";
+import {GuildBalanceDto} from "@/api/dto/guild/guild-balance.dto";
 import Balance from "@/types/database/Balance";
 
 @Controller('guilds/:id/balances/:user')
@@ -11,11 +11,11 @@ import Balance from "@/types/database/Balance";
 export class GuildBalancesController extends Base {
 
     @Post()
-    async post(@Req() request: GuildRequest, @Body() body: GuildBalancesDto) {
+    async post(@Req() request: GuildRequest, @Body() body: GuildBalanceDto) {
         let user = await this.manager.shards.first().eval((client, context) =>
                 client.users.fetch(context.id).catch(() => null),
             {id: request.params.user})
-        if(!user) return new NotFoundException('User not found')
+        if(!user) throw new NotFoundException('User not found')
         let balance = await this.db.manager.findOneBy(Balance, {
             guildid: request.guild.id,
             userid: request.params.user
@@ -39,7 +39,7 @@ export class GuildBalancesController extends Base {
         let user = await this.manager.shards.first().eval((client, context) =>
                 client.users.fetch(context.id).catch(() => null),
             {id: request.params.user})
-        if(!user) return new NotFoundException('User not found')
+        if(!user) throw new NotFoundException('User not found')
         await this.db.manager.delete(Balance, {guildid: request.guild.id, userid: request.params.user})
         return {message: "Member balance deleted successfully"}
     }
