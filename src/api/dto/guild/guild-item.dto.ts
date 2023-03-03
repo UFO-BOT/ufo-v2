@@ -17,10 +17,10 @@ export class GuildItemDto {
 
     @IsOptional()
     @Length(15, 20)
-    public addRole: string
+    public addRole?: string
 
     @IsOptional()
     @Length(15, 20)
-    public removeRole: string
+    public removeRole?: string
 
 }
