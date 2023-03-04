@@ -26,7 +26,7 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
         en: {
             name: "buy-item",
             description: 'You will buy specified item from the shop for its price',
-            aliases: ['buyitem', 'buyitem', 'bi']
+            aliases: ['buyitem', 'buy', 'bi']
         }
     }
     public options: Array<CommandOption> = [
