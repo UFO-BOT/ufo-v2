@@ -3,6 +3,7 @@ import Discord, {Awaitable, Serialized} from "discord.js";
 import MongoDB from "@/structures/MongoDB";
 
 import ManagerLoader from "@/services/loaders/ManagerLoader"
+import Item from "@/types/database/Item";
 
 export default class Manager extends Discord.ShardingManager {
     public readonly supportGuildID: string = '712012571666022411'

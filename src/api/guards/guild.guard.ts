@@ -23,6 +23,8 @@ export class GuildGuard extends Base implements CanActivate {
                 memberManageable: member.id === guild.ownerId ? true : role.position < member.roles.highest.position,
                 botManageable: role.position < guild.members.me.roles.highest.position
             }))
+            roles.sort((a, b) => b.position - a.position)
+            roles.splice(roles.indexOf(roles.find(role => role.id === guild.id)), 1)
             let channels = guild.channels.cache
                 .filter(chan => chan.type === context.ChannelType.GuildText || chan.type === context.ChannelType.GuildNews)
                 .map(channel => Object.assign(channel, {

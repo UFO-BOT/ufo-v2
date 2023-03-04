@@ -55,8 +55,8 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
                 options: {text: ctx.response.data.errors.itemNotFound}
             }
         }
-        let addRole = ctx.guild.roles.cache.get(item.addrole);
-        let removeRole = ctx.guild.roles.cache.get(item.removerole);
+        let addRole = ctx.guild.roles.cache.get(item.addRole);
+        let removeRole = ctx.guild.roles.cache.get(item.removeRole);
         let embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})

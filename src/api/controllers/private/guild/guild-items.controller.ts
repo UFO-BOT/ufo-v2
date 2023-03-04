@@ -30,8 +30,8 @@ export class GuildItemsController extends Base {
             description: item.description,
             price: item.price,
             xp: item.xp,
-            addRole: item.addrole,
-            removeRole: item.removerole
+            addRole: item.addRole,
+            removeRole: item.removeRole
         }})
     }
 

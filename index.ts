@@ -21,7 +21,7 @@ async function bootstrap() {
     app.useGlobalPipes(new ValidationPipe({transform: true, transformOptions: {enableImplicitConversion: true}}))
     await app.listen(Number(process.env.PORT));
 }
-bootstrap();
+bootstrap().then();
 
 
-manager.start()
+manager.start().then()

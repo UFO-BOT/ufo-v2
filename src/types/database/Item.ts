@@ -15,10 +15,10 @@ export default class Item extends BaseEntity {
     description: string | null
 
     @Column()
-    addrole: string | null
+    addRole: string | null
 
     @Column()
-    removerole: string | null
+    removeRole: string | null
 
     @Column()
     price: number

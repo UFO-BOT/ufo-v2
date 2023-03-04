@@ -75,8 +75,8 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
             balance.xp = 0;
             await this.db.manager.save(balance)
         }
-        let addRole = ctx.guild.roles.cache.get(item.addrole);
-        let removeRole = ctx.guild.roles.cache.get(item.removerole);
+        let addRole = ctx.guild.roles.cache.get(item.addRole);
+        let removeRole = ctx.guild.roles.cache.get(item.removeRole);
         ctx.response.parse({
             addrole: addRole?.toString(),
             removerole: removeRole?.toString(),

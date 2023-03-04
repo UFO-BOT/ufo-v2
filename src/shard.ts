@@ -23,4 +23,4 @@ const client = new Client(process.env.TOKEN, {
         'MessageContent']
 })
 
-client.start()
+client.start().then()
