@@ -1,7 +1,7 @@
 import AbstractService from "@/abstractions/AbstractService";
 import {EmbedBuilder, GuildTextBasedChannel, Message} from "discord.js";
 import Balance from "@/types/database/Balance";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 import endings from "@/properties/endings.json";
 import PropertyParser from "@/services/PropertyParser";
 import Mute from "@/types/database/Mute";

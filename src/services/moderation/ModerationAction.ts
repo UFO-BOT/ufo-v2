@@ -7,7 +7,7 @@ import {ColorResolvable, EmbedBuilder, GuildTextBasedChannel} from "discord.js";
 import TimeParser from "@/utils/TimeParser";
 import actionExecutionResult from "@/types/ModActionExecutionResult";
 import MakeError from "@/utils/MakeError";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 import ModerationActionLog from "@/utils/ModerationActionLog";
 import ModAction from "@/types/ModAction";
 
@@ -41,7 +41,7 @@ export default abstract class ModerationAction extends AbstractService {
         if(!result.success) {
             let errors = props.actions[this.options.action].errors as Record<string, string>;
             return !this.options.autoMod ?
-                MakeError.other(this.options.executor, GuildSettingsManager.toCache(this.settings), {
+                MakeError.other(this.options.executor, GuildSettings.toCache(this.settings), {
                     text: errors[result.error]
                 }) : null
         }
@@ -56,7 +56,7 @@ export default abstract class ModerationAction extends AbstractService {
         action.timestamp = Date.now();
         action.duration = this.options.duration ?? null;
         await this.db.manager.save(action);
-        let logEmbed = await ModerationActionLog(this.client, action, GuildSettingsManager.toCache(this.settings));
+        let logEmbed = await ModerationActionLog(this.client, action, GuildSettings.toCache(this.settings));
         let channel = this.options.guild.channels.cache.get(this.settings?.logs?.channels?.moderation) as GuildTextBasedChannel;
         if (channel) await channel.send({embeds: [logEmbed]});
         let embed = new EmbedBuilder()

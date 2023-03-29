@@ -12,7 +12,7 @@ import CommandSettings from "@/types/commands/CommandSettings";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator";
 import MakeError from "@/utils/MakeError";
 import Client from "@/structures/Client";
@@ -22,17 +22,14 @@ import AbstractService from "@/abstractions/AbstractService";
 import SetInteraction from "@/utils/SetInteraction";
 
 export default class InteractionsHandler extends AbstractService {
-    public interaction: Interaction
-
-    constructor(interaction: Interaction) {
+    constructor(public interaction: Interaction, public settings: GuildSettingsCache) {
         super()
-        this.interaction = interaction;
     }
 
     public async handle(): Promise<void> {
         if(!this.interaction.isButton() && !this.interaction.isSelectMenu() && !this.interaction.isModalSubmit()) return;
         if(this.interaction.isModalSubmit() && !this.interaction.isFromMessage()) return;
-        let settings = await GuildSettingsManager.getCache(this.interaction.guildId)
+        let settings = this.settings;
         let customId = this.interaction.customId.split("-");
         let id = customId[0];
         let action = customId[1];

@@ -13,6 +13,8 @@ export class GuildGeneralController extends Base {
     async execute(@Req() request: GuildRequest, @Body() body: GuildGeneralDto) {
         request.guild.settings.prefix = body.prefix;
         request.guild.settings.language = body.language;
+        request.guild.settings.slashCommands = body.slashCommands;
+        request.guild.settings.textCommands = body.textCommands;
         await request.guild.settings.save();
         await this.manager.shards.get(request.guild.shardId).eval((client, context) => {
             const ufo = client as typeof this.client;
@@ -20,6 +22,8 @@ export class GuildGeneralController extends Base {
             if(!settings) return;
             settings.prefix = context.body.prefix;
             settings.language = context.body.language;
+            settings.slashCommands = context.body.slashCommands;
+            settings.textCommands = context.body.textCommands;
             ufo.cache.settings.set(context.guild, settings);
         }, {guild: request.guild.id, body})
         return {message: "Guild settings saved successfully"}

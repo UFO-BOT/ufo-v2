@@ -9,7 +9,7 @@ import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import internal from "stream";
 import Settings from "@/types/database/Settings";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 
 interface MoneySymbolCommandDTO {
     symbol: string
@@ -51,7 +51,7 @@ export default class MoneySymbolCommand extends AbstractCommand implements Comma
 
     public async execute(ctx: CommandExecutionContext<MoneySymbolCommandDTO>): Promise<CommandExecutionResult> {
         let symbol = ctx.args.symbol;
-        let settings = await GuildSettingsManager.findOrCreate(ctx.guild.id);
+        let settings = await GuildSettings.findOrCreate(ctx.guild.id);
         settings.moneysymb = symbol;
         await settings.save();
         let settingsCache = this.client.cache.settings.get(ctx.guild.id);

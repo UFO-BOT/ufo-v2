@@ -4,18 +4,7 @@ import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 import constants from "@/properties/constants.json"
 
-export default class GuildSettingsManager {
-    public static async getCache(guildId: string): Promise<GuildSettingsCache> {
-        let settings: GuildSettingsCache = global.client.cache.settings.get(guildId)
-        if (!settings) {
-            let guildSettings = await global.db.manager.findOneBy(Settings, {guildid: guildId})
-
-            settings = this.toCache(guildSettings)
-            global.client.cache.settings.set(guildId, settings)
-        }
-        return settings;
-    }
-
+export default class GuildSettings {
     public static toCache(settings: Settings): GuildSettingsCache {
         return {
             prefix: settings?.prefix ?? constants.defaultPrefix,
@@ -23,10 +12,12 @@ export default class GuildSettingsManager {
                 commands: settings?.language?.commands ?? 'en',
                 interface: settings?.language?.interface ?? 'en'
             },
-            boost: settings?.boost,
+            slashCommands: settings?.slashCommands ?? true,
+            textCommands: settings?.textCommands ?? true,
             moneysymb: settings?.moneysymb ?? constants.defaultMoneySymbol,
             commandsSettings: settings?.commands ?? {} as Record<string, CommandSettings>,
-            minBet: settings?.minBet ?? 100
+            minBet: settings?.minBet ?? 100,
+            boost: settings?.boost
         }
     }
 

@@ -17,6 +17,12 @@ export default class Settings extends BaseEntity {
     language: GuildLanguage
 
     @Column()
+    slashCommands: boolean
+
+    @Column()
+    textCommands: boolean
+
+    @Column()
     moneysymb: string
 
     @Column()

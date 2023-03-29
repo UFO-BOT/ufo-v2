@@ -2,9 +2,10 @@ import AbstractService from "@/abstractions/AbstractService";
 import Giveaway from "@/types/database/Giveaway";
 import Discord, {EmbedBuilder, GuildTextBasedChannel, Message} from "discord.js";
 import Balance from "@/types/database/Balance";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 import endings from "@/properties/endings.json";
 import PropertyParser from "@/services/PropertyParser";
+import GuildCacheManager from "@/services/GuildCacheManager";
 
 export default class GiveawayEnding extends AbstractService {
     public giveaway: Giveaway
@@ -20,7 +21,8 @@ export default class GiveawayEnding extends AbstractService {
         if(!channel) return;
         let message = await channel.messages.fetch(this.giveaway.message).catch(() => null) as Message;
         if(!message) return this.giveaway.remove();
-        let settings = await GuildSettingsManager.getCache(this.giveaway.guildid);
+        let guildCacheManager = new GuildCacheManager(this.giveaway.guildid);
+        let settings = await guildCacheManager.getSettings();
         const props = new PropertyParser(endings.Giveaway[settings.language.interface]);
         let rct = await message.reactions.cache.get("755726912273383484");
         if(!rct) return this.giveaway.remove();

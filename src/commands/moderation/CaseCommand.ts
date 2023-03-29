@@ -11,7 +11,7 @@ import internal from "stream";
 import Balance from "@/types/database/Balance";
 import MakeError from "@/utils/MakeError";
 import {settings} from "cluster";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import WarnAction from "@/services/moderation/actions/WarnAction";
 import Case from "@/types/database/Case";

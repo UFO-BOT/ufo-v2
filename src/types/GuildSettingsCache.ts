@@ -4,8 +4,10 @@ import CommandSettings from "@/types/commands/CommandSettings";
 export default interface GuildSettingsCache {
     prefix: string
     language: GuildLanguage
-    boost: boolean
+    slashCommands: boolean
+    textCommands: boolean
     moneysymb: string
     commandsSettings: Record<string, CommandSettings>
     minBet: number
+    boost: boolean
 }

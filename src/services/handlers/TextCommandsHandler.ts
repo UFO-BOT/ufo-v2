@@ -12,7 +12,7 @@ import CommandSettings from "@/types/commands/CommandSettings";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator";
 import MakeError from "@/utils/MakeError";
 import TextCommandsValidator from "@/services/validators/TextCommandsValidator";
@@ -26,11 +26,8 @@ import AbstractService from "@/abstractions/AbstractService";
 import SetInteraction from "@/utils/SetInteraction";
 
 export default class TextCommandsHandler extends AbstractService {
-    public message: Message
-
-    constructor(message: Message) {
+    constructor(public message: Message, public settings: GuildSettingsCache) {
         super()
-        this.message = message;
     }
 
     public async handle(): Promise<any> {
@@ -40,7 +37,7 @@ export default class TextCommandsHandler extends AbstractService {
         if (this.message.channel.type !== ChannelType.GuildText &&
             this.message.channel.type !== ChannelType.GuildNews) return;
 
-        let settings = await GuildSettingsManager.getCache(this.message.guildId)
+        let settings = this.settings;
 
         let messageArray = this.message.content.split(' ')
         while (messageArray.includes('')) {

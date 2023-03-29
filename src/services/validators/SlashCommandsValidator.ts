@@ -11,7 +11,7 @@ import TimeParser from "@/utils/TimeParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import Balance from "@/types/database/Balance";
 import Resolver from "@/utils/Resolver";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 import AbstractService from "@/abstractions/AbstractService";
 
 interface SlashCommandsValidatorOptions {

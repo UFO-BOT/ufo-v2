@@ -1,4 +1,4 @@
-import {IsIn, IsString, Length, ValidateNested} from "class-validator";
+import {IsBoolean, IsIn, IsString, Length, ValidateNested} from "class-validator";
 import GuildLanguage from "@/types/GuildLanguage";
 import {Type} from "class-transformer";
 import Language from "@/types/Language";
@@ -24,5 +24,11 @@ export class GuildGeneralDto {
     @ValidateNested()
     @Type(() => GuildLanguageDto)
     public language: GuildLanguageDto
+
+    @IsBoolean()
+    public slashCommands: boolean
+
+    @IsBoolean()
+    public textCommands: boolean
 
 }

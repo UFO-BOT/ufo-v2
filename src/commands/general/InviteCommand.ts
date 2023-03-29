@@ -16,7 +16,7 @@ export default class InviteCommand extends AbstractCommand implements Command {
         },
         en: {
             name: "invite",
-            description: 'Help in using the bot, one command or category',
+            description: 'Sends a link to add the bot to your server',
             aliases: ['add-bot', 'invite-bot']
         }
     }

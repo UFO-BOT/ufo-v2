@@ -8,7 +8,7 @@ import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import Balance from "@/types/database/Balance";
 import MakeError from "@/utils/MakeError";
-import GuildSettingsManager from "@/utils/GuildSettingsManager";
+import GuildSettings from "@/utils/GuildSettings";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 
 interface GiveMoneyCommandDTO {
@@ -75,7 +75,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
                 options: {text: ctx.response.data.errors.giveToYourself}
             }
         }
-        let settings = await GuildSettingsManager.findOrCreate(ctx.guild.id);
+        let settings = await GuildSettings.findOrCreate(ctx.guild.id);
         let balance1 = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id

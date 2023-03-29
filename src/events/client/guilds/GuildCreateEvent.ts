@@ -10,6 +10,6 @@ export default class GuildCreateEvent extends AbstractClientEvent implements Eve
 
     public async execute(guild: Guild): Promise<any> {
         let slashCommandsManager = new SlashCommandsManager(guild.id);
-        await slashCommandsManager.set();
+        await slashCommandsManager.set().catch(() => {});
     }
 }
