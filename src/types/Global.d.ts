@@ -19,7 +19,6 @@ declare global {
             DB_NAME: string
             DISCORD_API: string
             WEBSITE: string
-            BOT_INVITE: string
             SUPPORT_SERVER: string
         }
     }

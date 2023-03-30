@@ -24,7 +24,11 @@ export default class InviteCommand extends AbstractCommand implements Command {
     public category = CommandCategory.General;
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        ctx.response.parse({invite: process.env.BOT_INVITE});
+        ctx.response.parse({
+            invite: `https://discord.com/api/oauth2/authorize?client_id=${this.client.user.id}` +
+                `&redirect_uri=${encodeURIComponent(process.env.WEBSITE + '/landing')}` +
+                `&response_type=code&permissions=1515519995134&scope=bot%20applications.commands`
+        });
         let embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
             .setDescription(ctx.response.data.embed.description)
