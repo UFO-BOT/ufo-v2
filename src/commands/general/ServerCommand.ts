@@ -1,10 +1,7 @@
-import {EmbedBuilder, ChannelType} from "discord.js";
-import moment from "moment";
+import {ChannelType, EmbedBuilder} from "discord.js";
 
-import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/commands/Command";
-
-import replies from '../../properties/responses.json'
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import Command from "@/types/commands/Command";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";

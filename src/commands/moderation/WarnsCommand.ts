@@ -1,4 +1,4 @@
-import {ApplicationCommandOptionType, GuildMember, PermissionResolvable} from "discord.js";
+import {ApplicationCommandOptionType, GuildMember} from "discord.js";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
 import Command from "../../types/commands/Command";
@@ -7,7 +7,6 @@ import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
-import WarnAction from "@/services/moderation/actions/WarnAction";
 import Case from "@/types/database/Case";
 import ModAction from "@/types/ModAction";
 import WarnsInteraction from "@/interactions/WarnsInteraction";

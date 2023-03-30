@@ -1,11 +1,4 @@
-import {
-    ButtonInteraction,
-    EmbedBuilder,
-    GuildMember,
-    SelectMenuBuilder,
-    SelectMenuInteraction,
-    SnowflakeUtil
-} from "discord.js";
+import {EmbedBuilder, GuildMember, SelectMenuInteraction, StringSelectMenuBuilder} from "discord.js";
 import AbstractInteraction from "@/abstractions/AbstractInteraction";
 import Interaction from "@/types/interactions/Interaction";
 import Balance from "@/types/database/Balance";
@@ -14,7 +7,7 @@ import InteractionExecutionResult from "@/types/interactions/InteractionExecutio
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 interface MoneyBagsInteractionComponents {
-    moneybag: SelectMenuBuilder
+    moneybag: StringSelectMenuBuilder
 }
 
 interface MoneyBagsInteractionData {
@@ -33,7 +26,7 @@ export default class MoneyBagsInteraction extends AbstractInteraction implements
     constructor(users: Array<string>, data: MoneyBagsInteractionData, settings: GuildSettingsCache) {
         super(users, data, settings);
         this.components = {
-            moneybag: new SelectMenuBuilder()
+            moneybag: new StringSelectMenuBuilder()
                 .setCustomId(`${this.id}-moneybag`)
                 .setPlaceholder(this.props.menu.placeholder)
                 .addOptions(this.props.menu.options)

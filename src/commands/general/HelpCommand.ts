@@ -1,14 +1,12 @@
-import Discord, {ApplicationCommandOptionType, EmbedBuilder, Role} from "discord.js";
-import moment from "moment";
+import {ApplicationCommandOptionType, EmbedBuilder} from "discord.js";
 
-import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/commands/Command";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import Command from "@/types/commands/Command";
 
 import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
-import TimeParser from "@/utils/TimeParser";
 import MakeError from "@/utils/MakeError";
 
 interface HelpCommandDTO {

@@ -1,4 +1,4 @@
-import {ApplicationCommandOptionType, EmbedBuilder, GuildMember} from "discord.js";
+import {ApplicationCommandOptionType, EmbedBuilder} from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import Command from "@/types/commands/Command";

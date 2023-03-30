@@ -1,14 +1,12 @@
-import Discord, {ApplicationCommandOptionType, EmbedBuilder, GuildMember, PermissionResolvable, Role, User} from "discord.js";
-import moment from "moment/moment";
+import Discord, {ApplicationCommandOptionType, PermissionResolvable} from "discord.js";
 
-import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/commands/Command";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import Command from "@/types/commands/Command";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import Case from "@/types/database/Case";
-import ModerationActionLog from "@/utils/ModerationActionLog";
 
 interface DeleteCaseCommandDTO {
     number: number

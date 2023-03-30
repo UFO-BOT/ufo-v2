@@ -7,7 +7,6 @@ import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
-import WarnAction from "@/services/moderation/actions/WarnAction";
 import KickAction from "@/services/moderation/actions/KickAction";
 
 interface KickCommandDTO {

@@ -62,7 +62,7 @@ export default class SlashCommandsValidator extends AbstractService {
                         en: /^all$/i
                     }
                     let arg = interactionOption.value as string;
-                    let num = !!arg.match(all[this.options.settings.language.commands]) ?
+                    let num = !!(arg.match(all.en) || arg.match(all.ru)) ?
                         this.options.balance?.balance ?? 0 : Number(arg);
                     if(isNaN(num) || num % 1 || num < this.options.settings.minBet) num = undefined;
                     let balance = this.options.balance?.balance ?? 0;

@@ -1,16 +1,12 @@
 import {ApplicationCommandOptionType} from "discord.js";
 
-import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/commands/Command";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import Command from "@/types/commands/Command";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
-import LeaderboardInteraction from "@/interactions/LeaderboardInteraction";
-import Balance from "@/types/database/Balance";
-import Settings from "@/types/database/Settings";
-import CrashCasinoInteraction from "@/interactions/CrashCasinoInteraction";
 import MineFieldInteraction from "@/interactions/MineFieldInteraction";
 
 interface CrashCasinoCommandDTO {

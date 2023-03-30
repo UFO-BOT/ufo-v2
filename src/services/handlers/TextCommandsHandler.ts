@@ -3,7 +3,7 @@ import Discord, {
     ChannelType,
     GuildMember,
     Message,
-    ReplyMessageOptions
+    BaseMessageOptions
 } from "discord.js";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
@@ -107,7 +107,7 @@ export default class TextCommandsHandler extends AbstractService {
             settings,
             balance
         })
-        let reply = result.reply as ReplyMessageOptions;
+        let reply = result.reply as BaseMessageOptions;
         if (result.error) {
             let errorFn = MakeError[result.error.type] as ErrorFunction;
             reply = {embeds: [errorFn(this.message.member as GuildMember, settings, result.error.options)]}

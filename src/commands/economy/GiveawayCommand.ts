@@ -1,14 +1,12 @@
 import {ApplicationCommandOptionType, EmbedBuilder, Message, PermissionResolvable} from "discord.js";
 
-import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/commands/Command";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import Command from "@/types/commands/Command";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
-import Coupon from "@/types/database/Coupon";
-import Balance from "@/types/database/Balance";
 import Giveaway from "@/types/database/Giveaway";
 import GiveawayEnding from "@/services/endings/GiveawayEnding";
 

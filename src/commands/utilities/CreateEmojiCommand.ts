@@ -1,18 +1,12 @@
-import {
-    ApplicationCommandOptionType,
-    Attachment,
-    EmbedBuilder,
-    InteractionReplyOptions,
-    PermissionResolvable, ReplyMessageOptions
-} from "discord.js";
+import {ApplicationCommandOptionType, Attachment, PermissionResolvable} from "discord.js";
 
-import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/commands/Command";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import Command from "@/types/commands/Command";
 
-import CommandOption from "../../types/commands/CommandOption";
-import CommandCategory from "../../types/commands/CommandCategory";
-import CommandExecutionContext from "../../types/commands/CommandExecutionContext";
-import CommandExecutionResult from "../../types/commands/CommandExecutionResult";
+import CommandOption from "@/types/commands/CommandOption";
+import CommandCategory from "@/types/commands/CommandCategory";
+import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
+import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 
 interface CreateEmojiCommandDTO {
     name: string

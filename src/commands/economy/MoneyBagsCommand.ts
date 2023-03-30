@@ -1,24 +1,13 @@
-import {
-    ActionRowBuilder,
-    ApplicationCommandOptionType, ButtonBuilder,
-    CommandInteraction,
-    EmbedBuilder,
-    Role,
-    SelectMenuBuilder,
-    User
-} from "discord.js";
-import moment from "moment/moment";
+import {ApplicationCommandOptionType} from "discord.js";
 
-import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/commands/Command";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import Command from "@/types/commands/Command";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
-import internal from "stream";
 import Balance from "@/types/database/Balance";
 import Settings from "@/types/database/Settings";
-import MakeError from "@/utils/MakeError";
 import MoneyBagsInteraction from "@/interactions/MoneyBagsInteraction";
 
 export default class MoneyBagsCommand extends AbstractCommand implements Command {

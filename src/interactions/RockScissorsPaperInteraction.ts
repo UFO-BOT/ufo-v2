@@ -1,11 +1,10 @@
 import {
     ButtonBuilder,
-    ButtonInteraction, ButtonStyle,
+    ButtonStyle,
     EmbedBuilder,
     GuildMember,
-    SelectMenuBuilder,
     SelectMenuInteraction,
-    SnowflakeUtil
+    StringSelectMenuBuilder
 } from "discord.js";
 import AbstractInteraction from "@/abstractions/AbstractInteraction";
 import Interaction from "@/types/interactions/Interaction";
@@ -15,7 +14,7 @@ import InteractionExecutionResult from "@/types/interactions/InteractionExecutio
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 interface RockScissorsPaperInteractionComponents {
-    item?: SelectMenuBuilder
+    item?: StringSelectMenuBuilder
     accept?: ButtonBuilder
     decline?: ButtonBuilder
 }
@@ -184,7 +183,7 @@ export default class RockScissorsPaperInteraction extends AbstractInteraction im
 
     private setEmbed(): void {
         this.components = {
-            item: new SelectMenuBuilder()
+            item: new StringSelectMenuBuilder()
                 .setCustomId(`${this.id}-rsp`)
                 .setPlaceholder(this.props.menu.placeholder)
                 .addOptions(this.props.menu.options)

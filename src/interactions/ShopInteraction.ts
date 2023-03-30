@@ -1,13 +1,4 @@
-import Discord, {
-    ButtonBuilder,
-    ButtonInteraction,
-    EmbedBuilder, Guild,
-    GuildMember,
-    SelectMenuBuilder,
-    SelectMenuInteraction,
-    SnowflakeUtil,
-    ButtonStyle
-} from "discord.js";
+import {ButtonBuilder, ButtonInteraction, ButtonStyle, EmbedBuilder, Guild} from "discord.js";
 import AbstractInteraction from "@/abstractions/AbstractInteraction";
 import Interaction from "@/types/interactions/Interaction";
 import interactions from "@/properties/interactions.json";

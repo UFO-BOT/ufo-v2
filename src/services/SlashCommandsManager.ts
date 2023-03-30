@@ -38,7 +38,7 @@ export default class SlashCommandsManager extends AbstractService {
         await this.client.application.commands.set(commands).catch(() => {});
     }
 
-    private parseOptions(options: Array<CommandOption>): Array<ApplicationCommandOption> {
+    private parseOptions(options: Array<CommandOption>): Array<ApplicationCommandOptionData> {
         return options?.map(option => {return {
             type: option.type,
             name: option.config.en.name,

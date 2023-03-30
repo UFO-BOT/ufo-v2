@@ -1,17 +1,12 @@
-import {ApplicationCommandOptionType, EmbedBuilder, PermissionResolvable, Role, User} from "discord.js";
-import moment from "moment/moment";
+import {ApplicationCommandOptionType, EmbedBuilder, PermissionResolvable, User} from "discord.js";
 
-import AbstractCommand from "../../abstractions/commands/AbstractCommand";
-import Command from "../../types/commands/Command";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import Command from "@/types/commands/Command";
 import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
-import internal from "stream";
 import Balance from "@/types/database/Balance";
-import MakeError from "@/utils/MakeError";
-import {settings} from "cluster";
-import GuildSettings from "@/utils/GuildSettings";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 
 interface BalanceManagerCommandDTO {

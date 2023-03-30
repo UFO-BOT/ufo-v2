@@ -1,11 +1,10 @@
 import Discord, {
     ButtonBuilder,
-    ButtonInteraction, ButtonStyle,
+    ButtonStyle,
     EmbedBuilder,
     GuildMember,
-    SelectMenuBuilder,
     SelectMenuInteraction,
-    SnowflakeUtil
+    StringSelectMenuBuilder
 } from "discord.js";
 import AbstractInteraction from "@/abstractions/AbstractInteraction";
 import Interaction from "@/types/interactions/Interaction";
@@ -38,7 +37,7 @@ interface Player {
 interface DuelInteractionComponents {
     accept?: ButtonBuilder
     decline?: ButtonBuilder
-    menu?: SelectMenuBuilder
+    menu?: StringSelectMenuBuilder
     shoot?: ButtonBuilder
     medKit?: ButtonBuilder
     grenade?: ButtonBuilder
@@ -123,7 +122,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
         this.embed.setDescription(this.props.embed.equipment + "\n"
         + this.props.embed.chooses + ": " + this.data.players[0].member.toString())
         this.components = {
-            menu: new SelectMenuBuilder()
+            menu: new StringSelectMenuBuilder()
                 .setCustomId(`${this.id}-equipment`)
                 .setPlaceholder(this.props.equipment.placeholder)
                 .addOptions(this.props.equipment.options)

@@ -72,7 +72,7 @@ export default class TextCommandsValidator extends AbstractService {
                         ru: /^вс[её]$/i,
                         en: /^all$/i
                     }
-                    let num = !!arg.match(all[this.options.settings.language.commands]) ?
+                    let num = !!(arg.match(all.en) || arg.match(all.ru)) ?
                         this.options.balance?.balance ?? 0 : Number(arg);
                     value = (!isNaN(num) && !(num % 1) && num >= this.options.settings.minBet) ? num : undefined
                     let balance = this.options.balance?.balance ?? 0;

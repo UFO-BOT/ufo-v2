@@ -1,5 +1,4 @@
 import {ApplicationCommandOptionType, EmbedBuilder, Role, User} from "discord.js";
-import moment from "moment/moment";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
 import Command from "../../types/commands/Command";
@@ -7,7 +6,6 @@ import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
-import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import TimeParser from "@/utils/TimeParser";
 
 interface UserCommandDTO {

@@ -1,4 +1,4 @@
-import Discord, {ApplicationCommandOptionType, EmbedBuilder, Message} from "discord.js";
+import {ApplicationCommandOptionType, EmbedBuilder, Message} from "discord.js";
 
 import Command from "@/types/commands/Command";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
@@ -6,7 +6,6 @@ import CommandOption from "@/types/commands/CommandOption";
 import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
-import {Writable} from "stream";
 import Balance from "@/types/database/Balance";
 
 interface PingCommandData {
