@@ -3,13 +3,11 @@ import Discord, {
     CommandInteraction,
     GuildMember,
     InteractionReplyOptions,
-    Message,
     TextChannel
 } from "discord.js";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
-import GuildSettings from "@/utils/GuildSettings";
 import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator";
 import MakeError from "@/utils/MakeError";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
@@ -18,9 +16,10 @@ import Balance from "@/types/database/Balance";
 import AbstractService from "@/abstractions/AbstractService";
 import SetInteraction from "@/utils/SetInteraction";
 import PermissionsParser from "@/utils/PermissionsParser";
+import GuildSettings from "@/utils/GuildSettings";
 
 export default class SlashCommandsHandler extends AbstractService {
-    constructor(public interaction: CommandInteraction, public settings: GuildSettingsCache) {
+    constructor(public interaction: CommandInteraction) {
         super()
     }
 
@@ -33,7 +32,7 @@ export default class SlashCommandsHandler extends AbstractService {
             cmd.config.ru.name === this.interaction.commandName);
         if (!command) return;
 
-        let settings = this.settings
+        let settings = await GuildSettings.getCache(this.interaction.guildId);
 
         if (command.boostRequired && !settings.boost) return this.interaction.reply({
             embeds: [MakeError.boostRequired(this.interaction.member as GuildMember, settings)],

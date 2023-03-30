@@ -29,7 +29,7 @@ export default class InteractionsHandler extends AbstractService {
     public async handle(): Promise<void> {
         if(!this.interaction.isButton() && !this.interaction.isSelectMenu() && !this.interaction.isModalSubmit()) return;
         if(this.interaction.isModalSubmit() && !this.interaction.isFromMessage()) return;
-        let settings = this.settings;
+        let settings = await GuildSettings.getCache(this.interaction.guildId);
         let customId = this.interaction.customId.split("-");
         let id = customId[0];
         let action = customId[1];

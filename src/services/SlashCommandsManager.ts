@@ -14,46 +14,48 @@ import CommandOption from "@/types/commands/CommandOption";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 export default class SlashCommandsManager extends AbstractService {
-    public language: GuildLanguage
-
-    constructor(public guildId: string) {
-        super()
-    }
-
     public async set(): Promise<void> {
-        let settings = this.client.cache.settings.get(this.guildId)
-        this.language = {
-            commands: settings?.language?.commands ?? "en",
-            interface: settings?.language?.interface ?? "en"
-        }
-
         let commands: Array<ChatInputApplicationCommandData> = [];
 
         this.client.cache.commands.forEach(cmd => {
             let options = this.parseOptions(cmd.options);
 
             commands.push({
-                name: cmd.config[this.language.commands].name,
-                description: cmd.config[this.language.interface].description,
+                name: cmd.config.en.name,
+                description: cmd.config.en.description,
+                nameLocalizations: {
+                  ru: cmd.config.ru.name
+                },
+                descriptionLocalizations: {
+                    ru: cmd.config.ru.description
+                },
                 options: options,
                 defaultMemberPermissions: cmd.defaultMemberPermissions ?? null
             })
 
         })
 
-        await this.client.guilds.cache.get(this.guildId).commands.set(commands).catch(() => {});
-    }
-
-    public async clear(): Promise<void> {
-        await this.client.guilds.cache.get(this.guildId).commands.set([]).catch(() => {});
+        await this.client.application.commands.set(commands).catch(() => {});
     }
 
     private parseOptions(options: Array<CommandOption>): Array<ApplicationCommandOption> {
         return options?.map(option => {return {
             type: option.type,
-            name: option.config[this.language.commands].name,
-            description: option.config[this.language.interface].description,
-            choices: option.config[this.language.interface].choices ?? [],
+            name: option.config.en.name,
+            description: option.config.en.description,
+            choices: option.config.en.choices?.map(choice => {return {
+                name: choice.name,
+                nameLocalizations: {
+                    ru: option.config.ru.choices.find(c => c.value === choice.value).name
+                },
+                value: choice.value
+            }}),
+            nameLocalizations: {
+                ru: option.config.ru.name
+            },
+            descriptionLocalizations: {
+                ru: option.config.ru.name
+            },
             minValue: option.minValue,
             maxValue: option.maxValue,
             minLength: option.minLength,

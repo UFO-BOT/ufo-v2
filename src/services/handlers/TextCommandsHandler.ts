@@ -1,32 +1,24 @@
-import GuildLanguage from "@/types/GuildLanguage";
 import Discord, {
-    ApplicationCommandOptionType, ChannelType,
-    CommandInteraction,
-    CommandInteractionOption,
+    ApplicationCommandOptionType,
+    ChannelType,
     GuildMember,
-    InteractionReplyOptions, Message, ReplyMessageOptions,
-    TextChannel
+    Message,
+    ReplyMessageOptions
 } from "discord.js";
-import Settings from "@/types/database/Settings";
-import CommandSettings from "@/types/commands/CommandSettings";
-import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
-import GuildSettings from "@/utils/GuildSettings";
-import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator";
 import MakeError from "@/utils/MakeError";
 import TextCommandsValidator from "@/services/validators/TextCommandsValidator";
-import Client from "@/structures/Client";
-import MongoDB from "@/structures/MongoDB";
 import PermissionsParser from "@/utils/PermissionsParser";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import Balance from "@/types/database/Balance";
 import AbstractService from "@/abstractions/AbstractService";
 import SetInteraction from "@/utils/SetInteraction";
+import GuildSettings from "@/utils/GuildSettings";
 
 export default class TextCommandsHandler extends AbstractService {
-    constructor(public message: Message, public settings: GuildSettingsCache) {
+    constructor(public message: Message) {
         super()
     }
 
@@ -37,7 +29,7 @@ export default class TextCommandsHandler extends AbstractService {
         if (this.message.channel.type !== ChannelType.GuildText &&
             this.message.channel.type !== ChannelType.GuildNews) return;
 
-        let settings = this.settings;
+        let settings = await GuildSettings.getCache(this.message.guildId);
 
         let messageArray = this.message.content.split(' ')
         while (messageArray.includes('')) {

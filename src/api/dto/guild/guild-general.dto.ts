@@ -25,10 +25,4 @@ export class GuildGeneralDto {
     @Type(() => GuildLanguageDto)
     public language: GuildLanguageDto
 
-    @IsBoolean()
-    public slashCommands: boolean
-
-    @IsBoolean()
-    public textCommands: boolean
-
 }

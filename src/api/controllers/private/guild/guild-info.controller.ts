@@ -29,8 +29,6 @@ export class GuildInfoController extends Base {
                     commands: request.guild.settings.language?.commands ?? "en",
                     interface: request.guild.settings.language?.interface ?? "en"
                 },
-                slashCommands: request.guild.settings.slashCommands ?? true,
-                textCommands: request.guild.settings.textCommands ?? true,
                 moneySymbol: request.guild.settings.moneysymb ?? this.constants.defaultMoneySymbol,
                 muteRole: request.guild.settings.muterole ?? null,
                 work: request.guild.settings.work ?? {low: 1, high: 500, cooldown: 1200000},
