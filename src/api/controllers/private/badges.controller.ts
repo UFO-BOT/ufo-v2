@@ -10,7 +10,7 @@ import {AuthGuard} from "@/api/guards/auth.guard";
 export class BadgesController extends Base {
 
     @Get()
-    async execute(@Req() request: AuthorizedRequest, @Param("id") id: string) {
+    async execute(@Req() request: AuthorizedRequest) {
         let roles: Array<Role> = await this.manager.oneShardEval((client, context) =>
             client.guilds.cache.get(context.supportGuildID)?.members?.fetch(context.id)
                 ?.then(m => m.roles.cache)

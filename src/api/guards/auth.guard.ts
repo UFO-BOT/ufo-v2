@@ -17,6 +17,7 @@ export class AuthGuard extends Base implements CanActivate {
         let user = await this.oauth2.getUser(token)
         /*let user = await this.manager.shards.first().eval((client, context) =>
             client.users.fetch(context.user).catch(() => {}), {user: id})*/
+        request.token = token;
         request.user = user;
         if(user) return true;
         else throw new UnauthorizedException("Unauthorized")

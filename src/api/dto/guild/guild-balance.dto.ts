@@ -3,9 +3,9 @@ import {IsBoolean, IsInt} from "class-validator";
 export class GuildBalanceDto {
 
     @IsInt()
-    balance: number
+    public balance: number
 
     @IsBoolean()
-    resetXP: boolean
+    public resetXP: boolean
 
 }

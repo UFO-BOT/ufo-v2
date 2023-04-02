@@ -1,4 +1,3 @@
-import {OAuth2Guild, User} from "discord.js";
 import {Injectable, UnauthorizedException} from "@nestjs/common";
 import fetch from "node-fetch";
 import {AccessToken} from "@/api/types/AccessToken";
