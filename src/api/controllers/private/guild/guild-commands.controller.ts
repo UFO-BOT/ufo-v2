@@ -24,8 +24,11 @@ export class GuildCommandsController extends Base {
             deleteUsage: body.deleteUsage,
             allowedRoles: [], forbiddenRoles: [], allowedChannels: [], forbiddenChannels: []}
         let permissions: Array<ApplicationCommandPermissions> = [];
+        let allRoles = true;
+        let allChannels = true;
         body.allowedRoles.forEach(role => {
             if(!request.guild.roles.find(r => r.memberManageable && r.id === role)) return;
+            allRoles = false;
             cmd.allowedRoles.push(role)
             permissions.push({
                 id: role,
@@ -44,6 +47,7 @@ export class GuildCommandsController extends Base {
         })
         body.allowedChannels.forEach(chan => {
             if(!request.guild.channels.find(c => c.id === chan)) return;
+            allChannels = false;
             cmd.allowedChannels.push(chan)
             permissions.push({
                 id: chan,
@@ -60,9 +64,21 @@ export class GuildCommandsController extends Base {
                 permission: false
             })
         })
+        if(!allRoles) permissions.push({
+            id: request.guild.id,
+            type: ApplicationCommandPermissionType.Role,
+            permission: false
+        })
+        if(!allChannels) permissions.push({
+            id: String(BigInt(request.guild.id) - 1n),
+            type: ApplicationCommandPermissionType.Channel,
+            permission: false
+        })
         if(!request.guild.settings.commands) request.guild.settings.commands = {}
         request.guild.settings.commands[command] = cmd;
         await request.guild.settings.save()
+        await this.manager.shards.get(request.guild.shardId).eval((client, context) =>
+            client.emit('updateCache', context.guildId), {guildId: request.guild.id})
         if(body.updateSlash) try {
             await this.manager.shards.first().eval((client, context) =>
                 client.application.commands.cache.find(c => c.name === context.name).permissions.set({

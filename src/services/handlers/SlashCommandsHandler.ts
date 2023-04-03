@@ -34,19 +34,20 @@ export default class SlashCommandsHandler extends AbstractService {
 
         let settings = await GuildSettings.getCache(this.interaction.guildId);
 
+        let commandSettings = settings.commandsSettings[command.config.en.name];
+        if(commandSettings?.enabled === false) return;
+
         if (command.boostRequired && !settings.boost) return this.interaction.reply({
             embeds: [MakeError.boostRequired(this.interaction.member as GuildMember, settings)],
             ephemeral: true
         })
 
-        if (command.botPermissions) {
-            if (!this.interaction.guild.members.me.permissions.has(command.botPermissions))
-                return this.interaction.reply({
-                    embeds:
-                        [MakeError.noBotPermissions(this.interaction.member as GuildMember, settings,
-                            PermissionsParser.parse(command.botPermissions, settings.language.interface))]
-                })
-        }
+        if (command.botPermissions && !this.interaction.guild.members.me.permissions.has(command.botPermissions ?? []))
+            return this.interaction.reply({
+                embeds:
+                    [MakeError.noBotPermissions(this.interaction.member as GuildMember, settings,
+                        PermissionsParser.parse(command.botPermissions, settings.language.interface))]
+            })
 
         let balance;
         if (command.options.find(op => op.validationType === CommandOptionValidationType.Bet)) {
