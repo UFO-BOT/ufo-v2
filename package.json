@@ -19,7 +19,7 @@
     "@types/superagent": "^4.1.15",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
-    "discord.js": "^14.8.0",
+    "discord.js": "^14.14.1",
     "dotenv": "^10.0.0",
     "module-alias": "^2.2.2",
     "moment": "^2.29.1",

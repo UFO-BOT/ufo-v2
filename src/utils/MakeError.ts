@@ -99,15 +99,21 @@ export default class MakeError {
             .setDescription(error.embed.description.replace("{{time}}", TimeParser.formatTimestamp(options.time, 'R')));
     }
 
-    static notEnoughMoney(member: GuildMember, settings: GuildSettingsCache, options: {money: number}): EmbedBuilder {
+    static notEnoughMoney(member: GuildMember, settings: GuildSettingsCache,
+                          options: {money: number, opponent?: GuildMember}): EmbedBuilder {
         let error = errors.notEnoughMoney[settings.language.interface];
+        let description: string;
+        if(!options.opponent) description = options.money > 0 ? error.embed.description
+            .replace("{{money}}", options.money.toString())
+            .replace("{{moneysymb}}", settings.moneysymb) : error.embed.holdOn
+        else description = error.embed.noOpponentMoney
+            .replace("{{member}}", options.opponent.toString())
+            .replace("{{money}}", options.money.toString())
+            .replace("{{moneysymb}}", settings.moneysymb)
         return new EmbedBuilder()
             .setColor(colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
-            .setDescription(options.money > 0 ? error.embed.description
-                .replace("{{money}}", options.money.toString())
-                .replace("{{moneysymb}}", settings.moneysymb) : error.embed.holdOn
-            );
+            .setDescription(description);
     }
 
     static invalidBet(member: GuildMember, settings: GuildSettingsCache, options: {bet: number}): EmbedBuilder {

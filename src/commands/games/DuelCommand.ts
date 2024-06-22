@@ -67,12 +67,18 @@ export default class DuelCommand extends AbstractCommand implements Command {
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<DuelCommandDTO>): Promise<CommandExecutionResult> {
-        ctx.balance.balance -= ctx.args.bet;
-        await ctx.balance.save()
         let opponentBalance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.args.member.id
         })
+        if(!opponentBalance || opponentBalance?.balance < ctx.args.bet) return {
+            error: {
+                type: "notEnoughMoney",
+                options: {money: opponentBalance?.balance ?? 0, opponent: ctx.args.member}
+            }
+        }
+        ctx.balance.balance -= ctx.args.bet;
+        await ctx.balance.save()
         let interaction = new DuelInteraction([ctx.args.member.id], {
             bet: ctx.args.bet,
             players: [

@@ -67,20 +67,19 @@ export default class RockScissorsPaperCommand extends AbstractCommand implements
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<RockScissorsPaperDTO>): Promise<CommandExecutionResult> {
-        ctx.balance.balance -= ctx.args.bet;
-        await ctx.balance.save()
         let opponentBalance;
         if(ctx.args.member) opponentBalance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.args.member?.id
         })
-        let numbers: Array<number> = [];
-        for(let i = 0; i < 7; i++) {
-            let num;
-            do num = Math.round(Math.random()*49 + 1)
-            while (numbers.includes(num))
-            numbers[i] = num;
+        if(!opponentBalance || opponentBalance?.balance < ctx.args.bet) return {
+            error: {
+                type: "notEnoughMoney",
+                options: {money: opponentBalance?.balance ?? 0, opponent: ctx.args.member}
+            }
         }
+        ctx.balance.balance -= ctx.args.bet;
+        await ctx.balance.save()
         let interaction = new RockScissorsPaperInteraction(ctx.args.member ? [ctx.args.member.id] : [ctx.member.id], {
             member: ctx.member,
             balance: ctx.balance,

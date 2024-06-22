@@ -100,7 +100,7 @@ export default class TextCommandsHandler extends AbstractService {
         let response = responses[command.config.en.name as keyof typeof responses]?.[settings.language.interface];
         if (!response) return;
 
-        if(commandSettings.deleteUsage) await this.message.delete().catch(() => {})
+        if(commandSettings?.deleteUsage) await this.message.delete().catch(() => {})
 
         let result = await command.execute({
             guild: this.message.guild,
@@ -121,7 +121,7 @@ export default class TextCommandsHandler extends AbstractService {
         if (!reply.allowedMentions) reply.allowedMentions = {};
         reply.allowedMentions.repliedUser = false;
 
-        let msg = commandSettings.deleteUsage ? await this.message.channel.send(reply) : await this.message.reply(reply);
+        let msg = commandSettings?.deleteUsage ? await this.message.channel.send(reply) : await this.message.reply(reply);
         if (command.after) await command.after(msg, result.data);
         if (interaction) SetInteraction(this.client, interaction, msg);
     }

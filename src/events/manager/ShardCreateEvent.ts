@@ -10,7 +10,7 @@ export default class ShardCreateEvent extends AbstractManagerEvent implements Ev
         console.log(`[SHARDS] Shard ${shard.id} is created`)
         shard.on('ready', async () => {
             console.log(`[SHARDS] Shard ${shard.id} is ready`)
-            if(global.manager.shards.filter(s => s.ready).size >= global.manager.totalShards) {
+            if(global.manager.shards.filter(s => s.ready).size >= Number(global.manager.totalShards)) {
                 console.log(`[SHARDS] All shards have been engaged`)
                 await this.manager.shards.first().eval(client => client.emit('allShardsReady'))
                 this.manager.loadJobs()

@@ -88,14 +88,16 @@
       "embed": {
         "author": "Недостаточно денег",
         "description": "У вас есть только {{money}}{{moneysymb}}",
-        "holdOn": "Денег нет, но вы держитесь"
+        "holdOn": "Денег нет, но вы держитесь",
+        "noOpponentMoney": "У {{member}} есть только {{money}}{{moneysymb}}"
       }
     },
     "en": {
       "embed": {
         "author": "Not enough money",
         "description": "You have only {{money}}{{moneysymb}}",
-        "holdOn": "You have no money, but hold on"
+        "holdOn": "You have no money, but hold on",
+        "noOpponentMoney": "{{member}} have only {{money}}{{moneysymb}}"
       }
     }
   },
