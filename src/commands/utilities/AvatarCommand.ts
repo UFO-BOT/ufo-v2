@@ -1,4 +1,4 @@
-import {ApplicationCommandOptionType, EmbedBuilder, User} from "discord.js";
+import {ApplicationCommandOptionType, calculateUserDefaultAvatarIndex, EmbedBuilder, User} from "discord.js";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
 import Command from "../../types/commands/Command";
@@ -61,10 +61,7 @@ export default class AvatarCommand extends AbstractCommand implements Command {
                 `${user.avatar.startsWith('a_') ? ` | [GIF](${user.avatarURL({size: 1024, extension: 'gif'})})` : ''}`)
             embed.setImage(user.avatarURL({size: 1024}))
         }
-        else {
-            embed.setDescription(ctx.response.data.embed.description.replace('{{user}}', user.tag))
-            embed.setImage(`https://cdn.discordapp.com/embed/avatars/${Number(user.discriminator)%5}.png?width=512&height=512`)
-        }
+        else embed.setImage(user.displayAvatarURL({size: 1024, extension: 'jpg'}))
         return {reply: {embeds: [embed]}}
     }
 }
