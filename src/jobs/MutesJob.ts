@@ -1,3 +1,4 @@
+import {LessThanOrEqual} from "typeorm";
 import AbstractJob from "@/abstractions/AbstractJob";
 import Mute from "@/types/database/Mute";
 
@@ -6,7 +7,7 @@ export default class MutesJob extends AbstractJob {
 
     public async execute(): Promise<any> {
         let date = new Date(Date.now()+60000)
-        let mutes = await this.db.mongoManager.findBy(Mute, {ends: {$lte: date}})
+        let mutes = await this.db.mongoManager.find(Mute, {where: {ends: {$lte: date}}})
         for(let mute of mutes) {
             let time = mute.ends.getTime() - Date.now();
             let guild = await this.manager.oneShardEval((client, context)  => {

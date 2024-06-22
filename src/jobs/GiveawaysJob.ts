@@ -1,3 +1,4 @@
+import {LessThanOrEqual} from "typeorm";
 import AbstractJob from "@/abstractions/AbstractJob";
 import Giveaway from "@/types/database/Giveaway";
 
@@ -6,7 +7,7 @@ export default class GiveawaysJob extends AbstractJob {
 
     public async execute(): Promise<any> {
         let date = new Date(Date.now()+60000)
-        let giveaways = await this.db.mongoManager.findBy(Giveaway, {ends: {$lte: date}})
+        let giveaways = await this.db.mongoManager.find(Giveaway, {where: {ends: {$lte:date}}})
         for(let giveaway of giveaways) {
             let time = giveaway.ends.getTime() - Date.now();
             let guild = await this.manager.oneShardEval((client, context)  => {

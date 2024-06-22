@@ -1,9 +1,9 @@
-import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import {Column, Entity, ObjectId, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('tokens')
 export default class Token {
     @ObjectIdColumn()
-    _id: ObjectID
+    _id: ObjectId
 
     @Column()
     userid: string

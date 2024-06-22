@@ -1,9 +1,9 @@
-import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import {Column, Entity, ObjectId, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('subscriptions')
 export default class Subscription {
     @ObjectIdColumn()
-    _id: ObjectID
+    _id: ObjectId
 
     @Column()
     userid: string

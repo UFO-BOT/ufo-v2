@@ -1,9 +1,9 @@
-import {Column, Entity, ObjectID, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import {Column, Entity, ObjectId, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('gulags')
 export default class Gulag {
     @ObjectIdColumn()
-    _id: ObjectID
+    _id: ObjectId
 
     @Column()
     userid: string

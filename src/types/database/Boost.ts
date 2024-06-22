@@ -1,9 +1,9 @@
-import {Column, Entity, ObjectID, ObjectIdColumn} from "typeorm";
+import {Column, Entity, ObjectId, ObjectIdColumn} from "typeorm";
 
 @Entity('boosts')
 export default class Boost {
     @ObjectIdColumn()
-    _id: ObjectID
+    _id: ObjectId
 
     @Column()
     userid: string

@@ -1,9 +1,9 @@
-import {BaseEntity, Entity, ObjectID, ObjectIdColumn, Column} from "typeorm";
+import {BaseEntity, Entity, ObjectId, ObjectIdColumn, Column} from "typeorm";
 
 @Entity('balances')
 export default class Balance extends BaseEntity {
     @ObjectIdColumn()
-    _id: ObjectID
+    _id: ObjectId
 
     @Column()
     guildid: string

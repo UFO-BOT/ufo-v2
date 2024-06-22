@@ -16,10 +16,9 @@ export default class MongoDB extends DataSource {
             type: "mongodb",
             database: dbName,
             url: url,
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
             synchronize: true,
             logging: true,
+            retryWrites: true,
             entities: [
                 Settings,
                 Balance,

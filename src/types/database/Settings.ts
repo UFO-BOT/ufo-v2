@@ -1,11 +1,11 @@
-import {Entity, Column, ObjectIdColumn, ObjectID, BaseEntity, PrimaryGeneratedColumn, PrimaryColumn} from "typeorm"
+import {Entity, Column, ObjectIdColumn, ObjectId, BaseEntity, PrimaryGeneratedColumn, PrimaryColumn} from "typeorm"
 import GuildLanguage from "../GuildLanguage";
 import CommandSettings from "../commands/CommandSettings";
 
 @Entity('settings')
 export default class Settings extends BaseEntity {
     @ObjectIdColumn()
-    _id: ObjectID
+    _id: ObjectId
 
     @Column()
     guildid: string
