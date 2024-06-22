@@ -24,7 +24,7 @@ export class LeaderboardGuard extends Base implements CanActivate {
                 icon: guild.icon,
                 shardId: guild.shardId
             }
-        }, {context: {guild: guild.id, user: request.user.id, ChannelType}}) as GuildInfo
+        }, {context: {guild: guild.id, user: request.user, ChannelType}}) as GuildInfo
         if(!guildData) throw new ForbiddenException("Missing permissions view leaderboard of this guild")
         request.guild = guildData;
         return true;

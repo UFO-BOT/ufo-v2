@@ -24,7 +24,7 @@ export class GuildItemsController extends Base {
 
     @Get()
     async list(@Req() request: GuildRequest) {
-        let items = await this.db.manager.findBy(Item, {guildid: request.guild.id})
+        let items = await this.db.manager.find(Item, {where: {guildid: request.guild.id}})
         return items.map(item => {return {
             name: item.name,
             description: item.description,

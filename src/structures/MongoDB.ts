@@ -7,6 +7,11 @@ import Giveaway from "@/types/database/Giveaway";
 import Case from "@/types/database/Case";
 import Mute from "@/types/database/Mute";
 import Ban from "@/types/database/Ban";
+import Token from "@/types/database/Token";
+import Subscription from "@/types/database/Subscription";
+import Boost from "@/types/database/Boost";
+import Gulag from "@/types/database/Gulag";
+import Bill from "@/types/database/Bill";
 
 export default class MongoDB extends DataSource {
     public url: string
@@ -27,7 +32,12 @@ export default class MongoDB extends DataSource {
                 Giveaway,
                 Case,
                 Mute,
-                Ban
+                Ban,
+                Token,
+                Subscription,
+                Boost,
+                Gulag,
+                Bill
             ]
         })
         global.db = this;

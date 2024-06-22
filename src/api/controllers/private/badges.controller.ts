@@ -15,7 +15,7 @@ export class BadgesController extends Base {
             client.guilds.cache.get(context.supportGuildID)?.members?.fetch(context.id)
                 ?.then(m => m.roles.cache)
                 ?.catch(() => undefined),
-            {context: {supportGuildID: this.manager.supportGuildID, id: request.user.id}})
+            {context: {supportGuildID: this.manager.supportGuildID, id: request.user}})
         let badgesList = [];
         for(let role in badges)
             if(roles?.find(r => r.id === role)) badgesList.push(badges[role as keyof typeof badges])

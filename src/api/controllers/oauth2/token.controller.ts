@@ -14,19 +14,19 @@ export class TokenController extends Base {
     @Post()
     async token(@Body() body: TokenDto) {
         let clientID = await this.manager.shards.first().eval(client => client.user.id);
-        return this.oauth2.getAccessToken(clientID, body.redirectURI, body.code);
+        return this.oauth2.getAccessToken(clientID as string, body.redirectURI, body.code);
     }
 
     @Patch("/refresh")
     async refresh(@Body() body: RefreshTokenDto) {
         let clientID = await this.manager.shards.first().eval(client => client.user.id);
-        return this.oauth2.refreshToken(clientID, body.refreshToken);
+        return this.oauth2.refreshToken(clientID as string, body.refreshToken);
     }
 
     @Delete("/revoke")
     async revoke(@Headers("Authorization") token: string) {
         let clientID = await this.manager.shards.first().eval(client => client.user.id);
-        await this.oauth2.revokeToken(clientID, token)
+        await this.oauth2.revokeToken(clientID as string, token)
         return {message: "Access token revoked successfully"}
     }
 }

@@ -39,7 +39,7 @@ export class GuildGuard extends Base implements CanActivate {
                 icon: guild.icon,
                 shardId: guild.shardId
             }
-        }, {context: {guild: guild.id, user: request.user.id, ChannelType}}) as GuildData
+        }, {context: {guild: guild.id, user: request.user, ChannelType}}) as GuildData
         if(!guildData) throw new ForbiddenException("Missing permissions to manage the guild")
         guildData.settings = await GuildSettings.findOrCreate(guild.id);
         request.guild = guildData;
