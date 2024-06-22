@@ -1,7 +1,7 @@
-import {Column, Entity, ObjectId, ObjectIdColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ObjectId, ObjectIdColumn} from "typeorm";
 
 @Entity('bills')
-export default class Bill {
+export default class Bill extends BaseEntity {
     @ObjectIdColumn()
     _id: ObjectId
 

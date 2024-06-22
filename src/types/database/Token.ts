@@ -1,7 +1,7 @@
-import {Column, Entity, ObjectId, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ObjectId, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('tokens')
-export default class Token {
+export default class Token extends BaseEntity {
     @ObjectIdColumn()
     _id: ObjectId
 
