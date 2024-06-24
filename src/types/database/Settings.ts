@@ -1,6 +1,7 @@
 import {Entity, Column, ObjectIdColumn, ObjectId, BaseEntity, PrimaryGeneratedColumn, PrimaryColumn} from "typeorm"
 import GuildLanguage from "../GuildLanguage";
 import CommandSettings from "../commands/CommandSettings";
+import {GuildLog, GuildLogType} from "@/types/GuildLog";
 
 @Entity('settings')
 export default class Settings extends BaseEntity {
@@ -41,11 +42,7 @@ export default class Settings extends BaseEntity {
 
     @Column()
     logs: {
-        channels: {
-            messageDelete: string
-            messageEdit: string
-            moderation: string
-        }
+        list: Record<GuildLogType, GuildLog>
         ignore: {
             channels: Array<string>
         }

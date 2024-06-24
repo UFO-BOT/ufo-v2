@@ -5,6 +5,7 @@ import {GuildsController} from "@/api/controllers/private/guilds.controller";
 import {GuildInfoController} from "@/api/controllers/private/guild/guild-info.controller";
 import {GuildGeneralController} from "@/api/controllers/private/guild/guild-general.controller";
 import {GuildEconomyController} from "@/api/controllers/private/guild/guild-economy.controller";
+import {GuildLogsController} from "@/api/controllers/private/guild/guild-logs.controller";
 import {LeaderboardController} from "@/api/controllers/private/leaderboard/leaderboard.controller";
 import {LeaderboardMemberController} from "@/api/controllers/private/leaderboard/leaderboard-member.controller";
 import {GuildBalancesController} from "@/api/controllers/private/guild/guild-balances.controller";
@@ -14,7 +15,7 @@ import {GuildCommandsController} from "@/api/controllers/private/guild/guild-com
 
 @Module({
     controllers: [GuildsController, BadgesController, GuildInfoController, GuildGeneralController,
-        GuildEconomyController, LeaderboardController, LeaderboardMemberController, GuildBalancesController,
+        GuildEconomyController, GuildLogsController, LeaderboardController, LeaderboardMemberController, GuildBalancesController,
         GuildItemsController, GuildResetController, GuildCommandsController],
     providers: [Oauth2Service]
 })

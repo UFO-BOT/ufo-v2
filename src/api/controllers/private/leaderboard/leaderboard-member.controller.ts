@@ -11,6 +11,7 @@ import {
     Req,
     UseGuards
 } from "@nestjs/common";
+import {User} from "discord.js";
 import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
 import {LeaderboardRequest} from "@/api/types/LeaderboardRequest";
@@ -26,7 +27,7 @@ export class LeaderboardMemberController extends Base {
     async execute(@Req() request: LeaderboardRequest) {
         let user = await this.manager.shards.first().eval((client, context) =>
                 client.users.fetch(context.id).catch(() => null),
-            {id: request.params.user})
+            {id: request.params.user}) as User
         if(!user) throw new NotFoundException("User not found")
         let balance = await this.db.manager.findOneBy(Balance, {guildid: request.guild.id, userid: user.id})
         if(!balance) balance = {balance: 0, xp: 0} as Balance;
@@ -37,7 +38,8 @@ export class LeaderboardMemberController extends Base {
                 number,
                 user: {
                     id: user.id,
-                    tag: user.tag,
+                    username: user.username,
+                    global_name: user.globalName,
                     avatar: user.avatarURL ?? user.defaultAvatarURL
                 },
                 balance: balance.balance === Infinity ? 'Infinity' : balance.balance,

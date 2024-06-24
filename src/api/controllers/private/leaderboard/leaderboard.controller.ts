@@ -1,8 +1,8 @@
 import {BadRequestException, Body, Controller, Get, Headers, Param, Post, Query, Req, UseGuards} from "@nestjs/common";
+import {User} from "discord.js";
 import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
 import {LeaderboardRequest} from "@/api/types/LeaderboardRequest";
-import Balance from "@/types/database/Balance";
 import {LeaderboardGuard} from "@/api/guards/leaderboard.guard";
 import {LeaderboardDto} from "@/api/dto/leaderboard.dto";
 import {LeaderboardMember} from "@/api/types/LeaderboardMember";
@@ -25,13 +25,14 @@ export class LeaderboardController extends Base {
             let leader = leaderboard.leaders[number]
             let user = await this.manager.shards.first().eval((client, context) =>
                     client.users.fetch(context.id).then().catch(() => null),
-                {id: leader.userid})
+                {id: leader.userid}) as User
             if(!user) continue;
             body.leaders.push({
                 number: (query.page-1)*10+number+1,
                 user: {
                     id: user.id,
-                    tag: user.tag,
+                    username: user.username,
+                    global_name: user.globalName,
                     avatar: user.avatarURL ?? user.defaultAvatarURL
                 },
                 balance: leader.balance === Infinity ? 'Infinity' : leader.balance,

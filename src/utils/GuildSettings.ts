@@ -36,6 +36,6 @@ export default class GuildSettings {
             settings.guildid = guildId;
             await global.db.manager.save(settings);
         }
-        return settings;
+        return settings as Settings;
     }
 }

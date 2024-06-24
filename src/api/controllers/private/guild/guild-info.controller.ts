@@ -36,6 +36,10 @@ export class GuildInfoController extends Base {
                 minBet: request.guild.settings.minBet ?? 100,
                 commission: request.guild.settings.commission ?? 0,
                 duelCommission: request.guild.settings.duelCommission ?? false,
+                logs: {
+                    list: request.guild.settings.logs?.list ?? {},
+                    ignore: request.guild.settings.logs?.ignore ?? {channels: []}
+                },
                 boost: request.guild.settings.boost ?? false
             }
         }

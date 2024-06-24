@@ -209,7 +209,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
     }
 
     private grenade() {
-        let damage = Math.round(20+Math.random()*60)
+        let damage = Math.round(20+Math.random()*40)
         this.data.players[Number(!this.data.turn)].hp -= damage;
         if(this.data.players[Number(!this.data.turn)].hp < 0) this.data.players[Number(!this.data.turn)].hp = 0;
         this.data.players[this.data.turn].equipment.delete("grenade")

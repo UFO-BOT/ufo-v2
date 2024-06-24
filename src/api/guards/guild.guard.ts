@@ -1,7 +1,7 @@
+import {ChannelType} from "discord.js";
 import {CanActivate, ExecutionContext, ForbiddenException, Injectable, NotFoundException} from "@nestjs/common";
 import Base from "@/abstractions/Base";
 import {RawGuildData} from "discord.js/typings/rawDataTypes";
-import {ChannelType} from "discord.js";
 import {GuildData} from "@/api/types/GuildData";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import GuildSettings from "@/utils/GuildSettings";
@@ -28,7 +28,8 @@ export class GuildGuard extends Base implements CanActivate {
             let channels = guild.channels.cache
                 .filter(chan => chan.type === context.ChannelType.GuildText || chan.type === context.ChannelType.GuildNews)
                 .map(channel => Object.assign(channel, {
-                    botManageable: channel.permissionsFor(guild.members.me)?.has("SendMessages")
+                    botManageable: channel.permissionsFor(guild.members.me)?.has("ViewChannel") &&
+                        channel.permissionsFor(guild.members.me)?.has("SendMessages")
             }))
             return {
                 member, roles, channels,
