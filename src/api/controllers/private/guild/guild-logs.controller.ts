@@ -13,7 +13,7 @@ export class GuildLogsController extends Base {
 
     @Post(":id/logs")
     async execute(@Req() request: GuildRequest, @Body() body: GuildLogsDto) {
-        let list = {} as Record<GuildLogType, GuildLog>
+        let list = {} as GuildLog
         for (let log of this.logs) {
             if (typeof body.list[log]?.enabled !== 'boolean') continue
             if (!body.list[log].enabled) {

@@ -6,7 +6,7 @@ import {
     IsString, ValidateNested
 } from "class-validator";
 import {Type} from "class-transformer";
-import {GuildLog, GuildLogType} from "@/types/GuildLog";
+import {GuildLog} from "@/types/GuildLog";
 
 class Ignore {
 
@@ -19,7 +19,7 @@ class Ignore {
 export class GuildLogsDto {
 
     @IsObject()
-    public list: Record<GuildLogType, GuildLog>
+    public list: GuildLog
 
     @ValidateNested()
     @Type(() => Ignore)

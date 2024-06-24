@@ -26,7 +26,7 @@ export default class BanEnding extends AbstractService {
                 value: ban.user.toString()
             })
             .setFooter({text: props.data.embed.footer + ' ' + `#${this.ban.casenum}`})
-        let logChannel = guild.channels.cache.get(settings?.logs?.channels?.moderation) as GuildTextBasedChannel;
+        let logChannel = guild.channels.cache.get(settings?.logs?.list?.moderationBan?.channel) as GuildTextBasedChannel;
         if(logChannel) await logChannel.send({embeds: [embed]});
         return this.ban.remove();
     }

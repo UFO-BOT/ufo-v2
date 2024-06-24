@@ -7,6 +7,7 @@ import {LeaderboardGuard} from "@/api/guards/leaderboard.guard";
 import {LeaderboardDto} from "@/api/dto/leaderboard.dto";
 import {LeaderboardMember} from "@/api/types/LeaderboardMember";
 import Leaderboard from "@/utils/Leaderboard";
+import {RawUserData} from "discord.js/typings/rawDataTypes";
 
 @Controller('leaderboard')
 @UseGuards(AuthGuard, LeaderboardGuard)
@@ -25,15 +26,16 @@ export class LeaderboardController extends Base {
             let leader = leaderboard.leaders[number]
             let user = await this.manager.shards.first().eval((client, context) =>
                     client.users.fetch(context.id).then().catch(() => null),
-                {id: leader.userid}) as User
+                {id: leader.userid}) as RawUserData & {displayAvatarURL: string}
             if(!user) continue;
+
             body.leaders.push({
                 number: (query.page-1)*10+number+1,
                 user: {
                     id: user.id,
                     username: user.username,
-                    global_name: user.globalName,
-                    avatar: user.avatarURL ?? user.defaultAvatarURL
+                    global_name: user.global_name,
+                    avatar: user.displayAvatarURL
                 },
                 balance: leader.balance === Infinity ? 'Infinity' : leader.balance,
                 xp: leader.xp

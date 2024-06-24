@@ -10,6 +10,7 @@ import MakeError from "@/utils/MakeError";
 import GuildSettings from "@/utils/GuildSettings";
 import ModerationActionLog from "@/utils/ModerationActionLog";
 import ModAction from "@/types/ModAction";
+import {GuildLogType} from "@/types/GuildLog";
 
 export default abstract class ModerationAction extends AbstractService {
     public settings: Settings
@@ -57,7 +58,9 @@ export default abstract class ModerationAction extends AbstractService {
         action.duration = this.options.duration ?? null;
         await this.db.manager.save(action);
         let logEmbed = await ModerationActionLog(this.client, action, GuildSettings.toCache(this.settings));
-        let channel = this.options.guild.channels.cache.get(this.settings?.logs?.channels?.moderation) as GuildTextBasedChannel;
+        let channel = this.options.guild.channels.cache
+            .get(this.settings?.logs?.list?.[props.logs[this.options.action] as GuildLogType]?.channel) as
+            GuildTextBasedChannel;
         if (channel) await channel.send({embeds: [logEmbed]});
         let embed = new EmbedBuilder()
             .setColor(props.actions[this.options.action].color as ColorResolvable)

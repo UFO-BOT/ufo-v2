@@ -13,6 +13,14 @@
       "ban": "Вы были забанены на сервере **{{server}}** модератором **{{moderator}}** по причине: {{reason}}",
       "TempBan": "Вы были забанены на сервере **{{server}}** модератором **{{moderator}}** на `{{duration}}` по причине: {{reason}}"
     },
+    "logs": {
+      "warn": "moderationWarn",
+      "mute": "moderationMute",
+      "kick": "moderationKick",
+      "ban": "moderationBan",
+      "unmute": "moderationUnmute",
+      "unban": "moderationUnban"
+    },
     "actions": {
       "warn": {
         "color": "#f6ff00",
@@ -86,6 +94,14 @@
       "kick": "You have been kicked from server **{{server}}** by **{{moderator}}** with a reason: {{reason}}",
       "ban": "You have been banned from server **{{server}}** by **{{moderator}}** with a reason: {{reason}}",
       "TempBan": "You have been banned from server **{{server}}** by **{{moderator}}** for `{{duration}}` with a reason: {{reason}}"
+    },
+    "logs": {
+      "warn": "moderationWarn",
+      "mute": "moderationMute",
+      "kick": "moderationKick",
+      "ban": "moderationBan",
+      "unmute": "moderationUnmute",
+      "unban": "moderationUnban"
     },
     "actions": {
       "warn": {

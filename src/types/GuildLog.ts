@@ -1,9 +1,9 @@
-type GuildLogType = 'messageDelete' | 'messageEdit' | 'messageDeleteBulk' | 'roleCreate' | 'roleEdit' | 'roleDelete' |
+export type GuildLogType = 'messageDelete' | 'messageEdit' | 'messageDeleteBulk' | 'roleCreate' | 'roleEdit' | 'roleDelete' |
     'moderationWarn' | 'moderationMute' | 'moderationKick' | 'moderationBan' | 'moderationUnmute' | 'moderationUnban'
 
-interface GuildLog {
+export interface GuildLogSettings {
     enabled: boolean
     channel: string | null
 }
 
-export {GuildLogType, GuildLog}
+export type GuildLog = Record<GuildLogType, GuildLogSettings>
