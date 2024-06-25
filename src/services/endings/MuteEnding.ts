@@ -29,7 +29,7 @@ export default class MuteEnding extends AbstractService {
                 value: member.toString()
             })
             .setFooter({text: props.data.embed.footer + ' ' + `#${this.mute.casenum}`})
-        let logChannel = guild.channels.cache.get(settings?.logs?.list?.moderationMute?.channel) as GuildTextBasedChannel;
+        let logChannel = guild.channels.cache.get(settings?.logs?.list?.moderationUnmute?.channel) as GuildTextBasedChannel;
         if(logChannel) await logChannel.send({embeds: [embed]});
         return this.mute.remove();
     }

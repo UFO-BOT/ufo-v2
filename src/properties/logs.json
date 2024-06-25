@@ -1,0 +1,166 @@
+{
+  "messageDelete": {
+    "ru": {
+      "embed": {
+        "author": "Удалено сообщение пользователя {{author}}",
+        "content": "Текст сообщения",
+        "attachments": "Вложения",
+        "channel": "Канал сообщения",
+        "messageAuthor": "Автор сообщения",
+        "id": "ID сообщения"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Message by {{author}} has been deleted",
+        "content": "Message content",
+        "attachments": "Attachments",
+        "channel": "Message channel",
+        "messageAuthor": "Message author",
+        "id": "Message ID"
+      }
+    }
+  },
+  "messageDeleteBulk": {
+    "ru": {
+      "embed": {
+        "author": "Очищено `{{amount}}` сообщений",
+        "channel": "Канал сообщений"
+      },
+      "file": {
+        "attachments": "Вложения",
+        "messageAuthor": "Автор",
+        "channel": "Канал",
+        "id": "ID",
+        "created": "Создано"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Deleted `{{amount}}` messages",
+        "channel": "Messages channel"
+      },
+      "file": {
+        "attachments": "Attachments",
+        "messageAuthor": "Author",
+        "channel": "Channel",
+        "id": "ID",
+        "created": "Created"
+      }
+    }
+  },
+  "messageEdit": {
+    "ru": {
+      "embed": {
+        "author": "Изменено сообщение пользователя {{author}}",
+        "jump": "Перейти",
+        "oldContent": "Старое сообщение",
+        "newContent": "Новое сообщение",
+        "channel": "Канал сообщения",
+        "messageAuthor": "Автор сообщения",
+        "id": "ID сообщения"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Message by {{author}} has been edited",
+        "jump": "Jump",
+        "oldContent": "Old message",
+        "newContent": "New message",
+        "channel": "Message channel",
+        "messageAuthor": "Message author",
+        "id": "Message ID"
+      }
+    }
+  },
+  "roleCreate": {
+    "ru": {
+      "embed": {
+        "title": "Создана роль",
+        "description": "Роль:",
+        "name": "Название",
+        "permissions": "Права",
+        "id": "ID роли:"
+      }
+    },
+    "en": {
+      "embed": {
+        "title": "Role has been created",
+        "description": "Role:",
+        "name": "Name",
+        "permissions": "Permissions",
+        "id": "Role ID:"
+      }
+    }
+  },
+  "roleEdit": {
+    "ru": {
+      "embed": {
+        "title": "Изменена роль",
+        "description": "Роль:",
+        "name": "Название",
+        "color": "Цвет",
+        "mentionable": "Упоминаемая",
+        "hoist": "Показывается отдельно",
+        "addedPermissions": "Добавлены права",
+        "removedPermissions": "Удалены права",
+        "boolean": {
+          "true": "Да",
+          "false": "Нет"
+        },
+        "id": "ID роли:"
+      }
+    },
+    "en": {
+      "embed": {
+        "title": "Role has been edited",
+        "description": "Role:",
+        "name": "Name",
+        "color": "Color",
+        "mentionable": "Mentionable",
+        "hoist": "Hoist",
+        "addedPermissions": "Added permissions",
+        "removedPermissions": "Removed permissions",
+        "boolean": {
+          "true": "Yes",
+          "false": "No"
+        },
+        "id": "Role ID:"
+      }
+    }
+  },
+  "roleDelete": {
+    "ru": {
+      "embed": {
+        "title": "Удалена роль",
+        "description": "Роль:",
+        "name": "Название",
+        "color": "Цвет",
+        "mentionable": "Упоминаемая",
+        "hoist": "Показывается отдельно",
+        "permissions": "Права",
+        "boolean": {
+          "true": "Да",
+          "false": "Нет"
+        },
+        "id": "ID роли:"
+      }
+    },
+    "en": {
+      "embed": {
+        "title": "Role has been deleted",
+        "description": "Role:",
+        "name": "Name",
+        "color": "Color",
+        "mentionable": "Mentionable",
+        "hoist": "Hoist",
+        "permissions": "Permissions",
+        "boolean": {
+          "true": "Yes",
+          "false": "No"
+        },
+        "id": "Role ID:"
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import ModerationActionOptions from "@/types/ModerationActionOptions";
 import Case from "@/types/database/Case";
 import properties from "@/properties/moderation.json";
 import Settings from "@/types/database/Settings";
-import {ColorResolvable, EmbedBuilder, GuildTextBasedChannel} from "discord.js";
+import {ColorResolvable, EmbedBuilder, TextChannel} from "discord.js";
 import TimeParser from "@/utils/TimeParser";
 import actionExecutionResult from "@/types/ModActionExecutionResult";
 import MakeError from "@/utils/MakeError";
@@ -60,7 +60,7 @@ export default abstract class ModerationAction extends AbstractService {
         let logEmbed = await ModerationActionLog(this.client, action, GuildSettings.toCache(this.settings));
         let channel = this.options.guild.channels.cache
             .get(this.settings?.logs?.list?.[props.logs[this.options.action] as GuildLogType]?.channel) as
-            GuildTextBasedChannel;
+            TextChannel
         if (channel) await channel.send({embeds: [logEmbed]});
         let embed = new EmbedBuilder()
             .setColor(props.actions[this.options.action].color as ColorResolvable)
