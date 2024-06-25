@@ -31,7 +31,7 @@ export class LeaderboardMemberController extends Base {
         if(!user) throw new NotFoundException("User not found")
         let balance = await this.db.manager.findOneBy(Balance, {guildid: request.guild.id, userid: user.id})
         if(!balance) balance = {balance: 0, xp: 0} as Balance;
-        let number = await Leaderboard.leaderboardRank(request.guild.id, user.id);
+        let number = await Leaderboard.leaderboardRank(request.guild.id, user.id as string);
         return {
             guildName: request.guild.name,
             leader: {
@@ -44,7 +44,8 @@ export class LeaderboardMemberController extends Base {
                 },
                 balance: balance.balance === Infinity ? 'Infinity' : balance.balance,
                 xp: balance.xp
-            }
+            },
+            access: request.guild.access
         }
     }
 

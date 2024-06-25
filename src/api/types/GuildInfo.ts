@@ -3,4 +3,5 @@ export interface GuildInfo {
     name: string
     icon: string
     shardId: number
+    access?: boolean
 }

@@ -19,7 +19,8 @@ export class LeaderboardController extends Base {
         let body = {
             guildName: request.guild.name,
             pageCount: leaderboard.pageCount,
-            leaders: [] as Array<LeaderboardMember>
+            leaders: [] as Array<LeaderboardMember>,
+            access: request.guild.access
         }
         for(let num in leaderboard.leaders) {
             let number = parseInt(num, 10);
