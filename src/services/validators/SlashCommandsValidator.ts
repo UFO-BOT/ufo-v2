@@ -26,14 +26,13 @@ interface SlashCommandsValidatorOptions {
 export default class SlashCommandsValidator extends AbstractService {
     constructor(public options: SlashCommandsValidatorOptions) {
         super()
-        this.options.settings = this.client.cache.settings.get(this.options.guild.id);
+        this.options.settings = this.client.cache.settings.get(this.options.guild.id as string);
     }
 
     public async validate(): Promise<CommandValidationResult> {
         let args: Record<string, any> = {};
         for(let option of this.options.commandOptions)  {
-            let interactionOption = this.options.interactionOptions
-                .find(o => o.name === option.config[this.options.settings.language.commands].name);
+            let interactionOption = this.options.interactionOptions.find(o => o.name === option.config.en.name);
             if(!interactionOption) continue;
             let type = option.validationType ?
                 CommandOptionValidationType[option.validationType] :
@@ -48,8 +47,8 @@ export default class SlashCommandsValidator extends AbstractService {
                     }
                     break;
                 case "Duration":
-                    let duration = TimeParser.parse(interactionOption.value as string, this.options.settings.language.commands)
-                    if(duration > 315360000000) return {
+                    let duration = TimeParser.parse(interactionOption.value as string)
+                    if(duration < 1000 || duration > 315360000000) return {
                         valid: false,
                         error: {type: "invalidDuration", options: {}}
                     }

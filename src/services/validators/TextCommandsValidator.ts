@@ -61,7 +61,7 @@ export default class TextCommandsValidator extends AbstractService {
                     break;
                 case "Duration":
                     value = TimeParser.parse(arg, this.options.settings.language.commands)
-                    if(value > 315360000000) return {
+                    if(value < 1000 || value > 315360000000) return {
                         valid: false,
                         error: {type: "invalidDuration", options: {}}
                     }

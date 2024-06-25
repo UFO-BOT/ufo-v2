@@ -27,8 +27,9 @@ interface AllOutput {
 }
 
 export default class TimeParser {
-    public static parse(arg: string, lang: Language = 'en'): number {
+    public static parse(arg: string, lang?: Language): number {
         let duration: number;
+        if (!lang) return TimeParser.parse(arg, "en") ?? TimeParser.parse(arg, "ru")
         let matchers = this.matchers[lang];
         let replacers = this.replacers[lang];
         Object.keys(matchers).reverse().forEach(unit => {

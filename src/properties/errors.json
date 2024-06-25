@@ -97,7 +97,7 @@
         "author": "Not enough money",
         "description": "You have only {{money}}{{moneysymb}}",
         "holdOn": "You have no money, but hold on",
-        "noOpponentMoney": "{{member}} have only {{money}}{{moneysymb}}"
+        "noOpponentMoney": "{{member}} has only {{money}}{{moneysymb}}"
       }
     }
   },
@@ -119,13 +119,13 @@
     "ru": {
       "embed": {
         "author": "Недействительная длительность",
-        "description": "Длительность не должна превышать 10 лет"
+        "description": "Длительность должна быть не менее 1 секунды и не более 10 лет"
       }
     },
     "en": {
       "embed": {
         "author": "Invalid duration",
-        "description": "Duration may not be longer than 10 years"
+        "description": "Duration must be at least 1 second and no more than 10 years"
       }
     }
   },

@@ -72,7 +72,7 @@ export default class RockScissorsPaperCommand extends AbstractCommand implements
             guildid: ctx.guild.id,
             userid: ctx.args.member?.id
         })
-        if(!opponentBalance || opponentBalance?.balance < ctx.args.bet) return {
+        if(ctx.args.member && (!opponentBalance || opponentBalance?.balance < ctx.args.bet)) return {
             error: {
                 type: "notEnoughMoney",
                 options: {money: opponentBalance?.balance ?? 0, opponent: ctx.args.member}

@@ -35,7 +35,6 @@ export class GuildInfoController extends Base {
                 moneybags: request.guild.settings.moneybags ?? {low: -500, high: 500, cooldown: 600000},
                 minBet: request.guild.settings.minBet ?? 100,
                 commission: request.guild.settings.commission ?? 0,
-                duelCommission: request.guild.settings.duelCommission ?? false,
                 logs: {
                     list: request.guild.settings.logs?.list ?? {},
                     ignore: request.guild.settings.logs?.ignore ?? {channels: []}

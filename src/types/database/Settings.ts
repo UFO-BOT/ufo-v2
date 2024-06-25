@@ -38,9 +38,6 @@ export default class Settings extends BaseEntity {
     commission: number
 
     @Column()
-    duelCommission: boolean
-
-    @Column()
     logs: {
         list: GuildLog
         ignore: {
