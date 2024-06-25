@@ -108,7 +108,7 @@ export default class GiveMoneyCommand extends AbstractCommand implements Command
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(`${ctx.member.toString()}: -${amount
                     .toLocaleString(ctx.settings.language.interface)}${ctx.settings.moneysymb}\n` +
-            `${ctx.response.data.embed.commission}: ${commission}%\n` +
+                (commission > 0 ? `${ctx.response.data.embed.commission}: ${commission}%\n` : '') +
             `${user.toString()}: +${addedAmount
                 .toLocaleString(ctx.settings.language.interface)}${settings.moneysymb}`)
         return {reply: {embeds: [embed]}}
