@@ -51,7 +51,4 @@ export class GuildEconomyDto {
     @Max(100)
     public commission: number
 
-    @IsBoolean()
-    public duelCommission: boolean
-
 }
