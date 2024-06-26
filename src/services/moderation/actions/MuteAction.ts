@@ -49,7 +49,8 @@ export default class MuteAction extends ModerationAction {
         if(this.options.duration < 60000) mute.timeout = true;
         await this.db.manager.save(mute);
         await this.options.member.roles.add(role);
-        await this.options.member.timeout(this.options.duration).catch(() => null);
+        if(!mute.infinity && this.settings.useTimeout !== false && this.options.duration < 2419200000)
+            await this.options.member.timeout(this.options.duration).catch(() => null)
         if(this.options.duration < 60000) setTimeout(async () => {
             mute = await this.db.manager.findOneBy(Mute, {guildid: mute.guildid, userid: mute.userid});
             if(!mute) return;

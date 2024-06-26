@@ -49,6 +49,9 @@ export default class Settings extends BaseEntity {
     muterole: string
 
     @Column()
+    useTimeout: boolean
+
+    @Column()
     boost: boolean
 
     @Column()
