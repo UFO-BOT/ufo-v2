@@ -2,6 +2,7 @@ import {Entity, Column, ObjectIdColumn, ObjectId, BaseEntity, PrimaryGeneratedCo
 import GuildLanguage from "../GuildLanguage";
 import CommandSettings from "../commands/CommandSettings";
 import {GuildLog} from "@/types/GuildLog";
+import GuildWarnsPunishment from "@/types/GuildWarnsPunishment";
 
 @Entity('settings')
 export default class Settings extends BaseEntity {
@@ -50,6 +51,9 @@ export default class Settings extends BaseEntity {
 
     @Column()
     useTimeout: boolean
+
+    @Column()
+    warnsPunishments: Array<GuildWarnsPunishment>
 
     @Column()
     boost: boolean

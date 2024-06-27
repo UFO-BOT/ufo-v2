@@ -5,7 +5,7 @@ import properties from "@/properties/moderation.json";
 import Settings from "@/types/database/Settings";
 import {ColorResolvable, EmbedBuilder, TextChannel} from "discord.js";
 import TimeParser from "@/utils/TimeParser";
-import actionExecutionResult from "@/types/ModActionExecutionResult";
+import ModActionExecutionResult from "@/types/ModActionExecutionResult";
 import MakeError from "@/utils/MakeError";
 import GuildSettings from "@/utils/GuildSettings";
 import ModerationActionLog from "@/utils/ModerationActionLog";
@@ -79,5 +79,5 @@ export default abstract class ModerationAction extends AbstractService {
         return embed;
     }
 
-    public abstract action(): Promise<actionExecutionResult>
+    public abstract action(): Promise<ModActionExecutionResult>
 }
