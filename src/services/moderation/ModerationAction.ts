@@ -76,6 +76,8 @@ export default abstract class ModerationAction extends AbstractService {
             name: props.duration,
             value: TimeParser.stringify(this.options.duration, lang)
         })
+        if (this.options.autoMod) embed.data.author.name = props.autoMod + ' ' + embed.data.author.name
+
         return embed;
     }
 

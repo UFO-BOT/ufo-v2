@@ -1,4 +1,4 @@
-import {ApplicationCommandOptionType, GuildMember} from "discord.js";
+import {ApplicationCommandOptionType, GuildMember, Message} from "discord.js";
 
 import AbstractCommand from "../../abstractions/commands/AbstractCommand";
 import Command from "../../types/commands/Command";
@@ -51,11 +51,11 @@ export default class WarnsCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext<WarnsCommandDTO>): Promise<CommandExecutionResult> {
         let member = ctx.args.member ?? ctx.member;
-        let actions = await this.db.manager.findBy(Case, {
+        let actions = await this.db.mongoManager.find(Case, {where: {
             guildid: ctx.guild.id,
             userid: member.id,
             action: ModAction.Warn
-        })
+        }})
         let interaction = new WarnsInteraction([ctx.member.id], {
             member: member,
             warns: actions,
@@ -63,6 +63,6 @@ export default class WarnsCommand extends AbstractCommand implements Command {
             maxPage: Math.ceil(actions.length/5)
         }, ctx.settings)
         await interaction.setWarns();
-        return {interaction}
+        return {interaction, data: {member: ctx.args.member}}
     }
 }
