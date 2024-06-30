@@ -3,6 +3,7 @@ import GuildLanguage from "../GuildLanguage";
 import CommandSettings from "../commands/CommandSettings";
 import {GuildLog} from "@/types/GuildLog";
 import GuildWarnsPunishment from "@/types/GuildWarnsPunishment";
+import GuildAutoMod from "@/types/automod/GuildAutoMod";
 
 @Entity('settings')
 export default class Settings extends BaseEntity {
@@ -54,6 +55,9 @@ export default class Settings extends BaseEntity {
 
     @Column()
     warnsPunishments: Array<GuildWarnsPunishment>
+
+    @Column()
+    autoModeration: GuildAutoMod
 
     @Column()
     boost: boolean

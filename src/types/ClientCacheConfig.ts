@@ -1,4 +1,4 @@
-import Discord from "discord.js";
+import Discord, {Snowflake} from "discord.js";
 
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
@@ -9,4 +9,5 @@ export default interface ClientCacheConfig {
     emojis: Record<string, string>
     settings: Discord.Collection<string, GuildSettingsCache>
     interactions: Discord.Collection<string, AbstractInteraction>
+    moderation: Discord.Collection<Snowflake, Set<Snowflake>>
 }

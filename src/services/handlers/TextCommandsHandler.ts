@@ -56,7 +56,7 @@ export default class TextCommandsHandler extends AbstractService {
                     return this.reply(MakeError.certainRoles(this.message.member, settings))
             }
             else if(command.defaultMemberPermissions) {
-                if(this.message.member.permissions.has(command.defaultMemberPermissions))
+                if(!this.message.member.permissions.has(command.defaultMemberPermissions))
                     return this.reply(MakeError.noMemberPermissions(this.message.member as GuildMember, settings,
                         PermissionsParser.parse(command.defaultMemberPermissions, settings.language.interface)))
             }

@@ -20,14 +20,24 @@ export default abstract class ModerationAction extends AbstractService {
     }
 
     public async execute(): Promise<EmbedBuilder> {
+        let settingsCache = await GuildSettings.getCache(this.options.guild.id)
+        let lang = settingsCache?.language?.interface ?? "en";
+        const props = properties[lang];
+        if (!this.client.cache.moderation.has(this.options.guild.id))
+            this.client.cache.moderation.set(this.options.guild.id, new Set())
+        if (this.client.cache.moderation.get(this.options.guild.id).has(this.options.user.id))
+            return !this.options.autoMod ?
+                MakeError.other(this.options.executor, GuildSettings.toCache(this.settings), {
+                    text: props.alreadyBeingPunished
+                }) : null
+
+        this.client.cache.moderation.get(this.options.guild.id).add(this.options.user.id as string)
         this.settings = await this.db.manager.findOneBy(Settings, {guildid: this.options.guild.id});
-        if(!this.settings) {
+        if (!this.settings) {
             this.settings = new Settings()
             this.settings.guildid = this.options.guild.id;
         }
-        let lang = this.settings.language?.interface ?? "en";
-        const props = properties[lang];
-        if(!this.options.member)
+        if (!this.options.member)
             this.options.member = await this.options.guild.members.fetch(this.options.user).catch(() => null)
 
         let action = new Case();
@@ -39,8 +49,9 @@ export default abstract class ModerationAction extends AbstractService {
         this.options.reason = this.options.reason?.length ? this.options.reason : props.notSpecified;
 
         let result = await this.action();
-        if(!result.success) {
+        if (!result.success) {
             let errors = props.actions[this.options.action].errors as Record<string, string>;
+            this.client.cache.moderation.get(this.options.guild.id).delete(this.options.user.id)
             return !this.options.autoMod ?
                 MakeError.other(this.options.executor, GuildSettings.toCache(this.settings), {
                     text: errors[result.error]
@@ -70,13 +81,14 @@ export default abstract class ModerationAction extends AbstractService {
             })
             .setFooter({text: `${props.moderator} ${this.options.executor.user.tag}` + ends})
             .setTimestamp(Date.now() + (this.options.duration ?? 0))
-        if(this.options.action !== ModAction.Unmute && this.options.action !== ModAction.Unban)
+        if (this.options.action !== ModAction.Unmute && this.options.action !== ModAction.Unban)
             embed.setDescription(`**${props.reason}:** ${this.options.reason}`)
         if (this.options.duration) embed.addFields({
             name: props.duration,
             value: TimeParser.stringify(this.options.duration, lang)
         })
         if (this.options.autoMod) embed.data.author.name = props.autoMod + ' ' + embed.data.author.name
+        this.client.cache.moderation.get(this.options.guild.id).delete(this.options.user.id)
 
         return embed;
     }

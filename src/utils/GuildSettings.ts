@@ -3,6 +3,7 @@ import CommandSettings from "@/types/commands/CommandSettings";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 
 import constants from "@/properties/constants.json"
+import GuildAutoMod from "@/types/automod/GuildAutoMod";
 
 export default class GuildSettings {
     public static async getCache(guildId: string): Promise<GuildSettingsCache> {
@@ -25,6 +26,7 @@ export default class GuildSettings {
             moneysymb: settings?.moneysymb ?? constants.defaultMoneySymbol,
             commandsSettings: settings?.commands ?? {} as Record<string, CommandSettings>,
             minBet: settings?.minBet ?? 100,
+            autoModeration: settings?.autoModeration ?? {} as GuildAutoMod,
             boost: settings?.boost
         }
     }

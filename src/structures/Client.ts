@@ -1,4 +1,4 @@
-import Discord, {Awaitable, Serialized} from 'discord.js'
+import Discord, {Awaitable, Serialized, Snowflake} from 'discord.js'
 
 import MongoDB from "@/structures/MongoDB";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
@@ -16,7 +16,8 @@ export default class Client extends Discord.Client {
         commands: new Discord.Collection<string, AbstractCommand>(),
         emojis: emojis,
         settings: new Discord.Collection<string, GuildSettingsCache>(),
-        interactions: new Discord.Collection<string, AbstractInteraction>()
+        interactions: new Discord.Collection<string, AbstractInteraction>(),
+        moderation: new Discord.Collection<Snowflake, Set<Snowflake>>()
     }
 
     public constructor(token: string, options?: Discord.ClientOptions) {

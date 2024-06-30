@@ -1,13 +1,11 @@
 import {
     IsArray,
-    IsBoolean, IsIn, IsInt, IsNumber,
+    IsBoolean, IsIn, IsInt,
     IsObject,
     IsOptional,
     IsString, Min, ValidateNested
 } from "class-validator";
 import {Type} from "class-transformer";
-import {GuildLog} from "@/types/GuildLog";
-import ModerationAction from "@/services/moderation/ModerationAction";
 
 class Punishment {
 
@@ -16,7 +14,7 @@ class Punishment {
     public type: string
 
     @IsOptional()
-    @IsNumber()
+    @IsInt()
     @Min(0)
     duration?: number
 
