@@ -180,7 +180,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
         else {
             let part = Math.round(Math.random()*100)
             let shotPart: 'leg' | 'body' | 'head';
-            if(scope) shotPart = part <= 15 ? 'leg' : (part > 15 && part < 85 ? 'body' : 'head')
+            if(scope) shotPart = part <= 15 ? 'leg' : (part > 15 && part < 90 ? 'body' : 'head')
             else shotPart = part <= 40 ? 'leg' : (part > 40 && part < 95 ? 'body' : 'head')
             let hp;
             switch (shotPart) {
@@ -191,7 +191,7 @@ export default class DuelInteraction extends AbstractInteraction implements Inte
                     hp = armor ? Math.round(5+Math.random()*15) : Math.round(10+Math.random()*30);
                     break;
                 case "head":
-                    hp = helmet ? 60 : 100;
+                    hp = helmet ? 30 : 100;
                     if(helmet) this.data.players[Number(!this.data.turn)].equipment.delete("helmet")
             }
             let number = Number(rico ? this.data.turn : !this.data.turn);
