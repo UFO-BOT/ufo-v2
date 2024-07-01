@@ -6,7 +6,8 @@ export default class Resolver {
         let member = guild.members.cache.find(m =>
             m.user?.username?.toLowerCase()?.includes(arg)
             || m.user?.discriminator?.toLowerCase()?.includes(arg)
-            || m.user?.tag?.toLowerCase()?.includes(arg)
+            || m.user?.username?.toLowerCase()?.includes(arg)
+            || m.user?.globalName?.toLowerCase()?.includes(arg)
             || m.nickname?.toLowerCase()?.includes(arg)
             || m.user?.toString()?.toLowerCase() === arg.replace("!", "")
         )
@@ -24,7 +25,8 @@ export default class Resolver {
         let user = guild.members.cache.find(m =>
             m.user?.username?.toLowerCase()?.includes(arg)
             || m.user?.discriminator?.toLowerCase()?.includes(arg)
-            || m.user?.tag?.toLowerCase()?.includes(arg)
+            || m.user?.username?.toLowerCase()?.includes(arg)
+            || m.user?.globalName?.toLowerCase()?.includes(arg)
             || m.nickname?.toLowerCase()?.includes(arg)
             || m.user?.toString()?.toLowerCase() === arg.replace("!", "")
         )?.user
