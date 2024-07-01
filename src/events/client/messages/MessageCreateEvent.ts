@@ -3,8 +3,9 @@ import Discord from "discord.js";
 import EventConfig from "@/types/EventConfig";
 import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 import TextCommandsHandler from "@/services/handlers/TextCommandsHandler";
-import AutoModerationInvites from "@/services/automod/filters/AutoModerationInvites";
+import AutoModerationInvites from "@/services/automod/detectors/AutoModerationInvites";
 import Case from "@/types/database/Case";
+import AutoModerationFlood from "@/services/automod/detectors/AutoModerationFlood";
 
 export default class MessageCreateEvent extends AbstractClientEvent implements EventConfig {
     public name = 'messageCreate'
@@ -17,6 +18,8 @@ export default class MessageCreateEvent extends AbstractClientEvent implements E
         if(!message.channel.permissionsFor(message.client.user.id)?.has(['SendMessages', 'AttachFiles'])) return;
         let automodInvites = new AutoModerationInvites(message)
         await automodInvites.execute()
+        let automodFlood = new AutoModerationFlood(message)
+        await automodFlood.execute()
         let handler = new TextCommandsHandler(message);
         return handler.handle();
     }

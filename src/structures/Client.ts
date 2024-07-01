@@ -1,26 +1,28 @@
-import Discord, {Awaitable, Serialized, Snowflake} from 'discord.js'
+import Discord, {Awaitable, ClientOptions, ClientPresence, Collection, Serialized, Snowflake} from 'discord.js'
 
 import MongoDB from "@/structures/MongoDB";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 import ClientCacheConfig from "@/types/ClientCacheConfig";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import ClientLoader from "@/services/loaders/ClientLoader";
+import AbstractInteraction from "@/abstractions/AbstractInteraction";
+import AutomodDetectionsCache from "@/types/automod/AutomodDetectionsCache";
 
 import emojis from '@/properties/emojis.json'
-import AbstractInteraction from "@/abstractions/AbstractInteraction";
 
 export default class Client extends Discord.Client {
     public readonly supportGuildID: string = '712012571666022411'
 
     public cache: ClientCacheConfig = {
-        commands: new Discord.Collection<string, AbstractCommand>(),
+        commands: new Collection<string, AbstractCommand>(),
         emojis: emojis,
-        settings: new Discord.Collection<string, GuildSettingsCache>(),
-        interactions: new Discord.Collection<string, AbstractInteraction>(),
-        moderation: new Discord.Collection<Snowflake, Set<Snowflake>>()
+        settings: new Collection<string, GuildSettingsCache>(),
+        interactions: new Collection<string, AbstractInteraction>(),
+        moderation: new Collection<Snowflake, Set<Snowflake>>(),
+        detections: new Collection<Snowflake, Record<Snowflake, AutomodDetectionsCache>>()
     }
 
-    public constructor(token: string, options?: Discord.ClientOptions) {
+    public constructor(token: string, options?: ClientOptions) {
         super(options);
         this.token = token;
         global.client = this;
@@ -36,7 +38,7 @@ export default class Client extends Discord.Client {
         })
     }
 
-    activity(): Discord.ClientPresence {
+    activity(): ClientPresence {
         return this.user.setActivity({name: `!help | ${process.env.WEBSITE}`, type: Discord.ActivityType.Watching})
     }
 

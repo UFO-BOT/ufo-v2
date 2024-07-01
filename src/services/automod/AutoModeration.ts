@@ -29,7 +29,7 @@ export default abstract class AutoModeration extends AbstractService {
         if (autoModeration.whitelist?.channels?.includes(this.message.channel.id as string)) return
         this.options = autoModeration.options
         this.deleteMessages = autoModeration.deleteMessages
-        let result = await this.filter()
+        let result = await this.detect()
         if (!result) return
         let options = {} as ModerationActionOptions
         options.guild = this.message.guild
@@ -64,5 +64,5 @@ export default abstract class AutoModeration extends AbstractService {
         return wpExecution.execute()
     }
 
-    protected abstract filter(): Promise<boolean>
+    protected abstract detect(): Promise<boolean>
 }

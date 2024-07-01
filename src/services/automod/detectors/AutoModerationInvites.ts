@@ -9,7 +9,7 @@ export default class AutoModerationInvites extends AutoModeration {
         super(message, 'invites');
     }
 
-    protected async filter(): Promise<boolean> {
+    protected async detect(): Promise<boolean> {
         for (let arg of this.message.content.split(' ')) {
             if (!arg.includes('discord.gg') && !arg.includes('discord.com/invite') &&
                 !arg.includes('discordapp.com/invite')) continue

@@ -33,7 +33,10 @@ export class GuildInfoController extends Base {
                 muteRole: request.guild.settings.muterole ?? null,
                 useTimeout: request.guild.settings.useTimeout ?? true,
                 warnsPunishments: request.guild.settings.warnsPunishments ?? [],
-                autoModeration: request.guild.settings.autoModeration ?? {invites: {enabled: false}},
+                autoModeration: {
+                    invites: request.guild.settings.autoModeration?.invites ?? {enabled: false},
+                    flood: request.guild.settings.autoModeration?.flood ?? {enabled: false}
+                },
                 work: request.guild.settings.work ?? {low: 1, high: 500, cooldown: 1200000},
                 moneybags: request.guild.settings.moneybags ?? {low: -500, high: 500, cooldown: 600000},
                 minBet: request.guild.settings.minBet ?? 100,
