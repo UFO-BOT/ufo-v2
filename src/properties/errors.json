@@ -13,6 +13,20 @@
       }
     }
   },
+  "commandDisabled": {
+    "ru": {
+      "embed": {
+        "author": "Команда отключена",
+        "description": "Данная команда отключена на этом сервере"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Command disabled",
+        "description": "This command is disabled on this server"
+      }
+    }
+  },
   "validationError": {
     "ru": {
       "embed": {

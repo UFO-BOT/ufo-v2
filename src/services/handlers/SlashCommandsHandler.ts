@@ -35,7 +35,10 @@ export default class SlashCommandsHandler extends AbstractService {
         let settings = await GuildSettings.getCache(this.interaction.guildId);
 
         let commandSettings = settings.commandsSettings[command.config.en.name];
-        if(commandSettings?.enabled === false) return;
+        if(commandSettings?.enabled === false) return this.interaction.reply({
+            embeds: [MakeError.commandDisabled(this.interaction.member as GuildMember, settings)],
+            ephemeral: true
+        })
 
         if (command.boostRequired && !settings.boost) return this.interaction.reply({
             embeds: [MakeError.boostRequired(this.interaction.member as GuildMember, settings)],

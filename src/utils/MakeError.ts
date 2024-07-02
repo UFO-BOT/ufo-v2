@@ -18,6 +18,14 @@ export default class MakeError {
             .setDescription(error.embed.description)
     }
 
+    static commandDisabled(member: GuildMember, settings: GuildSettingsCache): EmbedBuilder {
+        let error = errors.commandDisabled[settings.language.interface]
+        return new EmbedBuilder()
+            .setColor(colors.error)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(error.embed.description)
+    }
+
     static validationError(member: GuildMember, settings: GuildSettingsCache, option: CommandOption): EmbedBuilder {
         let error = errors.validationError[settings.language.interface];
         let enums = error.embed.enums;

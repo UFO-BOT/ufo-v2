@@ -24,8 +24,4 @@ export class GuildCommandsDto {
     @IsString({each: true})
     public forbiddenChannels: Array<string>
 
-    @IsBoolean()
-    @IsOptional()
-    public updateSlash: boolean
-
 }

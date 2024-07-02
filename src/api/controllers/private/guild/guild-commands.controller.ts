@@ -74,12 +74,7 @@ export class GuildCommandsController extends Base {
             type: ApplicationCommandPermissionType.Channel,
             permission: false
         })
-        if(!request.guild.settings.commands) request.guild.settings.commands = {}
-        request.guild.settings.commands[command] = cmd;
-        await request.guild.settings.save()
-        await this.manager.shards.get(request.guild.shardId).eval((client, context) =>
-            client.emit('updateCache', context.guildId), {guildId: request.guild.id})
-        if(body.updateSlash) try {
+        try {
             await this.manager.shards.first().eval((client, context) =>
                 client.application.commands.cache.find(c => c.name === context.name).permissions.set({
                     guild: context.guildId,
@@ -87,9 +82,13 @@ export class GuildCommandsController extends Base {
                     token: context.token
                 }), {name: cmd.name, guildId: request.guild.id, permissions, token: request.token})
         } catch(e) {
-            console.log(e)
             throw new UnauthorizedException("Unable to update slash command using access token")
         }
+        if(!request.guild.settings.commands) request.guild.settings.commands = {}
+        request.guild.settings.commands[command] = cmd;
+        await request.guild.settings.save()
+        await this.manager.shards.get(request.guild.shardId).eval((client, context) =>
+            client.emit('updateCache', context.guildId), {guildId: request.guild.id})
         return {message: "Command updated successfully"}
     }
 
