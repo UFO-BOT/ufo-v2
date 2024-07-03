@@ -15,12 +15,13 @@ import {GuildCommandsController} from "@/api/controllers/private/guild/guild-com
 import {GuildModerationController} from "@/api/controllers/private/guild/guild-moderation.controller";
 import {GuildAutomodInvitesController} from "@/api/controllers/private/guild/automod/guild-automod-invites.controller";
 import {GuildAutomodFloodController} from "@/api/controllers/private/guild/automod/guild-automod-flood.controller";
+import {GuildCategoriesController} from "@/api/controllers/private/guild/guild-categories.controller";
 
 @Module({
     controllers: [GuildsController, BadgesController, GuildInfoController, GuildGeneralController,
-        GuildEconomyController, GuildModerationController, GuildAutomodInvitesController, GuildAutomodFloodController,
-        GuildLogsController, LeaderboardController, LeaderboardMemberController, GuildBalancesController,
-        GuildItemsController, GuildResetController, GuildCommandsController],
+        GuildEconomyController, GuildCommandsController, GuildCategoriesController, GuildModerationController,
+        GuildAutomodInvitesController, GuildAutomodFloodController, GuildLogsController, LeaderboardController,
+        LeaderboardMemberController, GuildBalancesController, GuildItemsController, GuildResetController],
     providers: [Oauth2Service]
 })
 export class PrivateModule {}
