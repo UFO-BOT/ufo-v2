@@ -45,6 +45,7 @@ export class GuildItemsController extends Base {
         if(IsItem) throw new BadRequestException("Another item has this name")
         let item = new Item()
         item.guildid = request.guild.id;
+        item.name = item.name.trim();
         Object.assign(item, body);
         await item.save();
         return {message: "Item created successfully"}
@@ -57,6 +58,7 @@ export class GuildItemsController extends Base {
         if(!item) throw new NotFoundException("Item not found")
         let IsItem = await this.db.manager.findOneBy(Item, {guildid: request.guild.id, name: body.name});
         if(IsItem && item.name !== IsItem.name) throw new BadRequestException("Another item has this name")
+        item.name = item.name.trim()
         Object.assign(item, body);
         await item.save();
         return {message: "Item updated successfully"}
