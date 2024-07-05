@@ -75,7 +75,7 @@ export default class SlashCommandsHandler extends AbstractService {
                     [validationResult.error ?
                         error(this.interaction.member as GuildMember, settings, validationResult.error.options) :
                         MakeError.validationError(this.interaction.member as GuildMember, settings,
-                            validationResult.problemOption)],
+                            validationResult.problemOption, command)],
                 ephemeral: true
             })
         }

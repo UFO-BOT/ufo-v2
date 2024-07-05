@@ -7,6 +7,8 @@ import CommandOption from "@/types/commands/CommandOption";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import Constants from "@/types/Constants";
 import constants from "@/properties/constants.json";
+import CommandUsage from "@/utils/CommandUsage";
+import AbstractCommand from "@/abstractions/commands/AbstractCommand";
 const colors = (constants as Constants).colors;
 
 export default class MakeError {
@@ -26,7 +28,8 @@ export default class MakeError {
             .setDescription(error.embed.description)
     }
 
-    static validationError(member: GuildMember, settings: GuildSettingsCache, option: CommandOption): EmbedBuilder {
+    static validationError(member: GuildMember, settings: GuildSettingsCache, option: CommandOption,
+                           command: AbstractCommand): EmbedBuilder {
         let error = errors.validationError[settings.language.interface];
         let enums = error.embed.enums;
         let optionType = (option.validationType !== undefined ?
@@ -63,6 +66,10 @@ export default class MakeError {
             name: error.embed.fields.channelTypes,
             value: option.channelTypes.map(ct => "`" + enums[ChannelType[ct] as keyof typeof enums] + "`").join(", "),
             inline: true
+        })
+        embed.addFields({
+            name: error.embed.fields.usage,
+            value: CommandUsage(command, settings.prefix, settings.language.commands),
         })
         return embed;
     }

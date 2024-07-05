@@ -94,7 +94,7 @@ export default class TextCommandsHandler extends AbstractService {
             return this.reply(validationResult.error ?
                 error(this.message.member as GuildMember, settings, validationResult.error.options) :
                 MakeError.validationError(this.message.member as GuildMember, settings,
-                    validationResult.problemOption))
+                    validationResult.problemOption, command))
         }
 
         let response = responses[command.config.en.name as keyof typeof responses]?.[settings.language.interface];

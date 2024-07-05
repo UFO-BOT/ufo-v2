@@ -8,6 +8,7 @@ import CommandCategory from "@/types/commands/CommandCategory";
 import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import MakeError from "@/utils/MakeError";
+import CommandUsage from "@/utils/CommandUsage";
 
 interface HelpCommandDTO {
     commandCategory: string
@@ -87,17 +88,10 @@ export default class HelpCommand extends AbstractCommand implements Command {
             embed
                 .setTitle(command.config[lang.commands].name.toUpperCase())
                 .setDescription(command.config[lang.interface].description)
-            let usage = "`" + ctx.settings.prefix + command.config[lang.commands].name;
-            command.options.forEach(option => {
-                let config = option.config[lang.commands]
-                let name = config.choices?.length ? config.choices.map(c => c.name).join(" | ") : config.name
-                usage += ` ${option.required ? "<" : "["}${name}${option.required ? ">" : "]"}`
-            })
-            usage += "`"
             embed
                 .addFields({
                     name: ctx.response.data.embed.usage,
-                    value: usage
+                    value: CommandUsage(command, ctx.settings.prefix, lang.commands)
                 })
                 .addFields({
                     name: ctx.response.data.embed.aliases,
