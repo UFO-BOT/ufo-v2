@@ -20,7 +20,8 @@ export class GuildLogsController extends Base {
                 request.guild.settings.logs.list[log] = {enabled: false, channel: null}
                 continue
             }
-            let channel = request.guild.channels.find(chan => chan.id == body.list[log]?.channel)
+            let channel = request.guild.channels.filter(c => c.botManageable)
+                .find(chan => chan.id == body.list[log]?.channel)
             if (!channel) continue
             list[log] = body.list[log]
         }

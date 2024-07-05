@@ -21,6 +21,7 @@
     "class-validator": "^0.14.0",
     "discord.js": "^14.15.3",
     "dotenv": "^10.0.0",
+    "handlebars": "^4.7.8",
     "module-alias": "^2.2.2",
     "moment": "^2.29.1",
     "mongodb": "^5.8.0",
