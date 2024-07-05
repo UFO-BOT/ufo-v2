@@ -3,6 +3,7 @@ import AutoMod from "@/types/automod/AutoMod";
 import {Type} from "class-transformer";
 import {GuildAutomodPunishmentDto} from "@/api/dto/guild/automod/guild-automod-punishment.dto";
 import {GuildAutomodWhitelistDto} from "@/api/dto/guild/automod/guild-automod-whitelist.dto";
+import {GuildAutomodMessageDto} from "@/api/dto/guild/automod/guild-automod-message.dto";
 
 export class GuildAutomodDto implements AutoMod {
 
@@ -12,6 +13,12 @@ export class GuildAutomodDto implements AutoMod {
     @ValidateIf(body => body.enabled)
     @IsBoolean()
     public deleteMessages: boolean
+
+    @ValidateIf(body => body.enabled)
+    @IsObject()
+    @ValidateNested()
+    @Type(() => GuildAutomodMessageDto)
+    public message: GuildAutomodMessageDto
 
     @ValidateIf(body => body.enabled)
     @IsObject()

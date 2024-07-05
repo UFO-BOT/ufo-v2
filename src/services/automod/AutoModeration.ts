@@ -10,6 +10,8 @@ import MuteAction from "@/services/moderation/actions/MuteAction";
 import KickAction from "@/services/moderation/actions/KickAction";
 import BanAction from "@/services/moderation/actions/BanAction";
 import WarnsPunishmentsExecution from "@/services/moderation/WarnsPunishmentsExecution";
+import GreetingMessageTemplate from "@/services/templates/messages/GreetingMessageTemplate";
+import AutomodMessageTemplate from "@/services/templates/messages/AutomodMessageTemplate";
 
 export default abstract class AutoModeration extends AbstractService {
     protected deleteMessages: boolean
@@ -31,6 +33,15 @@ export default abstract class AutoModeration extends AbstractService {
         this.deleteMessages = autoModeration.deleteMessages
         let result = await this.detect()
         if (!result) return
+        if (autoModeration.message?.enabled) {
+            let channel = (this.message.guild.channels.cache.get(autoModeration.message.channel)
+                ?? this.message.channel) as TextChannel
+            let template = new AutomodMessageTemplate(this.message.member, this.message.guild,
+                this.message.channel as TextChannel)
+            let message = template.compile(autoModeration.message.template)
+            if (message) await channel.send({content: message}).catch(() => {})
+        }
+        if (!autoModeration.punishment?.enabled) return
         let options = {} as ModerationActionOptions
         options.guild = this.message.guild
         options.user = this.message.author

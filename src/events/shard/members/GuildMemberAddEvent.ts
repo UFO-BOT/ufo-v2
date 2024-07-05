@@ -3,7 +3,7 @@ import {GuildMember, TextChannel} from "discord.js";
 import EventConfig from "@/types/EventConfig";
 import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 import Settings from "@/types/database/Settings";
-import GreetingTemplate from "@/services/templates/GreetingTemplate";
+import GreetingMessageTemplate from "@/services/templates/messages/GreetingMessageTemplate";
 import Mute from "@/types/database/Mute";
 
 export default class GuildMemberAddEvent extends AbstractClientEvent implements EventConfig {
@@ -17,7 +17,7 @@ export default class GuildMemberAddEvent extends AbstractClientEvent implements 
         if(mute) return member.roles.add(mute.muterole).catch(() => null)
         let settings = await this.db.manager.findOneBy(Settings, {guildid: member.guild.id}) as Settings;
         if (!settings?.greetings?.join?.enabled && !settings.greetings?.dm?.enabled) return;
-        let template = new GreetingTemplate(member, member.guild)
+        let template = new GreetingMessageTemplate(member, member.guild)
         let dmMessage = template.compile(settings.greetings.dm.message)
         if (dmMessage) await member.user.send({content: dmMessage}).catch(() => {})
         let channel = member.guild.channels.cache.get(settings.greetings.join.channel) as TextChannel

@@ -16,6 +16,7 @@ import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import {GuildAutomodInvitesDto} from "@/api/dto/guild/automod/guild-automod-invites.dto";
 import GuildAutoMod from "@/types/automod/GuildAutoMod";
+import {compile} from "handlebars";
 
 @Controller('guilds')
 @UseGuards(AuthGuard, GuildGuard)
@@ -27,12 +28,27 @@ export class GuildAutomodInvitesController extends Base {
         if (!body.enabled) {
             request.guild.settings.autoModeration.invites = {enabled: false}
             await request.guild.settings.save()
+            await this.manager.shards.get(request.guild.shardId).eval((client, context) => {
+                client.emit('updateCache', context.guildId)
+            }, {guildId: request.guild.id})
             return {message: "Guild settings saved successfully"}
         }
         body.whitelist.channels = body.whitelist.channels.filter(c => request.guild.channels.find(ch => ch.id === c))
         body.whitelist.roles = body.whitelist.roles.filter(r => request.guild.roles.find(role => role.id === r))
         body.options.whitelistGuilds = body.options.whitelistGuilds.filter(g => g.length <= 25)
-        if (['warn', 'kick'].includes(body.punishment.type)) body.punishment.duration = 0
+        if (body.message.enabled) {
+            body.message.channel = request.guild.channels
+                .find(c => c.botManageable && c.id === body.message.channel)?.id ?? null
+            try {
+                if (body.message.template) compile(body.message.template, {noEscape: true})({})
+            }
+            catch (e) {
+                throw new BadRequestException("Template compilation error")
+            }
+        }
+        else body.message = {enabled: false}
+        if (!body.punishment.enabled) body.punishment = {enabled: false}
+        if (['warn', 'kick'].includes(body.punishment?.type)) body.punishment.duration = null
         request.guild.settings.autoModeration.invites = body
         await request.guild.settings.save()
         await this.manager.shards.get(request.guild.shardId).eval((client, context) => {
