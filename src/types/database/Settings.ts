@@ -4,6 +4,7 @@ import CommandSettings from "../commands/CommandSettings";
 import {GuildLog} from "@/types/GuildLog";
 import GuildWarnsPunishment from "@/types/GuildWarnsPunishment";
 import GuildAutoMod from "@/types/automod/GuildAutoMod";
+import GuildGreetings from "@/types/greetings/GuildGreetings";
 
 @Entity('settings')
 export default class Settings extends BaseEntity {
@@ -58,6 +59,9 @@ export default class Settings extends BaseEntity {
 
     @Column()
     autoModeration: GuildAutoMod
+
+    @Column()
+    greetings: GuildGreetings
 
     @Column()
     boost: boolean

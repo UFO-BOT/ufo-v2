@@ -9,7 +9,7 @@
   },
   "paths": {
     "commands": "/dist/src/commands",
-    "eventsClient": "/dist/src/events/client",
+    "eventsShard": "/dist/src/events/shard",
     "eventsManager": "/dist/src/events/manager",
     "jobs": "/dist/src/jobs"
   }

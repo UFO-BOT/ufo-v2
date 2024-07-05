@@ -7,7 +7,7 @@ interface Colors {
 
 interface Paths {
     commands: string
-    eventsClient: string
+    eventsShard: string
     eventsManager: string
     jobs: string
 }

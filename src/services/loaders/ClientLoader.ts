@@ -21,7 +21,7 @@ export default class ClientLoader extends AbstractService {
         })
     }
 
-    public loadEvents(path: string = process.cwd() + this.constants.paths.eventsClient): void {
+    public loadEvents(path: string = process.cwd() + this.constants.paths.eventsShard): void {
         fs.readdirSync(path).forEach(file => {
             let filePath = path + '/' + file;
             if(fs.lstatSync(filePath).isDirectory()) this.loadEvents(filePath)
