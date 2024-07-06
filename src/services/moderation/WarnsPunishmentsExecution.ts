@@ -1,15 +1,15 @@
 import AbstractService from "@/abstractions/AbstractService";
-import ModerationActionOptions from "@/types/ModerationActionOptions";
+import ModerationActionOptions from "@/types/moderation/ModerationActionOptions";
 import Settings from "@/types/database/Settings";
 import {EmbedBuilder, Guild} from "discord.js";
 import Case from "@/types/database/Case";
-import ModAction from "@/types/ModAction";
+import ModAction from "@/types/moderation/ModAction";
 import properties from "@/properties/moderation.json";
 import ModerationAction from "@/services/moderation/ModerationAction";
 import MuteAction from "@/services/moderation/actions/MuteAction";
 import KickAction from "@/services/moderation/actions/KickAction";
 import BanAction from "@/services/moderation/actions/BanAction";
-import WarnsPunishmentsExecutionOptions from "@/types/WarnsPunishmentsExecutionOptions";
+import WarnsPunishmentsExecutionOptions from "@/types/moderation/WarnsPunishmentsExecutionOptions";
 
 export default class WarnsPunishmentsExecution extends AbstractService {
     public settings: Settings

@@ -8,7 +8,7 @@ import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import CommandOptionValidationType from "@/types/commands/CommandOptionValidationType";
 import Case from "@/types/database/Case";
-import ModAction from "@/types/ModAction";
+import ModAction from "@/types/moderation/ModAction";
 import WarnsInteraction from "@/interactions/WarnsInteraction";
 
 interface WarnsCommandDTO {

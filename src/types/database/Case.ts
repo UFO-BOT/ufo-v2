@@ -1,4 +1,4 @@
-import ModAction from "../ModAction";
+import ModAction from "../moderation/ModAction";
 import {BaseEntity, Column, Entity, ObjectId, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity('cases')

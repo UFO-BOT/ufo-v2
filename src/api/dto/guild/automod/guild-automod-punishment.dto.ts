@@ -12,7 +12,7 @@ import {
     ValidateNested
 } from "class-validator";
 import AutoModPunishment from "@/types/automod/AutoModPunishment";
-import ModAction from "@/types/ModAction";
+import ModAction from "@/types/moderation/ModAction";
 
 export class GuildAutomodPunishmentDto implements AutoModPunishment {
 

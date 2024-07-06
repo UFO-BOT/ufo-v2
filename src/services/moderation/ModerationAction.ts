@@ -1,15 +1,15 @@
 import AbstractService from "@/abstractions/AbstractService";
-import ModerationActionOptions from "@/types/ModerationActionOptions";
+import ModerationActionOptions from "@/types/moderation/ModerationActionOptions";
 import Case from "@/types/database/Case";
 import properties from "@/properties/moderation.json";
 import Settings from "@/types/database/Settings";
 import {ColorResolvable, EmbedBuilder, TextChannel} from "discord.js";
 import TimeParser from "@/utils/TimeParser";
-import ModActionExecutionResult from "@/types/ModActionExecutionResult";
+import ModActionExecutionResult from "@/types/moderation/ModActionExecutionResult";
 import MakeError from "@/utils/MakeError";
 import GuildSettings from "@/utils/GuildSettings";
 import ModerationActionLog from "@/utils/ModerationActionLog";
-import ModAction from "@/types/ModAction";
+import ModAction from "@/types/moderation/ModAction";
 import {GuildLogType} from "@/types/GuildLog";
 
 export default abstract class ModerationAction extends AbstractService {

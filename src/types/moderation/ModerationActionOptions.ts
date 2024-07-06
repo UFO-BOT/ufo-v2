@@ -1,4 +1,4 @@
-import ModAction from "@/types/ModAction";
+import ModAction from "@/types/moderation/ModAction";
 import {Guild, GuildMember, GuildTextBasedChannel, User} from "discord.js";
 
 export default interface ModerationActionOptions {

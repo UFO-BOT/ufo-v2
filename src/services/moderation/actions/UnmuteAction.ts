@@ -1,7 +1,7 @@
 import ModerationAction from "@/services/moderation/ModerationAction";
-import ModerationActionOptions from "@/types/ModerationActionOptions";
-import ModAction from "@/types/ModAction";
-import ModActionExecutionResult from "@/types/ModActionExecutionResult";
+import ModerationActionOptions from "@/types/moderation/ModerationActionOptions";
+import ModAction from "@/types/moderation/ModAction";
+import ModActionExecutionResult from "@/types/moderation/ModActionExecutionResult";
 import Mute from "@/types/database/Mute";
 import MuteEnding from "@/services/endings/MuteEnding";
 import {BaseGuildTextChannel, BaseGuildVoiceChannel, ChannelType, GuildChannel, Role, ThreadChannel} from "discord.js";

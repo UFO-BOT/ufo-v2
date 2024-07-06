@@ -10,13 +10,13 @@ import CommandOptionValidationType from "@/types/commands/CommandOptionValidatio
 import WarnAction from "@/services/moderation/actions/WarnAction";
 import Settings from "@/types/database/Settings";
 import Case from "@/types/database/Case";
-import ModAction from "@/types/ModAction";
+import ModAction from "@/types/moderation/ModAction";
 import properties from "@/properties/moderation.json";
 import ModerationAction from "@/services/moderation/ModerationAction";
 import MuteAction from "@/services/moderation/actions/MuteAction";
 import KickAction from "@/services/moderation/actions/KickAction";
 import BanAction from "@/services/moderation/actions/BanAction";
-import ModerationActionOptions from "@/types/ModerationActionOptions";
+import ModerationActionOptions from "@/types/moderation/ModerationActionOptions";
 import WarnsPunishmentsExecution from "@/services/moderation/WarnsPunishmentsExecution";
 
 interface WarnCommandDTO {
