@@ -2,11 +2,10 @@ import {
     IsArray,
     IsBoolean,
     IsObject,
-    IsOptional,
-    IsString, Length, ValidateIf, ValidateNested
+    IsString, MaxLength, ValidateIf, ValidateNested
 } from "class-validator";
-import {Type} from "class-transformer";
-import {GuildLog} from "@/types/GuildLog";
+import {Transform, TransformFnParams, Type} from "class-transformer";
+import {GuildEmbedDto} from "@/api/dto/guild/embed/guild-embed.dto";
 
 class Greeting {
 
@@ -15,12 +14,15 @@ class Greeting {
 
     @ValidateIf(body => body.enabled)
     @IsString()
-    @Length(1, 1500)
+    @Transform(({ value }: TransformFnParams) => value?.trim())
+    @MaxLength(1500)
     public message: string
 
     @ValidateIf(body => body.enabled)
+    @ValidateNested()
+    @Type(() => GuildEmbedDto)
     @IsObject()
-    public embed: object
+    public embed: GuildEmbedDto
 
 }
 

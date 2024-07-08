@@ -4,6 +4,7 @@ import EventConfig from "@/types/EventConfig";
 import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 import Settings from "@/types/database/Settings";
 import GreetingMessageTemplate from "@/services/templates/messages/GreetingMessageTemplate";
+import GreetingEmbedTemplate from "@/services/templates/embeds/GreetingEmbedTemplate";
 
 export default class GuildMemberRemoveEvent extends AbstractClientEvent implements EventConfig {
     public name = 'guildMemberRemove'
@@ -14,8 +15,10 @@ export default class GuildMemberRemoveEvent extends AbstractClientEvent implemen
         let channel = member.guild.channels.cache.get(settings.greetings.leave.channel) as TextChannel
         if (!channel) return
         let template = new GreetingMessageTemplate(member, member.guild)
+        let embedTemplate = new GreetingEmbedTemplate(template)
+        let embed = embedTemplate.compile(settings.greetings.leave.embed)
         let message = template.compile(settings.greetings.leave.message)
-        if (!message) return
-        await channel.send({content: message}).catch(() => {})
+        if (!message && !embed) return
+        return channel.send({content: message?.length ? message : '', embeds: embed ? [embed] : []}).catch(() => {})
     }
 }

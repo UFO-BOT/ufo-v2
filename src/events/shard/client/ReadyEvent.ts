@@ -1,6 +1,5 @@
 import EventConfig from "@/types/EventConfig";
 import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
-import Balance from "@/types/database/Balance";
 
 export default class ReadyEvent extends AbstractClientEvent implements EventConfig {
     public name = 'ready'
@@ -8,7 +7,7 @@ export default class ReadyEvent extends AbstractClientEvent implements EventConf
     public async execute(): Promise<any> {
         console.log(`Bot ${this.client.user?.tag} is online`)
         await this.client.activity()
-        /* let member = await this.client.guilds.cache.get("705372583478165596")?.members?.cache?.get("591321756799598592")
-        if (member) this.client.emit("guildMemberRemove", member) */
+        let member = await this.client.guilds.cache.get("705372583478165596")?.members?.cache?.get("591321756799598592")
+        if (member) this.client.emit("guildMemberAdd", member)
     }
 }

@@ -30,20 +30,29 @@ export class GuildGreetingsController extends Base {
         catch (e) {
             throw new BadRequestException("Template compilation error")
         }
-        if (!body.join.enabled) request.guild.settings.greetings.join = {enabled: false}
+        if (!body.join.enabled || (!body.join.message?.length && !body.join.embed?.enabled))
+            request.guild.settings.greetings.join = {enabled: false}
         else {
             if (!request.guild.channels.find(ch => ch.botManageable && ch.id === body.join.channel))
                 throw new NotFoundException("Channel for join message not found")
             request.guild.settings.greetings.join = body.join
+            if (!body.join.embed.enabled) request.guild.settings.greetings.join.embed = {enabled: false}
         }
-        if (!body.leave.enabled) request.guild.settings.greetings.leave = {enabled: false}
+        if (!body.leave.enabled || (!body.leave.message?.length && !body.leave.embed?.enabled))
+            request.guild.settings.greetings.leave = {enabled: false}
         else {
             if (!request.guild.channels.find(ch => ch.botManageable && ch.id === body.leave.channel))
                 throw new NotFoundException("Channel for leave message not found")
             request.guild.settings.greetings.leave = body.leave
+            if (!body.leave.embed.enabled) request.guild.settings.greetings.leave.embed = {enabled: false}
         }
-        if (!body.dm.enabled) request.guild.settings.greetings.dm = {enabled: false}
-        else request.guild.settings.greetings.dm = body.dm
+        if (!body.dm.enabled || (!body.dm.message?.length && !body.dm.embed?.enabled))
+            request.guild.settings.greetings.dm = {enabled: false}
+        else {
+            request.guild.settings.greetings.dm = body.dm
+            if (!body.dm.embed.enabled) request.guild.settings.greetings.dm.embed = {enabled: false}
+        }
+        console.log(body.join.embed)
         request.guild.settings.greetings.joinRoles = body.joinRoles
             .filter(r => request.guild.roles.find(role => role.memberManageable && role.botManageable && role.id === r))
         await request.guild.settings.save()

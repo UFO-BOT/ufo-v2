@@ -1,5 +1,4 @@
-import {Guild, GuildMember} from "discord.js";
-import TimeParser from "@/utils/TimeParser";
+import {Guild} from "discord.js";
 
 export default class GuildVariable {
     public id: string
@@ -7,7 +6,7 @@ export default class GuildVariable {
     public memberCount: string
     public iconUrl: string
     public bannerUrl: string
-    public created: string
+    public created: number
 
     constructor(guild: Partial<Guild>) {
         this.id = guild.id as string
@@ -15,6 +14,6 @@ export default class GuildVariable {
         this.memberCount = String(guild.memberCount)
         this.iconUrl = guild.iconURL()
         this.bannerUrl = guild.bannerURL()
-        this.created = TimeParser.formatTimestamp(guild.createdTimestamp, "f")
+        this.created = guild.createdTimestamp
     }
 }

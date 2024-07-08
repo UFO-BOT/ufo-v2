@@ -1,5 +1,4 @@
 import {GuildMember} from "discord.js";
-import TimeParser from "@/utils/TimeParser";
 
 export default class MemberVariable {
     public id: string
@@ -10,8 +9,8 @@ export default class MemberVariable {
     public bannerUrl: string
     public bot: boolean
     public mention: string
-    public created: string
-    public joined: string
+    public created: number
+    public joined: number
 
     constructor(member: Partial<GuildMember>) {
         this.id = member.id as string
@@ -22,7 +21,7 @@ export default class MemberVariable {
         this.bannerUrl = member.user.bannerURL()
         this.bot = member.user.bot
         this.mention = member.user.toString()
-        this.created = TimeParser.formatTimestamp(member.user.createdTimestamp, "f")
-        this.joined = TimeParser.formatTimestamp(member.joinedTimestamp, "f")
+        this.created = member.user.createdTimestamp
+        this.joined = member.joinedTimestamp
     }
 }

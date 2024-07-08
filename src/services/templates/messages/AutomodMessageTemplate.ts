@@ -1,11 +1,12 @@
 import {Guild, GuildMember, TextChannel} from "discord.js";
 import handlebars from "handlebars";
-import AbstractService from "@/abstractions/AbstractService";
 import MemberVariable from "@/services/templates/variables/MemberVariable";
 import GuildVariable from "@/services/templates/variables/GuildVariable";
 import ChannelVariable from "@/services/templates/variables/ChannelVariable";
+import MessageTemplate from "@/services/templates/messages/MessageTemplate";
+import TimeParser from "@/utils/TimeParser";
 
-export default class AutomodMessageTemplate extends AbstractService {
+export default class AutomodMessageTemplate extends MessageTemplate {
     public member: MemberVariable
     public guild: GuildVariable
     public channel: ChannelVariable
