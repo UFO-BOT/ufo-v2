@@ -1,12 +1,10 @@
-import {EmbedBuilder, Guild, GuildMember} from "discord.js";
-import AbstractService from "@/abstractions/AbstractService";
+import {EmbedBuilder} from "discord.js";
 import GreetingMessageTemplate from "@/services/templates/messages/GreetingMessageTemplate";
 import Embed from "@/types/embed/Embed";
 import EmbedField from "@/types/embed/EmbedField";
 
-export default class GreetingEmbedTemplate extends AbstractService{
+export default class GreetingEmbedTemplate {
     constructor(public template: GreetingMessageTemplate) {
-        super()
     }
 
     public compile(embedTemplate: Embed): EmbedBuilder | null {
@@ -39,7 +37,6 @@ export default class GreetingEmbedTemplate extends AbstractService{
             if (name.length && value.length) fields.push({name, value, inline: Boolean(field.inline)})
         })
         embed.addFields(fields)
-        console.log(embedTemplate.timestamp)
         if (embedTemplate.timestamp) switch (embedTemplate.timestamp.type) {
             case "current":
                 embed.setTimestamp()

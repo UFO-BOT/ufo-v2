@@ -52,7 +52,6 @@ export class GuildGreetingsController extends Base {
             request.guild.settings.greetings.dm = body.dm
             if (!body.dm.embed.enabled) request.guild.settings.greetings.dm.embed = {enabled: false}
         }
-        console.log(body.join.embed)
         request.guild.settings.greetings.joinRoles = body.joinRoles
             .filter(r => request.guild.roles.find(role => role.memberManageable && role.botManageable && role.id === r))
         await request.guild.settings.save()
