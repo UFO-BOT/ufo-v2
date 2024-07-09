@@ -13,7 +13,7 @@ export default class GuildVariable {
         this.name = guild.name
         this.memberCount = String(guild.memberCount)
         this.iconUrl = guild.iconURL()
-        this.bannerUrl = guild.bannerURL()
+        this.bannerUrl = guild.bannerURL({size: 2048})
         this.created = guild.createdTimestamp
     }
 }

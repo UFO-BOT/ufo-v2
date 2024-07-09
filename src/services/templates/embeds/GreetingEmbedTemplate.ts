@@ -32,9 +32,9 @@ export default class GreetingEmbedTemplate {
             })
         let fields: Array<EmbedField> = []
         embedTemplate.fields.forEach(field => {
-            let name = template.compile(field.name).trim()
-            let value = template.compile(field.value).trim()
-            if (name.length && value.length) fields.push({name, value, inline: Boolean(field.inline)})
+            let name = template.compile(field.name)?.trim()
+            let value = template.compile(field.value)?.trim()
+            if (name?.length && value?.length) fields.push({name, value, inline: Boolean(field.inline)})
         })
         embed.addFields(fields)
         if (embedTemplate.timestamp) switch (embedTemplate.timestamp.type) {

@@ -1,5 +1,5 @@
 export default interface EmbedTimestamp {
-    type: "custom" | "current" | "template"
+    type: null | "current" | "custom" | "template"
     date?: Date
     template?: string
 }

@@ -1,4 +1,5 @@
 import {
+    ArrayMaxSize,
     IsArray,
     IsBoolean,
     IsHexColor,
@@ -54,6 +55,7 @@ export class GuildEmbedDto implements Embed{
     @ValidateIf(body => body.enabled)
     @IsOptional()
     @IsArray()
+    @ArrayMaxSize(25)
     @ValidateNested({each: true})
     @Type(() => GuildEmbedFieldDto)
     public fields: Array<GuildEmbedFieldDto>

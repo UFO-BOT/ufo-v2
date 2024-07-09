@@ -12,6 +12,7 @@ export default class GuildMemberRemoveEvent extends AbstractClientEvent implemen
     public async execute(member: GuildMember): Promise<any> {
         let settings = await this.db.manager.findOneBy(Settings, {guildid: member.guild.id}) as Settings;
         if (!settings?.greetings?.leave?.enabled) return;
+        await member.user.fetch()
         let channel = member.guild.channels.cache.get(settings.greetings.leave.channel) as TextChannel
         if (!channel) return
         let template = new GreetingMessageTemplate(member, member.guild)

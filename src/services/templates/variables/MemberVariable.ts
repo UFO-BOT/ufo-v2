@@ -18,7 +18,7 @@ export default class MemberVariable {
         this.globalName = member.user.globalName
         this.nickname = member.nickname ?? member.user.globalName
         this.avatarUrl = member.displayAvatarURL()
-        this.bannerUrl = member.user.bannerURL()
+        this.bannerUrl = member.user.bannerURL({size: 2048})
         this.bot = member.user.bot
         this.mention = member.user.toString()
         this.created = member.user.createdTimestamp

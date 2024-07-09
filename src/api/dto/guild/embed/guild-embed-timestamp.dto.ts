@@ -5,9 +5,8 @@ import EmbedTimestamp from "@/types/embed/EmbedTimestamp";
 
 export class GuildEmbedTimestampDto implements EmbedTimestamp {
 
-    @IsString()
-    @IsIn(["custom", "current", "template"])
-    public type: "custom" | "current" | "template"
+    @IsIn([null, "current", "custom", "template"])
+    public type: null | "current" | "custom" | "template"
 
     @ValidateIf(timestamp => timestamp.type === 'custom')
     @IsDate()
