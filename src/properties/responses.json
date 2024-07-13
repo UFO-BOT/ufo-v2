@@ -103,8 +103,10 @@
     "ru": {
       "errors": {
         "itemNotFound": "Товар с таким названием не найден",
-        "noAddRolePermission": "У меня недостаточно прав чтобы дать вам роль {{addrole}}",
-        "noRemoveRolePermission": "У меня недостаточно прав чтобы снять с вас роль {{removerole}}"
+        "requiredRoles": "Для покупки этого товара вам необходимы следующие роли: {{requiredRoles}}",
+        "requiredXp": "Вам необходимо {{requiredXp}} для покупки этого товара",
+        "noAddRolePermission": "У меня недостаточно прав чтобы дать вам роль {{addRole}}",
+        "noRemoveRolePermission": "У меня недостаточно прав чтобы снять с вас роль {{removeRole}}"
       },
       "embed": {
         "author": "Купить товар",
@@ -114,8 +116,10 @@
     "en": {
       "errors": {
         "itemNotFound": "Item with this name not found",
-        "noAddRolePermission": "I have no permission to add you role {{addrole}}",
-        "noRemoveRolePermission": "I have no permission to remove role {{removerole}} from you"
+        "requiredRoles": "You need to have these roles to buy this item: {{requiredRoles}}",
+        "requiredXp": "You need {{requiredXp}} to buy this item",
+        "noAddRolePermission": "I have no permission to add you role {{addRole}}",
+        "noRemoveRolePermission": "I have no permission to remove role {{removeRole}} from you"
       },
       "embed": {
         "author": "Buy item",
@@ -593,9 +597,11 @@
       "embed": {
         "author": "Информация о товаре",
         "price": "Цена",
-        "xp": "Дается опыт",
-        "addrole": "Дается роль",
-        "removerole": "Снимается роль"
+        "requiredXp": "Необходимый опыт",
+        "xp": "Выдаваемый опыт",
+        "addRole": "Дается роль",
+        "removeRole": "Снимается роль",
+        "requiredRoles": "Необходимые роли"
       }
     },
     "en": {
@@ -605,9 +611,11 @@
       "embed": {
         "author": "Item info",
         "price": "Price",
-        "xp": "Experience given",
-        "addrole": "Role add",
-        "removerole": "Role remove"
+        "requiredXp": "Required xp",
+        "xp": "Given xp",
+        "addRole": "Role add",
+        "removeRole": "Role remove",
+        "requiredRoles": "Required roles"
       }
     }
   },

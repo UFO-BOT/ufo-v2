@@ -119,11 +119,11 @@ export default class MakeError {
         let error = errors.notEnoughMoney[settings.language.interface];
         let description: string;
         if(!options.opponent) description = options.money > 0 ? error.embed.description
-            .replace("{{money}}", options.money.toString())
+            .replace("{{money}}", options.money.toLocaleString(settings.language.interface))
             .replace("{{moneysymb}}", settings.moneysymb) : error.embed.holdOn
         else description = error.embed.noOpponentMoney
             .replace("{{member}}", options.opponent.toString())
-            .replace("{{money}}", options.money.toString())
+            .replace("{{money}}", options.money.toLocaleString(settings.language.interface))
             .replace("{{moneysymb}}", settings.moneysymb)
         return new EmbedBuilder()
             .setColor(colors.error)

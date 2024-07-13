@@ -54,33 +54,49 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
                 options: {text: ctx.response.data.errors.itemNotFound}
             }
         }
+        let lang = ctx.settings.language.interface
         let addRole = ctx.guild.roles.cache.get(item.addRole);
         let removeRole = ctx.guild.roles.cache.get(item.removeRole);
+        let minXp = typeof item.xp === 'number' ? item.xp : item.xp.min
+        let maxXp = typeof item.xp === 'number' ? item.xp : item.xp.max
+        let xp = minXp === maxXp ? `${minXp.toLocaleString(lang)}${this.client.cache.emojis.xp}` :
+            `${minXp.toLocaleString(lang)}${this.client.cache.emojis.xp} - `
+            + `${maxXp.toLocaleString(lang)}${this.client.cache.emojis.xp}`
         let embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setTitle(item.name)
             .setDescription(item.description ?? '')
+            .setThumbnail(item.thumbnailUrl?.length ? item.thumbnailUrl : null)
             .addFields([
                 {
                     name: ctx.response.data.embed.price,
-                    value: `${item.price.toLocaleString(ctx.settings.language.interface)}${ctx.settings.moneysymb}`,
+                    value: `${item.price.toLocaleString(lang)}${ctx.settings.moneysymb}`,
+                    inline: true
+                },
+                {
+                    name: ctx.response.data.embed.requiredXp,
+                    value: `${(item.requiredXp ?? 0).toLocaleString(lang)}${this.client.cache.emojis.xp}`,
                     inline: true
                 },
                 {
                     name: ctx.response.data.embed.xp,
-                    value: `${item.xp.toLocaleString(ctx.settings.language.interface)}${this.client.cache.emojis.xp}`,
+                    value: `${xp}`,
                     inline: true
                 },
                 {
-                    name: ctx.response.data.embed.addrole,
+                    name: ctx.response.data.embed.addRole,
                     value: addRole ? addRole.toString() : "-",
                     inline: true
                 },
                 {
-                    name: ctx.response.data.embed.removerole,
+                    name: ctx.response.data.embed.removeRole,
                     value: removeRole ? removeRole.toString() : "-",
                     inline: true
+                },
+                {
+                    name: ctx.response.data.embed.requiredRoles,
+                    value: item.requiredRoles?.length ? item.requiredRoles.map(r => `<@&${r}>`).join(" ") : "-"
                 }
             ])
         return {reply: {embeds: [embed]}};

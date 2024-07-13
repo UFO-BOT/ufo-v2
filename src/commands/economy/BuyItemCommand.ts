@@ -56,8 +56,8 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
             }
         }
         let balance = await this.db.manager.findOneBy(Balance, {
-            guildid: ctx.guild.id,
-            userid: ctx.member.id
+            guildid: ctx.guild.id as string,
+            userid: ctx.member.id as string
         })
         if ((balance?.balance ?? 0) < item.price) return {
             error: {
@@ -65,21 +65,28 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
                 options: {money: balance?.balance ?? 0}
             }
         }
-        if (!balance) {
-            balance = new Balance()
-            balance.guildid = ctx.guild.id;
-            balance.userid = ctx.member.id;
-            balance.balance = 0;
-            balance.xp = 0;
-            await this.db.manager.save(balance)
-        }
         let addRole = ctx.guild.roles.cache.get(item.addRole);
         let removeRole = ctx.guild.roles.cache.get(item.removeRole);
         ctx.response.parse({
-            addrole: addRole?.toString(),
-            removerole: removeRole?.toString(),
+            requiredRoles: item.requiredRoles?.map(r => `<@&${r}>`).join(" "),
+            requiredXp: item.requiredXp?.toLocaleString(ctx.settings.language.interface) +
+                this.client.cache.emojis.xp,
+            addRole: addRole?.toString(),
+            removeRole: removeRole?.toString(),
             item: item.name
         })
+        if (item.requiredRoles?.find(r => !ctx.member.roles.cache.get(r))) return {
+            error: {
+                type: "other",
+                options: {text: ctx.response.data.errors.requiredRoles}
+            }
+        }
+        if ((balance?.xp ?? 0) < (item.requiredXp ?? 0)) return {
+            error: {
+                type: "other",
+                options: {text: ctx.response.data.errors.requiredXp}
+            }
+        }
         if (addRole) {
             if (ctx.guild.members.me.roles.highest.position <= addRole.position) return {
                 error: {
@@ -98,13 +105,25 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
             }
             await ctx.member.roles.remove(removeRole)
         }
+        if (!balance) {
+            balance = new Balance()
+            balance.guildid = ctx.guild.id as string;
+            balance.userid = ctx.member.id as string;
+            balance.balance = 0;
+            balance.xp = 0;
+            await this.db.manager.save(balance)
+        }
+        let minXp = typeof item.xp === 'number' ? item.xp : item.xp.min
+        let maxXp = typeof item.xp === 'number' ? item.xp : item.xp.max
+        let xp = Math.floor(minXp + (maxXp-minXp) * Math.random())
         balance.balance -= (item.price ?? 0);
-        balance.xp += (item.xp ?? 0);
+        balance.xp += xp;
         await balance.save()
         let embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.description)
+            .setThumbnail(item.thumbnailUrl?.length ? item.thumbnailUrl : null)
         return {reply: {embeds: [embed]}};
     }
 }

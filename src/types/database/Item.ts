@@ -15,14 +15,26 @@ export default class Item extends BaseEntity {
     description: string | null
 
     @Column()
-    addRole: string | null
+    thumbnailUrl?: string
 
     @Column()
-    removeRole: string | null
+    requiredRoles?: Array<string>
+
+    @Column()
+    requiredXp?: number
 
     @Column()
     price: number
 
     @Column()
-    xp: number
+    xp: number | {
+        min: number
+        max: number
+    }
+
+    @Column()
+    addRole: string | null
+
+    @Column()
+    removeRole: string | null
 }

@@ -12,9 +12,14 @@ export class GuildEconomyController extends Base {
     @Post(":id/economy")
     async execute(@Req() request: GuildRequest, @Body() body: GuildEconomyDto) {
         if(body.work.low > body.work.high)
-            throw new BadRequestException("work.low value must be lower than work.high value")
+            throw new BadRequestException("work.low value must be less than or equal to work.high value")
         if(body.moneybags.low > body.moneybags.high)
-            throw new BadRequestException("moneybags.low value must be lower than moneybags.high value")
+            throw new BadRequestException("moneybags.low value must be tess than or equal to moneybags.high value")
+        if(body.messageXp?.min > body.messageXp?.max)
+            throw new BadRequestException("messageXp.min value must be tess than or equal to messageXp.max value")
+        if(!request.guild.settings.boost) {
+            body.messageXp = null
+        }
         Object.assign(request.guild.settings, body);
         request.guild.settings.moneysymb = body.moneySymbol;
         await request.guild.settings.save();

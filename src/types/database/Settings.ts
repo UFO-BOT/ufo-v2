@@ -76,7 +76,14 @@ export default class Settings extends BaseEntity {
     minBet: number
 
     @Column()
-    moneybonuses: {
+    messageXp: {
+        chance: number
+        min: number
+        max: number
+    }
+
+    @Column()
+    moneyBonuses: {
         daily: number
         weekly: number
     }

@@ -27,7 +27,8 @@ export default class GuildSettings {
             commandsSettings: settings?.commands ?? {} as Record<string, CommandSettings>,
             minBet: settings?.minBet ?? 100,
             autoModeration: settings?.autoModeration ?? {} as GuildAutoMod,
-            boost: settings?.boost
+            boost: settings?.boost,
+            messageXp: settings?.messageXp?.chance > 0 ? settings.messageXp : null
         }
     }
 

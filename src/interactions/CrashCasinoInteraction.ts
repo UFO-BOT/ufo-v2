@@ -66,8 +66,9 @@ export default class CrashCasinoInteraction extends AbstractInteraction implemen
 
     private async raise(interaction: ButtonInteraction): Promise<InteractionExecutionResult> {
         this.components.stop.setDisabled(false);
-        this.data.multiplier = Math.round((this.data.multiplier + 0.2)*10)/10;
-        if(Math.round(Math.random()*10) > 2) {
+        this.data.multiplier = Math.round((this.data.multiplier + 0.4)*10)/10;
+        let random = Math.round(Math.random()*100)
+        if(random % 4 !== 0) {
             let gain = Math.round(this.data.bet * this.data.multiplier);
             this.embed.setFields([
                 {name: this.props.embed.bet, value: this.data.bet

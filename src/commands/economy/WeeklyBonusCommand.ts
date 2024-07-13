@@ -28,7 +28,7 @@ export default class WeeklyBonusCommand extends AbstractCommand implements Comma
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let settings = await this.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
-        if(!settings?.moneybonuses?.weekly) return {
+        if(!settings?.moneyBonuses?.weekly) return {
             error: {
                 type: "other",
                 options: {text: ctx.response.data.errors.noWeeklyBonus}
@@ -52,11 +52,11 @@ export default class WeeklyBonusCommand extends AbstractCommand implements Comma
                 options: {time: balance.lastWeeklyBonus + 604800000}
             }
         }
-        balance.balance += settings.moneybonuses.weekly;
+        balance.balance += settings.moneyBonuses.weekly;
         balance.lastWeeklyBonus = Date.now();
         await balance.save();
         ctx.response.parse({
-            amount: settings.moneybonuses.weekly.toLocaleString(ctx.settings.language.interface),
+            amount: settings.moneyBonuses.weekly.toLocaleString(ctx.settings.language.interface),
             balance: balance.balance.toLocaleString(ctx.settings.language.interface),
             monsymb: ctx.settings.moneysymb
         })

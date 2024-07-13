@@ -28,7 +28,7 @@ export default class DailyBonusCommand extends AbstractCommand implements Comman
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let settings = await this.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
-        if(!settings?.moneybonuses?.daily) return {
+        if(!settings?.moneyBonuses?.daily) return {
             error: {
                 type: "other",
                 options: {text: ctx.response.data.errors.noDailyBonus}
@@ -52,11 +52,11 @@ export default class DailyBonusCommand extends AbstractCommand implements Comman
                 options: {time: balance.lastDailyBonus + 86400000}
             }
         }
-        balance.balance += settings.moneybonuses.daily;
+        balance.balance += settings.moneyBonuses.daily;
         balance.lastDailyBonus = Date.now();
         await balance.save();
         ctx.response.parse({
-            amount: settings.moneybonuses.daily.toLocaleString(ctx.settings.language.interface),
+            amount: settings.moneyBonuses.daily.toLocaleString(ctx.settings.language.interface),
             balance: balance.balance.toLocaleString(ctx.settings.language.interface),
             monsymb: ctx.settings.moneysymb
         })

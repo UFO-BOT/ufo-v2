@@ -1,4 +1,17 @@
-import {IsInt, IsOptional, Length} from "class-validator";
+import {IsArray, IsInt, IsOptional, IsString, IsUrl, Length, Min, ValidateIf, ValidateNested} from "class-validator";
+import {Type} from "class-transformer";
+
+class ItemXp {
+
+    @IsInt()
+    @Min(0)
+    public min: number
+
+    @IsInt()
+    @Min(0)
+    public max: number
+
+}
 
 export class GuildItemDto {
 
@@ -9,18 +22,33 @@ export class GuildItemDto {
     @Length(0, 200)
     public description: string
 
+    @ValidateIf(body => body.thumbnailUrl?.length > 0)
+    @IsOptional()
+    @IsUrl()
+    public thumbnailUrl: string
+
+    @IsArray()
+    @IsString({each: true})
+    public requiredRoles: Array<string>
+
     @IsInt()
+    @Min(0)
+    public requiredXp: number
+
+    @IsInt()
+    @Min(0)
     public price: number
 
-    @IsInt()
-    public xp: number
+    @ValidateNested()
+    @Type(() => ItemXp)
+    public xp: ItemXp
 
     @IsOptional()
-    @Length(15, 20)
-    public addRole?: string
+    @IsString()
+    public addRole: string
 
     @IsOptional()
-    @Length(15, 20)
-    public removeRole?: string
+    @IsString()
+    public removeRole: string
 
 }

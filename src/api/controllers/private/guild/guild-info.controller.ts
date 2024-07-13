@@ -47,7 +47,8 @@ export class GuildInfoController extends Base {
                     ignore: request.guild.settings.logs?.ignore ?? {channels: []}
                 },
                 greetings: request.guild.settings.greetings ?? {},
-                boost: request.guild.settings.boost ?? false
+                boost: request.guild.settings.boost ?? false,
+
             }
         }
     }
