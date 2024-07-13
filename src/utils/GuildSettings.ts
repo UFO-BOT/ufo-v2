@@ -10,7 +10,7 @@ export default class GuildSettings {
         let settings: GuildSettingsCache = global.client.cache.settings.get(guildId)
         if (!settings) {
             let guildSettings = await global.db.manager.findOneBy(Settings, {guildid: guildId})
-            settings = this.toCache(guildSettings)
+            settings = this.toCache(guildSettings as Settings)
             global.client.cache.settings.set(guildId, settings)
         }
         return settings;
@@ -28,7 +28,7 @@ export default class GuildSettings {
             minBet: settings?.minBet ?? 100,
             autoModeration: settings?.autoModeration ?? {} as GuildAutoMod,
             boost: settings?.boost,
-            messageXp: settings?.messageXp?.chance > 0 ? settings.messageXp : null
+            messageXp: (settings?.boost && settings?.messageXp?.chance) > 0 ? settings.messageXp : null
         }
     }
 

@@ -8,6 +8,6 @@ export default class UpdateCacheEvent extends AbstractClientEvent implements Eve
 
     public async execute(guildId: string): Promise<any> {
         let settings = await this.db.manager.findOneBy(Settings, {guildid: guildId})
-        this.client.cache.settings.set(guildId, GuildSettings.toCache(settings))
+        this.client.cache.settings.set(guildId, GuildSettings.toCache(settings as Settings))
     }
 }

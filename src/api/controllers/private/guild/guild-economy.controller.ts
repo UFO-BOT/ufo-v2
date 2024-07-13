@@ -19,17 +19,14 @@ export class GuildEconomyController extends Base {
             throw new BadRequestException("messageXp.min value must be tess than or equal to messageXp.max value")
         if(!request.guild.settings.boost) {
             body.messageXp = null
+            body.moneyBonuses = null
         }
         Object.assign(request.guild.settings, body);
         request.guild.settings.moneysymb = body.moneySymbol;
         await request.guild.settings.save();
         await this.manager.shards.get(request.guild.shardId).eval((client, context) => {
-            const ufo = client as typeof this.client;
-            let settings = ufo.cache.settings.get(context.guild)
-            if(!settings) return;
-            settings.moneysymb = context.body.moneySymbol;
-            ufo.cache.settings.set(context.guild, settings);
-        }, {guild: request.guild.id, body})
+            client.emit('updateCache', context.guildId)
+        }, {guildId: request.guild.id})
         return {message: "Guild settings saved successfully"}
     }
 

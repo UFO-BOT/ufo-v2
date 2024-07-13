@@ -3,9 +3,10 @@ import Discord from "discord.js";
 import EventConfig from "@/types/EventConfig";
 import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 import TextCommandsHandler from "@/services/handlers/TextCommandsHandler";
-import AutoModerationInvites from "@/services/automod/detectors/AutoModerationInvites";
-import Case from "@/types/database/Case";
+import AutoModerationInvites from "@/services/automod/detectors/AutoModerationInvites";;
 import AutoModerationFlood from "@/services/automod/detectors/AutoModerationFlood";
+import GuildSettings from "@/utils/GuildSettings";
+import MessageXpHandler from "@/services/handlers/MessageXpHandler";
 
 export default class MessageCreateEvent extends AbstractClientEvent implements EventConfig {
     public name = 'messageCreate'
@@ -20,6 +21,8 @@ export default class MessageCreateEvent extends AbstractClientEvent implements E
         await automodInvites.execute()
         let automodFlood = new AutoModerationFlood(message)
         await automodFlood.execute()
+        let messageXpHandler = new MessageXpHandler(message.guild, message.member)
+        await messageXpHandler.handle()
         let handler = new TextCommandsHandler(message);
         return handler.handle();
     }
