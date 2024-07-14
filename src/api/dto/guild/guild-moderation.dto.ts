@@ -3,9 +3,10 @@ import {
     IsBoolean, IsIn, IsInt,
     IsObject,
     IsOptional,
-    IsString, Min, ValidateNested
+    IsString, MaxLength, Min, ValidateIf, ValidateNested
 } from "class-validator";
-import {Type} from "class-transformer";
+import {Transform, TransformFnParams, Type} from "class-transformer";
+import {GuildEmbedDto} from "@/api/dto/guild/embed/guild-embed.dto";
 
 class Punishment {
 
@@ -33,6 +34,37 @@ class WarnsPunishment {
 
 }
 
+class PunishmentMessage {
+
+    @IsBoolean()
+    public enabled: boolean
+
+    @ValidateIf(body => body.enabled)
+    @IsString()
+    @Transform(({ value }: TransformFnParams) => value?.trim())
+    @MaxLength(1500)
+    public message: string
+
+    @ValidateIf(body => body.enabled)
+    @ValidateNested()
+    @Type(() => GuildEmbedDto)
+    @IsObject()
+    public embed: GuildEmbedDto
+
+}
+
+class GuildPunishmentMessages {
+
+    @ValidateNested()
+    @Type(() => PunishmentMessage)
+    public kick: PunishmentMessage
+
+    @ValidateNested()
+    @Type(() => PunishmentMessage)
+    public ban: PunishmentMessage
+
+}
+
 export class GuildModerationDto {
 
     @IsString()
@@ -45,5 +77,9 @@ export class GuildModerationDto {
     @ValidateNested({each: true})
     @Type(() => WarnsPunishment)
     public warnsPunishments: Array<WarnsPunishment>
+
+    @ValidateNested()
+    @Type(() => GuildPunishmentMessages)
+    public punishmentMessages: GuildPunishmentMessages
 
 }

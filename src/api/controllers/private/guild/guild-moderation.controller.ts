@@ -1,6 +1,6 @@
 import {
     BadRequestException,
-    Body,
+    Body, ClassSerializerInterceptor,
     Controller,
     ForbiddenException,
     Get,
@@ -8,7 +8,7 @@ import {
     Param,
     Post,
     Req,
-    UseGuards
+    UseGuards, UseInterceptors
 } from "@nestjs/common";
 import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
@@ -31,9 +31,25 @@ export class GuildModerationController extends Base {
         if (body.warnsPunishments.find(wp => body.warnsPunishments.filter(w => w.warns == wp.warns).length > 1))
             throw new BadRequestException("Warns punishments contain duplicates")
         body.warnsPunishments.map(wp => {
-            if (wp.punishment.type === 'kick') wp.punishment.duration = 0
+            if (wp.punishment.type === 'kick') wp.punishment.duration = null
             return wp
         })
+        if (!request.guild.settings.boost) request.guild.settings.punishmentMessages = null
+        else {
+            request.guild.settings.punishmentMessages = {kick: {enabled: false}, ban: {enabled: false}}
+            if (body.punishmentMessages?.kick?.enabled && (body.punishmentMessages?.kick?.message?.length > 0 ||
+                body.punishmentMessages?.kick?.embed?.enabled)) {
+                request.guild.settings.punishmentMessages.kick = body.punishmentMessages.kick
+                if (!request.guild.settings.punishmentMessages.kick.embed.enabled)
+                    request.guild.settings.punishmentMessages.kick.embed = {enabled: false}
+            }
+            if (body.punishmentMessages?.ban?.enabled && (body.punishmentMessages?.ban?.message?.length > 0 ||
+                body.punishmentMessages?.ban?.embed?.enabled)) {
+                request.guild.settings.punishmentMessages.ban = body.punishmentMessages.ban
+                if (!request.guild.settings.punishmentMessages.ban.embed.enabled)
+                    request.guild.settings.punishmentMessages.ban.embed = {enabled: false}
+            }
+        }
         request.guild.settings.muterole = muteRole.id
         request.guild.settings.useTimeout = body.useTimeout
         request.guild.settings.warnsPunishments = body.warnsPunishments as Array<GuildWarnsPunishment>

@@ -3,7 +3,6 @@ import handlebars from "handlebars";
 import MemberVariable from "@/services/templates/variables/MemberVariable";
 import GuildVariable from "@/services/templates/variables/GuildVariable";
 import MessageTemplate from "@/services/templates/messages/MessageTemplate";
-import TimeParser from "@/utils/TimeParser";
 
 export default class GreetingMessageTemplate extends MessageTemplate {
     public member: MemberVariable

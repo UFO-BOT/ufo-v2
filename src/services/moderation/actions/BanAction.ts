@@ -8,6 +8,9 @@ import MemberModeratable from "@/utils/MemberModeratable";
 import BanEnding from "@/services/endings/BanEnding";
 import properties from "@/properties/moderation.json"
 import TimeParser from "@/utils/TimeParser";
+import PunishmentVariable from "@/services/templates/variables/PunishmentVariable";
+import PunishmentMessageTemplate from "@/services/templates/messages/PunishmentMessageTemplate";
+import EmbedTemplate from "@/services/templates/embeds/EmbedTemplate";
 
 export default class BanAction extends ModerationAction {
     constructor(options: Omit<ModerationActionOptions, 'action'>) {
@@ -50,12 +53,25 @@ export default class BanAction extends ModerationAction {
         }
         this.options.member = await this.options.guild.members.fetch(this.options.user).catch(() => null)
         if(this.options.member) {
-            let msg = (this.options.duration ? props.dms.TempBan : props.dms.ban)
-                .replace("{{server}}", this.options.guild.name)
-                .replace("{{moderator}}", this.options.executor.user.tag)
-                .replace("{{duration}}", TimeParser.stringify(this.options.duration, this.settings.language?.interface ?? "en", true))
-                .replace("{{reason}}", this.options.reason)
-            await this.options.member.send({content: msg}).catch(() => null);
+            if (this.settings.boost && this.settings?.punishmentMessages?.ban?.enabled) {
+                let punishment = new PunishmentVariable(this.options.duration, this.options.reason)
+                let template = new PunishmentMessageTemplate(this.options.member, this.options.guild,
+                    this.options.executor, punishment, this.settings.language.interface)
+                let message = template.compile(this.settings.punishmentMessages.ban.message)
+                let embedTemplate = new EmbedTemplate(template)
+                let embed = embedTemplate.compile(this.settings.punishmentMessages.ban.embed)
+                await this.options.member.send({content: message?.length ? message : '', embeds: embed ? [embed] : []})
+                    .catch(() => {})
+            }
+            else {
+                let msg = (this.options.duration ? props.dms.TempBan : props.dms.ban)
+                    .replace("{{server}}", this.options.guild.name)
+                    .replace("{{moderator}}", this.options.executor.user.tag)
+                    .replace("{{duration}}", TimeParser.stringify(this.options.duration,
+                        this.settings.language?.interface ?? "en", true))
+                    .replace("{{reason}}", this.options.reason)
+                await this.options.member.send({content: msg}).catch(() => null);
+            }
         }
         await this.options.guild.members.ban(this.options.user, {
             deleteMessageDays: this.options.daysDelete ?? 0,

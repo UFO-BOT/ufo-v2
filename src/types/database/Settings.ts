@@ -5,6 +5,7 @@ import {GuildLog} from "@/types/GuildLog";
 import GuildWarnsPunishment from "@/types/GuildWarnsPunishment";
 import GuildAutoMod from "@/types/automod/GuildAutoMod";
 import GuildGreetings from "@/types/greetings/GuildGreetings";
+import PunishmentMessage from "@/types/PunishmentMessage";
 
 @Entity('settings')
 export default class Settings extends BaseEntity {
@@ -86,5 +87,11 @@ export default class Settings extends BaseEntity {
     moneyBonuses: {
         daily: number
         weekly: number
+    }
+
+    @Column()
+    punishmentMessages: {
+        kick: PunishmentMessage
+        ban: PunishmentMessage
     }
 }

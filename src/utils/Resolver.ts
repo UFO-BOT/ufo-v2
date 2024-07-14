@@ -62,7 +62,8 @@ export default class Resolver {
         await guild.bans.fetch().catch(() => null);
         return guild.bans.cache.find(b =>
             b.user.id.toLowerCase() === arg
-            || b.user.tag.toLowerCase().includes(arg)
+            || b.user.username.toLowerCase().includes(arg)
+            || b.user.globalName.toLowerCase().includes(arg)
             || b.user.toString().toLowerCase() === arg)
     }
 }

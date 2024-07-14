@@ -49,7 +49,9 @@ export class GuildInfoController extends Base {
                 greetings: request.guild.settings.greetings ?? {},
                 boost: request.guild.settings.boost ?? false,
                 messageXp: request.guild.settings.messageXp ?? {chance: 0, min: 0, max: 0},
-                moneyBonuses: request.guild.settings.moneyBonuses ?? {daily: 0, weekly: 0}
+                moneyBonuses: request.guild.settings.moneyBonuses ?? {daily: 0, weekly: 0},
+                punishmentMessages: request.guild.settings.punishmentMessages ??
+                    {kick: {enabled: false}, ban: {enabled: false}}
             }
         }
     }

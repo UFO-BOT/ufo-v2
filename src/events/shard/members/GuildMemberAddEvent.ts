@@ -5,7 +5,7 @@ import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 import Settings from "@/types/database/Settings";
 import GreetingMessageTemplate from "@/services/templates/messages/GreetingMessageTemplate";
 import Mute from "@/types/database/Mute";
-import GreetingEmbedTemplate from "@/services/templates/embeds/GreetingEmbedTemplate";
+import EmbedTemplate from "@/services/templates/embeds/EmbedTemplate";
 
 export default class GuildMemberAddEvent extends AbstractClientEvent implements EventConfig {
     public name = 'guildMemberAdd'
@@ -21,7 +21,7 @@ export default class GuildMemberAddEvent extends AbstractClientEvent implements 
         await member.user.fetch()
         let template = new GreetingMessageTemplate(member, member.guild)
         let dmMessage = template.compile(settings.greetings.dm.message)
-        let embedTemplate = new GreetingEmbedTemplate(template)
+        let embedTemplate = new EmbedTemplate(template)
         let dmEmbed = embedTemplate.compile(settings.greetings.dm.embed)
         await member.user.send({content: dmMessage?.length ? dmMessage : '', embeds: dmEmbed ? [dmEmbed] : []})
             .catch(() => {})

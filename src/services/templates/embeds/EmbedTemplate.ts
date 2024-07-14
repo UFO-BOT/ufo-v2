@@ -1,10 +1,10 @@
 import {EmbedBuilder} from "discord.js";
-import GreetingMessageTemplate from "@/services/templates/messages/GreetingMessageTemplate";
 import Embed from "@/types/embed/Embed";
 import EmbedField from "@/types/embed/EmbedField";
+import MessageTemplate from "@/services/templates/messages/MessageTemplate";
 
-export default class GreetingEmbedTemplate {
-    constructor(public template: GreetingMessageTemplate) {
+export default class EmbedTemplate {
+    constructor(public template: MessageTemplate) {
     }
 
     public compile(embedTemplate: Embed): EmbedBuilder | null {
