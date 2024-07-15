@@ -46,8 +46,8 @@ export default class EmbedTemplate {
                 if (!isNaN(Number(date))) embed.setTimestamp(date)
                 break
             case "template":
-                let timestamp = new Date(Number(template.compile(embedTemplate.timestamp.template?.trim())))
-                if (!isNaN(Number(timestamp))) embed.setTimestamp(timestamp)
+                let timestamp = Number(template.compile(embedTemplate.timestamp.template?.trim()))
+                if (timestamp && !isNaN(Number(timestamp))) embed.setTimestamp(timestamp)
         }
         if (!embed.data.author.name?.trim()?.length && !embed.data.title?.trim()?.length
             && !embed.data.description?.trim()?.length && !embed.data.fields.length

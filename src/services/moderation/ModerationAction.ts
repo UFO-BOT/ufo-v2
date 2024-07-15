@@ -41,6 +41,7 @@ export default abstract class ModerationAction extends AbstractService {
             this.options.member = await this.options.guild.members.fetch(this.options.user).catch(() => null)
 
         let action = new Case();
+        let cs = Date.now()
         let cases = await this.db.mongoManager.createCursor(Case, {guildid: this.options.guild.id})
             .sort({number: -1})
             .limit(1)

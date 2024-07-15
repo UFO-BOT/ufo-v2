@@ -13,7 +13,7 @@ import {GuildTestsGreetingsDto} from "@/api/dto/guild/tests/guild-tests-greeting
 
 @Controller('guilds')
 @UseGuards(AuthGuard, GuildGuard)
-export class GuildTestsGreetings extends Base {
+export class GuildTestsGreetingsController extends Base {
 
     @Post(":id/tests/greetings")
     async execute(@Req() request: GuildRequest, @Body() body: GuildTestsGreetingsDto) {

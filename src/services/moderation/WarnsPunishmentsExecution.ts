@@ -12,13 +12,11 @@ import BanAction from "@/services/moderation/actions/BanAction";
 import WarnsPunishmentsExecutionOptions from "@/types/moderation/WarnsPunishmentsExecutionOptions";
 
 export default class WarnsPunishmentsExecution extends AbstractService {
-    public settings: Settings
-
     constructor(public options: WarnsPunishmentsExecutionOptions) {
         super();
     }
 
-    public async execute(): Promise<EmbedBuilder> {
+    public async execute(): Promise<any> {
         let settings = await this.db.manager.findOneBy(Settings, {guildid: this.options.guild.id}) as Settings
         if (!settings.warnsPunishments?.length) return
         let warnsCount = await this.db.manager.countBy(Case, {
