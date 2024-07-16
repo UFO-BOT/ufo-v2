@@ -17,8 +17,10 @@ import {GuildRequest} from "@/api/types/GuildRequest";
 import Item from "@/types/database/Item";
 import {GuildItemDto} from "@/api/dto/guild/guild-item.dto";
 import {ItemGuard} from "@/api/guards/item.guard";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds/:id/items')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildItemsController extends Base {
 

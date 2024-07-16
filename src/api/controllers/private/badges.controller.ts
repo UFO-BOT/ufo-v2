@@ -4,8 +4,10 @@ import {AuthorizedRequest} from "@/api/types/AuthorizedRequest";
 import Base from "@/abstractions/Base";
 import badges from "@/properties/badges.json";
 import {AuthGuard} from "@/api/guards/auth.guard";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('badges')
+@Throttle(15, 60)
 @UseGuards(AuthGuard)
 export class BadgesController extends Base {
 

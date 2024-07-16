@@ -17,8 +17,10 @@ import {GuildRequest} from "@/api/types/GuildRequest";
 import {GuildAutomodInvitesDto} from "@/api/dto/guild/automod/guild-automod-invites.dto";
 import GuildAutoMod from "@/types/automod/GuildAutoMod";
 import {compile} from "handlebars";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildAutomodInvitesController extends Base {
 

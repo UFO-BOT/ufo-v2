@@ -97,6 +97,7 @@ export class Oauth2Service extends Base {
             .digest('hex')
         let token = await this.db.manager.findOneBy(Token, {accessToken: encryptedToken})
         await token.remove()
+        return {message: "Token revoked successfully"}
     }
 
     public async getUser(accessToken: string): Promise<string> {

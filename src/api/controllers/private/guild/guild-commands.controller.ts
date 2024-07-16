@@ -6,8 +6,10 @@ import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import {GuildCommandsDto} from "@/api/dto/guild/guild-commands.dto";
 import CommandSettings from "@/types/commands/CommandSettings";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildCommandsController extends Base {
 

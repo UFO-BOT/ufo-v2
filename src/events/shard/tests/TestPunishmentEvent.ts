@@ -23,7 +23,7 @@ export default class TestPunishmentEvent extends AbstractClientEvent implements 
         options.user = member.user
         options.member = member
         options.executor = guild.members.me
-        options.duration = null
+        options.duration = type === 'ban' ? 3600000 : null
         options.reason = props.testReason
         let sender = new PunishmentMessagesSender(settings, options)
         return sender.execute()

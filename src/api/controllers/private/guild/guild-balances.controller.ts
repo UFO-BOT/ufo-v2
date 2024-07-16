@@ -5,8 +5,10 @@ import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import {GuildBalanceDto} from "@/api/dto/guild/guild-balance.dto";
 import Balance from "@/types/database/Balance";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds/:id/balances/:user')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildBalancesController extends Base {
 

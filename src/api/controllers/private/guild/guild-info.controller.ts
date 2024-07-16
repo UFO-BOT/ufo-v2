@@ -1,11 +1,12 @@
-import {Controller, Get, Headers, Param, Req, UseGuards} from "@nestjs/common";
+import {Controller, Get, Req, UseGuards} from "@nestjs/common";
 import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
 import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
-import {settings} from "cluster";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildInfoController extends Base {
 

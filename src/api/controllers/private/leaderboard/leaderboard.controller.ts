@@ -8,8 +8,10 @@ import {LeaderboardDto} from "@/api/dto/leaderboard.dto";
 import {LeaderboardMember} from "@/api/types/LeaderboardMember";
 import Leaderboard from "@/utils/Leaderboard";
 import {RawUserData} from "discord.js/typings/rawDataTypes";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('leaderboard')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, LeaderboardGuard)
 export class LeaderboardController extends Base {
 

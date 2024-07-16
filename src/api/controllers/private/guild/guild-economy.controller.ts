@@ -4,8 +4,10 @@ import {AuthGuard} from "@/api/guards/auth.guard";
 import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import {GuildEconomyDto} from "@/api/dto/guild/guild-economy.dto";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildEconomyController extends Base {
 

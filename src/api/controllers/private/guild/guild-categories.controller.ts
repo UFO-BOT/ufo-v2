@@ -1,13 +1,13 @@
-import {Body, Controller, NotFoundException, Param, Post, Req, UnauthorizedException, UseGuards} from "@nestjs/common";
-import {ApplicationCommandPermissions} from "discord.js";
+import {Body, Controller, NotFoundException, Param, Post, Req, UseGuards} from "@nestjs/common";
 import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
 import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
-import CommandSettings from "@/types/commands/CommandSettings";
 import {GuildCategoriesDto} from "@/api/dto/guild/guild-categories.dto";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildCategoriesController extends Base {
 

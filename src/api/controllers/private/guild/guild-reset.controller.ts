@@ -5,8 +5,10 @@ import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import {GuildResetDto} from "@/api/dto/guild/guild-reset.dto";
 import Balance from "@/types/database/Balance";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildResetController extends Base {
 

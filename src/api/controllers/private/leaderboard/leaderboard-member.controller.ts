@@ -18,8 +18,10 @@ import {LeaderboardRequest} from "@/api/types/LeaderboardRequest";
 import Balance from "@/types/database/Balance";
 import {LeaderboardGuard} from "@/api/guards/leaderboard.guard";
 import Leaderboard from "@/utils/Leaderboard";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('leaderboard')
+@Throttle(15, 60)
 @UseGuards(AuthGuard, LeaderboardGuard)
 export class LeaderboardMemberController extends Base {
 

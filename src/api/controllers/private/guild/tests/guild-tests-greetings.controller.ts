@@ -10,8 +10,10 @@ import {AuthGuard} from "@/api/guards/auth.guard";
 import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import {GuildTestsGreetingsDto} from "@/api/dto/guild/tests/guild-tests-greetings-dto";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds')
+@Throttle(6, 60)
 @UseGuards(AuthGuard, GuildGuard)
 export class GuildTestsGreetingsController extends Base {
 

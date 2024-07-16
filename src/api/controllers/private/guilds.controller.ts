@@ -5,8 +5,10 @@ import {AuthGuard} from "@/api/guards/auth.guard";
 import {Oauth2Service} from "@/api/services/oauth2.service";
 import { Request } from "@nestjs/common";
 import {Guild, OAuth2Guild, PermissionsBitField} from "discord.js";
+import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds')
+@Throttle(15, 60)
 @UseGuards(AuthGuard)
 export class GuildsController extends Base {
 
