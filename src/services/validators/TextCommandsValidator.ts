@@ -41,6 +41,12 @@ export default class TextCommandsValidator extends AbstractService {
             let type = option.validationType ?
                 CommandOptionValidationType[option.validationType] :
                 ApplicationCommandOptionType[option.type]
+            if (type === "Boolean") {
+                value = !!this.options.args
+                    .find(a => a === '-' + option.config[this.options.settings.language.interface].name)
+                args[option.name] = value
+                continue;
+            }
             if(!arg && type !== "Attachment") {
                 if(option.required) return {valid: false, problemOption: option}
                 else this.options.args = [arg].concat(this.options.args)
@@ -103,6 +109,7 @@ export default class TextCommandsValidator extends AbstractService {
                     break;
                 case "Number": case "Integer":
                     value = Number(arg);
+                    if(isNaN(value)) value = undefined
                     if(option.type === ApplicationCommandOptionType.Integer && value % 1) value = undefined;
                     if(option.minValue !== undefined && value < option.minValue) value = undefined;
                     if(option.maxValue !== undefined && value > option.maxValue) value = undefined;

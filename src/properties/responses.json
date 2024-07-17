@@ -208,24 +208,20 @@
   "clear": {
     "ru": {
       "errors": {
-        "invalidAmount": "Количество должно быть целым числом, не меньшим 1 и не большим 1000",
-        "filtersMessagesLimit": "Лимит на очистку сообщений с фильтрами - 100",
-        "filtersLimit": "Вы можете использовать до 5 фильтров за одну очистку"
+        "filtersMessagesLimit": "Лимит на очистку сообщений с фильтрами - 100"
       },
       "embed": {
         "deleting": "{{loading}} Удаление сообщений...",
-        "deleted": "{{check}} Удалено `{{amount}}` сообщений!"
+        "deleted": "{{check}} Удалено `{{count}}` сообщений!"
       }
     },
     "en": {
       "errors": {
-        "invalidAmount": "Amount must be an integer not less than 1 and not more than 1000",
-        "filtersMessagesLimit": "Maximum amount of messages to clear with filters - 100",
-        "filtersLimit": "You can use not more than 5 filters at once"
+        "filtersMessagesLimit": "Maximum amount of messages to clear with filters - 100"
       },
       "embed": {
         "deleting": "{{loading}} Deleting messages...",
-        "deleted": "{{check}} Deleted`{{amount}}` messages!"
+        "deleted": "{{check}} Deleted `{{count}}` messages!"
       }
     }
   },

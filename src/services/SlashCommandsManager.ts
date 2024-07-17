@@ -54,7 +54,7 @@ export default class SlashCommandsManager extends AbstractService {
                 ru: option.config.ru.name
             },
             descriptionLocalizations: {
-                ru: option.config.ru.name
+                ru: option.config.ru.description
             },
             minValue: option.minValue,
             maxValue: option.maxValue,

@@ -108,6 +108,7 @@ export default class TextCommandsHandler extends AbstractService {
             channel: this.message.channel,
             args: validationResult.args,
             response: new PropertyParser(response),
+            messageId: commandSettings?.deleteUsage ? null : this.message.id,
             settings,
             balance
         })

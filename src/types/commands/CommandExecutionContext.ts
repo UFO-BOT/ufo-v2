@@ -10,6 +10,7 @@ export default interface CommandExecutionContext<T = Record<string, any>> {
     args: T
     response: PropertyParser
     settings: GuildSettingsCache
+    messageId?: string
     balance?: Balance
     data?: any
 }
