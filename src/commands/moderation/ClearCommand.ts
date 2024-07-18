@@ -190,7 +190,7 @@ export default class ClearCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext<ClearCommandDTO>): Promise<CommandExecutionResult> {
         if (ctx.args.count > 100 && (ctx.args.user || ctx.args.role || ctx.args.users || ctx.args.bots
-            || ctx.args.mentions || ctx.args.mentions || ctx.args.attachments || ctx.args.links)) return {
+            || ctx.args.mentions || ctx.args.embeds || ctx.args.attachments || ctx.args.links)) return {
             error: {
                 type: "other",
                 options: {text: ctx.response.data.errors.filtersMessagesLimit}
@@ -211,9 +211,10 @@ export default class ClearCommand extends AbstractCommand implements Command {
         let embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
         let lastMsg = data.messageId ?? message.id
+        let filtered = 0
         let deleted = 0
-        while (deleted < data.count) {
-            let cnt = data.count - deleted >= 100 ? 100 : data.count - deleted
+        while (filtered < data.count) {
+            let cnt = data.count - filtered >= 100 ? 100 : data.count - filtered
             let channel = message.channel as TextChannel
             let messages = await channel.messages
                 .fetch({limit: cnt, before: lastMsg}) as Collection<Snowflake, Message>
@@ -230,7 +231,8 @@ export default class ClearCommand extends AbstractCommand implements Command {
             )
             if (!messages.size) break
             await channel.bulkDelete(messages)
-            deleted += cnt
+            filtered += cnt
+            deleted += messages.size
             embed.setDescription(data.response.data.embed.deleting + ' `' + `[${deleted}/${data.count}]` + '`')
             await message.edit({embeds: [embed]}).catch(() => {})
         }

@@ -55,7 +55,7 @@ ${emojis.textchannel} ${ctx.response.data.embed.channelCount}: ${ctx.guild.chann
 ${emojis.roles} ${ctx.response.data.embed.roleCount}: ${ctx.guild.roles.cache.size.toLocaleString(ctx.settings.language.interface)}
 ${emojis.emotes} ${ctx.response.data.embed.emojiCount}: ${ctx.guild.emojis.cache.size.toLocaleString(ctx.settings.language.interface)}`, inline: true})
             .setThumbnail(ctx.guild.iconURL())
-            .setImage(ctx.guild.bannerURL({extension: 'gif'}) ?? ctx.guild.splashURL({size: 2048, extension: 'gif'}))
+            .setImage(ctx.guild.bannerURL() ?? ctx.guild.splashURL({size: 2048}))
             .setFooter({text: `ID: ${ctx.guild.id}`});
         if(boost) embed.data.description += `\n${this.client.cache.emojis.ufoboost} ${ctx.response.data.embed.ufoboost}`
         return {reply: {embeds: [embed]}}

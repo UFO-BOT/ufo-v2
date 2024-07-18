@@ -1,0 +1,8 @@
+{
+  "ru": {
+    "message": "Мой префикс на этом сервере: `{{prefix}}`\nДля помощи в использовании введите `{{prefix}}{{help}}`\nВеб сайт: {{website}}"
+  },
+  "en": {
+    "message": "My prefix on this server is `{{prefix}}`\nTo get help in using enter `{{prefix}}{{help}}`\nWebsite: {{website}}"
+  }
+}

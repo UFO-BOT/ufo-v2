@@ -7,6 +7,7 @@ import Discord, {
 } from "discord.js";
 import PropertyParser from "@/services/PropertyParser";
 import responses from "@/properties/responses.json";
+import mention from "@/properties/mention.json";
 import MakeError from "@/utils/MakeError";
 import TextCommandsValidator from "@/services/validators/TextCommandsValidator";
 import PermissionsParser from "@/utils/PermissionsParser";
@@ -31,17 +32,33 @@ export default class TextCommandsHandler extends AbstractService {
 
         let settings = await GuildSettings.getCache(this.message.guildId);
 
+        if ([this.client.users.toString(), this.message.guild.members.me.toString()].includes(this.message.content)) {
+            let mentionMsg = new PropertyParser(mention[settings.language.interface ?? 'en'])
+            mentionMsg.parse({
+                prefix: settings.prefix,
+                help: this.client.cache.commands.get('help').config[settings.language.commands].name,
+                website: process.env.WEBSITE
+            })
+            return this.message.reply({content: mentionMsg.data.message, allowedMentions: {repliedUser:  false}})
+        }
+
         let messageArray = this.message.content.split(' ')
         while (messageArray.includes('')) {
             messageArray.splice(messageArray.indexOf(''), 1);
         }
+
+        if ([this.client.users.toString(), this.message.guild.members.me.toString()].includes(messageArray[0]))
+            messageArray = messageArray.slice(1)
         let cmd = messageArray[0].toLowerCase()
-        if (!cmd.startsWith(settings.prefix)) return;
+        if (cmd.startsWith(this.client.user.toString())) cmd = cmd.slice(this.client.user.toString().length)
+        else if (cmd.startsWith(this.message.guild.members.me.toString()))
+            cmd = cmd.slice(this.message.guild.members.me.toString().length)
+        else if (cmd.startsWith(settings.prefix)) cmd = cmd.slice(settings.prefix.length)
         let args = messageArray.slice(1);
 
-        let command = global.client.cache.commands.find(c =>
-            c.config[settings?.language?.commands ?? 'en'].name === cmd.slice(settings.prefix.length) ||
-            c.config[settings?.language?.commands ?? 'en'].aliases.includes(cmd.slice(settings.prefix.length)))
+        let command = this.client.cache.commands.find(c =>
+            c.config[settings?.language?.commands ?? 'en'].name === cmd ||
+            c.config[settings?.language?.commands ?? 'en'].aliases.includes(cmd))
         if (!command) return;
 
         let commandSettings = settings.commandsSettings[command.config.en.name];

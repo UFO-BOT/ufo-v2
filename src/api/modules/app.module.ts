@@ -1,10 +1,11 @@
 import {Module} from '@nestjs/common';
+import {ThrottlerGuard, ThrottlerModule} from "@nestjs/throttler";
 import {PublicModule} from "@/api/modules/public.module";
 import {PrivateModule} from "@/api/modules/private.module";
 import {Oauth2Module} from "@/api/modules/oauth2.module";
 import {MainController} from "@/api/controllers/main.controller";
 import {APP_GUARD, RouterModule} from "@nestjs/core";
-import {ThrottlerGuard, ThrottlerModule} from "@nestjs/throttler";
+import {ShardsGuard} from "@/api/guards/shards.guard";
 
 @Module({
   controllers: [MainController],
@@ -23,6 +24,10 @@ import {ThrottlerGuard, ThrottlerModule} from "@nestjs/throttler";
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard
+    },
+    {
+      provide: APP_GUARD,
+      useClass: ShardsGuard
     }
   ]
 })
