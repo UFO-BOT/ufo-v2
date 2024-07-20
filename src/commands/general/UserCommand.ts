@@ -60,12 +60,13 @@ export default class UserCommand extends AbstractCommand implements Command {
 
         const botBadgesEmojis: Record<string, string> = {
             '712025786399588395': 'developer',
+            '712029369106825273': 'head_staff',
             '712027576817942669': 'moderator',
             '712027136768081942': 'support',
             '712970942074191902': 'tester',
             '774319126822387732': 'premium_donator',
             '774318848279052299': 'donator',
-            '739068301749256212': 'bughunter'
+            '739068301749256212': 'bug_hunter'
         }
 
         let user = ctx.args.user;

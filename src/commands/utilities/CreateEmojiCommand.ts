@@ -22,9 +22,9 @@ export default class CreateEmojiCommand extends AbstractCommand implements Comma
             aliases: ['создатьэмодзи', 'сэ', 'добавить-эмодзи']
         },
         en: {
-            name: "create-emote",
+            name: "create-emoji",
             description: 'Creates an emote from specified image and sets it a name',
-            aliases: ['createemote', 'create-emoji', 'ce']
+            aliases: ['create-emote', 'createemote', 'ce']
         }
     }
     public options: Array<CommandOption> = [
