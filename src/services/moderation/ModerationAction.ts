@@ -23,15 +23,13 @@ export default abstract class ModerationAction extends AbstractService {
         let settingsCache = await GuildSettings.getCache(this.options.guild.id)
         let lang = settingsCache?.language?.interface ?? "en";
         const props = properties[lang];
-        if (!this.client.cache.moderation.has(this.options.guild.id))
-            this.client.cache.moderation.set(this.options.guild.id, new Set())
-        if (this.client.cache.moderation.get(this.options.guild.id).has(this.options.user.id))
+        if (this.client.cache.executing.moderation.has(this.options.guild.id))
             return !this.options.autoMod ?
                 MakeError.other(this.options.executor, GuildSettings.toCache(this.settings), {
-                    text: props.alreadyBeingPunished
+                    text: props.alreadyExecuting
                 }) : null
 
-        this.client.cache.moderation.get(this.options.guild.id).add(this.options.user.id as string)
+        this.client.cache.executing.moderation.add(this.options.guild.id)
         this.settings = await this.db.manager.findOneBy(Settings, {guildid: this.options.guild.id});
         if (!this.settings) {
             this.settings = new Settings()
@@ -41,7 +39,6 @@ export default abstract class ModerationAction extends AbstractService {
             this.options.member = await this.options.guild.members.fetch(this.options.user).catch(() => null)
 
         let action = new Case();
-        let cs = Date.now()
         let cases = await this.db.mongoManager.createCursor(Case, {guildid: this.options.guild.id})
             .sort({number: -1})
             .limit(1)
@@ -52,7 +49,7 @@ export default abstract class ModerationAction extends AbstractService {
         let result = await this.action();
         if (!result.success) {
             let errors = props.actions[this.options.action].errors as Record<string, string>;
-            this.client.cache.moderation.get(this.options.guild.id).delete(this.options.user.id)
+            this.client.cache.executing.moderation.delete(this.options.guild.id)
             return !this.options.autoMod ?
                 MakeError.other(this.options.executor, GuildSettings.toCache(this.settings), {
                     text: errors[result.error]
@@ -89,7 +86,7 @@ export default abstract class ModerationAction extends AbstractService {
             value: TimeParser.stringify(this.options.duration, lang)
         })
         if (this.options.autoMod) embed.data.author.name = props.autoMod + ' ' + embed.data.author.name
-        this.client.cache.moderation.get(this.options.guild.id).delete(this.options.user.id)
+        this.client.cache.executing.moderation.delete(this.options.guild.id)
 
         return embed;
     }

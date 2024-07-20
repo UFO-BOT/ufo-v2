@@ -27,6 +27,7 @@ export default class ShopCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let items = await this.db.mongoManager.find(Item, {where: {guildid: ctx.guild.id}})
+        let limit = ctx.settings.boost ? this.constants.limits.items.boost : this.constants.limits.items.standard
         let interaction = new ShopInteraction([ctx.member.id], {
             guild: ctx.guild,
             items,

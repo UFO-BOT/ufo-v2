@@ -27,7 +27,8 @@ export class GuildItemsController extends Base {
     @Get()
     async list(@Req() request: GuildRequest) {
         let items = await this.db.manager.find(Item, {where: {guildid: request.guild.id}})
-        return items.map(item => {return {
+        let limit = request.guild?.settings?.boost ? this.constants.limits.items.boost : this.constants.limits.items.standard
+        return items.slice(0, limit).map(item => {return {
             name: item.name,
             description: item.description,
             thumbnailUrl: item.thumbnailUrl ?? null,
@@ -44,8 +45,9 @@ export class GuildItemsController extends Base {
     @Post()
     async create(@Req() request: GuildRequest, @Body() body: GuildItemDto) {
         let count = await this.db.manager.countBy(Item, {guildid: request.guild.id})
-        if(count >= (request.guild?.settings?.boost ? 40 : 15))
-            new ForbiddenException("Items limit reached")
+        let limit = request.guild?.settings?.boost ? this.constants.limits.items.boost : this.constants.limits.items.standard
+        if(count >= limit)
+            throw new ForbiddenException("Items limit reached")
         let IsItem = await this.db.manager.findOneBy(Item, {guildid: request.guild.id, name: body.name});
         if(IsItem) throw new BadRequestException("Another item has this name")
         if(body.xp.min > body.xp.max)

@@ -99,12 +99,12 @@ export default class CreateCouponCommand extends AbstractCommand implements Comm
 
     public async execute(ctx: CommandExecutionContext<CreateCouponCommandDTO>): Promise<CommandExecutionResult> {
         let count = await this.db.manager.countBy(Coupon, {guildid: ctx.guild.id})
-        let limit = ctx.settings.boost ? 25 : 10;
+        let limit = ctx.settings.boost ? this.constants.limits.coupons.boost : this.constants.limits.coupons.standard;
         ctx.response.parse({limit: limit.toString()})
         if(count >= limit) return {
             error: {
-                type: "other",
-                options: {text: ctx.response.data.errors.limit}
+                type: "limitReached",
+                options: {type: 'coupons', limit: this.constants.limits.coupons, boost: ctx.settings.boost}
             }
         }
         let coupon = await this.db.manager.findOneBy(Coupon, {

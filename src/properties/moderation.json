@@ -9,7 +9,7 @@
     "case": "Случай",
     "ends": "Заканчивается",
     "warns": "предупреждений",
-    "alreadyBeingPunished": "К этому пользователю уже применяется модераторское действие",
+    "alreadyExecuting": "На этом сервере уже выполняется модераторское действие. Пожалуйста, подождите.",
     "testReason": "Проверка пользовательского сообщения в ЛС при наказании",
     "dms": {
       "kick": "Вы были кикнуты с сервера **{{server}}** модератором **{{moderator}}** по причине: {{reason}}",
@@ -94,7 +94,7 @@
     "case": "Case",
     "ends": "Ends at",
     "warns": "warns",
-    "alreadyBeingPunished": "Moderation action is already being issued to this user",
+    "alreadyExecuting": "Moderation action is already being executed on this server. Please wait.",
     "testReason": "Custom punishment DM test",
     "dms": {
       "kick": "You have been kicked from server **{{server}}** by **{{moderator}}** with a reason: {{reason}}",

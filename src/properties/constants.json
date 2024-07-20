@@ -12,5 +12,23 @@
     "eventsShard": "/dist/src/events/shard",
     "eventsManager": "/dist/src/events/manager",
     "jobs": "/dist/src/jobs"
+  },
+  "limits": {
+    "items": {
+      "standard": 15,
+      "boost": 30
+    },
+    "giveaways": {
+      "standard": 5,
+      "boost": 15
+    },
+    "coupons": {
+      "standard": 5,
+      "boost": 15
+    },
+    "customJobs": {
+      "standard": 5,
+      "boost": 15
+    }
   }
 }

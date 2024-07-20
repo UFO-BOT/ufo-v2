@@ -10,6 +10,9 @@ export default interface ClientCacheConfig {
     emojis: Record<string, string>
     settings: Discord.Collection<string, GuildSettingsCache>
     interactions: Discord.Collection<string, AbstractInteraction>
-    moderation: Discord.Collection<Snowflake, Set<Snowflake>>
     detections: Discord.Collection<Snowflake, Record<Snowflake, AutomodDetectionsCache>>
+    executing: {
+        moderation: Set<Snowflake>
+        giveaways: Set<Snowflake>
+    }
 }

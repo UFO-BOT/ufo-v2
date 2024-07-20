@@ -258,12 +258,7 @@
   "create-coupon": {
     "ru": {
       "errors": {
-        "invalidAmonut": "Сумма должна быть целым числом, не меньшим нуля",
-        "invalidUsages": "Количество использований должно быть целым числом, не меньшим 1",
-        "invalidDuration": "Время действия указано неверно",
-        "tooLongDuration": "Время действия купона не должна быть больше 10 лет",
-        "alreadyExists": "Купон с таким названием уже существует",
-        "limit": "Достигнут лимит купонов - {{limit}}"
+        "alreadyExists": "Купон с таким названием уже существует"
       },
       "embed": {
         "author": "Купон",
@@ -275,12 +270,7 @@
     },
     "en": {
       "errors": {
-        "invalidAmonut": "Amount must be an integer not less than 0",
-        "invalidUsages": "Count of usages must be an integer not less than 0",
-        "invalidDuration": "Invalid duration",
-        "tooLongDuration": "Coupon duration may not be longer than 10 years",
-        "alreadyExists": "Coupon with this name already exists",
-        "limit": "Limit of coupons is reached - {{limit}}"
+        "alreadyExists": "Coupon with this name already exists"
       },
       "embed": {
         "author": "Coupon",
@@ -436,7 +426,7 @@
   "giveaway": {
     "ru": {
       "errors": {
-        "limit": "Достигнут лимит розыгрышей - {{limit}}"
+        "alreadyCreating": "На этом сервере уже создается розыгрыш. Пожалуйста, подождите."
       },
       "embed": {
         "author": "Розыгрыш",
@@ -448,7 +438,7 @@
     },
     "en": {
       "errors": {
-        "limit": "Limit of giveaways is reached - {{limit}}"
+        "alreadyCreating": "Giveaway is already being created on this server. Please wait."
       },
       "embed": {
         "author": "Giveaway",

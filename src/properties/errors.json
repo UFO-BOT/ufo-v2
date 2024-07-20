@@ -9,7 +9,7 @@
     "en": {
       "embed": {
         "author": "UFO Boost required",
-        "description": "UFO Boost is required for this feature <:ufo_boost:750724590891696198>\n[Support us](https://ufobot.ru/donate) to get UFO Boosts"
+        "description": "UFO Boost is required for this feature <:ufo_boost:750724590891696198>\n[Donate us](https://ufobot.ru/donate) to get UFO Boosts"
       }
     }
   },
@@ -212,6 +212,28 @@
       "embed": {
         "author": "Error",
         "description": "This command is available only in certain channels"
+      }
+    }
+  },
+  "limitReached": {
+    "ru": {
+      "embed": {
+        "author": "Достигнут лимит",
+        "descriptions": {
+          "giveaways": "Вы достигли лимита в {{limit}} розыгрышей",
+          "coupons": "Вы достигли лимита в {{limit}} купонов"
+        },
+        "donate": "[Поддержите нас](https://ufobot.ru/donate) чтобы увеличить лимит до {{limit}}"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Limit reached",
+        "descriptions": {
+          "giveaways": "You have reached the limit of {{limit}} giveaways",
+          "coupons": "You have reached the limit of {{limit}} coupons"
+        },
+        "donate": "[Donate us](https://ufobot.ru/donate) to increase the limit to {{limit}}"
       }
     }
   },

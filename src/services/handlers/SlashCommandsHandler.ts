@@ -49,7 +49,8 @@ export default class SlashCommandsHandler extends AbstractService {
             return this.interaction.reply({
                 embeds:
                     [MakeError.noBotPermissions(this.interaction.member as GuildMember, settings,
-                        PermissionsParser.parse(command.botPermissions, settings.language.interface))]
+                        PermissionsParser.parse(command.botPermissions, settings.language.interface))],
+                ephemeral: true
             })
 
         let balance;

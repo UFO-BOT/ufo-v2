@@ -1,3 +1,5 @@
+import {Limits} from "@/types/Limits";
+
 interface Colors {
     system: `#${string}`
     error: `#${string}`
@@ -17,4 +19,5 @@ export default interface Constants {
     defaultMoneySymbol: string
     colors: Colors
     paths: Paths
+    limits: Limits
 }

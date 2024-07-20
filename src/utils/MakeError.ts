@@ -9,6 +9,7 @@ import Constants from "@/types/Constants";
 import constants from "@/properties/constants.json";
 import CommandUsage from "@/utils/CommandUsage";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import {Limit} from "@/types/Limits";
 const colors = (constants as Constants).colors;
 
 export default class MakeError {
@@ -104,6 +105,18 @@ export default class MakeError {
             .setColor(colors.error)
             .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
             .setDescription(error.embed.description.replace("{{perms}}", perms.map(p => '`' + p + '`').join(", ")));
+    }
+
+    static limitReached(member: GuildMember, settings: GuildSettingsCache, options: {type: 'coupons' | 'giveaways',
+        limit: Limit, boost: boolean}): EmbedBuilder {
+        let error = errors.limitReached[settings.language.interface];
+        let lim = options.boost ? options.limit.boost.toString() : options.limit.standard.toString()
+        let description = error.embed.descriptions[options.type].replace("{{limit}}", lim)
+        if (!options.boost) description += '\n' + error.embed.donate.replace("{{limit}}", options.limit.boost.toString())
+        return new EmbedBuilder()
+            .setColor(options.boost ? colors.error : colors.system)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(description)
     }
 
     static userCoolDown(member: GuildMember, settings: GuildSettingsCache, options: {time: number}): EmbedBuilder {

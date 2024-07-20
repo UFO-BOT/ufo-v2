@@ -18,8 +18,11 @@ export default class Client extends Discord.Client {
         emojis: emojis,
         settings: new Collection<string, GuildSettingsCache>(),
         interactions: new Collection<string, AbstractInteraction>(),
-        moderation: new Collection<Snowflake, Set<Snowflake>>(),
-        detections: new Collection<Snowflake, Record<Snowflake, AutomodDetectionsCache>>()
+        detections: new Collection<Snowflake, Record<Snowflake, AutomodDetectionsCache>>(),
+        executing: {
+            moderation: new Set<Snowflake>(),
+            giveaways: new Set<Snowflake>()
+        }
     }
 
     public constructor(token: string, options?: ClientOptions) {

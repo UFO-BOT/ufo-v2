@@ -71,13 +71,20 @@ export default class GiveawayCommand extends AbstractCommand implements Command 
     public deferReply = true;
 
     public async execute(ctx: CommandExecutionContext<GiveawayCommandDTO>): Promise<CommandExecutionResult> {
+        if (this.client.cache.executing.giveaways.has(ctx.guild.id)) return {
+            error: {
+                type: "other",
+                options: {text: ctx.response.data.errors.alreadyCreating}
+            }
+        }
+        this.client.cache.executing.giveaways.add(ctx.guild.id)
         let count = await this.db.manager.countBy(Giveaway, {guildid: ctx.guild.id})
-        let limit = ctx.settings.boost ? 25 : 10;
+        let limit = ctx.settings.boost ? this.constants.limits.giveaways.boost : this.constants.limits.giveaways.standard;
         ctx.response.parse({limit: limit.toString()})
         if(count >= limit) return {
             error: {
-                type: "other",
-                options: {text: ctx.response.data.errors.limit}
+                type: "limitReached",
+                options: {type: 'giveaways', limit: this.constants.limits.giveaways, boost: ctx.settings.boost}
             }
         }
         let giveaways = await this.db.mongoManager.createCursor(Giveaway, {guildid: ctx.guild.id})
@@ -116,10 +123,12 @@ export default class GiveawayCommand extends AbstractCommand implements Command 
     }
 
     public async after(message: Message, data: GiveawayCommandData) {
+        if (!data) return
         data.giveaway.message = message.id;
         let time = data.giveaway.ends.getTime() - Date.now()
         if(time < 60000) data.giveaway.timeout = true;
         await this.db.manager.save(data.giveaway);
+        this.client.cache.executing.giveaways.delete(data.giveaway.guildid)
         await message.react("755726912273383484");
         if(time < 60000) {
             setTimeout(async () => {
