@@ -47,7 +47,9 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
     public category = CommandCategory.Economy;
 
     public async execute(ctx: CommandExecutionContext<ItemInfoCommandDTO>): Promise<CommandExecutionResult> {
-        let item = await this.db.manager.findOneBy(Item, {guildid: ctx.guild.id, name: ctx.args.name})
+        let items = await this.db.manager.find(Item, {where: {guildid: ctx.guild.id}})
+        let limit = ctx.settings.boost ? this.constants.limits.items.boost : this.constants.limits.items.standard
+        let item = items.slice(0, limit).find(i => i.name === ctx.args.name)
         if(!item) return {
             error: {
                 type: "other",
@@ -66,8 +68,8 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
             .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setTitle(item.name)
-            .setDescription(item.description ?? '')
-            .setThumbnail(item.thumbnailUrl?.length ? item.thumbnailUrl : null)
+            .setDescription(item.description?.length ? item.description : null)
+            .setThumbnail(item.thumbnailUrl?.length && ctx.settings.boost ? item.thumbnailUrl : null)
             .addFields([
                 {
                     name: ctx.response.data.embed.price,

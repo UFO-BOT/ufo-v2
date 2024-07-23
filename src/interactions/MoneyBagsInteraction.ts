@@ -13,8 +13,8 @@ interface MoneyBagsInteractionComponents {
 interface MoneyBagsInteractionData {
     member: GuildMember,
     balance: Balance,
-    low: number
-    high: number
+    min: number
+    max: number
 }
 
 export default class MoneyBagsInteraction extends AbstractInteraction implements Interaction {
@@ -38,7 +38,7 @@ export default class MoneyBagsInteraction extends AbstractInteraction implements
     }
 
     public async execute(interaction: SelectMenuInteraction): Promise<InteractionExecutionResult> {
-        let amount = Math.floor(this.data.low+(this.data.high-this.data.low)*Math.random())
+        let amount = Math.floor(this.data.min+(this.data.max-this.data.min)*Math.random())
         let emoji = this.client.cache.emojis[interaction.values[0] + '_moneybag'];
         await this.data.balance.reload().catch(() => null)
         this.data.balance.balance += amount;

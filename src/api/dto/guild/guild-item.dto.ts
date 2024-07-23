@@ -1,5 +1,5 @@
 import {IsArray, IsInt, IsOptional, IsString, IsUrl, Length, Min, ValidateIf, ValidateNested} from "class-validator";
-import {Type} from "class-transformer";
+import {Transform, TransformFnParams, Type} from "class-transformer";
 
 class ItemXp {
 
@@ -15,10 +15,14 @@ class ItemXp {
 
 export class GuildItemDto {
 
+    @IsString()
+    @Transform(({ value }: TransformFnParams) => value?.trim())
     @Length(1, 50)
     public name: string
 
+    @IsString()
     @IsOptional()
+    @Transform(({ value }: TransformFnParams) => value?.trim())
     @Length(0, 200)
     public description: string
 

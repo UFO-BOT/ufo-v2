@@ -18,11 +18,11 @@ class WorkDto {
     @IsNumber()
     @IsInt()
     @Min(0)
-    public low: number
+    public min: number
 
     @IsNumber()
     @IsInt()
-    public high: number
+    public max: number
 
     @IsNumber()
     @IsInt()
@@ -34,7 +34,7 @@ class MoneybagsDto extends WorkDto {
 
     @IsNumber()
     @IsInt()
-    public declare low: number
+    public declare min: number
 
 }
 

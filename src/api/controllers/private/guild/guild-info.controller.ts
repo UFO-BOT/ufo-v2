@@ -38,8 +38,8 @@ export class GuildInfoController extends Base {
                     invites: request.guild.settings.autoModeration?.invites ?? {enabled: false},
                     flood: request.guild.settings.autoModeration?.flood ?? {enabled: false}
                 },
-                work: request.guild.settings.work ?? {low: 1, high: 500, cooldown: 1200000},
-                moneybags: request.guild.settings.moneybags ?? {low: -500, high: 500, cooldown: 600000},
+                work: request.guild.settings.work ?? {min: 1, max: 500, cooldown: 1200000},
+                moneybags: request.guild.settings.moneybags ?? {min: -500, max: 500, cooldown: 600000},
                 minBet: request.guild.settings.minBet ?? 100,
                 commission: request.guild.settings.commission ?? 0,
                 commands: request.guild.settings.commands ?? {},

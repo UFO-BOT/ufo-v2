@@ -56,6 +56,7 @@ export class GuildItemsController extends Base {
         let item = new Item()
         item.guildid = request.guild.id;
         Object.assign(item, body);
+        if (!request.guild.settings.boost) item.thumbnailUrl = null
         item.name = item.name.trim();
         await item.save();
         return {message: "Item created successfully"}
@@ -72,6 +73,7 @@ export class GuildItemsController extends Base {
             throw new BadRequestException("xp.min value must be less than or equal to xp.high value")
         body.requiredRoles = body.requiredRoles.filter(r => request.guild.roles.find(role => role.id === r))
         Object.assign(item, body);
+        if (!request.guild.settings.boost) item.thumbnailUrl = null
         item.name = item.name.trim()
         await item.save();
         return {message: "Item updated successfully"}

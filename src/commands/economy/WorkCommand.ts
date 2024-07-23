@@ -27,7 +27,7 @@ export default class WorkCommand extends AbstractCommand implements Command {
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let settings = await this.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
-        let work = settings?.work ?? {low: 1, high: 500, cooldown: 1200000};
+        let work = settings?.work ?? {min: 1, max: 500, cooldown: 1200000};
         let balance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
@@ -48,7 +48,7 @@ export default class WorkCommand extends AbstractCommand implements Command {
                 options: {time: balance.lastwork + work.cooldown}
             }
         }
-        let money = Math.floor(Math.random() * (work.high - work.low) + work.low)
+        let money = Math.floor(Math.random() * (work.max - work.min) + work.min)
         balance.balance += money;
         balance.lastwork = Date.now();
         await balance.save();

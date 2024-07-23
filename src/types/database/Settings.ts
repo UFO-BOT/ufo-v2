@@ -26,15 +26,15 @@ export default class Settings extends BaseEntity {
 
     @Column()
     work: {
-        low: number
-        high: number
+        min: number
+        max: number
         cooldown: number
     }
 
     @Column()
     moneybags: {
-        low: number
-        high: number
+        min: number
+        max: number
         cooldown: number
     }
 

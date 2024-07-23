@@ -28,7 +28,7 @@ export default class MoneyBagsCommand extends AbstractCommand implements Command
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
         let settings = await this.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
-        let setting = settings?.moneybags ?? {low: -500, high: 500, cooldown: 600000};
+        let setting = settings?.moneybags ?? {min: -500, max: 500, cooldown: 600000};
         let balance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
@@ -50,12 +50,12 @@ export default class MoneyBagsCommand extends AbstractCommand implements Command
             }
         }
         let interaction = new MoneyBagsInteraction(
-            [ctx.member.id],
+            [ctx.member.id as string],
             {
                 member: ctx.member,
                 balance: balance,
-                low: setting.low,
-                high: setting.high
+                min: setting.min,
+                max: setting.max
             },
             ctx.settings)
         return {interaction: interaction};
