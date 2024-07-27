@@ -32,7 +32,7 @@ export default class ServerCommand extends AbstractCommand implements Command {
         let boosts = ctx.guild.premiumSubscriptionCount ?
             `\n**<a:boost:751699949799866459> ${ctx.response.data.embed.boosts}:** ${ctx.guild.premiumSubscriptionCount}` : ''
         let splash = ctx.guild.splashURL() && ctx.guild.bannerURL() ?
-            `\n[**:frame_photo: ${ctx.response.data.embed.splash}**](${ctx.guild.splashURL({extension: 'gif'})})` : ''
+            `\n:frame_photo: [**${ctx.response.data.embed.splash}**](${ctx.guild.splashURL()})` : ''
         let embed = new EmbedBuilder()
             .setColor(this.constants.colors.system)
             .setTitle(ctx.guild.name)
@@ -55,7 +55,7 @@ ${emojis.textchannel} ${ctx.response.data.embed.channelCount}: ${ctx.guild.chann
 ${emojis.roles} ${ctx.response.data.embed.roleCount}: ${ctx.guild.roles.cache.size.toLocaleString(ctx.settings.language.interface)}
 ${emojis.emotes} ${ctx.response.data.embed.emojiCount}: ${ctx.guild.emojis.cache.size.toLocaleString(ctx.settings.language.interface)}`, inline: true})
             .setThumbnail(ctx.guild.iconURL())
-            .setImage(ctx.guild.bannerURL() ?? ctx.guild.splashURL({size: 2048}))
+            .setImage(ctx.guild.bannerURL({size: 2048}) ?? ctx.guild.splashURL({size: 2048}))
             .setFooter({text: `ID: ${ctx.guild.id}`});
         if(boost) embed.data.description += `\n${this.client.cache.emojis.ufoboost} ${ctx.response.data.embed.ufoboost}`
         return {reply: {embeds: [embed]}}

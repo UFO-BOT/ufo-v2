@@ -12,6 +12,26 @@ export default abstract class MessageTemplate {
             if (isNaN(duration) || duration === 0) return ''
             return TimeParser.stringify(duration, language)
         })
+        handlebars.registerHelper("eq", (value1, value2, options) => {
+            if (Number(value1) === Number(value2)) return options.fn(this)
+            else return options.inverse(this)
+        })
+        handlebars.registerHelper("gt", (value1, value2, options) => {
+            if (Number(value1) > Number(value2)) return options.fn(this)
+            else return options.inverse(this)
+        })
+        handlebars.registerHelper("gte", (value1, value2, options) => {
+            if (Number(value1) >= Number(value2)) return options.fn(this)
+            else return options.inverse(this)
+        })
+        handlebars.registerHelper("lt", (value1, value2, options) => {
+            if (Number(value1) < Number(value2)) return options.fn(this)
+            else return options.inverse(this)
+        })
+        handlebars.registerHelper("lte", (value1, value2, options) => {
+            if (Number(value1) <= Number(value2)) return options.fn(this)
+            else return options.inverse(this)
+        })
     }
 
     public abstract compile(template: string): string | null

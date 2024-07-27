@@ -21,6 +21,9 @@ export default class Balance extends BaseEntity {
     lastwork: number
 
     @Column()
+    lastCustomJobs: Record<string, number>
+
+    @Column()
     lastmb: number
 
     @Column()

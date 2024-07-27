@@ -21,13 +21,14 @@ import {GuildTestsGreetingsController} from "@/api/controllers/private/guild/tes
 import {
     GuildTestsPunishmentsController
 } from "@/api/controllers/private/guild/tests/guild-tests-punishments.controller";
+import {GuildCustomJobsController} from "@/api/controllers/private/guild/guild-custom-jobs.controller";
 
 @Module({
     controllers: [GuildsController, BadgesController, GuildInfoController, GuildGeneralController,
         GuildEconomyController, GuildCommandsController, GuildCategoriesController, GuildModerationController,
         GuildAutomodInvitesController, GuildAutomodFloodController, GuildLogsController, GuildGreetingsController,
         GuildTestsGreetingsController, GuildTestsPunishmentsController, LeaderboardController, LeaderboardMemberController,
-        GuildBalancesController, GuildItemsController, GuildResetController],
+        GuildBalancesController, GuildItemsController, GuildCustomJobsController, GuildResetController],
     providers: [Oauth2Service]
 })
 export class PrivateModule {}

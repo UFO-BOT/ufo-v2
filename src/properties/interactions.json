@@ -1,4 +1,66 @@
 {
+  "Work": {
+    "ru": {
+      "embed": {
+        "author": "Работа",
+        "description": "Выберите работу из списка",
+        "salary": "Зарплата",
+        "requiredXp": "Необходимый опыт",
+        "cooldown": "Кулдаун",
+        "requiredRoles": "Необходимые роли",
+        "unavailable": "Работа недоступна",
+        "availableIn": "Будет доступна через",
+        "notEnoughXp": "Недостаточно опыта:",
+        "noRequiredRoles": "Отсутствуют необходимые роли",
+        "result": "Результат",
+        "currentBalance": "Текущий баланс"
+      },
+      "menu": {
+        "placeholder": "Выберите работу",
+        "availableIn": "Доступна через"
+      },
+      "buttons": {
+        "back": {
+          "label": "Назад",
+          "emoji": "1017012856463573042"
+        },
+        "work": {
+          "label": "Работать",
+          "emoji": "1024709618934497290"
+        }
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Work",
+        "description": "Select a job from the list",
+        "salary": "Salary",
+        "requiredXp": "Required xp",
+        "cooldown": "Cooldown",
+        "requiredRoles": "Required roles",
+        "unavailable": "Job unavailable",
+        "availableIn": "Will be available in",
+        "notEnoughXp": "Not enough xp:",
+        "noRequiredRoles": "Missing required roles",
+        "result": "Result",
+        "currentBalance": "Current balance"
+      },
+      "menu": {
+        "placeholder": "Select job",
+        "availableIn": "Available in"
+      },
+      "buttons": {
+        "back": {
+          "label": "Back",
+          "emoji": "1017012856463573042"
+        },
+        "work": {
+          "label": "Work",
+          "emoji": "1024709618934497290"
+        }
+      }
+    }
+  },
   "MoneyBags": {
     "ru": {
       "embed": {

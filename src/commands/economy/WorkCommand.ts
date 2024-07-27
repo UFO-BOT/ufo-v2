@@ -8,6 +8,7 @@ import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import Balance from "@/types/database/Balance";
 import Settings from "@/types/database/Settings";
+import WorkInteraction from "@/interactions/WorkInteraction";
 
 export default class WorkCommand extends AbstractCommand implements Command {
     public config = {
@@ -26,8 +27,7 @@ export default class WorkCommand extends AbstractCommand implements Command {
     public category = CommandCategory.Economy;
 
     public async execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult> {
-        let settings = await this.db.manager.findOneBy(Settings, {guildid: ctx.guild.id})
-        let work = settings?.work ?? {min: 1, max: 500, cooldown: 1200000};
+        let settings = await this.db.manager.findOneBy(Settings, {guildid: ctx.guild.id}) as Settings
         let balance = await this.db.manager.findOneBy(Balance, {
             guildid: ctx.guild.id,
             userid: ctx.member.id
@@ -41,6 +41,15 @@ export default class WorkCommand extends AbstractCommand implements Command {
             balance.lastwork = 0;
             await this.db.manager.save(balance);
         }
+        if (settings.customJobs?.length) {
+            let interaction = new WorkInteraction([ctx.member.id as string], {
+                member: ctx.member,
+                balance: balance,
+                jobs: settings.customJobs
+            }, ctx.settings)
+            return {interaction}
+        }
+        let work = settings?.work ?? {min: 1, max: 500, cooldown: 1200000};
         let timePassed = Date.now() - balance.lastwork;
         if (timePassed < work.cooldown) return {
             error: {

@@ -46,12 +46,12 @@ export default class TimeParser {
         return duration;
     }
 
-    public static stringify(duration: number, lang: Language = 'en', accusative: boolean = false): string {
+    public static stringify(duration: number, lang: Language = 'en', accusative: boolean = false, short: boolean = false): string {
         let l = lang === 'ru' ? 0 : 2;
         if(accusative && lang === 'ru') l = 1;
         let output = '';
         if(duration < 1000) return '0 ' + this.units.seconds.five[l];
-        Object.keys(this.multipliers).reverse().forEach(unit => {
+        for (let unit of Object.keys(this.multipliers).reverse()) {
             let divider = this.multipliers[unit as Unit];
             if(Math.floor(duration / divider) > 0) {
                 let number = Math.floor(duration / divider);
@@ -67,8 +67,9 @@ export default class TimeParser {
                 }
                 output += str + ' ';
                 duration -= number * divider;
+                if (short) break
             }
-        })
+        }
         return output.trim();
     }
 

@@ -6,6 +6,7 @@ import GuildWarnsPunishment from "@/types/GuildWarnsPunishment";
 import GuildAutoMod from "@/types/automod/GuildAutoMod";
 import GuildGreetings from "@/types/greetings/GuildGreetings";
 import PunishmentMessage from "@/types/PunishmentMessage";
+import GuildCustomJob from "@/types/GuildCustomJob";
 
 @Entity('settings')
 export default class Settings extends BaseEntity {
@@ -30,6 +31,9 @@ export default class Settings extends BaseEntity {
         max: number
         cooldown: number
     }
+
+    @Column()
+    customJobs: Array<GuildCustomJob>
 
     @Column()
     moneybags: {
