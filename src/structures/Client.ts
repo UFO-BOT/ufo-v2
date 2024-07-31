@@ -2,6 +2,7 @@ import Discord, {Awaitable, ClientOptions, ClientPresence, Collection, Serialize
 
 import MongoDB from "@/structures/MongoDB";
 import AbstractCommand from "@/abstractions/commands/AbstractCommand";
+import AbstractDeveloperCommand from "@/abstractions/commands/AbstractDeveloperCommand";
 import ClientCacheConfig from "@/types/ClientCacheConfig";
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import ClientLoader from "@/services/loaders/ClientLoader";
@@ -15,6 +16,7 @@ export default class Client extends Discord.Client {
 
     public cache: ClientCacheConfig = {
         commands: new Collection<string, AbstractCommand>(),
+        devCommands: new Collection<string, AbstractDeveloperCommand>(),
         emojis: emojis,
         settings: new Collection<string, GuildSettingsCache>(),
         interactions: new Collection<string, AbstractInteraction>(),
@@ -25,13 +27,15 @@ export default class Client extends Discord.Client {
         }
     }
 
+    public loader: ClientLoader
+
     public constructor(token: string, options?: ClientOptions) {
         super(options);
         this.token = token;
         global.client = this;
     }
 
-    oneShardEval<T, P>(script: (client: Discord.Client, context: Serialized<P>) => Awaitable<T>,
+    public oneShardEval<T, P>(script: (client: Discord.Client, context: Serialized<P>) => Awaitable<T>,
                        options: {context: P}): Promise<Serialized<T>> {
         return new Promise(async (resolve) => {
             let results = await this.shard!.broadcastEval(script, options)
@@ -41,24 +45,25 @@ export default class Client extends Discord.Client {
         })
     }
 
-    activity(): ClientPresence {
+    public activity(): ClientPresence {
         return this.user.setActivity({name: `!help | ${process.env.WEBSITE}`, type: Discord.ActivityType.Watching})
     }
 
-    load(loader: ClientLoader): void {
+    public load(): void {
         console.log(`[SHARD #${this.shard.ids[0]}] [LOADERS] Loading modules...`)
-        loader.loadEvents()
-        loader.loadCommands()
+        this.loader.loadEvents()
+        this.loader.loadCommands()
+        this.loader.loadDevCommands()
         console.log(`[SHARD #${this.shard.ids[0]}] [LOADERS] Loaded modules`)
     }
 
-    async start(): Promise<any> {
+    public async start(): Promise<any> {
         const mongo = new MongoDB(process.env.DB_URL, process.env.DB_NAME)
         await mongo.initialize()
         console.log(`[SHARD #${this.shard.ids[0]}] [MONGO] MongoDB connected`);
 
-        const loader = new ClientLoader()
-        this.load(loader)
+        this.loader = new ClientLoader()
+        this.load()
 
         await this.login(this.token)
     }

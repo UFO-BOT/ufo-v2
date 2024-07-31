@@ -1,4 +1,5 @@
 import {BaseEntity, Column, Entity, ObjectId, ObjectIdColumn, PrimaryColumn} from "typeorm";
+import SubscriptionType from "@/types/SubscriptionType";
 
 @Entity('subscriptions')
 export default class Subscription extends BaseEntity {
@@ -9,8 +10,11 @@ export default class Subscription extends BaseEntity {
     userid: string
 
     @Column()
-    type: 'standard' | 'premium' | 'manager'
+    type: SubscriptionType
 
     @Column()
     boosts: number
+
+    @Column()
+    ends: Date
 }

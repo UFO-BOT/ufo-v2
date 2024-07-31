@@ -1,13 +1,14 @@
 import {LessThanOrEqual} from "typeorm";
-import AbstractJob from "@/abstractions/AbstractJob";
+import AbstractWatcher from "@/abstractions/AbstractWatcher";
 import Giveaway from "@/types/database/Giveaway";
 
-export default class GiveawaysJob extends AbstractJob {
+export default class GiveawaysWatcher extends AbstractWatcher {
     public interval = 60000
 
     public async execute(): Promise<any> {
         let date = new Date(Date.now()+60000)
-        let giveaways = await this.db.mongoManager.find(Giveaway, {where: {ends: {$lte:date}}})
+        let giveaways = await this.db.mongoManager
+            .find(Giveaway, {where: {ends: {$lte:date}}}) as Array<Giveaway>
         for(let giveaway of giveaways) {
             let time = giveaway.ends.getTime() - Date.now();
             let guild = await this.manager.oneShardEval((client, context)  => {

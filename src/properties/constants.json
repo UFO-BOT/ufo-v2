@@ -1,4 +1,5 @@
 {
+  "supportGuildId": "712012571666022411",
   "defaultPrefix": "!",
   "defaultMoneySymbol": "<:money:705401895019348018>",
   "colors": {
@@ -11,7 +12,7 @@
     "commands": "/dist/src/commands",
     "eventsShard": "/dist/src/events/shard",
     "eventsManager": "/dist/src/events/manager",
-    "jobs": "/dist/src/jobs"
+    "jobs": "/dist/src/watchers"
   },
   "limits": {
     "items": {
@@ -29,6 +30,18 @@
     "customJobs": {
       "standard": 5,
       "boost": 15
+    }
+  },
+  "subscriptions": {
+    "standard": {
+      "price": 39,
+      "boosts": 2,
+      "role": "774318848279052299"
+    },
+    "premium": {
+      "price": 69,
+      "boosts": 4,
+      "role": "774319126822387732"
     }
   }
 }

@@ -46,26 +46,22 @@
         "alreadyActivated": "На этом сервере уже активирован UFO Boost",
         "noBoosts": "У вас нет UFO бустов {{ufoboost}}\n[Поддержите нас](https://ufobot.ru/donate) чтобы получить их!"
       },
-      "deactivate": {
+      "remove": {
         "embed": {
           "description": "Деактивирован UFO Boost на сервере"
         }
       },
       "list": {
         "embed": {
-          "author": "Список активированных вами UFO бустов"
-        }
-      },
-      "amount": {
-        "embed": {
-          "author": "Количество бустов",
-          "field1": "Количество",
-          "field2": "Использовано"
+          "servers": "Сервера",
+          "author": "Список ваших UFO бустов",
+          "amount": "Количество",
+          "used": "Использовано"
         }
       },
       "activate": {
         "embed": {
-          "description": "На этом сервере был успешно активирован UFO Boost! {{ufoboost}}\nНастройте бонусные функции [на сайте](https://ufobot.ru/server/{{guildid}}/boost)"
+          "description": "На этом сервере был успешно активирован UFO Boost! {{ufoboost}}"
         }
       }
     },
@@ -75,26 +71,22 @@
         "alreadyActivated": "UFO Boost is already activated on this server",
         "noBoosts": "You don't have UFO Boosts {{ufoboost}}\n[Support us](https://ufobot.ru/donate) to get them!"
       },
-      "deactivate": {
+      "remove": {
         "embed": {
           "description": "Deactivated UFO Boost on the server"
         }
       },
       "list": {
         "embed": {
-          "author": "List of UFO Boosts you activated"
-        }
-      },
-      "amount": {
-        "embed": {
-          "author": "Boosts amount",
-          "field1": "Amount",
-          "field2": "Used"
+          "servers": "Servers",
+          "author": "List of your UFO Boosts",
+          "amount": "Amount",
+          "used": "Used"
         }
       },
       "activate": {
         "embed": {
-          "description": "Successfully activated UFO Boost on this server! {{ufoboost}}\nConfigure bonus features [on the website](https://ufobot.ru/server/{{guildid}}/boost)"
+          "description": "Successfully activated UFO Boost on this server! {{ufoboost}}"
         }
       }
     }
@@ -1137,13 +1129,13 @@
     "ru": {
       "embed": {
         "author": "Работа",
-        "description": "**Вы заработали:** +{{salary}}{{monsymb}}\n**Текущий баланс:** {{balance}}{{monsymb}}"
+        "description": "**Вы заработали:** {{salary}}{{monsymb}}\n**Текущий баланс:** {{balance}}{{monsymb}}"
       }
     },
     "en": {
       "embed": {
         "author": "Work",
-        "description": "**You've earned:** +{{salary}}{{monsymb}}\n**Current balance:** {{balance}}{{monsymb}}"
+        "description": "**You've earned:** {{salary}}{{monsymb}}\n**Current balance:** {{balance}}{{monsymb}}"
       }
     }
   }

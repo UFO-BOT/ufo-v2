@@ -1,7 +1,7 @@
-import AbstractJob from "@/abstractions/AbstractJob";
+import AbstractWatcher from "@/abstractions/AbstractWatcher";
 import Coupon from "@/types/database/Coupon";
 
-export default class CouponsJob extends AbstractJob {
+export default class CouponsWatcher extends AbstractWatcher {
     public interval = 60000
 
     public async execute(): Promise<any> {

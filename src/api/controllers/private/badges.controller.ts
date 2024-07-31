@@ -14,10 +14,10 @@ export class BadgesController extends Base {
     @Get()
     async execute(@Req() request: AuthorizedRequest) {
         let roles: Array<Role> = await this.manager.oneShardEval((client, context) =>
-            client.guilds.cache.get(context.supportGuildID)?.members?.fetch(context.id)
+            client.guilds.cache.get(context.supportGuildId)?.members?.fetch(context.id)
                 ?.then(m => m.roles.cache)
                 ?.catch(() => undefined),
-            {context: {supportGuildID: this.manager.supportGuildID, id: request.user}})
+            {context: {supportGuildId: this.constants.supportGuildId, id: request.user}})
         let badgesList = [];
         for(let role in badges)
             if(roles?.find(r => r.id === role)) badgesList.push(badges[role as keyof typeof badges])

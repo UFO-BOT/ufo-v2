@@ -14,10 +14,23 @@ interface Paths {
     jobs: string
 }
 
+interface Subscription {
+    price: number
+    boosts: number
+    role: string
+}
+
+interface Subscriptions {
+    standard: Subscription
+    premium: Subscription
+}
+
 export default interface Constants {
+    supportGuildId: string
     defaultPrefix: string
     defaultMoneySymbol: string
     colors: Colors
     paths: Paths
     limits: Limits
+    subscriptions: Subscriptions
 }

@@ -99,7 +99,7 @@ export default class WorkInteraction extends AbstractInteraction implements Inte
         })
         let message = template.compile(this.data.job.message)
         if (!message?.length) message = responses.work[lang].embed.description
-            .replace("{{salary}}", money.toLocaleString(lang))
+            .replace("{{salary}}", (money >= 0 ? '+' : '') + money.toLocaleString(lang))
             .replace(/{{monsymb}}/gmi, this.settings.moneysymb)
             .replace("{{balance}}", this.data.balance.balance.toLocaleString(lang))
         this.embed
@@ -113,8 +113,8 @@ export default class WorkInteraction extends AbstractInteraction implements Inte
         let lang = this.settings.language.interface
         let salary = this.data.job.salary.min === this.data.job.salary.max ?
             `${this.data.job.salary.min.toLocaleString(lang)}${this.settings.moneysymb}` :
-            `${this.data.job.salary.min.toLocaleString(lang)}${this.settings.moneysymb} - `
-            + `${this.data.job.salary.max.toLocaleString(lang)}${this.settings.moneysymb}`
+            `**${this.props.embed.min}:** ${this.data.job.salary.min.toLocaleString(lang)}${this.settings.moneysymb}\n`
+            + `**${this.props.embed.max}:** ${this.data.job.salary.max.toLocaleString(lang)}${this.settings.moneysymb}`
         let cooldown = TimeParser.stringify(this.data.job.cooldown, lang)
         let unavailable = []
         await this.data.balance.reload()

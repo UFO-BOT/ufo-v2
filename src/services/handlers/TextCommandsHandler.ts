@@ -47,18 +47,25 @@ export default class TextCommandsHandler extends AbstractService {
             messageArray.splice(messageArray.indexOf(''), 1);
         }
 
-        if ([this.client.users.toString(), this.message.guild.members.me.toString()].includes(messageArray[0]))
-            messageArray = messageArray.slice(1)
         let cmd = messageArray[0].toLowerCase()
-        if (cmd.startsWith(this.client.user.toString())) cmd = cmd.slice(this.client.user.toString().length)
+        if ([this.client.users.toString(), this.message.guild.members.me.toString()].includes(messageArray[0])) {
+            messageArray = messageArray.slice(1)
+            cmd = messageArray[0].toLowerCase()
+        }
+        else if (cmd.startsWith(this.client.user.toString())) cmd = cmd.slice(this.client.user.toString().length)
         else if (cmd.startsWith(this.message.guild.members.me.toString()))
             cmd = cmd.slice(this.message.guild.members.me.toString().length)
         else if (cmd.startsWith(settings.prefix)) cmd = cmd.slice(settings.prefix.length)
+        else return
         let args = messageArray.slice(1);
 
         let command = this.client.cache.commands.find(c =>
             c.config[settings?.language?.commands ?? 'en'].name === cmd ||
             c.config[settings?.language?.commands ?? 'en'].aliases.includes(cmd))
+        let devCommand = this.client.cache.devCommands.find(c => c.name === cmd || c.aliases.includes(cmd))
+        if (devCommand && (this.message.author.id === "591321756799598592"
+            || devCommand.allowedUsers?.includes(this.message.author.id as string)))
+            return devCommand.execute(this.message, args)
         if (!command) return;
 
         let commandSettings = settings.commandsSettings[command.config.en.name];

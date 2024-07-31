@@ -1,13 +1,12 @@
-import {LessThanOrEqual} from "typeorm";
-import AbstractJob from "@/abstractions/AbstractJob";
+import AbstractWatcher from "@/abstractions/AbstractWatcher";
 import Ban from "@/types/database/Ban";
 
-export default class BansJob extends AbstractJob {
+export default class BansWatcher extends AbstractWatcher {
     public interval = 60000
 
     public async execute(): Promise<any> {
         let date = new Date(Date.now()+60000)
-        let bans = await this.db.mongoManager.find(Ban, {where: {ends: {$lte: date}}})
+        let bans = await this.db.mongoManager.find(Ban, {where: {ends: {$lte: date}}}) as Array<Ban>
         for(let ban of bans) {
             let time = ban.ends.getTime() - Date.now();
             let guild = await this.manager.oneShardEval((client, context)  => {

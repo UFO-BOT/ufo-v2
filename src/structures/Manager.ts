@@ -3,17 +3,15 @@ import Discord, {Awaitable, Serialized} from "discord.js";
 import MongoDB from "@/structures/MongoDB";
 
 import ManagerLoader from "@/services/loaders/ManagerLoader"
-import Item from "@/types/database/Item";
 
 export default class Manager extends Discord.ShardingManager {
-    public readonly supportGuildID: string = '712012571666022411'
-    public loader: ManagerLoader
-
     public constructor(file: string, options?: any) {
         super(file, options);
         this.file = file;
         global.manager = this;
     }
+
+    public loader: ManagerLoader
 
     oneShardEval<T, P>(script: (client: Discord.Client, context: Serialized<P>) => Awaitable<T>,
                        options?: {context: P}): Promise<Serialized<T>> {
@@ -29,8 +27,8 @@ export default class Manager extends Discord.ShardingManager {
         this.loader.loadEvents()
     }
 
-    loadJobs() {
-        this.loader.loadJobs()
+    loadWatchers() {
+        this.loader.loadWatchers()
     }
 
     async start(): Promise<any> {
