@@ -4,6 +4,7 @@ import AbstractDeveloperCommand from "@/abstractions/commands/AbstractDeveloperC
 import DeveloperCommand from "@/types/commands/DeveloperCommand";
 import Resolver from "@/utils/Resolver";
 import BoostManager from "@/utils/BoostManager";
+import TimeParser from "@/utils/TimeParser";
 
 export default class BoostManagerCommand extends AbstractDeveloperCommand implements DeveloperCommand {
     public name = 'boost-manager'
@@ -38,6 +39,14 @@ export default class BoostManagerCommand extends AbstractDeveloperCommand implem
                 boost = await BoostManager.subscription(user.id as string, 'premium')
                 embed.setDescription(`Added standard subscription to user ${user.username}`
                     + `\nCurrent count of user's boosts: ${'`' + boost.count + '`'}`)
+                break
+            case "tempadd":
+                let duration = TimeParser.all(args[3], 'en')
+                if (!duration) return message.react('💀')
+                boost = await BoostManager.subscription(user.id as string, 'manager', duration.duration, count)
+                embed.setDescription(`Added ${'`' + count.toLocaleString('en') + '`'} boosts to user ${user.username}`
+                    + `\nCurrent count of user's boosts: ${'`' + boost.count + '`'}`)
+                embed.addFields({name: 'Duration', value: duration.string})
                 break
             default:
                 return message.react('💀')

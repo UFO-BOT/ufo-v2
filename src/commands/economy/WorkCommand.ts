@@ -42,10 +42,12 @@ export default class WorkCommand extends AbstractCommand implements Command {
             await this.db.manager.save(balance);
         }
         if (settings.customJobs?.length) {
+            let limit = ctx.settings.boost ?
+                this.constants.limits.customJobs.boost : this.constants.limits.customJobs.standard
             let interaction = new WorkInteraction([ctx.member.id as string], {
                 member: ctx.member,
                 balance: balance,
-                jobs: settings.customJobs
+                jobs: settings.customJobs.slice(0, limit)
             }, ctx.settings)
             return {interaction}
         }

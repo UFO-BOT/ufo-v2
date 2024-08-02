@@ -124,6 +124,8 @@ export default class BoostCommand extends AbstractCommand implements Command {
                 boost.used --
                 await boost.save()
                 await settings.save()
+                await this.client.shard.broadcastEval((client, context) =>
+                    client.emit('updateCache', context.guildId), {context: {guildId: ctx.guild.id}})
                 return {reply: {embeds: [embed.setDescription(ctx.response.data.remove.embed.description)]}}
             default:
                 if (!boost || boost?.used >= boost?.count)
@@ -137,6 +139,8 @@ export default class BoostCommand extends AbstractCommand implements Command {
                 settings.boostBy = ctx.member.id as string
                 await boost.save()
                 await settings.save()
+                await this.client.shard.broadcastEval((client, context) =>
+                    client.emit('updateCache', context.guildId), {context: {guildId: ctx.guild.id}})
                 return {reply: {embeds: [embed.setDescription(ctx.response.data.activate.embed.description)]}}
         }
     }

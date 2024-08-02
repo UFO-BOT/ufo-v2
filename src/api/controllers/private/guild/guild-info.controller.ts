@@ -39,7 +39,8 @@ export class GuildInfoController extends Base {
                     flood: request.guild.settings.autoModeration?.flood ?? {enabled: false}
                 },
                 work: request.guild.settings.work ?? {min: 1, max: 500, cooldown: 1200000},
-                customJobs: request.guild.settings.customJobs ?? [],
+                customJobs: (request.guild.settings.customJobs?.slice(0, request.guild?.settings?.boost ?
+                        this.constants.limits.customJobs.boost : this.constants.limits.customJobs.standard)) ?? [],
                 moneybags: request.guild.settings.moneybags ?? {min: -500, max: 500, cooldown: 600000},
                 minBet: request.guild.settings.minBet ?? 100,
                 commission: request.guild.settings.commission ?? 0,

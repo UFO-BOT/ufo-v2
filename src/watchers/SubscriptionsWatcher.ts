@@ -10,7 +10,10 @@ export default class SubscriptionsWatcher extends AbstractWatcher {
             .find(Subscription, {where: {ends: {$lte: new Date()}}}) as Array<Subscription>
         for (let subscription of subscriptions) {
             await BoostManager.remove(subscription.userid, subscription.boosts)
-            if (subscription.type === 'manager') continue
+            if (subscription.type === 'manager') {
+                await subscription.remove()
+                continue
+            }
             let prop = this.constants.subscriptions[subscription.type]
             let cnt = await this.db.manager.countBy(Subscription, {userid: subscription.userid, type: subscription.type})
             if (cnt <= 1) await this.manager.broadcastEval(async (client, context) => {
