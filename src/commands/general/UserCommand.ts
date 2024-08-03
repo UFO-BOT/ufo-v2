@@ -76,10 +76,10 @@ export default class UserCommand extends AbstractCommand implements Command {
         let supportServerRoles: Array<Role> =
             await this.client.oneShardEval((client, c) =>
                 client.guilds.cache.get(c.supportGuildID)?.members?.fetch(c.id).then(m => m.roles.cache).catch(() => undefined),
-                {context: {supportGuildID: this.client.supportGuildID, id: user.id}})
-        supportServerRoles?.forEach(role => {
-            if(this.client.cache.emojis[botBadgesEmojis[role.id]])
-                botBadges += this.client.cache.emojis[botBadgesEmojis[role.id]] + ' '
+                {context: {supportGuildID: this.constants.supportGuildId, id: user.id}})
+        Object.keys(botBadgesEmojis).forEach(role => {
+            if (supportServerRoles.find(r => r.id === role))
+                botBadges += this.client.cache.emojis[botBadgesEmojis[role]] + ' '
         })
         let color = this.constants.colors.system;
         if(member && member?.displayHexColor !== '#000000') color = member?.displayHexColor;

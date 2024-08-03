@@ -5,12 +5,12 @@ import AbstractClientEvent from "@/abstractions/events/AbstractClientEvent";
 import TimeParser from "@/utils/TimeParser";
 
 export default class GuildCreateEvent extends AbstractClientEvent implements EventConfig {
-    public name = 'guildCreate'
+    public name = 'guildDelete'
 
     public async execute(guild: Guild): Promise<any> {
         let embed = new EmbedBuilder()
-            .setColor(this.constants.colors.success)
-            .setAuthor({name: `The bot has been added to server ${guild.name}`, iconURL: guild.iconURL()})
+            .setColor(this.constants.colors.error)
+            .setAuthor({name: `The bot has been deleted from server ${guild.name}`, iconURL: guild.iconURL()})
             .addFields([
                 {name: 'Member count', value: guild.memberCount.toLocaleString('en')},
                 {name: 'Owner', value: guild.ownerId},
@@ -21,6 +21,5 @@ export default class GuildCreateEvent extends AbstractClientEvent implements Eve
             .setTimestamp()
         let hook = new WebhookClient({id: '757922293853978687', token: process.env.WEBHOOK_SERVERS})
         await hook.send({embeds: [embed]})
-        if (this.client.cache.gulags.has(guild.ownerId)) return guild.leave()
     }
 }

@@ -29,6 +29,8 @@ export default class TextCommandsHandler extends AbstractService {
 
         if (this.message.channel.type !== ChannelType.GuildText &&
             this.message.channel.type !== ChannelType.GuildNews) return;
+        
+        if (this.client.cache.gulags.has(this.message.author.id)) return;
 
         let settings = await GuildSettings.getCache(this.message.guildId);
 

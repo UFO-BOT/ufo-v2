@@ -12,8 +12,6 @@ import AutomodDetectionsCache from "@/types/automod/AutomodDetectionsCache";
 import emojis from '@/properties/emojis.json'
 
 export default class Client extends Discord.Client {
-    public readonly supportGuildID: string = '712012571666022411'
-
     public cache: ClientCacheConfig = {
         commands: new Collection<string, AbstractCommand>(),
         devCommands: new Collection<string, AbstractDeveloperCommand>(),
@@ -21,6 +19,7 @@ export default class Client extends Discord.Client {
         settings: new Collection<string, GuildSettingsCache>(),
         interactions: new Collection<string, AbstractInteraction>(),
         detections: new Collection<Snowflake, Record<Snowflake, AutomodDetectionsCache>>(),
+        gulags: new Set<Snowflake>(),
         executing: {
             moderation: new Set<Snowflake>(),
             giveaways: new Set<Snowflake>()

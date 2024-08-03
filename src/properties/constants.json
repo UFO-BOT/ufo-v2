@@ -34,12 +34,12 @@
   },
   "subscriptions": {
     "standard": {
-      "price": 39,
+      "price": 59,
       "boosts": 2,
       "role": "774318848279052299"
     },
     "premium": {
-      "price": 69,
+      "price": 99,
       "boosts": 4,
       "role": "774319126822387732"
     }

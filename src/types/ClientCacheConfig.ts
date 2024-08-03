@@ -13,6 +13,7 @@ export default interface ClientCacheConfig {
     settings: Collection<string, GuildSettingsCache>
     interactions: Collection<string, AbstractInteraction>
     detections: Collection<Snowflake, Record<Snowflake, AutomodDetectionsCache>>
+    gulags: Set<Snowflake>
     executing: {
         moderation: Set<Snowflake>
         giveaways: Set<Snowflake>

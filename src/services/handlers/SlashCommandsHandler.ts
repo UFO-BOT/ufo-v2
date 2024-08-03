@@ -27,6 +27,8 @@ export default class SlashCommandsHandler extends AbstractService {
         type ErrorFunction = ((member: Discord.GuildMember, settings: GuildSettingsCache, options: {})
             => Discord.EmbedBuilder)
 
+        if (this.client.cache.gulags.has(this.interaction.user.id)) return;
+
         let command = this.client.cache.commands.find(cmd =>
             cmd.config.en.name === this.interaction.commandName ||
             cmd.config.ru.name === this.interaction.commandName);

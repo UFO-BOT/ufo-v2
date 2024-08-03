@@ -2,6 +2,7 @@ import {Guild, GuildBan, GuildBasedChannel, GuildMember, Role, User} from "disco
 
 export default class Resolver {
     public static async member(guild: Guild, arg: string): Promise<GuildMember> {
+        if (!arg) return
         arg = arg.toLowerCase();
         let member = guild.members.cache.find(m =>
             m.user?.username?.toLowerCase()?.includes(arg)
@@ -21,6 +22,7 @@ export default class Resolver {
     }
 
     public static async user(guild: Guild, arg: string): Promise<User> {
+        if (!arg) return
         arg = arg.toLowerCase();
         let user = guild.members.cache.find(m =>
             m.user?.username?.toLowerCase()?.includes(arg)
@@ -40,6 +42,7 @@ export default class Resolver {
     }
 
     public static channel(guild: Guild, arg: string): GuildBasedChannel {
+        if (!arg) return
         arg = arg.toLowerCase()
         return guild.channels.cache.find(c =>
             c.id?.toLowerCase() === arg
@@ -48,7 +51,8 @@ export default class Resolver {
         )
     }
 
-    public static role(guild: Guild, arg: string):Role {
+    public static role(guild: Guild, arg: string): Role {
+        if (!arg) return
         arg = arg.toLowerCase()
         return guild.roles.cache.find(r =>
             r.id?.toLowerCase() === arg
@@ -58,6 +62,7 @@ export default class Resolver {
     }
 
     public static async ban(guild: Guild, arg: string): Promise<GuildBan> {
+        if (!arg) return
         arg = arg.toLowerCase()
         await guild.bans.fetch().catch(() => null);
         return guild.bans.cache.find(b =>

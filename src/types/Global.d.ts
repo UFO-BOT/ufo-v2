@@ -20,6 +20,7 @@ declare global {
             DISCORD_API: string
             WEBSITE: string
             SUPPORT_SERVER: string
+            WEBHOOK_SERVERS: string
         }
     }
 }
