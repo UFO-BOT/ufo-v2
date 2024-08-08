@@ -1,4 +1,5 @@
 import {Limits} from "@/types/Limits";
+import Language from "@/types/Language";
 
 interface Colors {
     system: `#${string}`
@@ -18,6 +19,7 @@ interface Subscription {
     price: number
     boosts: number
     role: string
+    message: Record<Language, string>
 }
 
 interface Subscriptions {

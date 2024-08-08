@@ -56,7 +56,7 @@ export default class InfoCommand extends AbstractCommand implements Command {
                 {name: ctx.response.data.embed.about,
                 value: `${ctx.response.data.embed.language}: [JavaScript (Node JS)](https://nodejs.org)\n` +
                 `${ctx.response.data.embed.library}: [discord.js](https://discord.js.org)\n` +
-                `${ctx.response.data.embed.mongodb}: [MongoDB](https://www.mongodb.com)\n` +
+                `${ctx.response.data.embed.database}: [MongoDB](https://www.mongodb.com)\n` +
                 `${ctx.response.data.embed.hosting}: [GalaxyGate](https://galaxygate.net)\n`, inline: true}])
             .setFooter({text: `${ctx.response.data.embed.footer} ${dev.username} © ${new Date().getFullYear()}`, iconURL: dev.avatarURL()})
         return {reply: {embeds: [embed]}}

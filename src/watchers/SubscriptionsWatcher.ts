@@ -1,3 +1,4 @@
+import {WebhookClient} from "discord.js";
 import AbstractWatcher from "@/abstractions/AbstractWatcher";
 import Subscription from "@/types/database/Subscription";
 import BoostManager from "@/utils/BoostManager";
@@ -21,7 +22,10 @@ export default class SubscriptionsWatcher extends AbstractWatcher {
                     .get(context.supportGuildId)?.members?.fetch(context.userId)?.catch(() => null)
                 if (member) await member.roles.remove(context.roleId)
             }, {context: {supportGuildId: this.constants.supportGuildId, userId: subscription.userid, roleId: prop.role}})
-            return subscription.remove()
+            await subscription.remove()
+            let hook = new WebhookClient({id: '774950339266740235', token: process.env.WEBHOOK_DONATE})
+            await hook.send({content: `Закончилась ${subscription.type === 'premium' ?
+                    'премиум' : 'стандартная'} подписка для <@${subscription.userid}>`})
         }
     }
 }

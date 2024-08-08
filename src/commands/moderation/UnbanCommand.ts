@@ -23,7 +23,7 @@ export default class UnbanCommand extends AbstractCommand implements Command {
         en: {
             name: "unban",
             description: 'Unbans specified user',
-            aliases: ['rmban', 'unb']
+            aliases: ['unb', 'rmban']
         }
     }
     public options: Array<CommandOption> = [

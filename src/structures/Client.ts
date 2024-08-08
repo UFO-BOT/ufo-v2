@@ -48,11 +48,22 @@ export default class Client extends Discord.Client {
         return this.user.setActivity({name: `!help | ${process.env.WEBSITE}`, type: Discord.ActivityType.Watching})
     }
 
+    public processEvents(): void {
+        process.on('unhandledRejection', reason => {
+            console.log(reason);
+        })
+
+        process.on('uncaughtException', err => {
+            console.log(err);
+        })
+    }
+
     public load(): void {
         console.log(`[SHARD #${this.shard.ids[0]}] [LOADERS] Loading modules...`)
         this.loader.loadEvents()
         this.loader.loadCommands()
         this.loader.loadDevCommands()
+        this.processEvents()
         console.log(`[SHARD #${this.shard.ids[0]}] [LOADERS] Loaded modules`)
     }
 

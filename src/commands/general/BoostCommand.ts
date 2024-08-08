@@ -101,13 +101,13 @@ export default class BoostCommand extends AbstractCommand implements Command {
                     .addFields([
                         {
                             name: ctx.response.data.list.embed.amount,
-                            value: (boost?.count ?? 0).toLocaleString(ctx.settings.language.interface) +
+                            value: (boost?.count ?? 0).toLocaleString(ctx.settings.language.interface) + ' ' +
                                 this.client.cache.emojis.ufoboost,
                             inline: true
                         },
                         {
                             name: ctx.response.data.list.embed.used,
-                            value: (boost?.used ?? 0).toLocaleString(ctx.settings.language.interface) +
+                            value: (boost?.used ?? 0).toLocaleString(ctx.settings.language.interface) + ' ' +
                                 this.client.cache.emojis.ufoboost,
                             inline: true
                         }

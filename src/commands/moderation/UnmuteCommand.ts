@@ -23,7 +23,7 @@ export default class UnmuteCommand extends AbstractCommand implements Command {
         en: {
             name: "unmute",
             description: 'Unmutes specified member',
-            aliases: ['removemute', 'rmmute', 'm']
+            aliases: ['removemute', 'rmmute']
         }
     }
     public options: Array<CommandOption> = [

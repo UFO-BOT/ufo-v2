@@ -19,7 +19,7 @@ export default class KickCommand extends AbstractCommand implements Command {
         ru: {
             name: "кик",
             description: 'Выгоняет участника с сервера по указанной причине',
-            aliases: ['выгнать', 'к']
+            aliases: [ 'к', 'выгнать', 'пнуть']
         },
         en: {
             name: "kick",

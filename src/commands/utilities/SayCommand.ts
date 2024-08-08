@@ -63,8 +63,8 @@ export default class SayCommand extends AbstractCommand implements Command {
         await ctx.channel.send(text).then(() => {
             embed
                 .setColor(this.constants.colors.system)
-                .setAuthor({name: ctx.response.data.author, iconURL: ctx.member.displayAvatarURL()})
-                .setDescription(ctx.response.data.description)
+                .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
+                .setDescription(ctx.response.data.embed.description)
             reply = {reply: {embeds: [embed]}}
         })
         .catch(() => {

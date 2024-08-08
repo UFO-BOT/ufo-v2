@@ -36,12 +36,20 @@
     "standard": {
       "price": 59,
       "boosts": 2,
-      "role": "774318848279052299"
+      "role": "774318848279052299",
+      "message": {
+        "ru": "Стандартная подписка на месяц для {{username}}",
+        "en": "Standard monthly subscription for {{username}}"
+      }
     },
     "premium": {
       "price": 99,
       "boosts": 4,
-      "role": "774319126822387732"
+      "role": "774319126822387732",
+      "message": {
+        "ru": "Премиум подписка на месяц для {{username}}",
+        "en": "Premium monthly subscription for {{username}}"
+      }
     }
   }
 }

@@ -18,7 +18,7 @@ export default class SlowModeCommand extends AbstractCommand implements Command 
         ru: {
             name: "слоумод",
             description: 'Активирует медленный режим теукщем в канале на указанное количество времени',
-            aliases: ['медленный-режим', 'медленка', 'мр']
+            aliases: ['мр', 'медленный-режим', 'медленка']
         },
         en: {
             name: "slowmode",

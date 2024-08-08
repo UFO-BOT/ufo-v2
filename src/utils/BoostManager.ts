@@ -43,7 +43,7 @@ export default class BoostManager {
         return boost.save()
     }
 
-    public static async subscription(userId: string, type: SubscriptionType, duration?: number, count?: number): Promise<Boost> {
+    public static async subscription(userId: string, type: SubscriptionType | 'manager', duration?: number, count?: number): Promise<Boost> {
         let subscription = new Subscription()
         subscription.userid = userId
         subscription.type = type

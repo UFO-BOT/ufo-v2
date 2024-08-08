@@ -1,6 +1,7 @@
 import {Module} from "@nestjs/common";
-import {BadgesController} from "@/api/controllers/private/badges.controller";
 import {Oauth2Service} from "@/api/services/oauth2.service";
+import {YookassaService} from "@/api/services/yookassa.service";
+import {BadgesController} from "@/api/controllers/private/badges.controller";
 import {GuildsController} from "@/api/controllers/private/guilds.controller";
 import {GuildInfoController} from "@/api/controllers/private/guild/guild-info.controller";
 import {GuildGeneralController} from "@/api/controllers/private/guild/guild-general.controller";
@@ -22,13 +23,14 @@ import {
     GuildTestsPunishmentsController
 } from "@/api/controllers/private/guild/tests/guild-tests-punishments.controller";
 import {GuildCustomJobsController} from "@/api/controllers/private/guild/guild-custom-jobs.controller";
+import {PaymentsController} from "@/api/controllers/private/payments.controller";
 
 @Module({
-    controllers: [GuildsController, BadgesController, GuildInfoController, GuildGeneralController,
+    controllers: [GuildsController, BadgesController, PaymentsController, GuildInfoController, GuildGeneralController,
         GuildEconomyController, GuildCommandsController, GuildCategoriesController, GuildModerationController,
         GuildAutomodInvitesController, GuildAutomodFloodController, GuildLogsController, GuildGreetingsController,
         GuildTestsGreetingsController, GuildTestsPunishmentsController, LeaderboardController, LeaderboardMemberController,
         GuildBalancesController, GuildItemsController, GuildCustomJobsController, GuildResetController],
-    providers: [Oauth2Service]
+    providers: [Oauth2Service, YookassaService]
 })
 export class PrivateModule {}

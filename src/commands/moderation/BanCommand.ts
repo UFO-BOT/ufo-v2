@@ -21,12 +21,12 @@ export default class BanCommand extends AbstractCommand implements Command {
         ru: {
             name: "бан",
             description: 'Банит пользователя на сервере по указанной причине',
-            aliases: ['забанить', 'банхаммер', 'огонь', 'б']
+            aliases: ['б', 'забанить', 'огонь']
         },
         en: {
             name: "ban",
             description: 'Bans a user from the server for specified reason',
-            aliases: ['ipban', 'banhammer', 'superban', 'fire', 'b']
+            aliases: ['b', 'ipban', 'fire']
         }
     }
     public options: Array<CommandOption> = [

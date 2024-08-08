@@ -1,2 +1,2 @@
-type SubscriptionType = 'standard' | 'premium' | 'manager'
+type SubscriptionType = 'standard' | 'premium'
 export default SubscriptionType

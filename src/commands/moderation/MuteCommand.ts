@@ -20,12 +20,12 @@ export default class MuteCommand extends AbstractCommand implements Command {
         ru: {
             name: "мут",
             description: 'Мутит участника навсегда или на указанное время',
-            aliases: ['мьют', 'заткнуть', 'м']
+            aliases: [ 'м', 'мьют', 'заткнуть', 'завалить']
         },
         en: {
             name: "mute",
             description: 'Mutes member permanently or for a specified amount of time',
-            aliases: ['shut', 'chatmute', 'm']
+            aliases: ['m', 'shut', 'chatmute']
         }
     }
     public options: Array<CommandOption> = [

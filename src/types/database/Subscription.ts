@@ -10,7 +10,7 @@ export default class Subscription extends BaseEntity {
     userid: string
 
     @Column()
-    type: SubscriptionType
+    type: SubscriptionType | 'manager'
 
     @Column()
     boosts: number

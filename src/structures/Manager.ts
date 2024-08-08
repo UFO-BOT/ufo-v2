@@ -1,4 +1,5 @@
 import Discord, {Awaitable, Serialized} from "discord.js";
+import fetch from "node-fetch";
 
 import MongoDB from "@/structures/MongoDB";
 
@@ -23,12 +24,19 @@ export default class Manager extends Discord.ShardingManager {
         })
     }
 
-    load() {
-        this.loader.loadEvents()
+    public processEvents(): void {
+        process.on('unhandledRejection', reason => {
+            console.log(reason);
+        })
+
+        process.on('uncaughtException', err => {
+            console.log(err);
+        })
     }
 
-    loadWatchers() {
-        this.loader.loadWatchers()
+    public load() {
+        this.loader.loadEvents()
+        this.processEvents()
     }
 
     async start(): Promise<any> {
