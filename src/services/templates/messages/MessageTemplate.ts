@@ -12,6 +12,9 @@ export default abstract class MessageTemplate {
             if (isNaN(duration) || duration === 0) return ''
             return TimeParser.stringify(duration, language)
         })
+        handlebars.registerHelper("tls", options => {
+            return Number(options.fn(this)).toLocaleString(language)
+        })
         handlebars.registerHelper("eq", (value1, value2, options) => {
             if (Number(value1) === Number(value2)) return options.fn(this)
             else return options.inverse(this)

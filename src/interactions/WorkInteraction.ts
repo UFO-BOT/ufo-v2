@@ -93,8 +93,8 @@ export default class WorkInteraction extends AbstractInteraction implements Inte
         }
         await this.data.balance.save()
         let template = new CustomJobMessageTemplate(this.data.member, this.data.member.guild, {
-            salary: money.toLocaleString(lang),
-            balance: this.data.balance.balance.toLocaleString(lang),
+            salary: money,
+            balance: this.data.balance.balance,
             moneySymbol: this.settings.moneysymb
         })
         let message = template.compile(this.data.job.message)

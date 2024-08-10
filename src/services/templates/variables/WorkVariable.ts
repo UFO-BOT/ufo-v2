@@ -1,5 +1,5 @@
 export default class WorkVariable {
-    public salary: string
-    public balance: string
+    public salary: number
+    public balance: number
     public moneySymbol: string
 }
