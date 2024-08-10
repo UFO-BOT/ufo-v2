@@ -6,7 +6,7 @@ import {Oauth2Service} from "@/api/services/oauth2.service";
 import {RefreshTokenDto} from "@/api/dto/refresh-token.dto";
 
 @Controller("token")
-@Throttle(3, 600)
+@Throttle(6, 600)
 export class TokenController extends Base {
 
     constructor(private oauth2: Oauth2Service) {
