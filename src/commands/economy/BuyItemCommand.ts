@@ -125,7 +125,7 @@ export default class BuyItemCommand extends AbstractCommand implements Command {
             .setColor(this.constants.colors.system)
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setDescription(ctx.response.data.embed.description)
-            .setThumbnail(item.thumbnailUrl?.length && ctx.settings.boost ? item.thumbnailUrl : null)
+            .setThumbnail(item.iconUrl?.length && ctx.settings.boost ? item.iconUrl : null)
         return {reply: {embeds: [embed]}};
     }
 }

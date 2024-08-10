@@ -37,7 +37,7 @@ export class GuildCustomJobsController extends Base {
         if(body.salary.min > body.salary.max)
             throw new BadRequestException("salary.low value must be less than or equal to salary.high value")
         body.requiredRoles = body.requiredRoles.filter(r => request.guild.roles.find(role => role.id === r))
-        if (!request.guild.settings.boost) body.thumbnailUrl = null
+        if (!request.guild.settings.boost) body.iconUrl = null
         if (!request.guild.settings?.customJobs) request.guild.settings.customJobs = []
         request.guild.settings.customJobs.push(body)
         await request.guild.settings.save();
@@ -55,7 +55,7 @@ export class GuildCustomJobsController extends Base {
         if(body.salary.min > body.salary.max)
             throw new BadRequestException("salary.low value must be less than or equal to salary.high value")
         body.requiredRoles = body.requiredRoles.filter(r => request.guild.roles.find(role => role.id === r))
-        if (!request.guild.settings.boost) body.thumbnailUrl = null
+        if (!request.guild.settings.boost) body.iconUrl = null
         request.guild.settings.customJobs[job] = body
         await request.guild.settings.save();
         return {message: "Custom job updated successfully"}

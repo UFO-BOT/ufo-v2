@@ -132,7 +132,7 @@ export default class WorkInteraction extends AbstractInteraction implements Inte
         this.embed
             .setTitle(this.data.job.name)
             .setDescription(this.data.job.description?.length ? this.data.job.description : null)
-            .setThumbnail(this.data.job.thumbnailUrl?.length && this.settings.boost ? this.data.job.thumbnailUrl : null)
+            .setThumbnail(this.data.job.iconUrl?.length && this.settings.boost ? this.data.job.iconUrl : null)
         if(!this.data.job.hideOptions) this.embed.addFields([
                 {
                     name: this.props.embed.salary,

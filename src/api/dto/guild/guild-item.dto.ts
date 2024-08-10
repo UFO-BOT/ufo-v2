@@ -26,10 +26,10 @@ export class GuildItemDto {
     @Length(0, 200)
     public description: string
 
-    @ValidateIf(body => body.thumbnailUrl?.length > 0)
+    @ValidateIf(body => body.iconUrl?.length > 0)
     @IsOptional()
     @IsUrl()
-    public thumbnailUrl: string
+    public iconUrl: string
 
     @IsArray()
     @IsString({each: true})

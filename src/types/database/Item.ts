@@ -15,7 +15,7 @@ export default class Item extends BaseEntity {
     description: string | null
 
     @Column()
-    thumbnailUrl?: string
+    iconUrl?: string
 
     @Column()
     requiredRoles?: Array<string>

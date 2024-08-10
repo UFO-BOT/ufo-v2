@@ -3,7 +3,7 @@ export default interface GuildCustomJob {
     description: string
     message: string
     hideOptions?: boolean
-    thumbnailUrl?: string
+    iconUrl?: string
     salary: {
         min: number
         max: number

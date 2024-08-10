@@ -69,7 +69,7 @@ export default class ItemInfoCommand extends AbstractCommand implements Command 
             .setAuthor({name: ctx.response.data.embed.author, iconURL: ctx.member.displayAvatarURL()})
             .setTitle(item.name)
             .setDescription(item.description?.length ? item.description : null)
-            .setThumbnail(item.thumbnailUrl?.length && ctx.settings.boost ? item.thumbnailUrl : null)
+            .setThumbnail(item.iconUrl?.length && ctx.settings.boost ? item.iconUrl : null)
             .addFields([
                 {
                     name: ctx.response.data.embed.price,

@@ -48,10 +48,10 @@ export class GuildCustomJobDto implements GuildCustomJob {
     @IsOptional()
     public hideOptions: boolean
 
-    @ValidateIf(body => body.thumbnailUrl?.length > 0)
+    @ValidateIf(body => body.iconUrl?.length > 0)
     @IsOptional()
     @IsUrl()
-    public thumbnailUrl: string
+    public iconUrl: string
 
     @ValidateNested()
     @Type(() => Salary)
