@@ -14,12 +14,10 @@ const client = new Client(process.env.TOKEN, {
         'GuildWebhooks',
         'GuildInvites',
         'GuildVoiceStates',
-        'GuildPresences',
         'GuildMessages',
         'GuildMessageReactions',
         'GuildMessageTyping',
         'GuildScheduledEvents',
-        'GuildPresences',
         'MessageContent']
 })
 
