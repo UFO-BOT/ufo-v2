@@ -78,7 +78,7 @@ export default class UserCommand extends AbstractCommand implements Command {
                 client.guilds.cache.get(c.supportGuildID)?.members?.fetch(c.id).then(m => m.roles.cache).catch(() => undefined),
                 {context: {supportGuildID: this.constants.supportGuildId, id: user.id}})
         Object.keys(botBadgesEmojis).forEach(role => {
-            if (supportServerRoles.find(r => r.id === role))
+            if (supportServerRoles?.find(r => r.id === role))
                 botBadges += this.client.cache.emojis[botBadgesEmojis[role]] + ' '
         })
         let color = this.constants.colors.system;
