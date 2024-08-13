@@ -23,6 +23,7 @@ type LeaderboardInteractionAction = 'raise' | 'stop'
 export default class CrashCasinoInteraction extends AbstractInteraction implements Interaction {
     public declare data: CrashCasinoInteractionData
     public lifetime = 300000
+    public lock = true
     protected components: CrashCasinoInteractionComponents
     protected props = interactions.CrashCasino[this.settings.language.interface]
 

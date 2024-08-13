@@ -55,6 +55,7 @@ type DuelInteractionAction = 'accept' | 'decline' | 'equipment' | 'medKit'
 export default class DuelInteraction extends AbstractInteraction implements Interaction {
     public declare data: DuelInteractionData
     public lifetime = 300000
+    public lock = true
     protected components: DuelInteractionComponents
     protected props = interactions.Duel[this.settings.language.interface]
 

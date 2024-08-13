@@ -15,11 +15,13 @@ interface MoneyBagsInteractionData {
     balance: Balance,
     min: number
     max: number
+    cooldown: number
 }
 
 export default class MoneyBagsInteraction extends AbstractInteraction implements Interaction {
     public declare data: MoneyBagsInteractionData
     public lifetime = 120000
+    public lock = true
     protected components: MoneyBagsInteractionComponents
     protected props = interactions.MoneyBags[this.settings.language.interface]
 
@@ -38,9 +40,16 @@ export default class MoneyBagsInteraction extends AbstractInteraction implements
     }
 
     public async execute(interaction: SelectMenuInteraction): Promise<InteractionExecutionResult> {
+        await this.data.balance.reload().catch(() => null)
+        let timePassed = Date.now() - this.data.balance.lastmb;
+        if (timePassed < this.data.cooldown) return {
+            error: {
+                type: "userCoolDown",
+                options: {time: this.data.balance.lastmb + this.data.cooldown}
+            }
+        }
         let amount = Math.floor(this.data.min+(this.data.max-this.data.min)*Math.random())
         let emoji = this.client.cache.emojis[interaction.values[0] + '_moneybag'];
-        await this.data.balance.reload().catch(() => null)
         this.data.balance.balance += amount;
         this.data.balance.lastmb = Date.now();
         await this.data.balance.save();

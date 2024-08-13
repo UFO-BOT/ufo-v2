@@ -55,7 +55,8 @@ export default class MoneyBagsCommand extends AbstractCommand implements Command
                 member: ctx.member,
                 balance: balance,
                 min: setting.min,
-                max: setting.max
+                max: setting.max,
+                cooldown: setting.cooldown
             },
             ctx.settings)
         return {interaction: interaction};

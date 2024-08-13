@@ -32,6 +32,7 @@ type JackpotInteractionAction = 'enter' | 'numbers'
 export default class JackpotInteraction extends AbstractInteraction implements Interaction {
     public declare data: JackpotInteractionData
     public lifetime = 300000
+    public lock = true
     protected components: JackpotInteractionComponents
     protected props = interactions.Jackpot[this.settings.language.interface]
 

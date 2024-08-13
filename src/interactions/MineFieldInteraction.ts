@@ -27,6 +27,7 @@ type MinefieldInteractionAction = '1' | '2' | '3' | 'stop'
 export default class MineFieldInteraction extends AbstractInteraction implements Interaction {
     public declare data: MineFieldInteractionData
     public lifetime = 300000
+    public lock = true
     protected components: MineFieldInteractionComponents
     protected props = interactions.MineField[this.settings.language.interface]
 

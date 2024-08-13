@@ -24,6 +24,7 @@ type WarnsInteractionAction = 'forward' | 'backward'
 export default class WarnsInteraction extends AbstractInteraction implements Interaction {
     public declare data: WarnsInteractionData
     public lifetime = 120000
+    public lock = false
     protected components: WarnsInteractionComponents
     protected props = interactions.Warns[this.settings.language.interface]
 

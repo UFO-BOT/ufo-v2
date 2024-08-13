@@ -13,7 +13,7 @@ import {Throttle} from "@nestjs/throttler";
 export class GuildResetController extends Base {
 
     @Post('/:id/reset')
-    async create(@Req() request: GuildRequest, @Body() body: GuildResetDto) {
+    async execute(@Req() request: GuildRequest, @Body() body: GuildResetDto) {
         if(body.name !== request.guild.name) throw new BadRequestException("Guild name is incorrect")
         if(body.scopes.includes('balance')) await this.db.manager.delete(Balance, {guildid: request.guild.id})
         return {message: 'Specified guild scopes reset successfully'}

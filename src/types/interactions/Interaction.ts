@@ -5,5 +5,6 @@ export default interface Interaction {
     users: Array<string>
     data: any
     embed: EmbedBuilder
+    lock: boolean
     lifetime: number
 }

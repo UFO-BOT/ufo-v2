@@ -9,8 +9,9 @@ export default abstract class AbstractInteraction extends Base implements Intera
     public users: Array<string>
     public data: any
     public embed: EmbedBuilder
-    public abstract lifetime: number
     protected settings: GuildSettingsCache
+    public abstract lifetime: number
+    public abstract lock: boolean
     protected abstract components: any
     protected abstract props: any
 

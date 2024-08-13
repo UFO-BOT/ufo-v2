@@ -279,6 +279,20 @@
       }
     }
   },
+  "interactionLocked": {
+    "ru": {
+      "embed": {
+        "author": "Взаимодействие заблокировано",
+        "description": "Дождитесь выполнения предыдущего взаимодействия"
+      }
+    },
+    "en": {
+      "embed": {
+        "author": "Interaction locked",
+        "description": "Wait for previous interaction to complete"
+      }
+    }
+  },
   "other": {
     "ru": {
       "embed": {

@@ -24,13 +24,15 @@ import {
 } from "@/api/controllers/private/guild/tests/guild-tests-punishments.controller";
 import {GuildCustomJobsController} from "@/api/controllers/private/guild/guild-custom-jobs.controller";
 import {PaymentsController} from "@/api/controllers/private/payments.controller";
+import {SupportAppealController} from "@/api/controllers/private/support/support-appeal.controller";
 
 @Module({
     controllers: [GuildsController, BadgesController, PaymentsController, GuildInfoController, GuildGeneralController,
         GuildEconomyController, GuildCommandsController, GuildCategoriesController, GuildModerationController,
         GuildAutomodInvitesController, GuildAutomodFloodController, GuildLogsController, GuildGreetingsController,
         GuildTestsGreetingsController, GuildTestsPunishmentsController, LeaderboardController, LeaderboardMemberController,
-        GuildBalancesController, GuildItemsController, GuildCustomJobsController, GuildResetController],
+        GuildBalancesController, GuildItemsController, GuildCustomJobsController, GuildResetController,
+        SupportAppealController],
     providers: [Oauth2Service, YookassaService]
 })
 export class PrivateModule {}

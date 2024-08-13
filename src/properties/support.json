@@ -1,0 +1,16 @@
+{
+  "appeal": {
+    "ru": [
+      "По какой причине или после какого Вашего действия вас забанили?",
+      "С какой целью Вы совершили то, за что Вас забанили?",
+      "Считаете ли Вы, что бан был выдан справедливо, или хотите его оспорить?",
+      "Для чего Вы хотите вернуться на сервер?"
+    ],
+    "en": [
+      "For what reason or after what action did you get banned?",
+      "For what purpose did you do what you get banned for?",
+      "Do you think that ban was issued correctly, or do you want to challenge it?",
+      "Why do you want to return to the server?"
+    ]
+  }
+}

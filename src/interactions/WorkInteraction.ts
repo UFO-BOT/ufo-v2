@@ -34,6 +34,7 @@ type WorkInteractionAction = 'job' | 'menu' | 'work'
 export default class WorkInteraction extends AbstractInteraction implements Interaction {
     public declare data: WorkInteractionData
     public lifetime = 120000
+    public lock = true
     protected components: WorkInteractionComponents
     protected props = interactions.Work[this.settings.language.interface]
 

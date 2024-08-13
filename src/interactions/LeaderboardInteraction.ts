@@ -25,6 +25,7 @@ type LeaderboardInteractionAction = 'forward' | 'backward'
 export default class LeaderboardInteraction extends AbstractInteraction implements Interaction {
     public declare data: LeaderboardInteractionData
     public lifetime = 120000
+    public lock = false
     protected components: LeaderboardInteractionComponents
     protected props = interactions.Leaderboard[this.settings.language.interface]
 

@@ -34,6 +34,7 @@ type RockScissorsPaperInteractionAction = 'rsp' | 'accept' | 'decline'
 export default class RockScissorsPaperInteraction extends AbstractInteraction implements Interaction {
     public declare data: RockScissorsPaperInteractionData
     public lifetime = 300000
+    public lock = true
     protected components: RockScissorsPaperInteractionComponents
     protected props = interactions.RockScissorsPaper[this.settings.language.interface]
 

@@ -23,6 +23,7 @@ type ShopInteractionAction = 'forward' | 'backward'
 export default class ShopInteraction extends AbstractInteraction implements Interaction {
     public declare data: ShopInteractionData
     public lifetime = 120000
+    public lock = true
     protected components: ShopInteractionComponents
     protected props = interactions.Shop[this.settings.language.interface]
 

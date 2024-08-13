@@ -17,5 +17,6 @@ export default interface ClientCacheConfig {
     executing: {
         moderation: Set<Snowflake>
         giveaways: Set<Snowflake>
+        interactions: Set<string>
     }
 }

@@ -187,6 +187,14 @@ export default class MakeError {
             .setDescription(error.embed.description);
     }
 
+    static interactionLocked(member: GuildMember, settings: GuildSettingsCache): EmbedBuilder {
+        let error = errors.interactionLocked[settings.language.interface];
+        return new EmbedBuilder()
+            .setColor(colors.error)
+            .setAuthor({name: error.embed.author, iconURL: member.displayAvatarURL()})
+            .setDescription(error.embed.description);
+    }
+
     static other(member: GuildMember, settings: GuildSettingsCache, options: {text: string, name?: string}): EmbedBuilder {
         let error = errors.other[settings.language.interface];
         return new EmbedBuilder()

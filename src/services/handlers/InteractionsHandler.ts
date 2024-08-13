@@ -1,22 +1,11 @@
-import GuildLanguage from "@/types/GuildLanguage";
 import Discord, {
     ApplicationCommandOptionType,
-    CommandInteraction,
-    CommandInteractionOption,
     GuildMember, Interaction,
     InteractionReplyOptions, Message,
-    TextChannel
 } from "discord.js";
-import Settings from "@/types/database/Settings";
-import CommandSettings from "@/types/commands/CommandSettings";
-import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
-import PropertyParser from "@/services/PropertyParser";
-import responses from "@/properties/responses.json";
 import GuildSettings from "@/utils/GuildSettings";
-import SlashCommandsValidator from "@/services/validators/SlashCommandsValidator";
 import MakeError from "@/utils/MakeError";
-import Client from "@/structures/Client";
-import MongoDB from "@/structures/MongoDB";
+
 import GuildSettingsCache from "@/types/GuildSettingsCache";
 import AbstractService from "@/abstractions/AbstractService";
 import SetInteraction from "@/utils/SetInteraction";
@@ -35,6 +24,7 @@ export default class InteractionsHandler extends AbstractService {
         let id = customId[0];
         let action = customId[1];
         let interaction = this.client.cache.interactions.get(id);
+        let lockId = this.interaction.guild.id + '-' + this.interaction.user.id
         if(!interaction) {
             await this.interaction.reply({
                 embeds: [MakeError.interactionUnavailable(this.interaction.member as GuildMember, settings)],
@@ -42,14 +32,23 @@ export default class InteractionsHandler extends AbstractService {
             })
             return;
         }
-        if(interaction.users?.length && !interaction.users?.includes(this.interaction.user.id)) {
+        if(interaction.users?.length && !interaction.users?.includes(this.interaction.user.id as string)) {
             await this.interaction.reply({
                 embeds: [MakeError.interactionNotAllowed(this.interaction.member as GuildMember, settings)],
                 ephemeral: true
             })
             return;
         }
+        if (this.client.cache.executing.interactions.has(lockId)) {
+            await this.interaction.reply({
+                embeds: [MakeError.interactionLocked(this.interaction.member as GuildMember, settings)],
+                ephemeral: true
+            })
+            return;
+        }
+        if (interaction.lock) this.client.cache.executing.interactions.add(lockId)
         let result = await interaction.execute(this.interaction, action)
+        if (interaction.lock) this.client.cache.executing.interactions.delete(lockId)
         if(result.error) {
             type ErrorFunction = ((member: Discord.GuildMember, settings: GuildSettingsCache, options: {})
                 => Discord.EmbedBuilder)

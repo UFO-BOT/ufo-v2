@@ -22,7 +22,8 @@ export default class Client extends Discord.Client {
         gulags: new Set<Snowflake>(),
         executing: {
             moderation: new Set<Snowflake>(),
-            giveaways: new Set<Snowflake>()
+            giveaways: new Set<Snowflake>(),
+            interactions: new Set<string>()
         }
     }
 
