@@ -25,6 +25,7 @@ declare global {
             SUPPORT_SERVER: string
             WEBHOOK_SERVERS: string
             WEBHOOK_DONATE: string
+            WEBHOOK_REQUESTS: string
         }
     }
 }

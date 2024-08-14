@@ -12,5 +12,9 @@
       "Do you think that ban was issued correctly, or do you want to challenge it?",
       "Why do you want to return to the server?"
     ]
+  },
+  "appealDM": {
+    "ru": "Ваша апелляция бана на сервере сообщества бота была одобрена! Вы можете присоединиться по [этой ссылке]({{link}})",
+    "en": "Your ban appeal on the bot community server has been approved! You can join via [this link]({{link}})"
   }
 }

@@ -1,9 +1,11 @@
 import {Body, Controller, ForbiddenException, Get, Post, Req, UseGuards} from "@nestjs/common";
+import {User, WebhookClient} from "discord.js";
 import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import {SupportAppealDto} from "@/api/dto/support/support-appeal.dto";
 import Appeal from "@/types/database/Appeal";
+import SupportEmbed from "@/utils/SupportEmbed";
 import {Throttle} from "@nestjs/throttler";
 import support from "@/properties/support.json"
 
@@ -14,7 +16,7 @@ export class SupportAppealController extends Base {
 
     @Get()
     async questions(@Req() request: GuildRequest) {
-        //await this.check(request.user)
+        await this.check(request.user)
         return {questions: support.appeal}
     }
 
@@ -26,6 +28,12 @@ export class SupportAppealController extends Base {
         appeal.answers = body.answers
         appeal.declined = false
         await appeal.save()
+        let user = await this.manager.shards.first().eval((client, context) =>
+            client.users.fetch(context.userId),
+            {userId: request.user})
+        let hook = new WebhookClient({id: '799795939417391105', token: process.env.WEBHOOK_REQUESTS})
+        let embed = SupportEmbed.appeal(user, body.answers)
+        await hook.send({embeds: [embed]})
         return {message: 'Appeal submitted successfully'}
     }
 

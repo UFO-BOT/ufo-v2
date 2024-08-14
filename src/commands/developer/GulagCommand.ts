@@ -3,8 +3,6 @@ import {EmbedBuilder, Message, TextChannel} from "discord.js";
 import AbstractDeveloperCommand from "@/abstractions/commands/AbstractDeveloperCommand";
 import DeveloperCommand from "@/types/commands/DeveloperCommand";
 import Resolver from "@/utils/Resolver";
-import BoostManager from "@/utils/BoostManager";
-import TimeParser from "@/utils/TimeParser";
 import Gulag from "@/types/database/Gulag";
 
 export default class BoostManagerCommand extends AbstractDeveloperCommand implements DeveloperCommand {
