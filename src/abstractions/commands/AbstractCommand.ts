@@ -21,5 +21,5 @@ export default abstract class AbstractCommand extends Base implements Command {
     public boostRequired?: boolean
 
     public abstract execute(ctx: CommandExecutionContext): Promise<CommandExecutionResult>
-    public async after?(message: Message, data: any): Promise<void>
+    public async after?(message: Message, data: any): Promise<any>
 }

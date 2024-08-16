@@ -123,7 +123,7 @@ export default class GiveawayCommand extends AbstractCommand implements Command 
     }
 
     public async after(message: Message, data: GiveawayCommandData) {
-        if (!data) return
+        if (!data) return this.client.cache.executing.giveaways.delete(data.giveaway.guildid)
         data.giveaway.message = message.id;
         let time = data.giveaway.ends.getTime() - Date.now()
         if(time < 60000) data.giveaway.timeout = true;
