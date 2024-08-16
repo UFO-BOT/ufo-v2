@@ -122,7 +122,7 @@ export default class JackpotInteraction extends AbstractInteraction implements I
                 {name: this.props.embed.bet, value: this.data.bet
                         .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true},
                 {name: this.props.embed.multiplier, value: "x" + multipliers[guessed], inline: true},
-                {name: this.props.embed.multiplier, value: gain
+                {name: this.props.embed.gain, value: gain
                         .toLocaleString(this.settings.language.interface)+ this.settings.moneysymb, inline: true}
             ])
         let result = guessed === 0 ? `-${this.data.bet
