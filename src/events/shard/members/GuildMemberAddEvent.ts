@@ -17,7 +17,9 @@ export default class GuildMemberAddEvent extends AbstractClientEvent implements 
         })
         if(mute) return member.roles.add(mute.muterole).catch(() => null)
         let settings = await this.db.manager.findOneBy(Settings, {guildid: member.guild.id}) as Settings;
-        if (!settings?.greetings?.join?.enabled && !settings.greetings?.dm?.enabled) return;
+        let roles = member.guild.roles.cache.filter(r => settings?.greetings?.joinRoles?.includes(r.id))
+        await member.roles.add(roles)
+        if (!settings?.greetings?.join?.enabled && !settings?.greetings?.dm?.enabled) return;
         await member.user.fetch()
         let template = new GreetingMessageTemplate(member, member.guild)
         let dmMessage = template.compile(settings.greetings.dm.message)
