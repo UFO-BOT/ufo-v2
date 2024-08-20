@@ -80,7 +80,7 @@ export default class JackpotInteraction extends AbstractInteraction implements I
     private async numbers(interaction: ModalSubmitInteraction): Promise<InteractionExecutionResult> {
         let numbers = interaction.fields.getTextInputValue("numbers")
         let numbersArray = numbers.split(" ").map(num => parseInt(num));
-        if (numbersArray.length < 7) return {
+        if (numbersArray.length !== 7) return {
             error: {
                 type: "other",
                 options: {text: this.props.errors.invalidNumbersAmount}
