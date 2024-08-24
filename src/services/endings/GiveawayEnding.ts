@@ -29,7 +29,7 @@ export default class GiveawayEnding extends AbstractService {
             .addFields([
                 {
                     name: props.data.embed.prize,
-                    value: this.giveaway.prize.toLocaleString(settings.language.interface),
+                    value: this.giveaway.prize.toLocaleString(settings.language.interface) + settings.moneysymb,
                     inline: true
                 },
                 {

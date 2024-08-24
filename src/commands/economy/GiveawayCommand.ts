@@ -101,7 +101,7 @@ export default class GiveawayCommand extends AbstractCommand implements Command 
             .addFields([
                 {
                     name: ctx.response.data.embed.prize,
-                    value: ctx.args.amount.toLocaleString(ctx.settings.language.interface),
+                    value: ctx.args.amount.toLocaleString(ctx.settings.language.interface) + ctx.settings.moneysymb,
                     inline: true
                 },
                 {

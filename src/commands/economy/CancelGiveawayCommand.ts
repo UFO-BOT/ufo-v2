@@ -79,7 +79,7 @@ export default class CancelGiveawayCommand extends AbstractCommand implements Co
                 .addFields([
                     {
                         name: ctx.response.data.giveawayEmbed.prize,
-                        value: giveaway.prize.toLocaleString(ctx.settings.language.interface),
+                        value: giveaway.prize.toLocaleString(ctx.settings.language.interface) + ctx.settings.moneysymb,
                         inline: true
                     },
                     {
