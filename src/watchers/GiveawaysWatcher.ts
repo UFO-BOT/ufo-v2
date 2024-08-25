@@ -14,7 +14,10 @@ export default class GiveawaysWatcher extends AbstractWatcher {
             let guild = await this.manager.oneShardEval((client, context)  => {
                 return client.guilds.cache.get(context.id);
             }, {context: {id: giveaway.guildid}});
-            if(!guild) return giveaway.remove();
+            if(!guild) {
+                await giveaway.remove()
+                continue
+            }
             if(time > -30000 && giveaway.timeout) continue;
             if(time <= 60000) {
                 giveaway.timeout = true

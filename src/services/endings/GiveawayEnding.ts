@@ -15,15 +15,16 @@ export default class GiveawayEnding extends AbstractService {
     }
 
     public async end(): Promise<any> {
-        let channel = this.client.guilds.cache.get(this.giveaway.guildid)?.channels?.cache
-            ?.get(this.giveaway.channel) as GuildTextBasedChannel;
-        if(!channel) return;
+        let guild = this.client.guilds.cache.get(this.giveaway.guildid)
+        if (!guild) return
+        let channel = guild.channels.cache.get(this.giveaway.channel) as GuildTextBasedChannel;
+        if(!channel) return this.giveaway.remove()
         let message = await channel.messages.fetch(this.giveaway.message).catch(() => null) as Message;
-        if(!message) return this.giveaway.remove();
+        if(!message) return this.giveaway.remove()
         let settings = await GuildSettings.getCache(this.giveaway.guildid)
-        const props = new PropertyParser(endings.Giveaway[settings.language.interface]);
-        let rct = await message.reactions.cache.get("755726912273383484");
-        if(!rct) return this.giveaway.remove();
+        const props = new PropertyParser(endings.Giveaway[settings.language.interface])
+        let rct = await message.reactions.cache.get("755726912273383484")
+        if(!rct) return this.giveaway.remove()
         let embed = new EmbedBuilder()
             .setAuthor({name: props.data.embed.author + ` #${this.giveaway.number}`})
             .addFields([

@@ -12,7 +12,10 @@ export default class BansWatcher extends AbstractWatcher {
             let guild = await this.manager.oneShardEval((client, context)  => {
                 return client.guilds.cache.get(context.id);
             }, {context: {id: ban.guildid}});
-            if(!guild) return ban.remove();
+            if(!guild) {
+                await ban.remove()
+                continue
+            }
             if(time > -30000 && ban.timeout) continue;
             ban.timeout = true;
             await ban.save();

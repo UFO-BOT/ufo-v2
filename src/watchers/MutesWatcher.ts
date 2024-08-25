@@ -13,7 +13,10 @@ export default class MutesWatcher extends AbstractWatcher {
             let guild = await this.manager.oneShardEval((client, context)  => {
                 return client.guilds.cache.get(context.id);
             }, {context: {id: mute.guildid}});
-            if(!guild) return mute.remove();
+            if(!guild) {
+                await mute.remove()
+                continue
+            }
             if(time > -30000 && mute.timeout) continue;
             mute.timeout = true;
             await mute.save();
