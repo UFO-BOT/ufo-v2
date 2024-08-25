@@ -14,7 +14,7 @@ export default class MutesWatcher extends AbstractWatcher {
                 return client.guilds.cache.get(context.id);
             }, {context: {id: mute.guildid}});
             if(!guild) return mute.remove();
-            if(new Date() < mute.ends && mute.timeout) continue;
+            if(time > -30000 && mute.timeout) continue;
             mute.timeout = true;
             await mute.save();
             setTimeout(async () => {

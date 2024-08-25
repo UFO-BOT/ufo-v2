@@ -13,7 +13,7 @@ export default class BansWatcher extends AbstractWatcher {
                 return client.guilds.cache.get(context.id);
             }, {context: {id: ban.guildid}});
             if(!guild) return ban.remove();
-            if(new Date() < ban.ends && ban.timeout) continue;
+            if(time > -30000 && ban.timeout) continue;
             ban.timeout = true;
             await ban.save();
             setTimeout(async () => {

@@ -15,10 +15,10 @@ export default class GiveawaysWatcher extends AbstractWatcher {
                 return client.guilds.cache.get(context.id);
             }, {context: {id: giveaway.guildid}});
             if(!guild) return giveaway.remove();
-            if(time > 0 && giveaway.timeout) continue;
+            if(time > -30000 && giveaway.timeout) continue;
             if(time <= 60000) {
-                giveaway.timeout = true;
-                await this.db.manager.save(giveaway);
+                giveaway.timeout = true
+                await giveaway.save()
                 setTimeout(async () => {
                     await this.manager.broadcastEval((client, context) =>
                         client.emit("endGiveaway", context.msg), {context: {msg: giveaway.message}})
