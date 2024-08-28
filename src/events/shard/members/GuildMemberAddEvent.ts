@@ -6,6 +6,7 @@ import Settings from "@/types/database/Settings";
 import GreetingMessageTemplate from "@/services/templates/messages/GreetingMessageTemplate";
 import Mute from "@/types/database/Mute";
 import EmbedTemplate from "@/services/templates/embeds/EmbedTemplate";
+import Subscription from "@/types/database/Subscription";
 
 export default class GuildMemberAddEvent extends AbstractClientEvent implements EventConfig {
     public name = 'guildMemberAdd'
@@ -16,6 +17,11 @@ export default class GuildMemberAddEvent extends AbstractClientEvent implements 
             userid: member.id
         })
         if(mute) return member.roles.add(mute.muterole).catch(() => null)
+        if (member.guild.id === this.constants.supportGuildId) {
+            let subscription = await this.db.manager.findOneBy(Subscription, {userid: member.id}) as Subscription
+            if (subscription && subscription.type !== 'manager')
+                await member.roles.add(this.constants.subscriptions[subscription.type].role)
+        }
         let settings = await this.db.manager.findOneBy(Settings, {guildid: member.guild.id}) as Settings;
         let roles = member.guild.roles.cache.filter(r => settings?.greetings?.joinRoles?.includes(r.id))
         for (let role of roles) {
