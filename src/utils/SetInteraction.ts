@@ -7,8 +7,8 @@ export default function SetInteraction(client: Client, interaction: AbstractInte
     if(interaction.lifetime) {
         setTimeout(async () => {
             if(interaction.end && client.cache.interactions.has(interaction.id)) {
-                await interaction.end()
-                await message.edit({embeds: [interaction.embed], components: []})
+                await interaction.end().catch(() => {})
+                await message.edit({embeds: [interaction.embed], components: []}).catch(() => {})
             }
             client.cache.interactions.delete(interaction.id)
         }, interaction.lifetime)
