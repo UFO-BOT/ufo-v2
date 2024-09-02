@@ -19,7 +19,7 @@ export class GuildLogsController extends Base {
         for (let log of this.logs) {
             if (typeof body.list[log]?.enabled !== 'boolean') continue
             if (!body.list[log].enabled) {
-                request.guild.settings.logs.list[log] = {enabled: false, channel: null}
+                list[log] = {enabled: false, channel: null}
                 continue
             }
             let channel = request.guild.channels.filter(c => c.botManageable)
