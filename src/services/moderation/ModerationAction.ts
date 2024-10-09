@@ -45,6 +45,8 @@ export default abstract class ModerationAction extends AbstractService {
             .toArray();
         this.options.number = (cases[0]?.number ?? 0) + 1;
         this.options.reason = this.options.reason?.length ? this.options.reason : props.notSpecified;
+        if (this.options.action === ModAction.Unmute || this.options.action === ModAction.Unban)
+            this.options.reason = undefined
 
         let result = await this.action();
         if (!result.success) {
