@@ -25,7 +25,7 @@ export default abstract class ModerationAction extends AbstractService {
         const props = properties[lang];
         if (this.client.cache.executing.moderation.has(this.options.guild.id))
             return !this.options.autoMod ?
-                MakeError.other(this.options.executor, GuildSettings.toCache(this.settings), {
+                MakeError.other(this.options.executor, settingsCache, {
                     text: props.alreadyExecuting
                 }) : null
 
