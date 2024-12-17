@@ -13,6 +13,7 @@ export default class Manager extends Discord.ShardingManager {
     }
 
     public loader: ManagerLoader
+    public launched = false
 
     oneShardEval<T, P>(script: (client: Discord.Client, context: Serialized<P>) => Awaitable<T>,
                        options?: {context: P}): Promise<Serialized<T>> {
