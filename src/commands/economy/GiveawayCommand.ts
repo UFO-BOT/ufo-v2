@@ -77,7 +77,6 @@ export default class GiveawayCommand extends AbstractCommand implements Command 
                 options: {text: ctx.response.data.errors.alreadyCreating}
             }
         }
-        this.client.cache.executing.giveaways.add(ctx.guild.id)
         let count = await this.db.manager.countBy(Giveaway, {guildid: ctx.guild.id})
         let limit = ctx.settings.boost ? this.constants.limits.giveaways.boost : this.constants.limits.giveaways.standard;
         ctx.response.parse({limit: limit.toString()})
@@ -87,6 +86,7 @@ export default class GiveawayCommand extends AbstractCommand implements Command 
                 options: {type: 'giveaways', limit: this.constants.limits.giveaways, boost: ctx.settings.boost}
             }
         }
+        this.client.cache.executing.giveaways.add(ctx.guild.id)
         let giveaways = await this.db.mongoManager.createCursor(Giveaway, {guildid: ctx.guild.id})
             .sort({number:-1})
             .limit(1)
@@ -123,7 +123,6 @@ export default class GiveawayCommand extends AbstractCommand implements Command 
     }
 
     public async after(message: Message, data: GiveawayCommandData) {
-        if (!data) return this.client.cache.executing.giveaways.delete(message.guild.id)
         data.giveaway.message = message.id;
         let time = data.giveaway.ends.getTime() - Date.now()
         if(time < 60000) data.giveaway.timeout = true;

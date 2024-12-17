@@ -43,7 +43,7 @@ export default class TextCommandsValidator extends AbstractService {
                 ApplicationCommandOptionType[option.type]
             if (type === "Boolean") {
                 value = !!this.options.args
-                    .find(a => a === '-' + option.config[this.options.settings.language.interface].name)
+                    .find(a => a === '-' + option.config[this.options.settings.language.commands].name)
                 args[option.name] = value
                 continue;
             }

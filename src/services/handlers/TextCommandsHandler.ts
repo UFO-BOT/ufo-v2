@@ -149,7 +149,7 @@ export default class TextCommandsHandler extends AbstractService {
         reply.allowedMentions.repliedUser = false;
 
         let msg = commandSettings?.deleteUsage ? await this.message.channel.send(reply) : await this.message.reply(reply);
-        if (command.after) await command.after(msg, result.data);
+        if (command.after && !result.error) await command.after(msg, result.data);
         if (interaction) SetInteraction(this.client, interaction, msg);
     }
 
