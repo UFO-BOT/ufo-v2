@@ -1,15 +1,20 @@
-import Discord, {Awaitable, Serialized} from "discord.js";
-import fetch from "node-fetch";
+import Discord, {Awaitable, Collection, Serialized} from "discord.js";
 
 import MongoDB from "@/structures/MongoDB";
 
 import ManagerLoader from "@/services/loaders/ManagerLoader"
+import ManagerCacheConfig from "@/types/ManagerCacheConfig";
+import TokenCache from "@/types/TokenCache";
 
 export default class Manager extends Discord.ShardingManager {
     public constructor(file: string, options?: any) {
         super(file, options);
         this.file = file;
         global.manager = this;
+    }
+
+    public cache: ManagerCacheConfig = {
+        tokens: new Collection<string, TokenCache>()
     }
 
     public loader: ManagerLoader

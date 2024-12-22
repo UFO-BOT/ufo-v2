@@ -26,17 +26,7 @@ export class Oauth2Service extends Base {
         if(response.status < 200 || response.status > 299)
             throw new UnauthorizedException("Redirect URI or access code is invalid")
         let user = await this.fetchUser(result.access_token)
-        let token = await this.db.manager.findOneBy(Token, {userid: user.id})
-        if (token) await token.remove()
-        token = new Token()
-        token.userid = user.id
-        token.accessToken = crypto.createHash('sha512')
-            .update(result.access_token)
-            .digest('hex')
-        token.refreshToken = crypto.createHash('sha512')
-            .update(result.refresh_token)
-            .digest('hex')
-        await token.save()
+        this.manager.cache.tokens.set(result.access_token, {userId: user.id, lastUsed: new Date()})
         return {
             accessToken: result.access_token,
             refreshToken: result.refresh_token,
@@ -60,17 +50,6 @@ export class Oauth2Service extends Base {
         let result = await response.json();
         if(response.status < 200 || response.status > 299)
             throw new UnauthorizedException("Refresh token is invalid")
-        let encryptedToken = crypto.createHash('sha512')
-            .update(refreshToken)
-            .digest('hex')
-        let token = await this.db.manager.findOneBy(Token, {refreshToken: encryptedToken})
-        token.accessToken = crypto.createHash('sha512')
-            .update(result.access_token)
-            .digest('hex')
-        token.refreshToken = crypto.createHash('sha512')
-            .update(result.refresh_token)
-            .digest('hex')
-        await token.save()
         return {
             accessToken: result.access_token,
             refreshToken: result.refresh_token,
@@ -92,21 +71,19 @@ export class Oauth2Service extends Base {
         })
         if(response.status < 200 || response.status > 299)
             throw new UnauthorizedException("Access token is invalid")
-        let encryptedToken = crypto.createHash('sha512')
-            .update(accessToken)
-            .digest('hex')
-        let token = await this.db.manager.findOneBy(Token, {accessToken: encryptedToken})
-        await token.remove()
+        this.manager.cache.tokens.delete(accessToken)
         return {message: "Token revoked successfully"}
     }
 
     public async getUser(accessToken: string): Promise<string> {
-        let encryptedToken = crypto.createHash('sha512')
-            .update(accessToken)
-            .digest('hex')
-        let token = await this.db.mongoManager.findOneBy(Token, {accessToken: encryptedToken})
-        if (!token) throw new UnauthorizedException("Unauthorized")
-        return token.userid
+        let userId = this.manager.cache.tokens.get(accessToken)?.userId
+        if (!userId) {
+            let user = await this.fetchUser(accessToken)
+            if (!user) throw new UnauthorizedException("Unauthorized")
+            userId = user.id
+        }
+        this.manager.cache.tokens.set(accessToken, {userId, lastUsed: new Date()})
+        return userId
     }
 
     public async fetchUser(accessToken: string): Promise<RawUserData> {
@@ -116,6 +93,7 @@ export class Oauth2Service extends Base {
                 Authorization: `Bearer ${accessToken}`,
             },
         })
+        if (!response.ok) return null
         return response.json();
     }
 
