@@ -532,7 +532,6 @@
         "language": "Язык",
         "library": "Библиотека",
         "database": "База данных",
-        "hosting": "Хостинг",
         "footer": "Разработчик"
       }
     },
@@ -550,7 +549,6 @@
         "language": "Language",
         "library": "Library",
         "database": "Database",
-        "hosting": "Hosting",
         "footer": "Developer"
       }
     }

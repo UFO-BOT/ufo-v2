@@ -65,13 +65,13 @@ export default class InteractionsHandler extends AbstractService {
         }
         let options = {
             embeds: [interaction.embed],
-            components: result.ended ? [] : [interaction.row()],
+            components: result.ended ? [] : interaction.row(),
             ephemeral: result.ephemeral
         }
         if(result.interaction) {
             options = {
                 embeds: [result.interaction.embed],
-                components: [result.interaction.row()],
+                components: result.interaction.row(),
                 ephemeral: result.ephemeral
             }
         }

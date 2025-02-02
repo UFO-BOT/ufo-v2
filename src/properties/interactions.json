@@ -12,7 +12,7 @@
         "requiredRoles": "Необходимые роли",
         "unavailable": "Работа недоступна",
         "availableIn": "Будет доступна",
-        "notEnoughXp": "Недостаточно опыта:",
+        "notEnoughXp": "Недостаточно опыта, у вас есть только:",
         "noRequiredRoles": "Отсутствуют необходимые роли",
         "result": "Результат",
         "currentBalance": "Текущий баланс"
@@ -44,7 +44,7 @@
         "requiredRoles": "Required roles",
         "unavailable": "Job unavailable",
         "availableIn": "Will be available",
-        "notEnoughXp": "Not enough xp:",
+        "notEnoughXp": "Not enough xp, you have only:",
         "noRequiredRoles": "Missing required roles",
         "result": "Result",
         "currentBalance": "Current balance"
@@ -155,17 +155,46 @@
         "author": "Магазин",
         "empty": "Магазин пока пуст",
         "noDescription": "*Описание отсутствует*",
+        "price": "Цена",
+        "requiredXp": "Необходимый опыт",
+        "xp": "Выдаваемый опыт",
+        "addRole": "Дается роль",
+        "removeRole": "Снимается роль",
+        "requiredRoles": "Необходимые роли",
+        "unavailable": "Покупка невозможна",
+        "notEnoughMoney": "Недостаточно денег, у вас есть только:",
+        "notEnoughXp": "Недостаточно опыта, у вас есть только:",
+        "noRequiredRoles": "Отсутствуют необходимые роли",
         "footer": "Страница"
       },
-      "buttons": {
-        "backward": "1017012856463573042",
-        "forward": "1017013009228501052"
+      "buyItemEmbed": {
+        "author": "Покупка товара",
+        "description": "Вы успешно купили товар `{{item}}`"
       },
       "menu": {
-        "placeholder": "Выберите товар"
+        "placeholder": "Выберите товар",
+        "options": {
+          "previous": {
+            "label": "Предыдущая страница",
+            "value": "prev-page",
+            "emoji": "⬅"
+          },
+          "next": {
+            "label": "Следующая страница",
+            "value": "next-page",
+            "emoji": "➡"
+          }
+        }
       },
-      "errors": {
-        "notFound": "Товар не найден. Скорее всего, он был удален"
+      "buttons": {
+        "back": {
+          "label": "Назад",
+          "emoji": "1017012856463573042"
+        },
+        "buy": {
+          "label": "Купить",
+          "emoji": "1024709618934497290"
+        }
       }
     },
     "en": {
@@ -173,11 +202,47 @@
         "author": "Shop",
         "empty": "Shop is empty",
         "noDescription": "*No description*",
+        "price": "Price",
+        "requiredXp": "Required xp",
+        "xp": "Given xp",
+        "addRole": "Role add",
+        "removeRole": "Role remove",
+        "requiredRoles": "Required roles",
+        "unavailable": "Unable to buy",
+        "notEnoughMoney": "Not enough money, you have only:",
+        "notEnoughXp": "Not enough xp, you have only:",
+        "noRequiredRoles": "Missing required roles",
         "footer": "Page"
       },
+      "buyItemEmbed": {
+        "author": "Buy item",
+        "description": "You've successfully bought item `{{item}}`"
+      },
+      "menu": {
+        "placeholder": "Select item",
+        "options": {
+          "previous": {
+            "label": "Previous page",
+            "value": "prev-page",
+            "emoji": "⬅"
+          },
+          "next": {
+            "label": "Next page",
+            "value": "next-page",
+            "emoji": "➡"
+
+          }
+        }
+      },
       "buttons": {
-        "backward": "1017012856463573042",
-        "forward": "1017013009228501052"
+        "back": {
+          "label": "Back",
+          "emoji": "1017012856463573042"
+        },
+        "buy": {
+          "label": "Buy",
+          "emoji": "1024709618934497290"
+        }
       }
     }
   },

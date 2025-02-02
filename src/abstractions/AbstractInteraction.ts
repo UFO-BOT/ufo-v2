@@ -26,8 +26,8 @@ export default abstract class AbstractInteraction extends Base implements Intera
     public abstract execute(interaction: Discord.Interaction, action: string): Promise<InteractionExecutionResult>
     public async end?(): Promise<any>
 
-    public row(): ActionRowBuilder<MessageActionRowComponentBuilder> {
-        return new ActionRowBuilder<MessageActionRowComponentBuilder>()
-            .addComponents(Object.values(this.components))
+    public row(): Array<ActionRowBuilder<MessageActionRowComponentBuilder>> {
+        return Object.keys(this.components).length ? [new ActionRowBuilder<MessageActionRowComponentBuilder>()
+            .addComponents(Object.values(this.components))] : []
     }
 }

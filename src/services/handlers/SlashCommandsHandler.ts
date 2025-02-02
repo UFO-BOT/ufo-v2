@@ -106,7 +106,7 @@ export default class SlashCommandsHandler extends AbstractService {
             }
         }
         let interaction = result.interaction;
-        if (interaction) reply = {embeds: [interaction.embed], components: [interaction.row()]};
+        if (interaction) reply = {embeds: [interaction.embed], components: interaction.row()};
         command.deferReply ?
             await this.interaction.editReply(reply) :
             await this.interaction.reply(reply as InteractionReplyOptions)

@@ -144,7 +144,7 @@ export default class TextCommandsHandler extends AbstractService {
             reply = {embeds: [errorFn(this.message.member as GuildMember, settings, result.error.options)]}
         }
         let interaction = result.interaction;
-        if (interaction) reply = {embeds: [interaction.embed], components: [interaction.row()]};
+        if (interaction) reply = {embeds: [interaction.embed], components: interaction.row()};
         if (!reply.allowedMentions) reply.allowedMentions = {};
         reply.allowedMentions.repliedUser = false;
 

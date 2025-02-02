@@ -8,6 +8,7 @@ import CommandExecutionContext from "@/types/commands/CommandExecutionContext";
 import CommandExecutionResult from "@/types/commands/CommandExecutionResult";
 import Item from "@/types/database/Item";
 import ShopInteraction from "@/interactions/ShopInteraction";
+import Balance from "@/types/database/Balance";
 
 export default class ShopCommand extends AbstractCommand implements Command {
     public config = {
@@ -29,8 +30,22 @@ export default class ShopCommand extends AbstractCommand implements Command {
         let items = await this.db.mongoManager.find(Item, {where: {guildid: ctx.guild.id}})
         let limit = ctx.settings.boost ? this.constants.limits.items.boost : this.constants.limits.items.standard
         items = items.slice(0, limit)
+        let balance = await this.db.manager.findOneBy(Balance, {
+            guildid: ctx.guild.id,
+            userid: ctx.member.id
+        })
+        if (!balance) {
+            balance = new Balance()
+            balance.guildid = ctx.guild.id;
+            balance.userid = ctx.member.id;
+            balance.balance = 0;
+            balance.xp = 0;
+            balance.lastwork = 0;
+            await this.db.manager.save(balance);
+        }
         let interaction = new ShopInteraction([ctx.member.id], {
-            guild: ctx.guild,
+            member: ctx.member,
+            balance,
             items,
             page: 1,
             maxPage: Math.ceil(items.length/10)
