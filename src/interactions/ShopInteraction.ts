@@ -41,11 +41,7 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
 
     constructor(users: Array<string>, data: ShopInteractionData, settings: GuildSettingsCache) {
         super(users, data, settings);
-        this.embed = new EmbedBuilder()
-            .setColor(this.constants.colors.system)
-            .setAuthor({name: this.props.embed.author, iconURL: this.data.member.guild.iconURL()})
-        if(this.data.items.length === 0) this.embed.setDescription(this.props.embed.empty)
-        else this.items();
+        this.items();
     }
 
     public async execute(interaction: SelectMenuInteraction, action: ShopInteractionAction): Promise<InteractionExecutionResult> {
@@ -79,23 +75,51 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
             await this.itemInfo()
             return {action: "update"}
         }
+        let addRoles = this.data.member.guild.roles.cache.filter(r => this.data.item.addRoles?.includes(r.id) &&
+            this.data.member.guild.members.me.roles.highest.position > r.position)
+        let removeRoles = this.data.member.guild.roles.cache.filter(r => this.data.item.removeRoles?.includes(r.id) &&
+            this.data.member.guild.members.me.roles.highest.position > r.position)
+        let minXp = typeof this.data.item.xp === 'number' ? this.data.item.xp : this.data.item.xp.min
+        let maxXp = typeof this.data.item.xp === 'number' ? this.data.item.xp : this.data.item.xp.max
+        let xp = Math.floor(minXp + (maxXp-minXp) * Math.random())
+        this.data.balance.balance -= this.data.item.price
+        this.data.balance.xp += xp
+        let description = this.props.buyItemEmbed.description.replace("{{item}}", this.data.item.name) + '\n'
+        description += `${this.props.buyItemEmbed.balance}: ${this.data.balance.balance}${this.settings.moneysymb}\n`
+        if (xp > 0) description += `${this.props.buyItemEmbed.xp}: ${xp}${this.client.cache.emojis.xp}\n`
+        if (addRoles.size) {
+            await this.data.member.roles.add(addRoles)
+            description += `${this.props.buyItemEmbed.addRoles}: ${addRoles.map(r => r.toString()).join(" ")}\n`
+        }
+        if (removeRoles.size) {
+            await this.data.member.roles.remove(removeRoles)
+            description += `${this.props.buyItemEmbed.removeRoles}: ${removeRoles.map(r => r.toString()).join(" ")}\n`
+        }
+        await this.data.balance.save()
         this.embed
             .setAuthor({name: this.props.buyItemEmbed.author, iconURL: this.data.member.displayAvatarURL()})
             .setTitle(null)
-            .setDescription(this.props.buyItemEmbed.description.replace("{{item}}", this.data.item.name))
+            .setDescription(description)
             .setFields([])
         this.components = {}
         return {action: "reply"}
     }
 
     private items(): InteractionExecutionResult {
-        let options = []
-        this.embed.setFields([])
-        if(this.data.page !== 1) options.push(this.props.menu.options.previous)
-        if(this.data.page < this.data.maxPage) options.push(this.props.menu.options.next)
-        this.embed
+        this.embed = new EmbedBuilder()
+            .setColor(this.constants.colors.system)
             .setAuthor({name: this.props.embed.author, iconURL: this.data.member.guild.iconURL()})
             .setDescription(null)
+            .setThumbnail(null)
+            .setFields([])
+        if(this.data.items.length === 0) {
+            this.embed.setDescription(this.props.embed.empty)
+            this.components = {}
+            return {action: "update"}
+        }
+        let options = []
+        if(this.data.page !== 1) options.push(this.props.menu.options.previous)
+        if(this.data.page < this.data.maxPage) options.push(this.props.menu.options.next)
         this.data.items.slice((this.data.page-1) * 10, this.data.page * 10).forEach(item => {
             this.embed.addFields({
                 name: `${item.name} - ${item.price
@@ -129,8 +153,10 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
                 `${this.data.balance.xp.toLocaleString(lang)}${this.client.cache.emojis.xp}`)
         if (this.data.item?.requiredRoles?.find(r => !this.data.member.roles.cache.get(r)))
             unavailable.push(this.props.embed.noRequiredRoles)
-        let addRole = this.data.member.guild.roles.cache.get(this.data.item.addRole);
-        let removeRole = this.data.member.guild.roles.cache.get(this.data.item.removeRole);
+        let addRoles = this.data.member.guild.roles.cache.filter(r => this.data.item.addRoles?.includes(r.id) &&
+            this.data.member.guild.members.me.roles.highest.position > r.position)
+        let removeRoles = this.data.member.guild.roles.cache.filter(r => this.data.item.removeRoles?.includes(r.id) &&
+            this.data.member.guild.members.me.roles.highest.position > r.position)
         let minXp = typeof this.data.item.xp === 'number' ? this.data.item.xp : this.data.item.xp.min
         let maxXp = typeof this.data.item.xp === 'number' ? this.data.item.xp : this.data.item.xp.max
         let xp = minXp === maxXp ? `${minXp.toLocaleString(lang)}${this.client.cache.emojis.xp}` :
@@ -157,13 +183,13 @@ export default class ShopInteraction extends AbstractInteraction implements Inte
                     inline: true
                 },
                 {
-                    name: this.props.embed.addRole,
-                    value: addRole ? addRole.toString() : "-",
+                    name: this.props.embed.addRoles,
+                    value: addRoles.size ? addRoles.map(r => r.toString()).join(" ") : "-",
                     inline: true
                 },
                 {
-                    name: this.props.embed.removeRole,
-                    value: removeRole ? removeRole.toString() : "-",
+                    name: this.props.embed.removeRoles,
+                    value: removeRoles.size ? removeRoles.map(r => r.toString()).join(" ") : "-",
                     inline: true
                 },
                 {

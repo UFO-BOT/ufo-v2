@@ -16,7 +16,6 @@ import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
 import Item from "@/types/database/Item";
 import {GuildItemDto} from "@/api/dto/guild/guild-item.dto";
-import {ItemGuard} from "@/api/guards/item.guard";
 import {Throttle} from "@nestjs/throttler";
 
 @Controller('guilds/:id/items')
@@ -36,12 +35,11 @@ export class GuildItemsController extends Base {
             requiredXp: item.requiredXp ?? 0,
             price: item.price,
             xp: typeof item.xp === 'number' ? {min: item.xp, max: item.xp} : item.xp,
-            addRole: item.addRole,
-            removeRole: item.removeRole
+            addRoles: item.addRoles,
+            removeRoles: item.removeRoles
         }})
     }
 
-    @UseGuards(ItemGuard)
     @Post()
     async create(@Req() request: GuildRequest, @Body() body: GuildItemDto) {
         let count = await this.db.manager.countBy(Item, {guildid: request.guild.id})
@@ -53,6 +51,10 @@ export class GuildItemsController extends Base {
         if(body.xp.min > body.xp.max)
             throw new BadRequestException("xp.min value must be less than or equal to xp.high value")
         body.requiredRoles = body.requiredRoles.filter(r => request.guild.roles.find(role => role.id === r))
+        body.addRoles = body.addRoles.filter(r => request.guild.roles.find(role => role.id === r)?.memberManageable
+            && request.guild.roles.find(role => role.id === r)?.botManageable)
+        body.removeRoles = body.removeRoles.filter(r => request.guild.roles.find(role => role.id === r)?.memberManageable
+            && request.guild.roles.find(role => role.id === r)?.botManageable)
         let item = new Item()
         item.guildid = request.guild.id;
         Object.assign(item, body);
@@ -62,7 +64,6 @@ export class GuildItemsController extends Base {
         return {message: "Item created successfully"}
     }
 
-    @UseGuards(ItemGuard)
     @Patch(':name')
     async update(@Req() request: GuildRequest, @Body() body: GuildItemDto) {
         let item = await this.db.manager.findOneBy(Item, {guildid: request.guild.id, name: request.params.name})
@@ -72,6 +73,10 @@ export class GuildItemsController extends Base {
         if(body.xp.min > body.xp.max)
             throw new BadRequestException("xp.min value must be less than or equal to xp.high value")
         body.requiredRoles = body.requiredRoles.filter(r => request.guild.roles.find(role => role.id === r))
+        body.addRoles = body.addRoles.filter(r => request.guild.roles.find(role => role.id === r)?.memberManageable
+            && request.guild.roles.find(role => role.id === r)?.botManageable)
+        body.removeRoles = body.removeRoles.filter(r => request.guild.roles.find(role => role.id === r)?.memberManageable
+            && request.guild.roles.find(role => role.id === r)?.botManageable)
         Object.assign(item, body);
         if (!request.guild.settings.boost) item.iconUrl = null
         item.name = item.name.trim()

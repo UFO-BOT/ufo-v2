@@ -1,4 +1,15 @@
-import {IsArray, IsInt, IsOptional, IsString, IsUrl, Length, Min, ValidateIf, ValidateNested} from "class-validator";
+import {
+    ArrayMaxSize,
+    IsArray,
+    IsInt,
+    IsOptional,
+    IsString,
+    IsUrl,
+    Length,
+    Min,
+    ValidateIf,
+    ValidateNested
+} from "class-validator";
 import {Transform, TransformFnParams, Type} from "class-transformer";
 
 class ItemXp {
@@ -48,11 +59,15 @@ export class GuildItemDto {
     public xp: ItemXp
 
     @IsOptional()
-    @IsString()
-    public addRole: string
+    @IsArray()
+    @ArrayMaxSize(5)
+    @IsString({each: true})
+    public addRoles: Array<string>
 
     @IsOptional()
-    @IsString()
-    public removeRole: string
+    @IsArray()
+    @ArrayMaxSize(5)
+    @IsString({each: true})
+    public removeRoles: Array<string>
 
 }

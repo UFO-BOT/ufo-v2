@@ -158,8 +158,8 @@
         "price": "Цена",
         "requiredXp": "Необходимый опыт",
         "xp": "Выдаваемый опыт",
-        "addRole": "Дается роль",
-        "removeRole": "Снимается роль",
+        "addRoles": "Даются роли",
+        "removeRoles": "Снимаются роли",
         "requiredRoles": "Необходимые роли",
         "unavailable": "Покупка невозможна",
         "notEnoughMoney": "Недостаточно денег, у вас есть только:",
@@ -169,7 +169,11 @@
       },
       "buyItemEmbed": {
         "author": "Покупка товара",
-        "description": "Вы успешно купили товар `{{item}}`"
+        "description": "Вы успешно купили товар `{{item}}`",
+        "balance": "Текущий баланс",
+        "xp": "Добавлено опыта",
+        "addRoles": "Выданы роли",
+        "removeRoles": "Сняты роли"
       },
       "menu": {
         "placeholder": "Выберите товар",
@@ -205,8 +209,8 @@
         "price": "Price",
         "requiredXp": "Required xp",
         "xp": "Given xp",
-        "addRole": "Role add",
-        "removeRole": "Role remove",
+        "addRoles": "Roles added",
+        "removeRoles": "Roles removed",
         "requiredRoles": "Required roles",
         "unavailable": "Unable to buy",
         "notEnoughMoney": "Not enough money, you have only:",
@@ -216,7 +220,11 @@
       },
       "buyItemEmbed": {
         "author": "Buy item",
-        "description": "You've successfully bought item `{{item}}`"
+        "description": "You've successfully bought item `{{item}}`",
+        "balance": "Current balance",
+        "xp": "Added XP",
+        "addRoles": "Added roles",
+        "removeRoles": "Removed roles"
       },
       "menu": {
         "placeholder": "Select item",

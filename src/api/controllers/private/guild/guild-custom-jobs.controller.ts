@@ -3,7 +3,6 @@ import {
     Body,
     Controller, Delete,
     ForbiddenException,
-    Get,
     NotFoundException, Param,
     Patch,
     Post,
@@ -14,9 +13,6 @@ import Base from "@/abstractions/Base";
 import {AuthGuard} from "@/api/guards/auth.guard";
 import {GuildGuard} from "@/api/guards/guild.guard";
 import {GuildRequest} from "@/api/types/GuildRequest";
-import Item from "@/types/database/Item";
-import {GuildItemDto} from "@/api/dto/guild/guild-item.dto";
-import {ItemGuard} from "@/api/guards/item.guard";
 import {Throttle} from "@nestjs/throttler";
 import {GuildCustomJobDto} from "@/api/dto/guild/guild-custom-job.dto";
 
@@ -44,7 +40,6 @@ export class GuildCustomJobsController extends Base {
         return {message: "Custom job created successfully"}
     }
 
-    @UseGuards(ItemGuard)
     @Patch(':name')
     async update(@Req() request: GuildRequest, @Body() body: GuildCustomJobDto, @Param('name') name: string) {
         let job = request.guild.settings.customJobs?.findIndex(cj => cj.name === name)

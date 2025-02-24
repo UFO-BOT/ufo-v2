@@ -33,8 +33,8 @@ export default class Item extends BaseEntity {
     }
 
     @Column()
-    addRole: string | null
+    addRoles: Array<string>
 
     @Column()
-    removeRole: string | null
+    removeRoles: Array<string>
 }
