@@ -13,13 +13,13 @@ export default class AppealCommand extends AbstractDeveloperCommand implements D
 
     public async execute(message: Message, args: Array<string>) {
         let channel = message.channel as TextChannel
-        let usage = 'appeal `<submit/decline/view>` `<user>`'
+        let usage = 'appeal `<accept/decline/view>` `<user>`'
         let user = await Resolver.user(message.guild, args[1])
         if (!user) return message.reply({content: usage})
         let appeal = await this.db.manager.findOneBy(Appeal, {userid: user.id}) as Appeal
         if (!appeal) return message.reply({content: "Апелляция от данного пользователя не найдена"})
         switch (args[0]) {
-            case "submit":
+            case "accept":
                 await this.client.shard.broadcastEval((client, context) =>
                     client.guilds.cache.get(context.supportGuildId)?.members?.unban(context.userId).catch(() => null),
                     {context: {supportGuildId: this.constants.supportGuildId, userId: user.id}})
