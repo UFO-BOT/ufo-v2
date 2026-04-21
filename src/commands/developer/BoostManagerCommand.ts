@@ -37,13 +37,13 @@ export default class BoostManagerCommand extends AbstractDeveloperCommand implem
                 break
             case "premium":
                 boost = await BoostManager.subscription(user.id as string, 'premium')
-                embed.setDescription(`Added standard subscription to user ${user.username}`
+                embed.setDescription(`Added premium subscription to user ${user.username}`
                     + `\nCurrent count of user's boosts: ${'`' + boost.count + '`'}`)
                 break
             case "tempadd":
                 let duration = TimeParser.all(args[3], 'en')
                 if (!duration) return message.react('💀')
-                boost = await BoostManager.subscription(user.id as string, 'manager', duration.duration, count)
+                boost = await BoostManager.managerSubscription(user.id as string, duration.duration, count)
                 embed.setDescription(`Added ${'`' + count.toLocaleString('en') + '`'} boosts to user ${user.username}`
                     + `\nCurrent count of user's boosts: ${'`' + boost.count + '`'}`)
                 embed.addFields({name: 'Duration', value: duration.string})

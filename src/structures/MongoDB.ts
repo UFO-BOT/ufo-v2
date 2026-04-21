@@ -11,7 +11,6 @@ import Token from "@/types/database/Token";
 import Subscription from "@/types/database/Subscription";
 import Boost from "@/types/database/Boost";
 import Gulag from "@/types/database/Gulag";
-import Bill from "@/types/database/Bill";
 import Appeal from "@/types/database/Appeal";
 
 export default class MongoDB extends DataSource {
@@ -38,7 +37,6 @@ export default class MongoDB extends DataSource {
                 Subscription,
                 Boost,
                 Gulag,
-                Bill,
                 Appeal
             ]
         })

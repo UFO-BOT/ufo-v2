@@ -1,10 +1,14 @@
-import {BaseEntity, Column, Entity, ObjectId, ObjectIdColumn, PrimaryColumn} from "typeorm";
-import SubscriptionType from "@/types/SubscriptionType";
+import {BaseEntity, Column, Entity, ObjectId, ObjectIdColumn} from "typeorm";
+import SubscriptionType from "@/types/subscriptions/SubscriptionType";
 
 @Entity('subscriptions')
 export default class Subscription extends BaseEntity {
+
     @ObjectIdColumn()
     _id: ObjectId
+
+    @Column()
+    id: string
 
     @Column()
     userid: string
@@ -13,8 +17,8 @@ export default class Subscription extends BaseEntity {
     type: SubscriptionType | 'manager'
 
     @Column()
-    boosts: number
+    ends: Date
 
     @Column()
-    ends: Date
+    boosts: number
 }

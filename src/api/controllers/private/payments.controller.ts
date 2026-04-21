@@ -17,7 +17,7 @@ export class PaymentsController extends Base {
 
     @Post()
     async execute(@Req() request: AuthorizedRequest, @Body() body: PaymentDto) {
-        let payment = await this.yookassa.createPayment(request.user, body.type, body.language)
+        let payment = await this.yookassa.createPayment(request.user, body.months, body.language, body.type, body.subscription_id)
         return {confirmationUrl: payment.confirmation.confirmation_url}
     }
 

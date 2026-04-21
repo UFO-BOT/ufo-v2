@@ -13,10 +13,10 @@ export class YookassaWebhookController extends Base {
     }
 
     @Post()
-    @HttpCode(HttpStatus.OK)
     async execute(@Body() body: YookassaWebhookDto) {
-        if (body.event !== 'payment.succeeded') return
-        return this.yookassa.checkPayment(body.object?.id)
+        if (body.event !== 'payment.succeeded') return;
+        await this.yookassa.checkPayment(body.object?.id, body.object)
+        return {status: HttpStatus.OK}
     }
 
 }

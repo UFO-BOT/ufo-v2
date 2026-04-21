@@ -7,6 +7,7 @@ import GreetingMessageTemplate from "@/services/templates/messages/GreetingMessa
 import Mute from "@/types/database/Mute";
 import EmbedTemplate from "@/services/templates/embeds/EmbedTemplate";
 import Subscription from "@/types/database/Subscription";
+import SubscriptionType from "@/types/subscriptions/SubscriptionType";
 
 export default class GuildMemberAddEvent extends AbstractClientEvent implements EventConfig {
     public name = 'guildMemberAdd'
@@ -16,11 +17,12 @@ export default class GuildMemberAddEvent extends AbstractClientEvent implements 
             guildid: member.guild.id,
             userid: member.id
         })
-        if(mute) return member.roles.add(mute.muterole).catch(() => null)
+        if(mute) return member.roles.add(mute.muterole).catch((): null => null)
         if (member.guild.id === this.constants.supportGuildId) {
-            let subscription = await this.db.manager.findOneBy(Subscription, {userid: member.id}) as Subscription
-            if (subscription && subscription.type !== 'manager')
-                await member.roles.add(this.constants.subscriptions[subscription.type].role)
+            let subscriptions = await this.db.mongoManager.find(Subscription, {where: {userid: member.id}}) as Array<Subscription>
+            let subscription = subscriptions.find(s => s.type !== 'manager') as Subscription
+            if (subscription)
+                await member.roles.add(this.constants.subscriptions[subscription.type as SubscriptionType].role)
         }
         let settings = await this.db.manager.findOneBy(Settings, {guildid: member.guild.id}) as Settings;
         let roles = member.guild.roles.cache.filter(r => settings?.greetings?.joinRoles?.includes(r.id))

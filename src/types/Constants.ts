@@ -1,5 +1,6 @@
 import {Limits} from "@/types/Limits";
-import Language from "@/types/Language";
+import SubscriptionType from "@/types/subscriptions/SubscriptionType";
+import SubscriptionConfig from "@/types/subscriptions/SubscriptionConfig";
 
 interface Colors {
     system: `#${string}`
@@ -15,18 +16,6 @@ interface Paths {
     jobs: string
 }
 
-interface Subscription {
-    price: number
-    boosts: number
-    role: string
-    message: Record<Language, string>
-}
-
-interface Subscriptions {
-    standard: Subscription
-    premium: Subscription
-}
-
 export default interface Constants {
     supportGuildId: string
     defaultPrefix: string
@@ -34,5 +23,5 @@ export default interface Constants {
     colors: Colors
     paths: Paths
     limits: Limits
-    subscriptions: Subscriptions
+    subscriptions: Record<SubscriptionType, SubscriptionConfig>
 }
